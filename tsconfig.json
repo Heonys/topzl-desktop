@@ -19,8 +19,16 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Path */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/renderer/*"],
+      "@/shared": ["src/shared/*"]
+    }
+
   },
-  "include": ["src"],
+  "include": ["src", "src/shared/**/*"],
   "exclude": ["src/main"]
 }
