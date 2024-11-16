@@ -14,4 +14,21 @@
     @apply font-mono antialiased text-white;
     @apply overflow-hidden
   }
+
+  header#draggable {
+    -webkit-app-region: drag;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2
+  }
+
+  ::-webkit-scrollbar-thumb{
+    @apply bg-[#555]
+  }
+
+  ::-webkit-scrollbar-track{
+    @apply bg-transparent
+  }
+
 }

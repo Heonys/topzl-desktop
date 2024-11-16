@@ -10,7 +10,10 @@
     "dev:electron": "npm run tsc:electron && electron .",
     "build": "vite build",
     "serve": "vite preview",
-    "tsc:electron": "tsc --project ./src/main/tsconfig.json"
+    "tsc:electron": "tsc --project ./src/main/tsconfig.json",
+    "dist:mac": "npm run tsc:electron && npm run build && electron-builder --mac --arm64",
+    "dist:win": "npm run tsc:electron && npm run build && electron-builder --win --x64",
+    "dist:linux": "npm run tsc:electron && npm run build && electron-builder --linux --x64"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
@@ -38,7 +41,9 @@
     "vite-tsconfig-paths": "^5.1.2"
   },
   "dependencies": {
+    "jotai": "^2.10.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0"
   }
 }

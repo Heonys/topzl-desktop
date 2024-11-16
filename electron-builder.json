@@ -1,0 +1,16 @@
+{
+  "appId": "com.heonys.electron-app",
+  "productName": "electron-app",
+  "icon": "./desktopicon.png",
+  "files": ["dist-renderer", "dist-electron"],
+  "mac": {
+    "target": "dmg"
+  },
+  "win": {
+    "target": ["portable"]
+  },
+  "linux": {
+    "target": "AppImage",
+    "category": "Utility"
+  }
+}
