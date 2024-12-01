@@ -1,4 +1,4 @@
-import { DraggableFrame, RootLayout } from "@/components";
+import { DraggableFrame, RootLayout } from "@/src/components";
 
 const App = () => {
   return (

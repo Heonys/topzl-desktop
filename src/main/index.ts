@@ -1,9 +1,12 @@
-import { app, BrowserWindow, shell } from "electron";
+import { app, BrowserWindow, shell, Tray } from "electron";
 import path from "node:path";
 import { isDev } from "./utils.js";
 
+let mainWindow: BrowserWindow;
+let tray: Tray;
+
 function createWinodw() {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     title: "Electron App",
     width: 900,
     height: 670,
@@ -19,14 +22,17 @@ function createWinodw() {
       sandbox: true,
       contextIsolation: true,
       nodeIntegration: false,
-      preload: path.join(app.getAppPath(), "/dist-electron/preload.cjs"),
+      preload: path.join(__dirname, "../preload/index.js"),
     },
   });
 
-  if (isDev) {
-    mainWindow.loadURL("http://localhost:5123");
+  tray = new Tray("resources/trayIcon.png");
+  tray.setTitle("electorn-app");
+
+  if (isDev && process.env.ELECTRON_RENDERER_URL) {
+    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
   } else {
-    mainWindow.loadFile(path.join(app.getAppPath(), "/dist-renderer/index.html"));
+    mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
   }
 
   mainWindow.on("ready-to-show", () => {
