@@ -16,10 +16,10 @@ function createWinodw() {
     center: true,
     frame: false,
     webPreferences: {
-      sandbox: false,
+      sandbox: true,
       contextIsolation: true,
       nodeIntegration: false,
-      preload: path.join(__dirname, "../preload/index.mjs"),
+      preload: path.join(__dirname, "../preload/index.js"),
     },
   });
 
