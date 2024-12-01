@@ -1,18 +1,18 @@
 {
   "appId": "com.heonys.electron-app",
   "productName": "electron-app",
-  "icon": "./resources/desktopicon.png",
   "files": ["out"],
-  "asarUnpack": ["resources/**"],
+  "extraResources": ["resources/**"],
+  "icon": "./resources/desktopicon.png",
   "mac": {
     "target": "dmg"
-  },
-  "win": {
-    "target": ["portable"]
   },
   "linux": {
     "target": "AppImage",
     "category": "Utility"
+  },
+  "win": {
+    "target": ["portable"]
   },
   "npmRebuild": false
 }

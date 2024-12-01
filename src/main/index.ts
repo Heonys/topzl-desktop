@@ -1,6 +1,8 @@
-import { app, BrowserWindow, shell, Tray } from "electron";
+import { app, BrowserWindow, shell, Tray, nativeImage, Menu } from "electron";
 import path from "node:path";
 import { isDev } from "./utils.js";
+import { getResourcePathFor } from "./pathResolver.js";
+import { apiAdapterOn } from "./adapter/apiAdapter.js";
 
 let mainWindow: BrowserWindow;
 let tray: Tray;
@@ -13,21 +15,26 @@ function createWinodw() {
     show: false,
     center: true,
     frame: false,
-    /* macOS */
-    // titleBarStyle: "hidden",
-    // vibrancy: "under-window",
-    // visualEffectState: "active",
-    // trafficLightPosition: { x: 10, y: 15 },
     webPreferences: {
-      sandbox: true,
+      sandbox: false,
       contextIsolation: true,
       nodeIntegration: false,
-      preload: path.join(__dirname, "../preload/index.js"),
+      preload: path.join(__dirname, "../preload/index.mjs"),
     },
   });
 
-  tray = new Tray("resources/trayIcon.png");
+  const trayIcon = nativeImage.createFromPath(getResourcePathFor("trayIcon.png"));
+  tray = new Tray(trayIcon);
   tray.setTitle("electorn-app");
+
+  tray.setContextMenu(
+    Menu.buildFromTemplate([
+      {
+        label: "quit",
+        click: () => app.quit(),
+      },
+    ]),
+  );
 
   if (isDev && process.env.ELECTRON_RENDERER_URL) {
     mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
@@ -42,6 +49,20 @@ function createWinodw() {
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url);
     return { action: "deny" };
+  });
+
+  apiAdapterOn("window-frame-action", (action) => {
+    switch (action) {
+      case "CLOSE": {
+        return mainWindow.close();
+      }
+      case "MAXIMIZE": {
+        return mainWindow.maximize();
+      }
+      case "MINIMIZE": {
+        return mainWindow.minimize();
+      }
+    }
   });
 }
 

@@ -1,1 +1,3 @@
-# Typescript + React + Electron
+# electron-vite + react + electron-builder
+
+

@@ -15,6 +15,7 @@
     "dist:win": "npm run build && electron-builder --win --x64",
     "dist:mac": "npm run build && electron-builder --mac --arm64",
     "dist:linux": "npm run build && electron-builder --linux --x64",
+    "dist:dir": "electron-builder --dir",
     "test:unit": "vitest src"
   },
   "dependencies": {
