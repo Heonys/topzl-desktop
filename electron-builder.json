@@ -1,6 +1,6 @@
 {
-  "appId": "com.heonys.electron-app",
-  "productName": "electron-app",
+  "appId": "com.heonys.topzl",
+  "productName": "topzl",
   "files": ["out"],
   "extraResources": ["resources/**"],
   "icon": "./resources/desktopicon.png",

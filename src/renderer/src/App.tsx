@@ -5,9 +5,9 @@ const App = () => {
     <>
       <DraggableFrame />
       <RootLayout>
-        <div className="flex justify-center items-center w-full h-full">
-          <h1 className="text-blue-400 text-3xl">Hello world!</h1>
-          <div className="text-black flex gap-2">
+        <div className="flex size-full items-center justify-center">
+          <h1 className="text-3xl text-blue-400">Hello world!</h1>
+          <div className="flex gap-2 text-black">
             <button onClick={() => window.api.sendFrameAction("CLOSE")}>close</button>
             <button onClick={() => window.api.sendFrameAction("MINIMIZE")}>minimize</button>
             <button onClick={() => window.api.sendFrameAction("MAXIMIZE")}>maximize</button>
