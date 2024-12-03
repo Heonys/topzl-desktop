@@ -2,8 +2,12 @@ import { app } from "electron";
 import path from "node:path";
 import { isDev } from "./common";
 
-export const getResourcePath = (file: string) => {
-  return path.join(app.getAppPath(), isDev ? "." : "..", `resources/${file}`);
+const resouceDir = () => {
+  return path.join(app.getAppPath(), isDev ? "." : "..", "resources");
+};
+
+export const getResourcePath = (name: string) => {
+  return path.join(resouceDir(), name);
 };
 
 export const getRendererPath = () => {
