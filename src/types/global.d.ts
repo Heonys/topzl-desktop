@@ -1,13 +1,8 @@
-type WindowFrameAction = "CLOSE" | "MINIMIZE" | "MAXIMIZE";
-
 declare global {
   interface Window {
     api: {
-      sendFrameAction: (payload: WindowFrameAction) => void;
+      sendFrameAction: (payload: IpcEvents.Rederer["window-frame-action"]) => void;
     };
-  }
-  interface ChannelToPayload {
-    "window-frame-action": WindowFrameAction;
   }
 }
 

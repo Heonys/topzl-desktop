@@ -8,6 +8,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/main/*"],
+      "@shared/*": ["src/shared/*"],
+    },
   },
   "include": [
     "src/main/**/*",

@@ -1,75 +1,33 @@
-import { app, BrowserWindow, shell, Tray, nativeImage, Menu } from "electron";
-import path from "node:path";
-import { isDev } from "./utils.js";
-import { getResourcePathFor } from "./pathResolver.js";
-import { apiAdapterOn } from "./adapter/apiAdapter.js";
+import { app, BrowserWindow } from "electron";
+import { createMainWindow, getMainWindow, showMainWindow } from "@/window/mainWindow";
+import { setupIpcMain } from "@/ipc/setup";
 
-let mainWindow: BrowserWindow;
-let tray: Tray;
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
+});
 
-function createWinodw() {
-  mainWindow = new BrowserWindow({
-    title: "Electron App",
-    width: 900,
-    height: 670,
-    show: false,
-    center: true,
-    frame: false,
-    webPreferences: {
-      sandbox: true,
-      contextIsolation: true,
-      nodeIntegration: false,
-      preload: path.join(__dirname, "../preload/index.js"),
-    },
-  });
-
-  const trayIcon = nativeImage.createFromPath(getResourcePathFor("trayIcon.png"));
-  tray = new Tray(trayIcon);
-  tray.setTitle("electorn-app");
-
-  tray.setContextMenu(
-    Menu.buildFromTemplate([
-      {
-        label: "quit",
-        click: () => app.quit(),
-      },
-    ]),
-  );
-
-  if (isDev && process.env.ELECTRON_RENDERER_URL) {
-    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
-  } else {
-    mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
+app.on("activate", () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createMainWindow();
   }
+});
 
-  mainWindow.on("ready-to-show", () => {
-    mainWindow.show();
-  });
-
-  mainWindow.webContents.setWindowOpenHandler((details) => {
-    shell.openExternal(details.url);
-    return { action: "deny" };
-  });
-
-  apiAdapterOn("window-frame-action", (action) => {
-    switch (action) {
-      case "CLOSE": {
-        return mainWindow.close();
-      }
-      case "MAXIMIZE": {
-        return mainWindow.maximize();
-      }
-      case "MINIMIZE": {
-        return mainWindow.minimize();
-      }
+if (!app.requestSingleInstanceLock()) {
+  app.quit();
+} else {
+  app.on("second-instance", (event, commandLine) => {
+    if (getMainWindow()) {
+      showMainWindow();
     }
+    /*
+      setAsDefaultProtocolClient() 사용할때
+      URL스킴을 제공하고 그에대한 상호작용할때 사용
+    */
+    console.log(commandLine);
   });
 }
 
-app.whenReady().then(createWinodw);
-
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+app.whenReady().then(() => {
+  createMainWindow();
+  setupIpcMain();
 });

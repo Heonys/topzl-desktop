@@ -9,7 +9,7 @@ import prettierPlugin from "eslint-plugin-prettier/recommended";
 import tailwindPlugin from "eslint-plugin-tailwindcss";
 
 export default tseslint.config(
-  { ignores: ["dist", "node_modules"] },
+  { ignores: ["dist", "node_modules", "*.config.js"] },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   ...tailwindPlugin.configs["flat/recommended"],

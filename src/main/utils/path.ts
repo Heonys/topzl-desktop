@@ -1,8 +1,8 @@
 import { app } from "electron";
 import path from "node:path";
-import { isDev } from "./utils";
+import { isDev } from "./common";
 
-export const getResourcePathFor = (file: string) => {
+export const getResourcePath = (file: string) => {
   return path.join(app.getAppPath(), isDev ? "." : "..", `resources/${file}`);
 };
 

@@ -26,11 +26,13 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/renderer/*"],
+      "@shared/*": ["src/shared/*"],
     }
   },
   "include": [
     "src/renderer/src/env.d.ts",
     "src/types/*.d.ts",
     "src/renderer/src/**/*",
+    "src/main/ipc/render-events.d.ts",
   ],
 }
