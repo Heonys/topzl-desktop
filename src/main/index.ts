@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import { createMainWindow, getMainWindow, showMainWindow } from "@/window/mainWindow";
 import { setupIpcMain } from "@/ipc/setup";
+import { setupI18n } from "@shared/i18n/main";
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
@@ -28,6 +29,12 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 app.whenReady().then(() => {
+  setupI18n({
+    defaultLang: () => app.getLocale(),
+    onChange: (newlang) => {
+      console.log("i18n changed", newlang);
+    },
+  });
   createMainWindow();
   setupIpcMain();
 });

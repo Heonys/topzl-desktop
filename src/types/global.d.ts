@@ -1,7 +1,11 @@
 declare global {
   interface Window {
     api: {
-      sendFrameAction: (payload: IpcEvents.Rederer["window-frame-action"]) => void;
+      sendFrameAction: (payload: IpcEvents.Renderer["window-frame-action"]) => void;
+    };
+    i18n: {
+      setupLang: () => Promise<IpcEvents.Renderer["i18n-setup"]>;
+      changeLang: (lang: string) => Promise<IpcEvents.Renderer["i18n-change"]>;
     };
   }
 }

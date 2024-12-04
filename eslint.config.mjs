@@ -31,6 +31,7 @@ export default tseslint.config(
       ...reactPlugin.configs["recommended"].rules,
       ...reactPlugin.configs["jsx-runtime"].rules,
       ...reactHooks.configs.recommended.rules,
+      "@typescript-eslint/no-explicit-any": "off",
       "react-refresh/only-export-components": "warn",
       "prettier/prettier": "warn",
     },

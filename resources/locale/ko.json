@@ -1,0 +1,18 @@
+{
+  "common": {
+    "greeting": "안녕하세요",
+    "farewell": "안녕히 가세요"
+  },
+  "button": {
+    "submit": "제출",
+    "cancel": "취소"
+  },
+  "error": {
+    "notFound": "페이지를 찾을 수 없습니다",
+    "unauthorized": "이 페이지를 볼 권한이 없습니다"
+  },
+  "user": {
+    "name": "홍길동",
+    "welcomeMessage": "다시 오신 것을 환영합니다, {{name}}님!"
+  }
+}

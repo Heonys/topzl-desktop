@@ -11,6 +11,22 @@ const App = () => {
             <button onClick={() => window.api.sendFrameAction("CLOSE")}>close</button>
             <button onClick={() => window.api.sendFrameAction("MINIMIZE")}>minimize</button>
             <button onClick={() => window.api.sendFrameAction("MAXIMIZE")}>maximize</button>
+            <button
+              onClick={async () => {
+                const data = await window.i18n.setupLang();
+                console.log(data);
+              }}
+            >
+              setup
+            </button>
+            <button
+              onClick={async () => {
+                const data = await window.i18n.changeLang("en");
+                console.log(data);
+              }}
+            >
+              change
+            </button>
           </div>
         </div>
       </RootLayout>
