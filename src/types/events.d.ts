@@ -4,11 +4,11 @@ declare namespace IpcEvents {
     "i18n-setup": {
       lang: string;
       allLangs: string[];
-      resources: Record<string, unknown>;
+      resources: Record<string, any>;
     };
     "i18n-change": {
-      lang: string;
-      resources: Record<string, unknown>;
+      newLang: string;
+      resources: Record<string, any>;
     };
   }
 }

@@ -1,6 +1,10 @@
 import { DraggableFrame, RootLayout } from "@/src/components";
+import { changeLanguage } from "@shared/i18n/renderer";
+import { useTranslation } from "react-i18next";
 
 const App = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <DraggableFrame />
@@ -13,20 +17,21 @@ const App = () => {
             <button onClick={() => window.api.sendFrameAction("MAXIMIZE")}>maximize</button>
             <button
               onClick={async () => {
-                const data = await window.i18n.setupLang();
-                console.log(data);
+                await changeLanguage("en");
               }}
             >
-              setup
+              change en
             </button>
             <button
               onClick={async () => {
-                const data = await window.i18n.changeLang("en");
-                console.log(data);
+                await changeLanguage("ko");
               }}
             >
-              change
+              change ko
             </button>
+          </div>
+          <div className="text-black">
+            <button>{t("common.greeting")}</button>
           </div>
         </div>
       </RootLayout>

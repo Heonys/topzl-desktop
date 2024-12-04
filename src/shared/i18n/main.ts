@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import { getResourcePath } from "@/utils/path";
 import { ipcMainHandle } from "@/ipc/main";
 
-export type I18nOptions = {
+type I18nOptions = {
   defaultLang: () => string;
   onChange: (lang: string) => void;
 };
@@ -46,8 +46,10 @@ export async function setupI18n(options: I18nOptions) {
     await i18n.changeLanguage(newLang);
     onChange(newLang);
     return {
-      lang: newLang,
+      newLang,
       resources: i18n.getResourceBundle(newLang, namespace),
     };
   });
 }
+
+export const t = i18n.t.bind(i18n);

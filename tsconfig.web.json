@@ -34,5 +34,6 @@
     "src/types/*.d.ts",
     "src/renderer/src/**/*",
     "src/main/ipc/render-events.d.ts",
+    "src/shared/i18n/renderer.ts"
   ],
 }
