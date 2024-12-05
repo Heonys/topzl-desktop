@@ -5,12 +5,12 @@ if (!process.contextIsolated) {
   throw new Error("contextIsolation must be enabled in the BrowserWindow");
 }
 
-const api = {
+const action = {
   sendFrameAction: (payload) => ipcRenderer.send("window-frame-action", payload),
-} satisfies Window["api"];
+} satisfies Window["action"];
 
 try {
-  contextBridge.exposeInMainWorld("api", api);
+  contextBridge.exposeInMainWorld("action", action);
   contextBridge.exposeInMainWorld("i18n", i18n);
 } catch (error) {
   console.error(error);

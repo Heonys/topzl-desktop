@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .region-none {
+    -webkit-app-region: none;
+  }
+  .draggable {
+    -webkit-app-region: drag;
+  }
+}
 
 @layer base {
   #app {
@@ -13,10 +21,6 @@
     @apply h-full select-none bg-transparent;
     @apply font-mono antialiased text-white;
     @apply overflow-hidden
-  }
-
-  header#draggable {
-    -webkit-app-region: drag;
   }
 
   ::-webkit-scrollbar {

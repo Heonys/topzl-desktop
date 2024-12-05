@@ -8,3 +8,9 @@ export const RootLayout = ({ className, children, ...props }: ComponentPropsWith
     </main>
   );
 };
+
+export const SideBar = ({ className, children, ...props }: ComponentPropsWithoutRef<"aside">) => {
+  <aside className={twMerge(className)} {...props}>
+    {children}
+  </aside>;
+};

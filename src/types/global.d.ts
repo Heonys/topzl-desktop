@@ -1,6 +1,6 @@
 declare global {
   interface Window {
-    api: {
+    action: {
       sendFrameAction: (payload: IpcEvents.Renderer["window-frame-action"]) => void;
     };
     i18n: {

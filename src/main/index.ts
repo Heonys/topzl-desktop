@@ -29,6 +29,7 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 app.whenReady().then(() => {
+  // await -> 글로벌 컨텍스트, 설정 초기화
   setupI18n({
     defaultLang: () => app.getLocale(),
     onChange: (newlang) => {
@@ -37,4 +38,5 @@ app.whenReady().then(() => {
   });
   createMainWindow();
   setupIpcMain();
+  // 트레이 생성, 글로벌 숏컷 설정
 });
