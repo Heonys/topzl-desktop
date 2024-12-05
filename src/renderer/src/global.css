@@ -9,6 +9,9 @@
   .draggable {
     -webkit-app-region: drag;
   }
+  .drag-none {
+    -webkit-user-drag: none;
+  }
 }
 
 @layer base {

@@ -27,6 +27,7 @@
     "paths": {
       "@/*": ["src/renderer/*"],
       "@shared/*": ["src/shared/*"],
+      "@resources/*": ["resources/*"]
     }
   },
   "include": [

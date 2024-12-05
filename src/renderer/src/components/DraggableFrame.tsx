@@ -7,12 +7,12 @@ export const DraggableFrame = ({ className, ...props }: ComponentPropsWithoutRef
   return (
     <header
       className={twMerge(
-        "draggable w-full h-12 flex items-center box-border justify-between z-50 py-2 mt-1 bg-[#efefef]",
+        "draggable w-full pl-14 h-12 flex items-center box-border justify-between z-50 py-2 mt-1 bg-[#efefef]",
         className,
       )}
       {...props}
     >
-      <div className="region-none ml-5 flex items-center justify-center gap-2 rounded-xl bg-white p-1 px-2 text-black">
+      <div className="region-none flex items-center justify-center gap-2 rounded-xl bg-white p-1 px-2 text-black">
         <StaticIcon iconName={"search"} color="black" size={20} opacity={0.5} />
         <input className="text-base outline-none" type="text" placeholder="Quick search..." />
       </div>
@@ -25,7 +25,7 @@ export const DraggableFrame = ({ className, ...props }: ComponentPropsWithoutRef
           <HeaderIconButton iconName="push-pin" title="push-pin" />
         </div>
         <div className="flex w-5 justify-center opacity-30">
-          <StaticIcon iconName={"divider"} color="black" />
+          <StaticIcon iconName={"divider-vertical"} color="black" />
         </div>
         <div className="flex gap-3 rounded-xl border bg-white p-1 px-2">
           <HeaderIconButton iconName="picture-in-picture" title="pip" />

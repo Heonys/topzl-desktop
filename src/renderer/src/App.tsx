@@ -1,4 +1,4 @@
-import { DraggableFrame, RootLayout } from "@/src/components";
+import { DraggableFrame, RootLayout, SideBar } from "@/src/components";
 import { changeLanguage } from "@shared/i18n/renderer";
 import { useTranslation } from "react-i18next";
 
@@ -9,7 +9,8 @@ const App = () => {
     <>
       <DraggableFrame />
       <RootLayout>
-        <div className="flex size-full items-center justify-center">
+        <SideBar />
+        <div className="flex size-full flex-col items-center justify-center">
           <h1 className="text-3xl text-blue-400">Hello world!</h1>
           <div className="flex gap-2 text-black">
             <button
@@ -17,14 +18,14 @@ const App = () => {
                 await changeLanguage("en");
               }}
             >
-              change en
+              en
             </button>
             <button
               onClick={async () => {
                 await changeLanguage("ko");
               }}
             >
-              change ko
+              ko
             </button>
           </div>
           <div className="text-black">
