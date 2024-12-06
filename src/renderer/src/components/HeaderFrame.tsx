@@ -1,13 +1,13 @@
+import StaticIcon from "@/icons/StaticIcon";
 import { ComponentPropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";
-import StaticIcon from "../icons/StaticIcon";
-import { HeaderIconButton } from "./index";
+import { HeaderIconButton } from "./HeaderIconButton";
 
-export const DraggableFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
+export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
   return (
     <header
       className={twMerge(
-        "draggable w-full pl-14 h-12 flex items-center box-border justify-between z-50 py-2 mt-1 bg-[#efefef]",
+        "draggable w-full pl-16 h-12 flex items-center box-border justify-between z-50 py-2 mt-1 bg-[#efefef]",
         className,
       )}
       {...props}
@@ -21,6 +21,7 @@ export const DraggableFrame = ({ className, ...props }: ComponentPropsWithoutRef
           <HeaderIconButton iconName="sparkles" title="sparkles" />
           <HeaderIconButton iconName="language" title="language" />
           <HeaderIconButton iconName="t-shirt" title="t-shirt" />
+          <HeaderIconButton iconName="dark-mode" title="dark-mode" />
           <HeaderIconButton iconName="cog-8-tooth" title="cog-8-tooth" />
           <HeaderIconButton iconName="push-pin" title="push-pin" />
         </div>

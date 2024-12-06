@@ -9,8 +9,8 @@ let tray: Tray;
 export function createMainWindow() {
   mainWindow = new BrowserWindow({
     title: "Electron App",
-    width: 900,
-    height: 670,
+    width: 1114,
+    height: 718,
     show: false,
     center: true,
     frame: false,

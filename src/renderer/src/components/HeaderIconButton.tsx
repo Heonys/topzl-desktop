@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef } from "react";
-import StaticIcon from "../icons/StaticIcon";
+import StaticIcon from "@/icons/StaticIcon";
 
 type Props = {
   iconName: ComponentPropsWithoutRef<typeof StaticIcon>["iconName"];
