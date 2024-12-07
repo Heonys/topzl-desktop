@@ -3,7 +3,7 @@ import { createMainWindow, getMainWindow, showMainWindow } from "@/window/mainWi
 import { setupIpcMain } from "@/ipc/setup";
 import { setupI18n } from "@shared/i18n/main";
 import { setupTray } from "@/tray";
-import { setupConfig } from "@shared/config/main";
+import { setupMainConfig } from "@shared/config/main";
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
@@ -32,7 +32,7 @@ if (!app.requestSingleInstanceLock()) {
 
 app.whenReady().then(async () => {
   // 글로벌 컨텍스트, 설정 초기화
-  await Promise.allSettled([setupConfig()]);
+  await Promise.allSettled([setupMainConfig()]);
 
   setupI18n({
     defaultLang: () => app.getLocale(),

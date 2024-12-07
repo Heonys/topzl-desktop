@@ -3,14 +3,14 @@ type AppConfigKeyPath = import("@shared/config/type").AppConfigKeyPath;
 type AppConfigKeyPathValue = import("@shared/config/type").AppConfigKeyPathValue;
 
 declare namespace IpcEvents {
-  // ipcRender.send, ipcMain.on
+  // ipcRender.send -> ipcMain.on
   interface Renderer {
     "window-frame-action": "CLOSE" | "MINIMIZE" | "MAXIMIZE";
   }
 }
 
 declare namespace IpcInvoke {
-  // ipcMain.handle, ipcRender.invoke
+  // ipcRender.invoke -> ipcMain.handle
   interface Renderer {
     "i18n-setup": () => Promise<{
       lang: string;
@@ -21,18 +21,21 @@ declare namespace IpcInvoke {
       newLang: string;
       resources: Record<string, any>;
     }>;
-    "get-app-config": () => AppConfig;
-    "set-app-config": (config: AppConfig) => boolean;
-    // "set-app-config-path": <T extends AppConfigKeyPath>(arg: {
-    //   keyPath: T;
-    //   value: AppConfigKeyPathValue<T>;
-    // }) => boolean;
+    "get-app-config": () => Promise<AppConfig>;
+    "get-app-config-path": <T extends AppConfigKeyPath>(
+      path: T,
+    ) => Promise<AppConfigKeyPathValue<T>>;
+    "set-app-config": (config: AppConfig) => Promise<boolean>;
+    "set-app-config-path": <T extends AppConfigKeyPath>(payload: {
+      keyPath: T;
+      value: AppConfigKeyPathValue<T>;
+    }) => Promise<boolean>;
   }
 }
 
 declare namespace IpcEvents {
-  // ipcMain.send, ipcRender.on
+  // ipcMain.send -> ipcRender.on
   interface Main {
-    "get-app-config": AppConfig;
+    "sync-app-config": AppConfig;
   }
 }

@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { i18n } from "./i18n";
+import { i18n, appConfig } from "./api";
 
 if (!process.contextIsolated) {
   throw new Error("contextIsolation must be enabled in the BrowserWindow");
@@ -12,6 +12,7 @@ const action = {
 try {
   contextBridge.exposeInMainWorld("action", action);
   contextBridge.exposeInMainWorld("i18n", i18n);
+  contextBridge.exposeInMainWorld("appConfig", appConfig);
 } catch (error) {
   console.error(error);
 }

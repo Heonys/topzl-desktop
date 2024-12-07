@@ -16,7 +16,7 @@ let cacheConfig: AppConfig;
 
 function getConfigPath() {
   if (!_configPath) {
-    _configPath = path.join(app.getPath("appData"), "config.json");
+    _configPath = path.join(app.getPath("userData"), "config.json");
   }
   return _configPath;
 }
@@ -26,8 +26,16 @@ async function checkPath() {
     await fs.readJson(getConfigPath());
   } catch {
     await fs.remove(getConfigPath());
-    await fs.writeJson(getConfigPath(), {});
-    cacheConfig = {};
+    await fs.writeJson(getConfigPath(), {
+      common: {
+        language: "ko",
+      },
+    });
+    cacheConfig = {
+      common: {
+        language: "ko",
+      },
+    };
   }
 }
 
@@ -52,10 +60,10 @@ async function setAppConfig(newConfig: AppConfig) {
     const jsonString = JSON.stringify(newConfig, undefined, 4);
     await fs.writeJson(getConfigPath(), jsonString);
     cacheConfig = newConfig;
-    ipcMainSend("get-app-config", mainWindow, newConfig);
+    ipcMainSend("sync-app-config", mainWindow, newConfig);
     return true;
   } catch {
-    ipcMainSend("get-app-config", mainWindow, cacheConfig);
+    ipcMainSend("sync-app-config", mainWindow, cacheConfig);
     return false;
   }
 }
@@ -83,7 +91,7 @@ export async function setAppConfigPath<T extends AppConfigKeyPath>(
   return setAppConfig(newConfig);
 }
 
-export async function setupConfig() {
+export async function setupMainConfig() {
   await checkPath();
   await getAppConfig();
 
@@ -93,5 +101,13 @@ export async function setupConfig() {
 
   ipcMainHandle("set-app-config", (config) => {
     return setAppConfig(config);
+  });
+
+  ipcMainHandle("get-app-config-path", (path) => {
+    return getAppConfigPath(path);
+  });
+
+  ipcMainHandle("set-app-config-path", ({ keyPath, value }) => {
+    return setAppConfigPath(keyPath, value);
   });
 }
