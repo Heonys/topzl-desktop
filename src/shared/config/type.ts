@@ -46,4 +46,9 @@ type KeyPathValue<
 
 export type AppConfig = Partial<Config>;
 export type AppConfigKeyPath = KeyPaths<Config>;
-export type AppconfigKeyPathValue<Path extends string> = KeyPathValue<Config, Path>;
+export type AppConfigKeyPathValue<Path extends string> = KeyPathValue<Config, Path>;
+
+type DefaultAppConfig = {
+  [K in AppConfigKeyPath]?: AppConfigKeyPathValue<K>;
+};
+export const defaultAppConfig: DefaultAppConfig = {};

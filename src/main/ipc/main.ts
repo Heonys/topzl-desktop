@@ -1,4 +1,4 @@
-import { ipcMain, IpcMainEvent } from "electron";
+import { BrowserWindow, ipcMain, IpcMainEvent } from "electron";
 import { validationEventFrame } from "@/utils/validation";
 
 export function ipcMainOn<T extends keyof IpcEvents.Renderer>(
@@ -16,9 +16,11 @@ export function ipcMainOn<T extends keyof IpcEvents.Renderer>(
   });
 }
 
-export function ipcMainHandle<T extends keyof IpcEvents.Renderer>(
+export function ipcMainHandle<T extends keyof IpcInvoke.Renderer>(
   channel: T,
-  callback: (payload?: any) => IpcEvents.Renderer[T] | Promise<IpcEvents.Renderer[T]>,
+  callback: (
+    payload: Parameters<IpcInvoke.Renderer[T]>[0],
+  ) => ReturnType<IpcInvoke.Renderer[T]> | Promise<ReturnType<IpcInvoke.Renderer[T]>>,
 ) {
   ipcMain.handle(channel, (event, payload) => {
     if (!event.senderFrame) return;
@@ -29,4 +31,12 @@ export function ipcMainHandle<T extends keyof IpcEvents.Renderer>(
       console.error(error);
     }
   });
+}
+
+export function ipcMainSend<T extends keyof IpcEvents.Main>(
+  channel: T,
+  mainWindow: BrowserWindow,
+  payload?: IpcEvents.Main[T],
+) {
+  mainWindow.webContents.send(channel, payload);
 }

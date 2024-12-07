@@ -18,7 +18,6 @@
     "src/main/**/*",
     "src/preload/**/*",
     "src/types/*.d.ts",
-    "src/shared/**/main.ts",
-    "src/shared/**/preload.ts"
+    "src/shared/**/*",
   ],
 }
