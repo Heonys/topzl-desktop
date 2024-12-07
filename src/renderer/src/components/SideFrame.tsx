@@ -24,17 +24,17 @@ const options: OptionTypes[] = [
   {
     iconName: "chart",
     title: "chart",
-    route: "",
+    route: "chart",
   },
   {
     iconName: "download",
     title: "download",
-    route: "",
+    route: "download",
   },
   {
     iconName: "github",
     title: "github",
-    route: "",
+    route: "github",
   },
 ];
 
@@ -65,7 +65,7 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
               iconName={iconName}
               title={title}
               size={25}
-              onclick={() => {
+              onClick={() => {
                 navigate(`/${route}`);
               }}
             />

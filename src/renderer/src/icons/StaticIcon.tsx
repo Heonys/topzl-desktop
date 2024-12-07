@@ -10,6 +10,8 @@ import { IoLanguage, IoSearch, IoStatsChart } from "react-icons/io5";
 import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { FaGithub } from "react-icons/fa";
 import { GoHeart } from "react-icons/go";
+import { GrFormPreviousLink, GrFormNextLink, GrFormRefresh } from "react-icons/gr";
+// import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -31,6 +33,9 @@ const IconMap = {
   ["chart"]: IoStatsChart,
   ["record"]: PiVinylRecordDuotone,
   ["download"]: PiDownloadDuotone,
+  ["previous"]: GrFormPreviousLink,
+  ["next"]: GrFormNextLink,
+  ["refresh"]: GrFormRefresh,
 };
 
 type Props = {

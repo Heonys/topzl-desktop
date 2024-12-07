@@ -2,6 +2,7 @@ import { app, BrowserWindow } from "electron";
 import { createMainWindow, getMainWindow, showMainWindow } from "@/window/mainWindow";
 import { setupIpcMain } from "@/ipc/setup";
 import { setupI18n } from "@shared/i18n/main";
+import { setupTray } from "@/tray";
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
@@ -36,6 +37,7 @@ app.whenReady().then(() => {
       console.log("i18n changed", newlang);
     },
   });
+  setupTray();
   createMainWindow();
   setupIpcMain();
   // 트레이 생성, 글로벌 숏컷 설정
