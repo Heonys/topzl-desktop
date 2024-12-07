@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@electron-toolkit/utils": "^3.0.0",
+    "fs-extra": "^11.2.0",
     "i18next": "^24.0.5",
     "i18next-fs-backend": "^2.6.0"
   },

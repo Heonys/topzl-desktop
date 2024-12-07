@@ -18,6 +18,7 @@
     "src/main/**/*",
     "src/preload/**/*",
     "src/types/*.d.ts",
-    "src/shared/i18n/**/*"
+    "src/shared/**/main.ts",
+    "src/shared/**/preload.ts"
   ],
 }
