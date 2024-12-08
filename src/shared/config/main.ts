@@ -57,8 +57,7 @@ async function getAppConfig(): Promise<AppConfig> {
 async function setAppConfig(newConfig: AppConfig) {
   const mainWindow = getMainWindow();
   try {
-    const jsonString = JSON.stringify(newConfig, undefined, 2);
-    await fs.writeJson(getConfigPath(), jsonString);
+    await fs.writeJson(getConfigPath(), newConfig);
     cacheConfig = newConfig;
     ipcMainSend("sync-app-config", mainWindow, newConfig);
     return true;
