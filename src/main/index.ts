@@ -3,7 +3,8 @@ import { createMainWindow, getMainWindow, showMainWindow } from "@/window/mainWi
 import { setupIpcMain } from "@/ipc/setup";
 import { setupI18n } from "@shared/i18n/main";
 import { setupTray } from "@/tray";
-import { setupMainConfig } from "@shared/config/main";
+import { getAppConfigPathSync, setupMainConfig, setAppConfigPath } from "@shared/config/main";
+import { setupGlobalShortcut } from "@/core/globalShortcut";
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
@@ -31,17 +32,18 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 app.whenReady().then(async () => {
-  // 글로벌 컨텍스트, 설정 초기화
   await Promise.allSettled([setupMainConfig()]);
 
   setupI18n({
-    defaultLang: () => app.getLocale(),
+    defaultLang: () => {
+      return getAppConfigPathSync("common.language");
+    },
     onChange: (newlang) => {
-      console.log("i18n changed", newlang);
+      setAppConfigPath("common.language", newlang);
     },
   });
+  setupGlobalShortcut();
   setupTray();
   createMainWindow();
   setupIpcMain();
-  // 트레이 생성, 글로벌 숏컷 설정
 });

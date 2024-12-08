@@ -2,13 +2,6 @@ type AppConfig = import("@shared/config/type").AppConfig;
 type AppConfigKeyPath = import("@shared/config/type").AppConfigKeyPath;
 type AppConfigKeyPathValue = import("@shared/config/type").AppConfigKeyPathValue;
 
-declare namespace IpcEvents {
-  // ipcRender.send -> ipcMain.on
-  interface Renderer {
-    "window-frame-action": "CLOSE" | "MINIMIZE" | "MAXIMIZE";
-  }
-}
-
 declare namespace IpcInvoke {
   // ipcRender.invoke -> ipcMain.handle
   interface Renderer {
@@ -34,8 +27,14 @@ declare namespace IpcInvoke {
 }
 
 declare namespace IpcEvents {
+  // ipcRender.send -> ipcMain.on
+  interface Renderer {
+    "window-frame-action": "CLOSE" | "MINIMIZE" | "MAXIMIZE";
+  }
+
   // ipcMain.send -> ipcRender.on
   interface Main {
     "sync-app-config": AppConfig;
+    navigate: string;
   }
 }

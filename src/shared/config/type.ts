@@ -9,14 +9,23 @@ type Config = {
     fontColor: string;
     fontSize: string;
   };
-  shortCut: {
-    local: {
-      name: string;
-      age: number;
-    }[];
-    global: string[];
+  shortcut: {
+    enableLocal: boolean;
+    enableGlobal: boolean;
+    keymap: {
+      [K in ShortcutKeys]: {
+        local: string[] | null;
+        global: string[] | null;
+      };
+    };
   };
 };
+
+export type ShortcutKeys = (typeof shortcutKeys)[number];
+export const shortcutKeys = [
+  "MINIMIZE_RESTORE", //
+  "PLAY_PAUSE",
+] as const;
 
 type KeyPaths<T extends object> =
   T extends Record<string, any>

@@ -57,7 +57,7 @@ async function getAppConfig(): Promise<AppConfig> {
 async function setAppConfig(newConfig: AppConfig) {
   const mainWindow = getMainWindow();
   try {
-    const jsonString = JSON.stringify(newConfig, undefined, 4);
+    const jsonString = JSON.stringify(newConfig, undefined, 2);
     await fs.writeJson(getConfigPath(), jsonString);
     cacheConfig = newConfig;
     ipcMainSend("sync-app-config", mainWindow, newConfig);
@@ -70,15 +70,14 @@ async function setAppConfig(newConfig: AppConfig) {
 
 export async function getAppConfigPath<T extends AppConfigKeyPath>(
   keypath: T,
-): Promise<AppConfigKeyPathValue<T> | undefined> {
+): Promise<AppConfigKeyPathValue<T>> {
   const config = await getAppConfig();
   return objectPath.get(config, keypath) ?? defaultAppConfig[keypath];
 }
 
 export function getAppConfigPathSync<T extends AppConfigKeyPath>(
   keypath: T,
-): AppConfigKeyPathValue<T> | undefined {
-  if (!cacheConfig) return undefined;
+): AppConfigKeyPathValue<T> {
   return objectPath.get(cacheConfig, keypath) ?? defaultAppConfig[keypath];
 }
 
@@ -87,8 +86,8 @@ export async function setAppConfigPath<T extends AppConfigKeyPath>(
   value: AppConfigKeyPathValue<T>,
 ): Promise<boolean> {
   const config = await getAppConfig();
-  const newConfig = objectPath.set(config, keypath, value) as AppConfig;
-  return setAppConfig(newConfig);
+  objectPath.set(config, keypath, value);
+  return setAppConfig(config);
 }
 
 export async function setupMainConfig() {

@@ -1,5 +1,6 @@
 import { BrowserWindow, ipcMain, IpcMainEvent } from "electron";
 import { validationEventFrame } from "@/utils/validation";
+import { getMainWindow } from "@/window/mainWindow";
 
 export function ipcMainOn<T extends keyof IpcEvents.Renderer>(
   channel: T,
@@ -38,5 +39,13 @@ export function ipcMainSend<T extends keyof IpcEvents.Main>(
   mainWindow: BrowserWindow,
   payload?: IpcEvents.Main[T],
 ) {
+  mainWindow.webContents.send(channel, payload);
+}
+
+export function ipcMainSendMainWindow<T extends keyof IpcEvents.Main>(
+  channel: T,
+  payload?: IpcEvents.Main[T],
+) {
+  const mainWindow = getMainWindow();
   mainWindow.webContents.send(channel, payload);
 }
