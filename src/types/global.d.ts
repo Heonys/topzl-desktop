@@ -1,3 +1,5 @@
+type CleanUp = () => void;
+
 declare global {
   interface Window {
     action: {
@@ -13,6 +15,11 @@ declare global {
       getAppConfigPath: IpcInvoke.Renderer["get-app-config-path"];
       setAppConfig: IpcInvoke.Renderer["set-app-config"];
       setAppConfigPath: IpcInvoke.Renderer["set-app-config-path"];
+    };
+    shortcut: {
+      setupNavigate: (
+        callback: (url: IpcEvents.Main["global-shortcut-execute"]) => void,
+      ) => CleanUp;
     };
   }
 }

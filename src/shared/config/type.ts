@@ -14,8 +14,8 @@ type Config = {
     enableGlobal: boolean;
     keymap: {
       [K in ShortcutKeys]: {
-        local: string[] | null;
-        global: string[] | null;
+        local: string[];
+        global: string[];
       };
     };
   };
@@ -23,8 +23,8 @@ type Config = {
 
 export type ShortcutKeys = (typeof shortcutKeys)[number];
 export const shortcutKeys = [
-  "MINIMIZE_RESTORE", //
-  "PLAY_PAUSE",
+  "TRANSLATE_KO", //
+  "TRANSLATE_EN",
 ] as const;
 
 type KeyPaths<T extends object> =

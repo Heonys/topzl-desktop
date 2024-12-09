@@ -4,7 +4,8 @@ import { setupIpcMain } from "@/ipc/setup";
 import { setupI18n } from "@shared/i18n/main";
 import { setupTray } from "@/tray";
 import { getAppConfigPathSync, setupMainConfig, setAppConfigPath } from "@shared/config/main";
-import { setupGlobalShortcut } from "@/core/globalShortcut";
+import { setupGlobalShortcut, handleUrlScheme } from "@/core";
+import { isDev } from "@/utils/common";
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
@@ -16,6 +17,12 @@ app.on("activate", () => {
   }
 });
 
+if (isDev) {
+  app.setAsDefaultProtocolClient("topzl", process.execPath, [app.getAppPath()]);
+} else {
+  app.setAsDefaultProtocolClient("topzl");
+}
+
 if (!app.requestSingleInstanceLock()) {
   app.quit();
 } else {
@@ -23,13 +30,15 @@ if (!app.requestSingleInstanceLock()) {
     if (getMainWindow()) {
       showMainWindow();
     }
-    /*
-      setAsDefaultProtocolClient() 사용할때
-      URL스킴을 제공하고 그에대한 상호작용할때 사용
-    */
-    console.log(commandLine);
+    if (process.platform !== "darwin") {
+      handleUrlScheme(commandLine.pop());
+    }
   });
 }
+
+app.on("open-url", (evnet, url) => {
+  handleUrlScheme(url);
+});
 
 app.whenReady().then(async () => {
   await Promise.allSettled([setupMainConfig()]);

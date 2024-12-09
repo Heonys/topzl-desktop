@@ -1,6 +1,7 @@
 type AppConfig = import("@shared/config/type").AppConfig;
 type AppConfigKeyPath = import("@shared/config/type").AppConfigKeyPath;
 type AppConfigKeyPathValue = import("@shared/config/type").AppConfigKeyPathValue;
+type ShortcutKeys = import("@shared/config/type").ShortcutKeys;
 
 declare namespace IpcInvoke {
   // ipcRender.invoke -> ipcMain.handle
@@ -35,6 +36,6 @@ declare namespace IpcEvents {
   // ipcMain.send -> ipcRender.on
   interface Main {
     "sync-app-config": AppConfig;
-    navigate: string;
+    "global-shortcut-execute": ShortcutKeys;
   }
 }

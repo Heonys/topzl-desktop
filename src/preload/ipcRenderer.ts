@@ -1,12 +1,19 @@
-import { ipcRenderer } from "electron";
+import { ipcRenderer, IpcRendererEvent } from "electron";
 
 export function ipcRendererOn<T extends keyof IpcEvents.Main>(
   channel: T,
-  callback: (arg: IpcEvents.Main[T]) => void,
+  callback: (event: IpcRendererEvent, arg: IpcEvents.Main[T]) => void,
 ) {
   ipcRenderer.on(channel, (event, payload) => {
-    callback(payload);
+    callback(event, payload);
   });
+}
+
+export function ipcRenderOff<T extends keyof IpcEvents.Main>(
+  channel: T,
+  callback: (event: IpcRendererEvent, arg: IpcEvents.Main[T]) => void,
+) {
+  ipcRenderer.off(channel, callback);
 }
 
 export function ipcRendererSend<T extends keyof IpcEvents.Renderer>(

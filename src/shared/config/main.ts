@@ -26,16 +26,30 @@ async function checkPath() {
     await fs.readJson(getConfigPath());
   } catch {
     await fs.remove(getConfigPath());
-    await fs.writeJson(getConfigPath(), {
+
+    // TODO: 빈객체로 하고 default config에서 초기값 지정
+    const temp: AppConfig = {
       common: {
         language: "ko",
       },
-    });
-    cacheConfig = {
-      common: {
-        language: "ko",
+      shortcut: {
+        enableGlobal: false,
+        enableLocal: true,
+        keymap: {
+          TRANSLATE_KO: {
+            local: [],
+            global: ["CommandOrControl", "Shift", "K"],
+          },
+          TRANSLATE_EN: {
+            local: [],
+            global: ["CommandOrControl", "Shift", "E"],
+          },
+        },
       },
     };
+
+    await fs.writeJson(getConfigPath(), temp);
+    cacheConfig = temp;
   }
 }
 

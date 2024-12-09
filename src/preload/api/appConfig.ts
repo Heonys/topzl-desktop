@@ -22,7 +22,9 @@ function setAppConfigPath<T extends AppConfigKeyPath>({
 }
 
 function syncAppConfig(callback: (config: IpcEvents.Main["sync-app-config"]) => void) {
-  ipcRendererOn("sync-app-config", callback);
+  ipcRendererOn("sync-app-config", (event, config) => {
+    callback(config);
+  });
 }
 
 export const appConfig = {
