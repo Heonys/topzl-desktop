@@ -8,7 +8,7 @@ const router = createHashRouter([
     element: <App />,
     children: [
       { index: true, element: <TestPage /> },
-      { path: "search", element: <SearchPage /> },
+      { path: "search/:query", element: <SearchPage /> },
       { path: "setting", element: <SettingPage /> },
     ],
   },

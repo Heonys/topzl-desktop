@@ -19,22 +19,23 @@ const options: OptionTypes[] = [
   {
     iconName: "search",
     title: "search",
-    route: "search",
+    route: "search/side",
+  },
+  {
+    iconName: "forder-open",
+    title: "local",
+    route: "local",
   },
   {
     iconName: "chart",
     title: "chart",
     route: "chart",
   },
+
   {
     iconName: "download",
     title: "download",
     route: "download",
-  },
-  {
-    iconName: "github",
-    title: "github",
-    route: "github",
   },
 ];
 
@@ -43,20 +44,20 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
   return (
     <aside
       className={twMerge(
-        "w-16 bg-[#efefef] h-[100vh] overflow-auto draggable flex items-center",
+        "w-20 bg-[#efefef] h-[100vh] overflow-auto draggable flex items-center",
         className,
       )}
       {...props}
     >
-      <div className="region-none mx-auto flex w-11 -translate-y-12 flex-col gap-4 rounded-lg bg-white py-5">
+      <div className="region-none mx-auto flex w-14 -translate-y-12 flex-col gap-4 rounded-lg bg-white py-5">
         <button
           className="mx-1 flex  items-center justify-center opacity-80 transition-transform hover:scale-110 hover:opacity-100"
           onClick={() => navigate("/")}
         >
-          <img className="size-7 object-cover" src={logo} alt="logo" />
+          <img className="size-9 object-cover" src={logo} alt="logo" />
         </button>
         <div className="-my-4 flex justify-center opacity-10">
-          <StaticIcon iconName={"divider-horizontal"} color="black" size={25} />
+          <StaticIcon iconName={"divider-horizontal"} color="black" size={28} />
         </div>
         {options.map(({ iconName, title, route }) => {
           return (
@@ -64,7 +65,7 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
               key={route}
               iconName={iconName}
               title={title}
-              size={25}
+              size={28}
               onClick={() => {
                 navigate(`/${route}`);
               }}

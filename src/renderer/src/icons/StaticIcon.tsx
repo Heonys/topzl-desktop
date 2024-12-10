@@ -11,7 +11,10 @@ import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { FaGithub } from "react-icons/fa";
 import { GoHeart } from "react-icons/go";
 import { GrFormPreviousLink, GrFormNextLink, GrFormRefresh } from "react-icons/gr";
-// import { GrFormPrevious, GrFormNext } from "react-icons/gr";
+import { HiOutlineTrophy } from "react-icons/hi2";
+import { IoFolderOpenOutline } from "react-icons/io5";
+import { HiOutlineCodeBracketSquare } from "react-icons/hi2";
+import { FaPlus } from "react-icons/fa6";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -36,6 +39,10 @@ const IconMap = {
   ["previous"]: GrFormPreviousLink,
   ["next"]: GrFormNextLink,
   ["refresh"]: GrFormRefresh,
+  ["trophy"]: HiOutlineTrophy,
+  ["forder-open"]: IoFolderOpenOutline,
+  ["code-bracket-sqare"]: HiOutlineCodeBracketSquare,
+  ["plus"]: FaPlus,
 };
 
 type Props = {
