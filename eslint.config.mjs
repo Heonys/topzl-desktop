@@ -16,7 +16,7 @@ export default tseslint.config(
   jsxA11y.flatConfigs.recommended,
   prettierPlugin,
   {
-    files: ["**/*.{js,jsx,ts,tsx}"],
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,

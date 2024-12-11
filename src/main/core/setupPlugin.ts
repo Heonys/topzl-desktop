@@ -1,6 +1,11 @@
+import type { PluginDefine } from "@shared/plugin/type";
 import { app } from "electron";
 import fs from "fs-extra";
 import path from "node:path";
+import _plugin from "@shared/plugin";
+import { ipcMainHandle } from "@/ipc/main";
+
+const plugin = _plugin as unknown as PluginDefine;
 
 let _pluginPath: string;
 function getPluginPath() {
@@ -24,14 +29,21 @@ async function checkPath() {
 
 export async function setupPlugin() {
   await checkPath();
-}
-
-async function readPlugin() {
-  const pluginDir = await fs.readdir(getPluginPath());
-
-  pluginDir.forEach((v, i) => {
-    console.log(i, v);
+  ipcMainHandle("call-plugin-method", ({ query, page }) => {
+    return search(query, page);
   });
 }
 
-function installPluginFromUrl(url: string) {}
+async function search(query: string, page: number) {
+  const result = await plugin.search(query, page, "music");
+  if (Array.isArray(result.data)) {
+    return {
+      isEnd: result.isEnd ?? true,
+      data: result.data,
+    };
+  }
+  return {
+    isEnd: true,
+    data: [],
+  };
+}

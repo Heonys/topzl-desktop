@@ -6,10 +6,10 @@ import StaticIcon from "@/icons/StaticIcon";
 
 export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
-  const handleSearch = () => {
-    navigate(`/search/${search}`);
+  const handleSearch = async () => {
+    navigate(`/search/${inputValue}`);
   };
 
   return (
@@ -28,8 +28,8 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
             className="border-0 text-base leading-5 outline-none"
             type="text"
             placeholder="Search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={(key) => {
               if (key.key === "Enter") {
                 handleSearch();

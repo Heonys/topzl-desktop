@@ -21,6 +21,9 @@ declare global {
         callback: (url: IpcEvents.Main["global-shortcut-execute"]) => void,
       ) => CleanUp;
     };
+    plugin: {
+      callPluginMethod: IpcInvoke.Renderer["call-plugin-method"];
+    };
   }
 }
 

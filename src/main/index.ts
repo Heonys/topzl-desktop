@@ -6,6 +6,7 @@ import { setupTray } from "@/tray";
 import { getAppConfigPathSync, setupMainConfig, setAppConfigPath } from "@shared/config/main";
 import { setupGlobalShortcut, handleUrlScheme } from "@/core";
 import { isDev } from "@/utils/common";
+import { setupPlugin } from "./core/setupPlugin";
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
@@ -41,7 +42,7 @@ app.on("open-url", (evnet, url) => {
 });
 
 app.whenReady().then(async () => {
-  await Promise.allSettled([setupMainConfig()]);
+  await Promise.allSettled([setupMainConfig(), setupPlugin()]);
 
   setupI18n({
     defaultLang: () => {
