@@ -5,6 +5,10 @@ type Config = {
   download: {
     path: string;
   };
+  playMusic: {
+    defaultQuality: "standard";
+    audioOutputDevice: MediaDeviceInfo | null;
+  };
   lyric: {
     fontColor: string;
     fontSize: string;
@@ -60,4 +64,6 @@ export type AppConfigKeyPathValue<Path extends string> = KeyPathValue<Config, Pa
 type DefaultAppConfig = {
   [K in AppConfigKeyPath]?: AppConfigKeyPathValue<K>;
 };
-export const defaultAppConfig: DefaultAppConfig = {};
+export const defaultAppConfig: DefaultAppConfig = {
+  "playMusic.defaultQuality": "standard",
+};
