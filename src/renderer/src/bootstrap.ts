@@ -1,6 +1,6 @@
 import { setupI18n } from "@shared/i18n/renderer";
 import { setupRendererConfig } from "@shared/config/renderer";
-import { setupPlayer } from "./assets/player";
+import { setupPlayer } from "../../shared/plugin/player";
 
 async function bootstrap() {
   await Promise.allSettled([setupRendererConfig(), setupPlayer()]);

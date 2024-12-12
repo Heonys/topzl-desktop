@@ -1,5 +1,6 @@
 import useSearch from "@/hooks/useSearch";
-import { Tab, TabGroup, TabList, TabPanels } from "@headlessui/react";
+import { formatTime } from "@/utils";
+import { Tab, TabGroup, TabList } from "@headlessui/react";
 import { MusicItem } from "@shared/plugin/type";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -28,38 +29,45 @@ export const SearchPage = () => {
   }, [query, search]);
 
   return (
-    <div className="box-border flex size-full select-text flex-col items-center overflow-auto">
-      <div className="text-lg font-semibold">
-        Search Result
-        <span className="text-red-400">「{query}」</span>
+    <div className="box-border flex size-full select-text flex-col items-start overflow-auto px-10 font-bold">
+      <div className="pt-4 text-3xl font-medium text-gray-500">
+        Search Results for
+        <span className=" text-red-500">{` 「${query}」`}</span>
       </div>
-      <div className="flex h-screen w-full justify-center pt-10">
+
+      <div className="flex size-full justify-center pt-3">
         <TabGroup
           onChange={(index) => {
             setMediaType(arr[index]);
           }}
+          className="size-full"
         >
           <TabList className="flex gap-4">
             {arr.map((name) => (
               <Tab
                 key={name}
-                className="cursor-pointer rounded-full px-3 py-1 text-sm/6 font-semibold opacity-70 hover:opacity-90 focus:outline-none  "
+                className="cursor-pointer rounded-full px-3 py-1 text-lg font-semibold opacity-70 hover:opacity-90 focus:outline-none  "
               >
                 {name}
               </Tab>
             ))}
           </TabList>
 
-          <div>
+          <div className="h-full">
             {!isLoading &&
-              data.map(({ id, title, artist }) => (
+              data.map(({ id, title, artist, artwork, duration }) => (
                 <div
                   key={id}
-                  className="cursor-pointer rounded-full px-3 py-1 text-sm/6 font-semibold opacity-70 hover:opacity-90 focus:outline-none  "
+                  className="flex h-16 w-full cursor-pointer gap-2 rounded-full px-3 py-1 text-base font-semibold "
                 >
-                  <div className="flex flex-col gap-2 border-2">
-                    <div>title : {title}</div>
-                    <div>artist : {artist}</div>
+                  {/* 이미지 가져오는거 찾아보기 */}
+                  <img className="w-14 rounded-md object-cover" src={artwork} alt="thumnail" />
+                  <div className="flex flex-1  items-center  justify-between px-3 opacity-70 hover:opacity-100 focus:outline-none  ">
+                    <div className="flex flex-col gap-0">
+                      <div>{title}</div>
+                      <div className="text-xs text-gray-600">{artist}</div>
+                    </div>
+                    <div className="text-sm">{formatTime(duration)}</div>
                   </div>
                 </div>
               ))}

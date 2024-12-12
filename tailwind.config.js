@@ -5,7 +5,12 @@ export default {
     "./src/renderer/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        barlow: ["Barlow"],
+        dh: ["Do Hyeon"]
+      }
+    },
   },
   plugins: [
     require("@tailwindcss/typography"),

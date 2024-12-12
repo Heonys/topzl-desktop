@@ -15,6 +15,23 @@
 }
 
 @layer base {
+  @font-face {
+    font-family: "Do Hyeon";
+    font-weight: 400;
+    font-style: normal;
+    src: url(./assets/fonts/DoHyeon-Regular.ttf) format("truetype")
+  }
+  @font-face {
+    font-family: 'Barlow';
+    font-weight: normal;
+    src: url('./assets/fonts/Barlow-Regular.ttf') format('truetype'),
+  }
+  @font-face {
+    font-family: 'Barlow';
+    font-weight: bold;
+    src: url('./assets/fonts/Barlow-Bold.ttf') format('truetype'),
+  }
+
   #app {
     @apply h-full
   }
@@ -22,7 +39,7 @@
   html,
   body {
     @apply h-full select-none bg-transparent;
-    @apply font-mono antialiased;
+    @apply font-dh antialiased;
     @apply overflow-hidden
   }
 
