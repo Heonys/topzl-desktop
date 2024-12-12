@@ -29,51 +29,49 @@ export const SearchPage = () => {
   }, [query, search]);
 
   return (
-    <div className="box-border flex size-full select-text flex-col items-start overflow-auto px-10 font-bold">
-      <div className="pt-4 text-3xl font-medium text-gray-500">
+    <div className="box-border flex size-full select-text flex-col items-start px-10 font-bold">
+      <div className="mb-2 mt-5 text-3xl font-medium text-gray-500">
         Search Results for
-        <span className=" text-red-500">{` 「${query}」`}</span>
+        <span className=" text-red-500">{` "${query}"`}</span>
       </div>
 
-      <div className="flex size-full justify-center pt-3">
-        <TabGroup
-          onChange={(index) => {
-            setMediaType(arr[index]);
-          }}
-          className="size-full"
-        >
-          <TabList className="flex gap-4">
-            {arr.map((name) => (
-              <Tab
-                key={name}
-                className="cursor-pointer rounded-full px-3 py-1 text-lg font-semibold opacity-70 hover:opacity-90 focus:outline-none  "
+      <TabGroup
+        onChange={(index) => {
+          setMediaType(arr[index]);
+        }}
+        className="flex size-full select-none flex-col"
+      >
+        <TabList className="flex gap-4">
+          {arr.map((name) => (
+            <Tab
+              key={name}
+              className="cursor-pointer rounded-full px-3 py-1 text-lg font-semibold opacity-70 hover:opacity-90 focus:outline-none  "
+            >
+              {name}
+            </Tab>
+          ))}
+        </TabList>
+
+        <div className="h-[calc(100%-10rem)] overflow-auto scrollbar-hide">
+          {!isLoading &&
+            data.map(({ id, title, artist, artwork, duration }) => (
+              <div
+                key={id}
+                className="flex h-16 w-full cursor-pointer gap-2 rounded-full px-3 py-1 text-base font-semibold "
               >
-                {name}
-              </Tab>
-            ))}
-          </TabList>
-
-          <div className="h-full">
-            {!isLoading &&
-              data.map(({ id, title, artist, artwork, duration }) => (
-                <div
-                  key={id}
-                  className="flex h-16 w-full cursor-pointer gap-2 rounded-full px-3 py-1 text-base font-semibold "
-                >
-                  {/* 이미지 가져오는거 찾아보기 */}
-                  <img className="w-14 rounded-md object-cover" src={artwork} alt="thumnail" />
-                  <div className="flex flex-1  items-center  justify-between px-3 opacity-70 hover:opacity-100 focus:outline-none  ">
-                    <div className="flex flex-col gap-0">
-                      <div>{title}</div>
-                      <div className="text-xs text-gray-600">{artist}</div>
-                    </div>
-                    <div className="text-sm">{formatTime(duration)}</div>
+                {/* 이미지 가져오는거 찾아보기 */}
+                <img className="w-14 rounded-md object-cover" src={artwork} alt="thumnail" />
+                <div className="flex flex-1  items-center  justify-between px-3 opacity-70 hover:opacity-100 focus:outline-none  ">
+                  <div className="flex flex-col gap-0">
+                    <div>{title}</div>
+                    <div className="text-xs text-gray-600">{artist}</div>
                   </div>
+                  <div className="text-sm">{formatTime(duration)}</div>
                 </div>
-              ))}
-          </div>
-        </TabGroup>
-      </div>
+              </div>
+            ))}
+        </div>
+      </TabGroup>
     </div>
   );
 };
