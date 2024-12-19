@@ -1,4 +1,4 @@
-import trackPlayer from "./internal";
+import trackPlayer from "./trackPlayer";
 
 export async function setupPlayer() {
   // const deviceId = await navigator.mediaDevices.enumerateDevices();

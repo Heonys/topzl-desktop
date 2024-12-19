@@ -1,6 +1,6 @@
 import Hls from "hls.js";
 
-class TrackPlayerInternal {
+class TrackPlayer {
   private audioContext: AudioContext;
   private audio: HTMLAudioElement;
   private hls: Hls;
@@ -110,7 +110,7 @@ class TrackPlayerInternal {
   }
 }
 
-const trackPlayer = new TrackPlayerInternal();
+const trackPlayer = new TrackPlayer();
 export default trackPlayer;
 
 function encodeUrlHeaders(originalUrl: string, headers?: Record<string, string>) {

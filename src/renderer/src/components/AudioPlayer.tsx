@@ -1,4 +1,4 @@
-import trackPlayer from "@shared/plugin/internal";
+import trackPlayer from "@shared/plugin/trackPlayer";
 
 const AudioPlayer = () => {
   const handlePause = () => {

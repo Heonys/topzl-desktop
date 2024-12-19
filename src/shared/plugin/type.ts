@@ -1,4 +1,4 @@
-type SupportMediaType = "music" | "album" | "sheet" | "artist";
+export type SupportMediaType = "music" | "album" | "sheet" | "artist";
 
 export type MusicItem = {
   album: string;
@@ -10,14 +10,16 @@ export type MusicItem = {
   url_slug: string;
 };
 
-type SearchFunc = (
-  query: string,
-  page: number,
-  type: SupportMediaType,
-) => Promise<{
+export type AlbumItem = any;
+export type ArtistItem = any;
+export type MusicSheetItem = any;
+
+export type SearchResult = {
   isEnd?: boolean;
   data: MusicItem[];
-}>;
+};
+
+type SearchFunc = (query: string, page: number, type: SupportMediaType) => Promise<SearchResult>;
 
 export interface PluginDefine {
   platform: string;

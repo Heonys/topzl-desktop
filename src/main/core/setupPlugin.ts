@@ -1,4 +1,4 @@
-import type { PluginDefine } from "@shared/plugin/type";
+import type { PluginDefine, SupportMediaType } from "@shared/plugin/type";
 import { app } from "electron";
 import fs from "fs-extra";
 import path from "node:path";
@@ -29,13 +29,13 @@ async function checkPath() {
 
 export async function setupPlugin() {
   await checkPath();
-  ipcMainHandle("call-plugin-method", ({ query, page }) => {
-    return search(query, page);
+  ipcMainHandle("call-plugin-method", ({ query, page, method }) => {
+    return search(query, page, method);
   });
 }
 
-async function search(query: string, page: number) {
-  const result = await plugin.search(query, page, "music");
+async function search(query: string, page: number, method: SupportMediaType) {
+  const result = await plugin.search(query, page, method);
   if (Array.isArray(result.data)) {
     return {
       isEnd: result.isEnd ?? true,

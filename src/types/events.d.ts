@@ -3,6 +3,8 @@ type AppConfigKeyPath = import("@shared/config/type").AppConfigKeyPath;
 type AppConfigKeyPathValue = import("@shared/config/type").AppConfigKeyPathValue;
 type ShortcutKeys = import("@shared/config/type").ShortcutKeys;
 type PluginMethods = import("@shared/plugin/type").PluginDefine;
+type SupportMediaType = import("@shared/plugin/type").SupportMediaType;
+type SearchResult = import("@shared/plugin/type").SearchResult;
 
 declare namespace IpcInvoke {
   // ipcRender.invoke -> ipcMain.handle
@@ -25,11 +27,11 @@ declare namespace IpcInvoke {
       keyPath: T;
       value: AppConfigKeyPathValue<T>;
     }) => Promise<boolean>;
-    "call-plugin-method": <T extends keyof PluginMethods>(arg: {
-      method: T;
+    "call-plugin-method": (arg: {
+      method: SupportMediaType;
       query: string;
       page: number;
-    }) => Promise<ReturnType<PluginMethods[T]>>;
+    }) => Promise<SearchResult>;
   }
 }
 

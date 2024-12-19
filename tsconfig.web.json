@@ -35,7 +35,8 @@
     "src/types/*.d.ts",
     "src/renderer/src/**/*",
     "src/main/ipc/render-events.d.ts",
-    // "src/shared/i18n/renderer.ts",
-    "src/shared/**/renderer.ts"
-, "src/shared/plugin/internal.ts", "src/shared/plugin/player.ts"  ],
+    "src/shared/**/renderer.ts",
+    "src/shared/plugin/trackPlayer.ts",
+    "src/shared/plugin/setup.ts"
+  ],
 }

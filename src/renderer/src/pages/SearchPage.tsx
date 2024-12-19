@@ -21,7 +21,7 @@ export const SearchPage = () => {
   useEffect(() => {
     if (query) {
       setIsLoading(true);
-      search(query, 1).then((res) => {
+      search(query, 1, "music").then((res) => {
         setData(res.data);
         setIsLoading(false);
       });

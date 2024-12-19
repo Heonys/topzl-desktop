@@ -1,8 +1,8 @@
 import { ipcRendererInvoke } from "../ipcRenderer";
-import type { PluginDefine } from "@shared/plugin/type";
+import type { SupportMediaType } from "@shared/plugin/type";
 
 type Props = {
-  method: keyof PluginDefine;
+  method: SupportMediaType;
   query: string;
   page: number;
 };
