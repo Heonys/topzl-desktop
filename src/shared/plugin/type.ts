@@ -59,11 +59,12 @@ export enum PlayerState {
 }
 
 export type EventPayloadMap = {
-  "play-state-changed": PlayerState;
-  "speed-changed": number;
-  "repeat-mode-changed": RepeatMode;
-  "music-changed": MusicItem;
-  "volume-changed": number;
-  "play-end": undefined;
-  "time-updated": CurrentTime;
+  "play-end": undefined; // 재생 종료
+  "music-changed": MusicItem; // 음악 변경
+  "volume-changed": number; // 볼륨 변경
+  "speed-changed": number; // 속도 변경
+  "time-updated": CurrentTime; // progress bar 업데이트
+  "play-state-changed": PlayerState; // 재생상태 변경
+  "repeat-mode-changed": RepeatMode; // 반복모드 변경
+  "play-back-error": string | Event; // 에러 발생
 };

@@ -61,7 +61,6 @@ export const SearchPage = () => {
                   key={id}
                   className="flex h-16 w-full cursor-pointer gap-2 rounded-full px-3 py-1 text-base font-semibold "
                   onDoubleClick={() => {
-                    // const res = await window.plugin.getMediaSource(id);
                     setCurrentItem(item);
                   }}
                 >

@@ -2,16 +2,33 @@ import useCurrentMusic from "@/hooks/useCurrentMusic";
 import trackPlayer from "@shared/plugin/trackPlayer";
 import { setFallbackImage, getDefaultImage, formatTime } from "@/utils";
 import { IconButton } from "./HeaderIconButton";
+import { PlayerState } from "@shared/plugin/type";
 
 export const PlayController = () => {
-  const { currentItem, isPlaying, togglePlaying } = useCurrentMusic();
+  const {
+    currentItem,
+    playerState,
+    currentProgress: { currentTime, duration },
+  } = useCurrentMusic();
+
+  const handleProgressClick = (event: React.MouseEvent) => {
+    if (isFinite(duration) && duration) {
+      trackPlayer.seekTo((duration * event.clientX) / window.innerWidth);
+    }
+  };
 
   return (
     <div className="absolute bottom-0 left-0 z-50 flex h-16 w-full items-center border-t bg-white ">
-      <div className="group absolute -top-1.5 left-0 flex h-3 w-full items-center">
+      <button
+        className="group absolute -top-1.5 left-0 flex h-3 w-full items-center"
+        onClick={handleProgressClick}
+      >
         <div className="absolute h-0.5 w-full bg-[#d8d8d8] transition-all duration-75 ease-linear group-hover:h-1"></div>
-        <div className="absolute h-0.5 w-1/3 bg-blue-600 transition-all duration-75 ease-linear group-hover:h-1"></div>
-      </div>
+        <div
+          className="absolute -left-full h-0.5 w-full bg-blue-600 transition-all duration-75 ease-linear group-hover:h-1"
+          style={{ transform: `translateX(${(currentTime / duration) * 100}%)` }}
+        ></div>
+      </button>
       <div className="box-border h-[48px] w-[360px] px-3">
         {currentItem && (
           <div className="flex items-center gap-3">
@@ -28,7 +45,7 @@ export const PlayController = () => {
                 <div className="max-w-[200px] truncate text-sm opacity-80">
                   {currentItem.artist}
                 </div>
-                <div className="text-sm">{`00:00/${formatTime(currentItem.duration)}`}</div>
+                <div className="text-sm">{`${formatTime(currentTime)}/${formatTime(currentItem.duration)}`}</div>
               </div>
             </div>
           </div>
@@ -38,12 +55,11 @@ export const PlayController = () => {
         <IconButton iconName="skip-previous" size={20} opacity />
         <IconButton
           opacity
-          iconName={isPlaying ? "play" : "pause"}
+          iconName={playerState === PlayerState.Playing ? "pause" : "play"}
           size={23}
           onClick={() => {
-            if (isPlaying) trackPlayer.play();
-            else trackPlayer.pause();
-            togglePlaying();
+            if (playerState === PlayerState.Playing) trackPlayer.pause();
+            else trackPlayer.play();
           }}
         />
         <IconButton iconName="skip-next" size={20} opacity />

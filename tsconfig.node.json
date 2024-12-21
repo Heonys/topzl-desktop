@@ -19,5 +19,6 @@
     "src/preload/**/*",
     "src/types/*.d.ts",
     "src/shared/**/*",
+    "src/renderer/src/atom"
   ],
 }

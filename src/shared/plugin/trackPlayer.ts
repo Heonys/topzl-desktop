@@ -1,11 +1,13 @@
 import Hls from "hls.js";
-import { MusicItem } from "./type";
+import { MusicItem, PlayerState } from "./type";
+import playerEventEmitter from "./eventEmitter";
 
 class TrackPlayer {
   private audioContext: AudioContext;
   private audio: HTMLAudioElement;
   private hls: Hls;
-  private currentMusic: any;
+  private currentMusic!: MusicItem;
+  private playerState!: PlayerState;
 
   constructor() {
     this.audioContext = new AudioContext();
@@ -18,10 +20,53 @@ class TrackPlayer {
     this.hls.on(Hls.Events.ERROR, (e, data) => {
       console.log("hls error", e, data);
     });
+
+    this.registerEvents();
   }
 
   private hasSource() {
     return !!this.audio.src;
+  }
+
+  private setPlayerState(state: PlayerState) {
+    this.playerState = state;
+    playerEventEmitter.emit("play-state-changed", state);
+  }
+
+  private registerEvents() {
+    this.audio.onplaying = () => {
+      this.setPlayerState(PlayerState.Playing);
+      navigator.mediaSession.playbackState = "playing";
+    };
+
+    this.audio.onpause = () => {
+      this.setPlayerState(PlayerState.Paused);
+      navigator.mediaSession.playbackState = "paused";
+    };
+
+    this.audio.onerror = (event) => {
+      this.setPlayerState(PlayerState.Paused);
+      playerEventEmitter.emit("play-back-error", event);
+    };
+
+    this.audio.ontimeupdate = () => {
+      playerEventEmitter.emit("time-updated", {
+        currentTime: this.audio.currentTime,
+        duration: this.audio.duration,
+      });
+    };
+
+    this.audio.onended = () => {
+      playerEventEmitter.emit("play-end");
+    };
+
+    this.audio.onvolumechange = () => {
+      playerEventEmitter.emit("volume-changed", this.audio.volume);
+    };
+
+    this.audio.onratechange = () => {
+      playerEventEmitter.emit("speed-changed", this.audio.playbackRate);
+    };
   }
 
   /** 设置音源 */
@@ -111,6 +156,34 @@ class TrackPlayer {
   }
   getAudioElement() {
     return this.audio;
+  }
+
+  seekTo(seconds: number) {
+    if (this.hasSource() && isFinite(seconds)) {
+      const duration = this.audio.duration;
+      this.audio.currentTime = Math.min(seconds, isNaN(duration) ? Infinity : duration);
+    }
+  }
+
+  setLoop(isLoop: boolean) {
+    this.audio.loop = isLoop;
+  }
+
+  isPlaying() {
+    return !this.audio.paused;
+  }
+
+  clear() {
+    this.setPlayerState(PlayerState.Paused);
+    this.audio.src = "";
+    this.audio.removeAttribute("src");
+    navigator.mediaSession.metadata = null;
+    navigator.mediaSession.playbackState = "none";
+  }
+
+  setSpeed(speed: number) {
+    this.audio.defaultPlaybackRate = speed;
+    this.audio.playbackRate = speed;
   }
 
   async setSinkId(deviceId: string) {
