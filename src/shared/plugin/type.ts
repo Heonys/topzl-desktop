@@ -5,8 +5,8 @@ export type MusicItem = {
   artist: string;
   artwork: string;
   duration: number;
-  id: number;
   title: string;
+  id: number;
   url_slug: string;
 };
 
@@ -30,7 +30,7 @@ export interface PluginDefine {
   cacheControl: "cache" | "no-cache" | "no-store";
   supportedSearchType: SupportMediaType[];
   search: SearchFunc;
-  getMediaSourc: () => void;
+  getMediaSource: (id: number) => Promise<{ url: string }>;
   getAlbumInfo: () => void;
   getMusicSheetInfo: () => void;
   getArtistWorks: () => void;
@@ -39,3 +39,31 @@ export interface PluginDefine {
   getTopLists: () => void;
   getTopListDetail: () => void;
 }
+
+export enum RepeatMode {
+  Shuffle = "shuffle",
+  Queue = "queue-repeat",
+  Loop = "loop",
+}
+
+export type CurrentTime = {
+  currentTime: number;
+  duration: number;
+};
+
+export enum PlayerState {
+  None,
+  Playing,
+  Paused,
+  Buffering,
+}
+
+export type EventPayloadMap = {
+  "play-state-changed": PlayerState;
+  "speed-changed": number;
+  "repeat-mode-changed": RepeatMode;
+  "music-changed": MusicItem;
+  "volume-changed": number;
+  "play-end": undefined;
+  "time-updated": CurrentTime;
+};

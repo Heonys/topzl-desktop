@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { RootLayout, MainLayout, HeaderFrame, SideFrame } from "@/components";
+import { RootLayout, MainLayout, HeaderFrame, SideFrame, PlayController } from "@/components";
 
 const App = () => {
   return (
@@ -9,6 +9,7 @@ const App = () => {
         <SideFrame />
         <Outlet />
       </MainLayout>
+      <PlayController />
     </RootLayout>
   );
 };

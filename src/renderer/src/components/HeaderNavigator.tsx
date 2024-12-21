@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { HeaderIconButton } from "./HeaderIconButton";
+import { IconButton } from "./HeaderIconButton";
 
 export const HeaderNavigator = () => {
   const navigate = useNavigate();
 
   return (
     <div className="region-none flex gap-1 rounded-xl bg-white p-1 px-2 ">
-      <HeaderIconButton
+      <IconButton
         iconName="previous"
         title="previous"
         size={25}
@@ -14,7 +14,7 @@ export const HeaderNavigator = () => {
           navigate(-1);
         }}
       />
-      <HeaderIconButton
+      <IconButton
         iconName="next"
         title="next"
         size={25}

@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";
 import StaticIcon from "@/icons/StaticIcon";
-import { HeaderIconButton } from "@/components/HeaderIconButton";
+import { IconButton } from "@/components/HeaderIconButton";
 import logo from "@resources/logo.png";
 import { useNavigate } from "react-router-dom";
 
@@ -61,7 +61,7 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
         </div>
         {options.map(({ iconName, title, route }) => {
           return (
-            <HeaderIconButton
+            <IconButton
               key={route}
               iconName={iconName}
               title={title}

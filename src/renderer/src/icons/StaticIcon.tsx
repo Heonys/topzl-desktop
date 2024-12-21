@@ -7,14 +7,17 @@ import { RxDividerVertical, RxDividerHorizontal } from "react-icons/rx";
 import { VscChromeMaximize } from "react-icons/vsc";
 import { PiPushPinFill, PiVinylRecordDuotone, PiDownloadDuotone } from "react-icons/pi";
 import { IoLanguage, IoSearch, IoStatsChart } from "react-icons/io5";
-import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
-import { FaGithub } from "react-icons/fa";
+import { MdDarkMode, MdOutlineLightMode, MdLyrics, MdOutlineSpeed } from "react-icons/md";
+import { FaGithub, FaPlay, FaPause } from "react-icons/fa";
 import { GoHeart } from "react-icons/go";
 import { GrFormPreviousLink, GrFormNextLink, GrFormRefresh } from "react-icons/gr";
 import { HiOutlineTrophy } from "react-icons/hi2";
 import { IoFolderOpenOutline } from "react-icons/io5";
 import { HiOutlineCodeBracketSquare } from "react-icons/hi2";
 import { FaPlus } from "react-icons/fa6";
+import { IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
+import { BiSolidVolumeFull, BiSolidVolumeMute, BiSolidPlaylist } from "react-icons/bi";
+import { LuRepeat, LuRepeat1, LuShuffle } from "react-icons/lu";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -43,6 +46,18 @@ const IconMap = {
   ["forder-open"]: IoFolderOpenOutline,
   ["code-bracket-sqare"]: HiOutlineCodeBracketSquare,
   ["plus"]: FaPlus,
+  ["play"]: FaPlay,
+  ["pause"]: FaPause,
+  ["skip-next"]: IoMdSkipForward,
+  ["skip-previous"]: IoMdSkipBackward,
+  ["lyric"]: MdLyrics,
+  ["volume"]: BiSolidVolumeFull,
+  ["mute"]: BiSolidVolumeMute,
+  ["playlist"]: BiSolidPlaylist,
+  ["repeat"]: LuRepeat,
+  ["repeat-1"]: LuRepeat1,
+  ["shuffle"]: LuShuffle,
+  ["speed"]: MdOutlineSpeed,
 };
 
 type Props = {

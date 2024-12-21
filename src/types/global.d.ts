@@ -23,6 +23,7 @@ declare global {
     };
     plugin: {
       callPluginMethod: IpcInvoke.Renderer["call-plugin-method"];
+      getMediaSource: IpcInvoke.Renderer["get-media-source"];
     };
   }
 }

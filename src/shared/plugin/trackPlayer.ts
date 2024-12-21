@@ -1,4 +1,5 @@
 import Hls from "hls.js";
+import { MusicItem } from "./type";
 
 class TrackPlayer {
   private audioContext: AudioContext;
@@ -24,7 +25,14 @@ class TrackPlayer {
   }
 
   /** 设置音源 */
-  setTrackSource(trackSource: any, musicItem: any) {
+  setTrackSource(
+    trackSource: {
+      headers?: Record<string, string>;
+      url: string;
+      userAgent?: string;
+    },
+    musicItem: MusicItem,
+  ) {
     let url = trackSource.url;
     if (trackSource.headers || trackSource.userAgent) {
       const trackSourceHeaders = trackSource.headers ?? {};

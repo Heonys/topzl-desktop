@@ -341,11 +341,7 @@ async function getMusicSheetInfo(sheet: IMusicSheet.IMusicSheetItem, page) {
   };
 }
 
-async function getMediaSource(musicItem, quality: "low" | "standard" | "high" | "super") {
-  if (quality !== "standard") {
-    return;
-  }
-
+async function getMediaSource(musicItemId) {
   const params = {
     environment: "desktop-web",
     hq: true,
@@ -356,10 +352,10 @@ async function getMediaSource(musicItem, quality: "low" | "standard" | "high" | 
     oauth_version: "1.0",
     section: "/search",
   };
-  const oauth_signature = getSignature("GET", `/music/play/${musicItem.id}`, params);
+  const oauth_signature = getSignature("GET", `/music/play/${musicItemId}`, params);
 
   const res = (
-    await axios.get(`https://api.audiomack.com/v1/music/play/${musicItem.id}`, {
+    await axios.get(`https://api.audiomack.com/v1/music/play/${musicItemId}`, {
       headers: {
         ...headers,
         origin: "https://audiomack.com",

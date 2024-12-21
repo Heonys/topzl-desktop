@@ -32,6 +32,9 @@ export async function setupPlugin() {
   ipcMainHandle("call-plugin-method", ({ query, page, method }) => {
     return search(query, page, method);
   });
+  ipcMainHandle("get-media-source", (id: number) => {
+    return plugin.getMediaSource(id);
+  });
 }
 
 async function search(query: string, page: number, method: SupportMediaType) {

@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useNavigate } from "react-router-dom";
-import { HeaderNavigator, HeaderIconButton } from "@/components";
+import { HeaderNavigator, IconButton } from "@/components";
 import StaticIcon from "@/icons/StaticIcon";
 
 export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
@@ -41,24 +41,24 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
       </div>
       <div className="region-none flex h-full items-center pr-4 text-2xl">
         <div className="flex gap-3 rounded-xl border bg-white p-1 px-2">
-          <HeaderIconButton iconName="sparkles" title="sparkles" />
-          <HeaderIconButton iconName="language" title="language" />
-          <HeaderIconButton iconName="t-shirt" title="t-shirt" />
-          <HeaderIconButton iconName="dark-mode" title="dark-mode" />
-          <HeaderIconButton iconName="cog-8-tooth" title="cog-8-tooth" />
-          <HeaderIconButton iconName="push-pin" title="push-pin" />
+          <IconButton iconName="sparkles" title="sparkles" />
+          <IconButton iconName="language" title="language" />
+          <IconButton iconName="t-shirt" title="t-shirt" />
+          <IconButton iconName="dark-mode" title="dark-mode" />
+          <IconButton iconName="cog-8-tooth" title="cog-8-tooth" />
+          <IconButton iconName="push-pin" title="push-pin" />
         </div>
         <div className="flex w-5 justify-center opacity-20">
           <StaticIcon iconName={"divider-vertical"} color="black" />
         </div>
         <div className="flex gap-3 rounded-xl border bg-white p-1 px-2">
-          <HeaderIconButton iconName="picture-in-picture" title="pip" />
-          <HeaderIconButton
+          <IconButton iconName="picture-in-picture" title="pip" />
+          <IconButton
             iconName="minimize"
             title="minimize"
             onClick={() => window.action.sendFrameAction("MINIMIZE")}
           />
-          <HeaderIconButton
+          <IconButton
             iconName="x-mark"
             title="close"
             onClick={() => window.action.sendFrameAction("CLOSE")}

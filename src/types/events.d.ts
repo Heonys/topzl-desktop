@@ -2,7 +2,7 @@ type AppConfig = import("@shared/config/type").AppConfig;
 type AppConfigKeyPath = import("@shared/config/type").AppConfigKeyPath;
 type AppConfigKeyPathValue = import("@shared/config/type").AppConfigKeyPathValue;
 type ShortcutKeys = import("@shared/config/type").ShortcutKeys;
-type PluginMethods = import("@shared/plugin/type").PluginDefine;
+// type PluginMethods = import("@shared/plugin/type").PluginDefine;
 type SupportMediaType = import("@shared/plugin/type").SupportMediaType;
 type SearchResult = import("@shared/plugin/type").SearchResult;
 
@@ -32,6 +32,7 @@ declare namespace IpcInvoke {
       query: string;
       page: number;
     }) => Promise<SearchResult>;
+    "get-media-source": (id: number) => Primise<{ url: string }>;
   }
 }
 
