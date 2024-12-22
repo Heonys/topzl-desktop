@@ -29,10 +29,10 @@ export const SearchPage = () => {
   }, [query, mediaType, search]);
 
   return (
-    <div className="box-border flex size-full select-text flex-col items-start px-10 font-bold">
+    <div className="box-border flex size-full select-text flex-col items-start px-5 font-bold">
       <div className="mb-2 mt-5 text-3xl font-medium text-gray-500">
         Search Results for
-        <span className=" text-red-500">{` "${query}"`}</span>
+        <span className=" text-black">{` "${query}"`}</span>
       </div>
 
       <TabGroup
@@ -71,7 +71,7 @@ export const SearchPage = () => {
                     alt="thumnail"
                     onError={setFallbackImage}
                   />
-                  <div className="flex flex-1  items-center  justify-between px-3 opacity-70 hover:opacity-100 focus:outline-none  ">
+                  <div className="flex flex-1 items-center justify-between px-3 opacity-70 hover:bg-blue-100 hover:opacity-100 focus:outline-none  ">
                     <div className="flex flex-col gap-0">
                       <div>{title}</div>
                       <div className="text-xs text-gray-600">{artist}</div>

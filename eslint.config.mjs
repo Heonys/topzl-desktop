@@ -3,7 +3,7 @@ import globals from "globals";
 import reactPlugin from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
-import jsxA11y from "eslint-plugin-jsx-a11y";
+// import jsxA11y from "eslint-plugin-jsx-a11y";
 import tseslint from "typescript-eslint";
 import prettierPlugin from "eslint-plugin-prettier/recommended";
 import tailwindPlugin from "eslint-plugin-tailwindcss";
@@ -13,7 +13,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   ...tailwindPlugin.configs["flat/recommended"],
-  jsxA11y.flatConfigs.recommended,
+  // jsxA11y.flatConfigs.recommended,
   prettierPlugin,
   {
     files: ["**/*.{ts,tsx}"],

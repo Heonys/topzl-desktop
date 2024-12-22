@@ -16,7 +16,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
   return (
     <header
       className={twMerge(
-        "draggable w-full pl-5 h-12 flex items-center box-border justify-between z-50 py-2 mt-1 bg-[#efefef]",
+        "draggable w-full pl-5 h-12 flex items-center box-border justify-between py-2 mt-1 bg-[#efefef]",
         className,
       )}
       {...props}

@@ -18,6 +18,8 @@ export const mediaSourceAtom = loadable(mediaSourceAtomAsync);
 
 // export const searchResultAtom = atom({});
 
+export const musicDetailVisibleAtom = atom(false);
+
 //  이벤트
 export const initProgress = {
   currentTime: 0,

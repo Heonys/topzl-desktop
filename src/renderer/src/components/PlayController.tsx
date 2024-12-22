@@ -3,6 +3,7 @@ import trackPlayer from "@shared/plugin/trackPlayer";
 import { setFallbackImage, getDefaultImage, formatTime } from "@/utils";
 import { IconButton } from "./HeaderIconButton";
 import { PlayerState } from "@shared/plugin/type";
+import useDetail from "@/hooks/useDetail";
 
 export const PlayController = () => {
   const {
@@ -10,6 +11,7 @@ export const PlayController = () => {
     playerState,
     currentProgress: { currentTime, duration },
   } = useCurrentMusic();
+  const { onOpen } = useDetail();
 
   const handleProgressClick = (event: React.MouseEvent) => {
     if (isFinite(duration) && duration) {
@@ -18,7 +20,7 @@ export const PlayController = () => {
   };
 
   return (
-    <div className="absolute bottom-0 left-0 z-50 flex h-16 w-full items-center border-t bg-white ">
+    <div className="region-none absolute bottom-0 left-0 flex h-16 w-full items-center border-t bg-white ">
       <button
         className="group absolute -top-1.5 left-0 flex h-3 w-full items-center"
         onClick={handleProgressClick}
@@ -38,6 +40,7 @@ export const PlayController = () => {
               alt="currentMusic"
               src={getDefaultImage(currentItem.artwork)}
               onError={setFallbackImage}
+              onClick={onOpen}
             ></img>
             <div className="flex max-w-[calc(100%-50px)] flex-1 flex-col">
               <div className="truncate">{currentItem.title}</div>

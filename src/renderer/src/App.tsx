@@ -1,5 +1,7 @@
+import { createPortal } from "react-dom";
 import { Outlet } from "react-router-dom";
 import { RootLayout, MainLayout, HeaderFrame, SideFrame, PlayController } from "@/components";
+import MusicDetail from "./components/MusicDetail";
 
 const App = () => {
   return (
@@ -10,6 +12,7 @@ const App = () => {
         <Outlet />
       </MainLayout>
       <PlayController />
+      {createPortal(<MusicDetail />, document.getElementById("detail")!)}
     </RootLayout>
   );
 };

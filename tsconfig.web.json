@@ -36,5 +36,6 @@
     "src/renderer/src/**/*",
     "src/main/ipc/render-events.d.ts",
     "src/shared/**/renderer.ts",
+    "src/shared/plugin/setup.ts"
   ],
 }
