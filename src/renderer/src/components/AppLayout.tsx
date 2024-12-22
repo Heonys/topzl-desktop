@@ -15,7 +15,7 @@ export const MainLayout = ({
   ...props
 }: ComponentPropsWithoutRef<"section">) => {
   return (
-    <section className={twMerge("flex w-full h-full", className)} {...props}>
+    <section className={twMerge("flex w-full h-full relative top-[3.5rem]", className)} {...props}>
       {children}
     </section>
   );

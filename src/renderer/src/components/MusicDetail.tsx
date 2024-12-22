@@ -4,13 +4,21 @@ import { motion, Variants, AnimatePresence } from "motion/react";
 
 const variants: Variants = {
   hidden: {
-    opacity: 0,
+    y: "100%",
   },
   visible: {
-    opacity: 1,
+    y: "0%",
+    transition: {
+      type: "tween",
+      duration: 0.2,
+    },
   },
   exit: {
-    opacity: 0,
+    y: "100%",
+    transition: {
+      type: "tween",
+      duration: 0.2,
+    },
   },
 };
 
@@ -22,13 +30,25 @@ const MusicDetail = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="absolute left-0 top-0 flex size-full items-center justify-center bg-black/80"
+          className="absolute inset-0 size-full bg-black"
           onClick={onClose}
           variants={variants}
           initial="hidden"
           animate="visible"
           exit="exit"
-        ></motion.div>
+        >
+          <div
+            className="size-full blur-3xl brightness-125 contrast-75"
+            style={{ backgroundImage: `url(${currentItem?.artwork})` }}
+          />
+          <div className="absolute left-0 top-0 flex size-full items-center justify-center ">
+            <img
+              className="size-[40vh] rounded-xl object-cover"
+              src={currentItem?.artwork}
+              alt="artwork"
+            />
+          </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );

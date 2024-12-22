@@ -5,12 +5,14 @@ import { Tab, TabGroup, TabList } from "@headlessui/react";
 import { MusicItem, SupportMediaType } from "@shared/plugin/type";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { twMerge } from "tailwind-merge";
 
 export const SearchPage = () => {
   const { query } = useParams();
   const { search } = useSearch();
   const [mediaType, setMediaType] = useState<SupportMediaType>("music");
-  const { setCurrentItem } = useCurrentMusic();
+  const { currentItem, setCurrentItem } = useCurrentMusic();
+
   // 전역상태로 바꾸기
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState<MusicItem[]>([]);
@@ -64,14 +66,20 @@ export const SearchPage = () => {
                     setCurrentItem(item);
                   }}
                 >
-                  {/* TODO: 이미지 가져오는거 찾아보기 */}
                   <img
                     className="w-14 rounded-md object-cover"
                     src={artwork}
                     alt="thumnail"
                     onError={setFallbackImage}
                   />
-                  <div className="flex flex-1 items-center justify-between px-3 opacity-70 hover:bg-blue-100 hover:opacity-100 focus:outline-none  ">
+                  <div
+                    className={twMerge(
+                      "flex flex-1 items-center justify-between rounded-md px-3 opacity-70 focus:outline-none",
+                      id === currentItem?.id
+                        ? "bg-blue-100 opacity-100"
+                        : " hover:bg-gray-100 hover:opacity-100",
+                    )}
+                  >
                     <div className="flex flex-col gap-0">
                       <div>{title}</div>
                       <div className="text-xs text-gray-600">{artist}</div>

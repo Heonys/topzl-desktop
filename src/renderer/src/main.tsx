@@ -8,7 +8,7 @@ import "./global.css";
 bootstrap().then(() => {
   createRoot(document.getElementById("app")!).render(
     <AfterRenderSetup>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} future={{ v7_startTransition: true }} />
     </AfterRenderSetup>,
   );
 });
