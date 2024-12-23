@@ -14,10 +14,10 @@ const usePlayer = () => {
   const asyncMediaSource = useAtomValue(mediaSourceAtom);
   const playerState = useAtomValue(currentPlayerStateAtom);
   const currentProgress = useAtomValue(currentProgressAtom);
+  const volume = useAtomValue(currentVolumeAtom);
+  const speed = useAtomValue(currentSpeedAtom);
 
   const [currentItem, setCurrentItem] = useAtom(currentMusicAtom);
-  const [volume, setVolume] = useAtom(currentVolumeAtom);
-  const [speed, setSpeed] = useAtom(currentSpeedAtom);
   const [repeatMode, setRepeatMode] = useAtom(currentRepeatModeAtom);
 
   const toggleRepeatMode = () => {
@@ -46,9 +46,7 @@ const usePlayer = () => {
     playerState,
     currentProgress,
     volume,
-    setVolume,
     speed,
-    setSpeed,
     repeatMode,
     toggleRepeatMode,
   };

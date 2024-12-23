@@ -8,7 +8,7 @@ import { VscChromeMaximize } from "react-icons/vsc";
 import { PiPushPinFill, PiVinylRecordDuotone, PiDownloadDuotone } from "react-icons/pi";
 import { IoLanguage, IoSearch, IoStatsChart } from "react-icons/io5";
 import { MdDarkMode, MdOutlineLightMode, MdLyrics, MdOutlineSpeed } from "react-icons/md";
-import { FaGithub, FaPlay, FaPause } from "react-icons/fa";
+import { FaGithub, FaPlay, FaPause, FaRegTrashAlt } from "react-icons/fa";
 import { GoHeart } from "react-icons/go";
 import { GrFormPreviousLink, GrFormNextLink, GrFormRefresh } from "react-icons/gr";
 import { HiOutlineTrophy } from "react-icons/hi2";
@@ -58,6 +58,7 @@ const IconMap = {
   ["repeat-1"]: LuRepeat1,
   ["shuffle"]: LuShuffle,
   ["speed"]: MdOutlineSpeed,
+  ["trash"]: FaRegTrashAlt,
 };
 
 type Props = {

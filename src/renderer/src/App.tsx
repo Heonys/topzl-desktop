@@ -10,6 +10,7 @@ import {
 } from "@/components";
 
 import "rc-slider/assets/index.css";
+import CollapsiblePanel from "./components/Layout/CollapsiblePanel";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <SideFrame />
         <Outlet />
       </MainLayout>
+      <CollapsiblePanel />
       <PlayController />
       {createPortal(<MusicDetail />, document.getElementById("detail")!)}
     </RootLayout>

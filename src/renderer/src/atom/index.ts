@@ -20,6 +20,8 @@ export const mediaSourceAtom = loadable(mediaSourceAtomAsync);
 
 export const musicDetailVisibleAtom = atom(false);
 
+export const panelAtom = atom(false);
+
 //  이벤트
 export const initProgress = {
   currentTime: 0,
