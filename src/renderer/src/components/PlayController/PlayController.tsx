@@ -1,17 +1,24 @@
-import useCurrentMusic from "@/hooks/useCurrentMusic";
+import { useRef } from "react";
+import Slider from "rc-slider";
+import usePlayer from "@/hooks/useCurrentMusic";
+import useDetail from "@/hooks/useDetail";
 import trackPlayer from "@shared/plugin/trackPlayer";
 import { setFallbackImage, getDefaultImage, formatTime } from "@/utils";
-import { IconButton } from "./HeaderIconButton";
-import { PlayerState } from "@shared/plugin/type";
-import useDetail from "@/hooks/useDetail";
+import { Switch, Case, IconButton } from "@/common";
+import { PlayerState, RepeatMode } from "@shared/plugin/type";
 
 export const PlayController = () => {
   const {
     currentItem,
     playerState,
     currentProgress: { currentTime, duration },
-  } = useCurrentMusic();
+    volume,
+    setVolume,
+    repeatMode,
+    toggleRepeatMode,
+  } = usePlayer();
   const { onOpen } = useDetail();
+  const lastVolumeRef = useRef<number>();
 
   const handleProgressClick = (event: React.MouseEvent) => {
     if (isFinite(duration) && duration) {
@@ -67,12 +74,60 @@ export const PlayController = () => {
         />
         <IconButton iconName="skip-next" size={20} opacity />
       </div>
+
       <div className="flex h-full w-[360px] items-center justify-end gap-5 px-3 pr-5">
-        <IconButton iconName="speed" size={22} opacity />
-        <IconButton iconName="volume" size={22} opacity />
-        <IconButton iconName="lyric" size={22} opacity />
-        <IconButton iconName="repeat" size={22} opacity />
-        <IconButton iconName="playlist" size={22} opacity />
+        <IconButton iconName="speed" size={18} opacity />
+        <div onClick={toggleRepeatMode}>
+          <Switch switch={repeatMode}>
+            <Case case={RepeatMode.Queue}>
+              <IconButton iconName="repeat" size={20} opacity />
+            </Case>
+            <Case case={RepeatMode.Loop}>
+              <IconButton iconName="repeat-1" size={20} opacity />
+            </Case>
+            <Case case={RepeatMode.Shuffle}>
+              <IconButton iconName="shuffle" size={20} opacity />
+            </Case>
+          </Switch>
+        </div>
+        <div className="flex items-center gap-2">
+          <IconButton
+            onClick={() => {
+              lastVolumeRef.current = lastVolumeRef.current || 0;
+              if (volume === 0) {
+                setVolume(lastVolumeRef.current);
+              } else {
+                lastVolumeRef.current = volume;
+                setVolume(0);
+              }
+            }}
+            iconName={volume === 0 ? "mute" : "volume"}
+            size={18}
+            opacity
+          />
+          <Slider
+            min={0}
+            max={1}
+            step={0.01}
+            value={volume}
+            className="w-20 cursor-pointer"
+            onChange={(volume) => {
+              setVolume(volume as number);
+            }}
+            styles={{
+              track: {
+                background: "black",
+              },
+              handle: {
+                visibility: "hidden",
+              },
+              rail: {
+                background: "#d8d8d8",
+              },
+            }}
+          />
+        </div>
+        <IconButton iconName="playlist" size={18} opacity />
       </div>
     </div>
   );

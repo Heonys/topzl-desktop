@@ -1,4 +1,4 @@
-import useCurrentMusic from "@/hooks/useCurrentMusic";
+import usePlayer from "@/hooks/useCurrentMusic";
 import useSearch from "@/hooks/useSearch";
 import { formatTime, setFallbackImage } from "@/utils";
 import { Tab, TabGroup, TabList } from "@headlessui/react";
@@ -11,7 +11,7 @@ export const SearchPage = () => {
   const { query } = useParams();
   const { search } = useSearch();
   const [mediaType, setMediaType] = useState<SupportMediaType>("music");
-  const { currentItem, setCurrentItem } = useCurrentMusic();
+  const { currentItem, setCurrentItem } = usePlayer();
 
   // 전역상태로 바꾸기
   const [isLoading, setIsLoading] = useState(false);

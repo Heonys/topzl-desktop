@@ -1,9 +1,9 @@
 import { ComponentPropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";
-import StaticIcon from "@/icons/StaticIcon";
-import { IconButton } from "@/components/HeaderIconButton";
-import logo from "@resources/logo.png";
 import { useNavigate } from "react-router-dom";
+import StaticIcon from "@/icons/StaticIcon";
+import { IconButton } from "@/common/IconButton";
+import logo from "@resources/logo.png";
 
 type OptionTypes = {
   iconName: ComponentPropsWithoutRef<typeof StaticIcon>["iconName"];

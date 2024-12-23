@@ -1,2 +1,2 @@
-export * from "./Layout";
+export * from "./MusicDetail";
 export * from "./PlayController";

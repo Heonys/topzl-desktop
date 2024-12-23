@@ -26,7 +26,7 @@ export const initProgress = {
   duration: Infinity,
 };
 export const currentProgressAtom = atom(initProgress);
-export const currentVolumeAtom = atom(1);
+export const currentVolumeAtom = atom(0.5);
 export const currentSpeedAtom = atom(1);
 export const currentRepeatModeAtom = atom(RepeatMode.Queue);
 export const currentPlayerStateAtom = atom(PlayerState.None);

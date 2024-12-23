@@ -1,8 +1,9 @@
 import { ComponentPropsWithoutRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useNavigate } from "react-router-dom";
-import { HeaderNavigator, IconButton } from "@/components";
+import { HeaderNavigator } from "@/components";
 import StaticIcon from "@/icons/StaticIcon";
+import { IconButton } from "@/common";
 
 export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
   const navigate = useNavigate();

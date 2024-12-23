@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { IconButton } from "./HeaderIconButton";
+import { IconButton } from "@/common";
 
 export const HeaderNavigator = () => {
   const navigate = useNavigate();

@@ -1,7 +1,15 @@
 import { createPortal } from "react-dom";
 import { Outlet } from "react-router-dom";
-import { RootLayout, MainLayout, HeaderFrame, SideFrame, PlayController } from "@/components";
-import MusicDetail from "./components/MusicDetail";
+import {
+  RootLayout,
+  MainLayout,
+  HeaderFrame,
+  SideFrame,
+  PlayController,
+  MusicDetail,
+} from "@/components";
+
+import "rc-slider/assets/index.css";
 
 const App = () => {
   return (

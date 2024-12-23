@@ -1,6 +1,6 @@
-import useCurrentMusic from "@/hooks/useCurrentMusic";
-import useDetail from "@/hooks/useDetail";
 import { motion, Variants, AnimatePresence } from "motion/react";
+import usePlayer from "@/hooks/useCurrentMusic";
+import useDetail from "@/hooks/useDetail";
 
 const variants: Variants = {
   hidden: {
@@ -22,9 +22,9 @@ const variants: Variants = {
   },
 };
 
-const MusicDetail = () => {
+export const MusicDetail = () => {
   const { isVisible, onClose } = useDetail();
-  const { currentItem } = useCurrentMusic();
+  const { currentItem } = usePlayer();
 
   return (
     <AnimatePresence>
@@ -53,5 +53,3 @@ const MusicDetail = () => {
     </AnimatePresence>
   );
 };
-
-export default MusicDetail;
