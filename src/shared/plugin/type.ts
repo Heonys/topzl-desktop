@@ -19,6 +19,23 @@ export type SearchResult = {
   data: MusicItem[];
 };
 
+export type CurrentLyric = {
+  time: number; // 시간(초)
+  lrc: string; // 가사
+  index: number; // 위치
+  translation?: string; // 번역
+};
+
+export type SearchedLyric = {
+  isEnd: boolean;
+  data: {
+    title: string;
+    artist: string;
+    album: string;
+    id: string | undefined;
+  }[];
+};
+
 type SearchFunc = (query: string, page: number, type: SupportMediaType) => Promise<SearchResult>;
 
 export interface PluginDefine {

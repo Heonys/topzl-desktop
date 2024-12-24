@@ -6,9 +6,10 @@ type Props = {
   iconName: ComponentPropsWithoutRef<typeof StaticIcon>["iconName"];
   size?: number;
   opacity?: boolean;
+  color?: string;
 } & ComponentPropsWithoutRef<"button">;
 
-export const IconButton = ({ iconName, size = 20, opacity, ...props }: Props) => {
+export const IconButton = ({ iconName, size = 20, color = "black", opacity, ...props }: Props) => {
   return (
     <button
       className={twMerge(
@@ -17,7 +18,7 @@ export const IconButton = ({ iconName, size = 20, opacity, ...props }: Props) =>
       )}
       {...props}
     >
-      <StaticIcon iconName={iconName} color="black" size={size} />
+      <StaticIcon iconName={iconName} color={color} size={size} />
     </button>
   );
 };

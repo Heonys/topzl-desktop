@@ -24,6 +24,8 @@ declare global {
     plugin: {
       callPluginMethod: IpcInvoke.Renderer["call-plugin-method"];
       getMediaSource: IpcInvoke.Renderer["get-media-source"];
+      searchLyric: IpcInvoke.Renderer["search-lyric"];
+      getLyric: IpcInvoke.Renderer["get-lyric"];
     };
   }
 }

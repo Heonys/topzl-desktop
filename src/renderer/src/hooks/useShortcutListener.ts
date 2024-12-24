@@ -1,7 +1,7 @@
 import { changeLanguage } from "@shared/i18n/renderer";
 import { useEffect } from "react";
 
-const useShortcutListener = () => {
+export const useShortcutListener = () => {
   useEffect(() => {
     const cleanUpFn = window.shortcut.setupNavigate((url) => {
       // 함수로 분리
@@ -19,5 +19,3 @@ const useShortcutListener = () => {
     return cleanUpFn;
   }, []);
 };
-
-export default useShortcutListener;

@@ -1,7 +1,7 @@
 import { musicDetailVisibleAtom } from "@/atom";
 import { useAtom } from "jotai";
 
-const useDetail = () => {
+export const useDetail = () => {
   const [isVisible, setIsVisible] = useAtom(musicDetailVisibleAtom);
 
   const onOpen = () => {
@@ -13,5 +13,3 @@ const useDetail = () => {
 
   return { isVisible, onOpen, onClose };
 };
-
-export default useDetail;

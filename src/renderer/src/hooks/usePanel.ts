@@ -1,7 +1,7 @@
 import { panelAtom } from "@/atom";
 import { useAtom } from "jotai";
 
-const usePanel = () => {
+export const usePanel = () => {
   const [isVisible, setIsVisible] = useAtom(panelAtom);
 
   const onToggle = () => {
@@ -13,5 +13,3 @@ const usePanel = () => {
     onToggle,
   };
 };
-
-export default usePanel;

@@ -15,7 +15,16 @@ function getMediaSource(id: number) {
   return ipcRendererInvoke("get-media-source", id);
 }
 
+function searchLyric(query: string) {
+  return ipcRendererInvoke("search-lyric", query);
+}
+function getLyric(url: string) {
+  return ipcRendererInvoke("get-lyric", url);
+}
+
 export const plugin = {
   callPluginMethod,
   getMediaSource,
+  searchLyric,
+  getLyric,
 } satisfies Window["plugin"];

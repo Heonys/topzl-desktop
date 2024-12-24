@@ -1,16 +1,13 @@
 import { useRef, useState } from "react";
 import Slider from "rc-slider";
-import usePlayer from "@/hooks/useCurrentMusic";
-import useDetail from "@/hooks/useDetail";
 import trackPlayer from "@shared/plugin/trackPlayer";
 import { setFallbackImage, getDefaultImage, formatTime } from "@/utils";
 import { Switch, Case, IconButton } from "@/common";
 import { PlayerState, RepeatMode } from "@shared/plugin/type";
-import usePanel from "@/hooks/usePanel";
+import { usePanel, useDetail, usePlayer, useCurrentMusic } from "@/hooks";
 
 export const PlayController = () => {
   const {
-    currentItem,
     playerState,
     currentProgress: { currentTime, duration },
     volume,
@@ -18,6 +15,7 @@ export const PlayController = () => {
     repeatMode,
     toggleRepeatMode,
   } = usePlayer();
+  const { currentItem } = useCurrentMusic();
   const { onOpen } = useDetail();
   const { onToggle } = usePanel();
   const lastVolumeRef = useRef<number>();

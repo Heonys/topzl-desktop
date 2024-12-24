@@ -1,8 +1,8 @@
-import { IconButton } from "@/common";
-import usePlayer from "@/hooks/useCurrentMusic";
-import usePanel from "@/hooks/usePanel";
-import { formatTime } from "@/utils";
 import { motion, AnimatePresence, Variants } from "motion/react";
+import { IconButton } from "@/common";
+import { useCurrentMusic } from "@/hooks/useCurrentMusic";
+import { usePanel } from "@/hooks";
+import { formatTime } from "@/utils";
 
 const variants: Variants = {
   hidden: {
@@ -26,7 +26,7 @@ const variants: Variants = {
 
 const CollapsiblePanel = () => {
   const { isVisible, onToggle } = usePanel();
-  const { currentItem } = usePlayer();
+  const { currentItem } = useCurrentMusic();
 
   return (
     <AnimatePresence>

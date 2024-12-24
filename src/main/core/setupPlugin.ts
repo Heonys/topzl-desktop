@@ -4,6 +4,7 @@ import fs from "fs-extra";
 import path from "node:path";
 import _plugin from "@shared/plugin";
 import { ipcMainHandle } from "@/ipc/main";
+import lyric from "@shared/plugin/lyric";
 
 const plugin = _plugin as unknown as PluginDefine;
 
@@ -32,8 +33,14 @@ export async function setupPlugin() {
   ipcMainHandle("call-plugin-method", ({ query, page, method }) => {
     return search(query, page, method);
   });
-  ipcMainHandle("get-media-source", (id: number) => {
+  ipcMainHandle("get-media-source", (id) => {
     return plugin.getMediaSource(id);
+  });
+  ipcMainHandle("search-lyric", (query) => {
+    return lyric.search(query);
+  });
+  ipcMainHandle("get-lyric", (searchUrl) => {
+    return lyric.getLyric(searchUrl);
   });
 }
 

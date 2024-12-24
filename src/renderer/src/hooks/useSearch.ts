@@ -1,7 +1,7 @@
 import { SupportMediaType } from "@shared/plugin/type";
 import { useCallback } from "react";
 
-const useSearch = () => {
+export const useSearch = () => {
   // const currentQueryRef = useRef("");
   /*
     최근 검색어 저장
@@ -32,5 +32,3 @@ const useSearch = () => {
 
   return { search };
 };
-
-export default useSearch;
