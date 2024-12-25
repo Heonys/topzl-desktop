@@ -33,8 +33,7 @@ declare namespace IpcInvoke {
       page: number;
     }) => Promise<SearchResult>;
     "get-media-source": (id: number) => Primise<{ url: string }>;
-    "search-lyric": (query: string) => Promise<SearchedLyric>;
-    "get-lyric": (searchUrl: string) => Promise<{ rawLrc: string }>;
+    "search-lyric": (query: string) => Promise<string>;
   }
 }
 

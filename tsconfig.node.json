@@ -3,7 +3,7 @@
     "types": ["node", "electron-vite/node"],
     "strict": true,
     "target": "ESNext",
-    "module": "CommonJS",
+    "module": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,

@@ -18,6 +18,14 @@ export const mediaSourceAtom = loadable(mediaSourceAtomAsync);
 
 // export const searchResultAtom = atom({});
 
+const lyricAtomAsync = atom(async (get) => {
+  const currentMusic = get(currentMusicAtom);
+  if (!currentMusic) return null;
+  return window.plugin.searchLyric(currentMusic.title);
+});
+
+export const lyricAtom = loadable(lyricAtomAsync);
+
 export const musicDetailVisibleAtom = atom(false);
 
 export const panelAtom = atom(false);

@@ -2838,6 +2838,14 @@ gauge@^4.0.3:
     strip-ansi "^6.0.1"
     wide-align "^1.1.5"
 
+genius-lyrics@^4.4.7:
+  version "4.4.7"
+  resolved "https://registry.yarnpkg.com/genius-lyrics/-/genius-lyrics-4.4.7.tgz#aa3551eb8e73aaa383d4ea3fa0d7bca3d933a02c"
+  integrity sha512-cgO5nSeFqtLZAUyWB+8XWMRBIRzPUSUC42N3CoDGRgKX1anGAyDUhM6/RVIJXCNnQa6XHZHswKcKgHaRiyl+GQ==
+  dependencies:
+    node-html-parser "^6.1.13"
+    undici "^6.11.1"
+
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
@@ -3046,6 +3054,11 @@ hasown@^2.0.0, hasown@^2.0.1, hasown@^2.0.2:
   integrity sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==
   dependencies:
     function-bind "^1.1.2"
+
+he@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
+  integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
 hls.js@^1.5.17:
   version "1.5.17"
@@ -3940,6 +3953,14 @@ node-gyp@^9.0.0:
     semver "^7.3.5"
     tar "^6.1.2"
     which "^2.0.2"
+
+node-html-parser@^6.1.13:
+  version "6.1.13"
+  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-6.1.13.tgz#a1df799b83df5c6743fcd92740ba14682083b7e4"
+  integrity sha512-qIsTMOY4C/dAa5Q5vsobRpOOvPfC4pB61UVW2uSwZNUp0QU/jCekTal1vMmbO0DgdHeLUJpv/ARmDqErVxA3Sg==
+  dependencies:
+    css-select "^5.1.0"
+    he "1.2.0"
 
 node-releases@^2.0.18:
   version "2.0.18"
@@ -5225,7 +5246,7 @@ undici-types@~6.20.0:
   resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-6.20.0.tgz#8171bf22c1f588d1554d55bf204bc624af388433"
   integrity sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==
 
-undici@^6.19.5:
+undici@^6.11.1, undici@^6.19.5:
   version "6.21.0"
   resolved "https://registry.yarnpkg.com/undici/-/undici-6.21.0.tgz#4b3d3afaef984e07b48e7620c34ed8a285ed4cd4"
   integrity sha512-BUgJXc752Kou3oOIuU1i+yZZypyZRqNPW0vqoMPl8VaoalSfeR0D8/t4iAS3yirs79SSMTxTag+ZC86uswv+Cw==

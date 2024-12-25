@@ -4,8 +4,10 @@ import fs from "fs-extra";
 import path from "node:path";
 import _plugin from "@shared/plugin";
 import { ipcMainHandle } from "@/ipc/main";
-import lyric from "@shared/plugin/lyric";
+import Genius from "genius-lyrics";
 
+const ACCESS_TOKEN = import.meta.env.MAIN_VITE_GENIUS_ACCESS_TOKEN;
+const client = new Genius.Client(ACCESS_TOKEN);
 const plugin = _plugin as unknown as PluginDefine;
 
 let _pluginPath: string;
@@ -36,11 +38,30 @@ export async function setupPlugin() {
   ipcMainHandle("get-media-source", (id) => {
     return plugin.getMediaSource(id);
   });
-  ipcMainHandle("search-lyric", (query) => {
-    return lyric.search(query);
-  });
-  ipcMainHandle("get-lyric", (searchUrl) => {
-    return lyric.getLyric(searchUrl);
+
+  ipcMainHandle("search-lyric", async (query) => {
+    const songs = await client.songs.search(query);
+    if (songs.length === 0) return "가사를 찾을 수 없습니다.";
+    const scrapedData = await client.songs.scrape(songs[0].url);
+    const scrapedsongs = Object.values(scrapedData.data.entities.songs)[0] as {
+      id: number;
+      translationSongs?: {
+        url: string;
+        title: string;
+        path: string;
+        lyricsState: string;
+        language: string;
+        id: number;
+        apiPath: string;
+        type: string;
+      }[];
+    };
+    const filtered = scrapedsongs.translationSongs?.[0];
+    const target = filtered
+      ? await client.songs.get(filtered.id)
+      : await client.songs.get(scrapedsongs.id);
+
+    return target.lyrics();
   });
 }
 
