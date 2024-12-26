@@ -1,7 +1,10 @@
-import { IconButton } from "@/common";
+import { Case, IconButton, Switch } from "@/common";
+import { usePlayer } from "@/hooks";
 import { formatTime } from "@/utils";
-import { MusicItem } from "@shared/plugin/type";
+import trackPlayer from "@shared/plugin/trackPlayer";
+import { MusicItem, PlayerState, RepeatMode } from "@shared/plugin/type";
 import Slider from "rc-slider";
+import { useRef } from "react";
 
 const GRAY = "#EAE6E5";
 
@@ -10,11 +13,17 @@ type Props = {
 };
 
 export const DetailController = ({ currentItem }: Props) => {
+  const {
+    playerState,
+    currentProgress: { currentTime, duration },
+    volume,
+    repeatMode,
+    toggleRepeatMode,
+  } = usePlayer();
+  const lastVolumeRef = useRef<number>();
+
   return (
-    <div
-      className="flex h-4/5 w-2/5 flex-col items-center justify-center gap-4 text-white"
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div className="flex h-4/5 w-2/5 flex-col items-center justify-center gap-4 text-white">
       <img
         className="size-[50vh] rounded-2xl object-cover"
         src={currentItem.artwork}
@@ -27,13 +36,30 @@ export const DetailController = ({ currentItem }: Props) => {
             <div className="truncate text-sm text-gray-300">{currentItem.artist}</div>
           </div>
           <div className="flex flex-1 items-center justify-center gap-1">
-            <IconButton color="white" iconName="volume" size={13} opacity />
+            <IconButton
+              onClick={() => {
+                lastVolumeRef.current = lastVolumeRef.current || 0;
+                if (volume === 0) {
+                  trackPlayer.setVolume(lastVolumeRef.current);
+                } else {
+                  lastVolumeRef.current = volume;
+                  trackPlayer.setVolume(0);
+                }
+              }}
+              color="white"
+              iconName={volume === 0 ? "mute" : "volume"}
+              size={13}
+              opacity
+            />
             <Slider
               min={0}
               max={1}
               step={0.01}
-              value={0.5}
+              value={volume}
               className="cursor-pointer"
+              onChange={(volume) => {
+                trackPlayer.setVolume(volume as number);
+              }}
               styles={{
                 track: { background: "#EAE6E5" },
                 handle: { visibility: "hidden" },
@@ -43,27 +69,51 @@ export const DetailController = ({ currentItem }: Props) => {
           </div>
         </div>
         <div className="flex w-full items-center gap-3">
-          <div className="text-xs text-gray-300">{"00:04"}</div>
+          <div className="p-1 text-xs text-gray-300">{formatTime(currentTime)}</div>
           <Slider
             min={0}
-            max={5}
-            step={0.1}
-            value={2.5}
+            max={duration}
+            step={duration / 100}
+            value={currentTime}
             className="cursor-pointer"
+            onChange={(position) => {
+              trackPlayer.seekTo(position as number);
+            }}
             styles={{
               track: { background: "#EAE6E5" },
               handle: { visibility: "hidden" },
               rail: { background: "#888888" },
             }}
           />
-          <div className="text-xs text-gray-300">{formatTime(currentItem.duration as number)}</div>
+          <div className="p-1 text-xs text-gray-300">{formatTime(duration)}</div>
         </div>
         <div className="flex items-center justify-center gap-6">
-          <IconButton iconName="repeat" size={13} color={GRAY} />
+          <div onClick={toggleRepeatMode}>
+            <Switch switch={repeatMode}>
+              <Case case={RepeatMode.Queue}>
+                <IconButton iconName="repeat" size={15} color={GRAY} />
+              </Case>
+              <Case case={RepeatMode.Loop}>
+                <IconButton iconName="repeat-1" size={15} color={GRAY} />
+              </Case>
+              <Case case={RepeatMode.Shuffle}>
+                <IconButton iconName="shuffle" size={15} color={GRAY} />
+              </Case>
+            </Switch>
+          </div>
           <IconButton iconName="skip-previous" size={25} opacity color={GRAY} />
-          <IconButton iconName="pause" size={25} opacity color={GRAY} />
+          <IconButton
+            opacity
+            color={GRAY}
+            iconName={playerState === PlayerState.Playing ? "pause" : "play"}
+            size={25}
+            onClick={() => {
+              if (playerState === PlayerState.Playing) trackPlayer.pause();
+              else trackPlayer.play();
+            }}
+          />
           <IconButton iconName="skip-next" size={25} opacity color={GRAY} />
-          <IconButton iconName="shuffle" size={13} color={GRAY} />
+          <IconButton iconName="shuffle" size={15} color={GRAY} />
         </div>
       </div>
     </div>

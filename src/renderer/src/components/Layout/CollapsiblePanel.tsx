@@ -24,7 +24,7 @@ const variants: Variants = {
   },
 };
 
-const CollapsiblePanel = () => {
+export const CollapsiblePanel = () => {
   const { isVisible, onToggle } = usePanel();
   const { currentItem } = useCurrentMusic();
 
@@ -85,5 +85,3 @@ const CollapsiblePanel = () => {
     </AnimatePresence>
   );
 };
-
-export default CollapsiblePanel;

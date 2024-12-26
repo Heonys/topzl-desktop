@@ -18,6 +18,7 @@ import { FaPlus } from "react-icons/fa6";
 import { IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
 import { BiSolidVolumeFull, BiSolidVolumeMute, BiSolidPlaylist } from "react-icons/bi";
 import { LuRepeat, LuRepeat1, LuShuffle } from "react-icons/lu";
+import { FaChevronDown } from "react-icons/fa6";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -59,6 +60,7 @@ const IconMap = {
   ["shuffle"]: LuShuffle,
   ["speed"]: MdOutlineSpeed,
   ["trash"]: FaRegTrashAlt,
+  ["down"]: FaChevronDown,
 };
 
 type Props = {

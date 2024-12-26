@@ -1,5 +1,6 @@
 import { createPortal } from "react-dom";
 import { Outlet } from "react-router-dom";
+import { ModalComponent } from "@/components/modal/ModalComponent";
 import {
   RootLayout,
   MainLayout,
@@ -7,10 +8,10 @@ import {
   SideFrame,
   PlayController,
   MusicDetail,
+  CollapsiblePanel,
 } from "@/components";
 
 import "rc-slider/assets/index.css";
-import CollapsiblePanel from "./components/Layout/CollapsiblePanel";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <SideFrame />
         <Outlet />
       </MainLayout>
+      <ModalComponent />
       <CollapsiblePanel />
       <PlayController />
       {createPortal(<MusicDetail />, document.getElementById("detail")!)}
