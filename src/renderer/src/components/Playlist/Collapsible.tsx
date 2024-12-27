@@ -24,7 +24,7 @@ const variants: Variants = {
   },
 };
 
-export const CollapsiblePanel = () => {
+export const Collapsible = () => {
   const { isVisible, onToggle } = usePanel();
   const { currentItem } = useCurrentMusic();
 

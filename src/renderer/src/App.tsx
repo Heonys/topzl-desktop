@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { ModalComponent } from "@/components/modal/ModalComponent";
+import { ModalComponent } from "@/components/Modal/ModalComponent";
 import {
   RootLayout,
   MainLayout,
@@ -9,7 +9,7 @@ import {
   SideFrame,
   PlayController,
   MusicDetail,
-  CollapsiblePanel,
+  Collapsible,
 } from "@/components";
 
 import "rc-slider/assets/index.css";
@@ -23,7 +23,7 @@ const App = () => {
         <Outlet />
       </MainLayout>
       <ModalComponent />
-      <CollapsiblePanel />
+      <Collapsible />
       <PlayController />
       {createPortal(<MusicDetail />, document.getElementById("detail")!)}
       <ToastContainer

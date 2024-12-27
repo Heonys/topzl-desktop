@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 
 export const currentMusicAtom = atom<MusicItem | null>(null);
 
+export const playListAtom = atom<MusicItem[]>([]);
+
 const mediaSourceAtomAsync = atom(async (get) => {
   const currentMusic = get(currentMusicAtom);
   if (!currentMusic) return { url: "" };
