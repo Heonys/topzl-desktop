@@ -47,5 +47,6 @@ declare namespace IpcEvents {
   interface Main {
     "sync-app-config": AppConfig;
     "global-shortcut-execute": ShortcutKeys;
+    "notification-error": string;
   }
 }

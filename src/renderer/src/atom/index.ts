@@ -2,16 +2,22 @@ import { MusicItem, PlayerState, RepeatMode } from "@shared/plugin/type";
 import { atom } from "jotai";
 import { loadable } from "jotai/utils";
 import trackPlayer from "@shared/plugin/trackPlayer";
+import { toast } from "react-toastify";
 
 export const currentMusicAtom = atom<MusicItem | null>(null);
 
 const mediaSourceAtomAsync = atom(async (get) => {
   const currentMusic = get(currentMusicAtom);
   if (!currentMusic) return { url: "" };
-  const result = await window.plugin.getMediaSource(currentMusic.id);
-  trackPlayer.setTrackSource({ url: result.url }, currentMusic);
-  trackPlayer.play();
-  return result;
+  try {
+    const result = await window.plugin.getMediaSource(currentMusic.id);
+    trackPlayer.setTrackSource({ url: result.url }, currentMusic);
+    trackPlayer.play();
+    return result;
+  } catch {
+    toast.error("재생할 수 없습니다");
+    // 다음 곡으로 넘어가야함
+  }
 });
 
 export const mediaSourceAtom = loadable(mediaSourceAtomAsync);

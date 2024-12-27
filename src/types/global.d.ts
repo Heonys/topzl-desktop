@@ -26,6 +26,9 @@ declare global {
       getMediaSource: IpcInvoke.Renderer["get-media-source"];
       searchLyric: IpcInvoke.Renderer["search-lyric"];
     };
+    notification: {
+      error: (callback: (message: IpcEvents.Main["notification-error"]) => void) => void;
+    };
   }
 }
 

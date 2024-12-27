@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { i18n, appConfig, shortcut, plugin } from "./api";
+import { i18n, appConfig, shortcut, plugin, notification } from "./api";
 
 if (!process.contextIsolated) {
   throw new Error("contextIsolation must be enabled in the BrowserWindow");
@@ -15,6 +15,7 @@ try {
   contextBridge.exposeInMainWorld("appConfig", appConfig);
   contextBridge.exposeInMainWorld("shortcut", shortcut);
   contextBridge.exposeInMainWorld("plugin", plugin);
+  contextBridge.exposeInMainWorld("notification", notification);
 } catch (error) {
   console.error(error);
 }

@@ -42,7 +42,14 @@ export async function setupPlugin() {
   ipcMainHandle("search-lyric", async (query) => {
     const songs = await client.songs.search(query);
     if (songs.length === 0) return "가사를 찾을 수 없습니다.";
-    return songs[0].lyrics(false);
+    const scrapedData = await client.songs.scrape(songs[0].url);
+    const scrapedsongs = Object.values(scrapedData.data.entities.songs)[0] as {
+      id: number;
+      translationSongs?: { id: number }[];
+    };
+    const targetId = scrapedsongs.translationSongs?.[0]?.id || scrapedsongs.id;
+    const target = await client.songs.get(targetId);
+    return target.lyrics();
   });
 }
 

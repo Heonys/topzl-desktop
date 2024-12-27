@@ -5,6 +5,10 @@ import { setupPlayer } from "@shared/plugin/setup";
 async function bootstrap() {
   await Promise.allSettled([setupRendererConfig(), setupPlayer()]);
   await setupI18n();
+
+  window.notification.error((message) => {
+    console.log("message ::", message);
+  });
 }
 
 export default bootstrap;

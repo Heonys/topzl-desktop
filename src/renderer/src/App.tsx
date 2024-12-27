@@ -1,5 +1,6 @@
 import { createPortal } from "react-dom";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { ModalComponent } from "@/components/modal/ModalComponent";
 import {
   RootLayout,
@@ -25,6 +26,16 @@ const App = () => {
       <CollapsiblePanel />
       <PlayController />
       {createPortal(<MusicDetail />, document.getElementById("detail")!)}
+      <ToastContainer
+        draggable={false}
+        closeOnClick={false}
+        limit={5}
+        pauseOnFocusLoss={false}
+        hideProgressBar
+        autoClose={1500}
+        newestOnTop
+        position="top-center"
+      ></ToastContainer>
     </RootLayout>
   );
 };

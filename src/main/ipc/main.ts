@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, IpcMainEvent } from "electron";
+import { BrowserWindow, ipcMain, IpcMainEvent, IpcMainInvokeEvent } from "electron";
 // import { validationEventFrame } from "@/utils/validation";
 import { getMainWindow } from "@/window/mainWindow";
 
@@ -23,13 +23,14 @@ export function ipcMainHandle<T extends keyof IpcInvoke.Renderer>(
   callback: (
     payload: Parameters<IpcInvoke.Renderer[T]>[0],
   ) => ReturnType<IpcInvoke.Renderer[T]> | Promise<ReturnType<IpcInvoke.Renderer[T]>>,
+  errorCallback?: (event: IpcMainInvokeEvent) => void,
 ) {
   ipcMain.handle(channel, (event, payload) => {
     if (!event.senderFrame) return;
     try {
-      // validationEventFrame(event.senderFrame);
       return callback(payload);
     } catch (error) {
+      if (errorCallback) errorCallback(event);
       console.error(error);
     }
   });
