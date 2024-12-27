@@ -23,8 +23,7 @@ const lyricAtomAsync = atom(async (get) => {
   if (!currentMusic) return null;
   return window.plugin.searchLyric(currentMusic.title);
 });
-
-export const lyricAtom = loadable(lyricAtomAsync);
+export const lyricAtomLodable = loadable(lyricAtomAsync);
 
 export const musicDetailVisibleAtom = atom(false);
 

@@ -27,6 +27,11 @@ export const PlayController = () => {
     }
   };
 
+  const handleDetailOpen = () => {
+    if (!currentItem) return;
+    onOpen();
+  };
+
   return (
     <div className="region-none absolute bottom-0 left-0 flex h-16 w-full items-center border-t bg-white">
       <button
@@ -41,14 +46,13 @@ export const PlayController = () => {
       </button>
       <div className="box-border h-[48px] w-[360px] px-3">
         {currentItem && (
-          <div className="flex items-center gap-3">
+          <div className="flex cursor-pointer items-center gap-3" onClick={handleDetailOpen}>
             <img
               className="size-10 rounded object-cover"
               crossOrigin="anonymous"
               alt="currentMusic"
               src={getDefaultImage(currentItem.artwork)}
               onError={setFallbackImage}
-              onClick={onOpen}
             ></img>
             <div className="flex max-w-[calc(100%-50px)] flex-1 flex-col">
               <div className="truncate">{currentItem.title}</div>
@@ -62,13 +66,17 @@ export const PlayController = () => {
           </div>
         )}
       </div>
-      <div className="flex h-full flex-1 items-center justify-center gap-5">
+      <div
+        className="flex h-full flex-1 cursor-pointer items-center justify-center gap-5"
+        onClick={handleDetailOpen}
+      >
         <IconButton iconName="skip-previous" size={23} opacity />
         <IconButton
           opacity
           iconName={playerState === PlayerState.Playing ? "pause" : "play"}
           size={25}
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             if (playerState === PlayerState.Playing) trackPlayer.pause();
             else trackPlayer.play();
           }}
@@ -76,7 +84,8 @@ export const PlayController = () => {
         <IconButton iconName="skip-next" size={23} opacity />
       </div>
 
-      <div className="flex h-full w-[360px] items-center justify-end gap-4 px-3 pr-5">
+      <div className="flex h-full w-[360px] items-center justify-end gap-4 pr-5">
+        <div className="size-full flex-1 cursor-pointer" onClick={handleDetailOpen}></div>
         <div
           className="relative"
           onMouseOver={() => setShowBubble(true)}

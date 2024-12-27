@@ -10,7 +10,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
   const [inputValue, setInputValue] = useState("");
 
   const handleSearch = async () => {
-    navigate(`/search/${inputValue}`);
+    navigate(`/search/${encodeURIComponent(inputValue)}`);
     setInputValue("");
   };
 

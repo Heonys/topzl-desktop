@@ -147,7 +147,6 @@ class TrackPlayer {
         // 播放失败会自动被onerror监控到
         // trackPlayerEventsEmitter.emit(TrackPlayerEvent.Error, e);
       });
-      trackPlayer.setVolume(0.5);
     }
   }
   /** 设置音量 */

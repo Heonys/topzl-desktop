@@ -1,6 +1,6 @@
 import { Backdrop, Header } from "./Layout";
 
-const TestModal = () => {
+export const TestModal = () => {
   return (
     <Backdrop>
       <div
@@ -13,5 +13,3 @@ const TestModal = () => {
     </Backdrop>
   );
 };
-
-export default TestModal;

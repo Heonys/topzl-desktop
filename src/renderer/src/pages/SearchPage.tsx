@@ -9,6 +9,7 @@ import { twMerge } from "tailwind-merge";
 
 export const SearchPage = () => {
   const { query } = useParams();
+  const decodedQuery = decodeURIComponent(query || "");
   const { search } = useSearch();
   const [mediaType, setMediaType] = useState<SupportMediaType>("music");
   const { currentItem, setCurrentItem } = useCurrentMusic();
@@ -21,20 +22,20 @@ export const SearchPage = () => {
 
   // 로딩 스피너 추가
   useEffect(() => {
-    if (query) {
+    if (decodedQuery) {
       setIsLoading(true);
-      search(query, 1, mediaType).then((res) => {
+      search(decodedQuery, 1, mediaType).then((res) => {
         setItems(res.data);
         setIsLoading(false);
       });
     }
-  }, [query, mediaType, search]);
+  }, [decodedQuery, mediaType, search]);
 
   return (
     <div className="box-border flex size-full select-text flex-col items-start px-5 font-bold">
       <div className="mb-2 mt-5 text-3xl font-medium text-gray-500">
         Search Results for
-        <span className=" text-black">{` "${query}"`}</span>
+        <span className=" text-black">{` "${decodedQuery}"`}</span>
       </div>
 
       <TabGroup
@@ -54,7 +55,7 @@ export const SearchPage = () => {
           ))}
         </TabList>
 
-        <div className="h-[calc(100%-10rem-4rem)] overflow-auto scrollbar-hide">
+        <div className="h-[calc(100%-10rem)] overflow-auto scrollbar-hide">
           {!isLoading &&
             items.map((item) => {
               const { id, title, artist, artwork, duration } = item;

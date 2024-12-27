@@ -1,8 +1,10 @@
 import { atom } from "jotai";
-import TestModal from "./TestModal";
+import { TestModal } from "./TestModal";
+import { LyricsSearch } from "./LyricsSearch";
 
 export const modalTemplates = {
   TestModal,
+  LyricsSearch,
 };
 
 export type ModalTemplates = typeof modalTemplates;
@@ -13,7 +15,7 @@ type ModalAtomType =
     }
   | {
       state: "open";
-      component: () => JSX.Element;
+      component: (...args: any[]) => JSX.Element;
       props?: Record<string, any>;
     };
 

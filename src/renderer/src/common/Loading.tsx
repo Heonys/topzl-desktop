@@ -2,16 +2,16 @@ import { motion, Variants } from "motion/react";
 
 const variants: Variants = {
   inital: {
-    height: "100%",
+    scale: 0,
   },
   animate: {
-    height: "20%",
+    scale: 1,
   },
 };
 
 export const Loading = () => {
   return (
-    <motion.div className="flex size-12 items-center justify-between">
+    <motion.div className="flex size-20 items-center justify-center gap-2">
       {[1, 2, 3].map((_, index) => {
         return (
           <motion.div
@@ -20,14 +20,13 @@ export const Loading = () => {
             initial="inital"
             animate="animate"
             transition={{
-              duration: 0.4,
-              ease: "easeOut",
-              type: "spring",
+              duration: 0.6,
+              ease: "easeInOut",
               repeat: Infinity,
               repeatType: "reverse",
-              delay: index * 0.1,
+              delay: index * 0.2,
             }}
-            className="h-12 w-3 rounded-md bg-black/70"
+            className="size-4 rounded-full bg-gray-300"
           ></motion.div>
         );
       })}

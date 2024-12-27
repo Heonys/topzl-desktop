@@ -1,6 +1,6 @@
 import { motion, Variants, AnimatePresence } from "motion/react";
 import { useDetail, useCurrentMusic } from "@/hooks";
-import { DetailController, Lyric } from "@/components/PlayController";
+import { DetailController } from "@/components/PlayController";
 import { IconButton } from "@/common";
 
 const variants: Variants = {
@@ -43,7 +43,7 @@ export const MusicDetail = () => {
           />
           <div className="absolute left-0 top-0 flex size-full items-center justify-center gap-4">
             <DetailController currentItem={currentItem} />
-            <Lyric />
+            {/* <Lyric /> */}
           </div>
           <div className="absolute right-10 top-10">
             <IconButton iconName="down" color="white" onClick={onClose} />
