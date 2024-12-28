@@ -6,13 +6,14 @@ import { MusicItem, SupportMediaType } from "@shared/plugin/type";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
+import { IconButton } from "@/common";
 
 export const SearchPage = () => {
   const { query } = useParams();
   const decodedQuery = decodeURIComponent(query || "");
   const { search } = useSearch();
   const [mediaType, setMediaType] = useState<SupportMediaType>("music");
-  const { currentItem, setCurrentItem } = useCurrentMusic();
+  const { currentItem, playMusicWithAddPlaylist, addPlaylist } = useCurrentMusic();
 
   // 전역상태로 바꾸기
   const [isLoading, setIsLoading] = useState(false);
@@ -62,11 +63,9 @@ export const SearchPage = () => {
               return (
                 <div
                   key={id}
-                  className="flex h-16 w-full cursor-pointer gap-2 rounded-full px-3 py-1 text-base font-semibold "
-                  onDoubleClick={() => {
-                    setCurrentItem(item);
-                  }}
+                  className="flex h-16 w-full cursor-pointer items-center gap-3 rounded-full px-3 py-1 text-base font-semibold "
                 >
+                  <IconButton iconName="heart" size={18} />
                   <img
                     className="w-14 rounded-md object-cover"
                     src={artwork}
@@ -80,6 +79,9 @@ export const SearchPage = () => {
                         ? "bg-blue-100 opacity-100"
                         : " hover:bg-gray-100 hover:opacity-100",
                     )}
+                    onDoubleClick={() => {
+                      playMusicWithAddPlaylist(item);
+                    }}
                   >
                     <div className="flex flex-col gap-0">
                       <div>{title}</div>
@@ -87,6 +89,7 @@ export const SearchPage = () => {
                     </div>
                     <div className="text-sm">{formatTime(duration)}</div>
                   </div>
+                  <IconButton iconName="add-playlist" size={20} onClick={() => addPlaylist(item)} />
                 </div>
               );
             })}

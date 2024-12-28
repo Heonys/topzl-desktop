@@ -1,8 +1,6 @@
 import { motion, AnimatePresence, Variants } from "motion/react";
-import { IconButton } from "@/common";
-import { useCurrentMusic } from "@/hooks/useCurrentMusic";
 import { usePanel } from "@/hooks";
-import { formatTime } from "@/utils";
+import { Playlist } from "./Playlist";
 
 const variants: Variants = {
   hidden: {
@@ -26,8 +24,6 @@ const variants: Variants = {
 
 export const Collapsible = () => {
   const { isVisible, onToggle } = usePanel();
-  const { currentItem } = useCurrentMusic();
-
   return (
     <AnimatePresence>
       {isVisible && (
@@ -46,39 +42,7 @@ export const Collapsible = () => {
             animate="visible"
             exit="exit"
           >
-            <div className="m-3">
-              <div className="text-xl">Playlist</div>
-              <div className="my-2 h-px w-full bg-black/10" />
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center justify-between bg-blue-100 p-2 text-sm">
-                  <div className="flex gap-4">
-                    <div>1.</div>
-                    <div>{currentItem?.title}</div>
-                  </div>
-                  <div>{currentItem?.artist}</div>
-                  <div>{formatTime(currentItem?.duration || 0)}</div>
-                  <IconButton iconName="trash" size={15} />
-                </div>
-                <div className="flex items-center justify-between p-2 text-sm hover:bg-gray-100">
-                  <div className="flex gap-4">
-                    <div>2.</div>
-                    <div>{currentItem?.title}</div>
-                  </div>
-                  <div>{currentItem?.artist}</div>
-                  <div>{formatTime(currentItem?.duration || 0)}</div>
-                  <IconButton iconName="trash" size={15} />
-                </div>
-                <div className="flex items-center justify-between p-2 text-sm  hover:bg-gray-100">
-                  <div className="flex gap-4">
-                    <div>3.</div>
-                    <div>{currentItem?.title}</div>
-                  </div>
-                  <div>{currentItem?.artist}</div>
-                  <div>{formatTime(currentItem?.duration || 0)}</div>
-                  <IconButton iconName="trash" size={15} />
-                </div>
-              </div>
-            </div>
+            <Playlist />
           </motion.div>
         </motion.div>
       )}

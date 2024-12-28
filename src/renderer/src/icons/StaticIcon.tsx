@@ -9,7 +9,7 @@ import { PiPushPinFill, PiVinylRecordDuotone, PiDownloadDuotone } from "react-ic
 import { IoLanguage, IoSearch, IoStatsChart } from "react-icons/io5";
 import { MdDarkMode, MdOutlineLightMode, MdOutlineLyrics, MdOutlineSpeed } from "react-icons/md";
 import { FaGithub, FaPlay, FaPause, FaRegTrashAlt } from "react-icons/fa";
-import { GoHeart } from "react-icons/go";
+import { GoHeart, GoHeartFill } from "react-icons/go";
 import { GrFormPreviousLink, GrFormNextLink, GrFormRefresh } from "react-icons/gr";
 import { HiOutlineTrophy } from "react-icons/hi2";
 import { IoFolderOpenOutline } from "react-icons/io5";
@@ -19,6 +19,7 @@ import { IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
 import { BiSolidVolumeFull, BiSolidVolumeMute, BiSolidPlaylist } from "react-icons/bi";
 import { LuRepeat, LuRepeat1, LuShuffle } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
+import { MdOutlinePlaylistAdd } from "react-icons/md";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -37,6 +38,7 @@ const IconMap = {
   ["search"]: IoSearch,
   ["github"]: FaGithub,
   ["heart"]: GoHeart,
+  ["heart-fill"]: GoHeartFill,
   ["chart"]: IoStatsChart,
   ["record"]: PiVinylRecordDuotone,
   ["download"]: PiDownloadDuotone,
@@ -61,6 +63,7 @@ const IconMap = {
   ["speed"]: MdOutlineSpeed,
   ["trash"]: FaRegTrashAlt,
   ["down"]: FaChevronDown,
+  ["add-playlist"]: MdOutlinePlaylistAdd,
 };
 
 type Props = {
