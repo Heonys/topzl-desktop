@@ -74,7 +74,7 @@ export const SearchPage = () => {
                   />
                   <div
                     className={twMerge(
-                      "flex flex-1 items-center justify-between rounded-md px-3 opacity-70 focus:outline-none",
+                      "flex flex-1 items-center justify-between h-full rounded-md px-3 opacity-70 focus:outline-none",
                       id === currentItem?.id
                         ? "bg-blue-100 opacity-100"
                         : " hover:bg-gray-100 hover:opacity-100",
