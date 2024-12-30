@@ -84,4 +84,6 @@ export type EventPayloadMap = {
   "play-state-changed": PlayerState; // 재생상태 변경
   "repeat-mode-changed": RepeatMode; // 반복모드 변경
   "play-back-error": string | Event; // 에러 발생
+  "play-prev": undefined;
+  "play-next": undefined;
 };

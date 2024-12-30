@@ -14,6 +14,7 @@ class TrackPlayer {
     this.audio = new Audio();
     this.audio.preload = "auto";
     this.audio.controls = false;
+    this.audio.volume = 0.2;
     this.hls = new Hls();
     this.hls.attachMedia(this.audio);
 
@@ -187,6 +188,14 @@ class TrackPlayer {
 
   async setSinkId(deviceId: string) {
     return (this.audio as any).setSinkId(deviceId);
+  }
+
+  skipToPrev() {
+    playerEventEmitter.emit("play-prev");
+  }
+
+  skipToNext() {
+    playerEventEmitter.emit("play-next");
   }
 }
 

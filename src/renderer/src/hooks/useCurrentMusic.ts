@@ -30,6 +30,7 @@ export const useCurrentMusic = () => {
     asyncMediaSource,
     playMusicWithAddPlaylist,
     playlist,
+    setPlaylist,
     addPlaylist,
     removePlaylist,
   };

@@ -20,3 +20,8 @@ export function setFallbackImage(event: SyntheticEvent<HTMLImageElement>) {
 export function getDefaultImage(artwork: string) {
   return artwork || fallbackImage;
 }
+
+export function assignToDrag(e: React.DragEvent, tag: string, rowIndex: number) {
+  e.dataTransfer?.setData("tag", tag);
+  e.dataTransfer?.setData("rowIndex", `${rowIndex}`);
+}

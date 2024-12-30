@@ -8,6 +8,13 @@ export const currentMusicAtom = atom<MusicItem | null>(null);
 
 export const playListAtom = atom<MusicItem[]>([]);
 
+export const getCurrentListIndex = atom((get) => {
+  const currentMusic = get(currentMusicAtom);
+  if (!currentMusic) return -1;
+  const playlist = get(playListAtom);
+  return playlist.findIndex((it) => it.id === currentMusic.id);
+});
+
 const mediaSourceAtomAsync = atom(async (get) => {
   const currentMusic = get(currentMusicAtom);
   if (!currentMusic) return { url: "" };
@@ -18,7 +25,7 @@ const mediaSourceAtomAsync = atom(async (get) => {
     return result;
   } catch {
     toast.error("재생할 수 없습니다");
-    // 다음 곡으로 넘어가야함
+    trackPlayer.skipToNext();
   }
 });
 
@@ -43,7 +50,7 @@ export const initProgress = {
   duration: Infinity,
 };
 export const currentProgressAtom = atom(initProgress);
-export const currentVolumeAtom = atom(0.5);
+export const currentVolumeAtom = atom(0.2);
 export const currentSpeedAtom = atom(1);
 export const currentRepeatModeAtom = atom(RepeatMode.Queue);
 export const currentPlayerStateAtom = atom(PlayerState.None);

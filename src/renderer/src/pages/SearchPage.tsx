@@ -63,11 +63,11 @@ export const SearchPage = () => {
               return (
                 <div
                   key={id}
-                  className="flex h-16 w-full cursor-pointer items-center gap-3 rounded-full px-3 py-1 text-base font-semibold "
+                  className="flex h-16 w-full cursor-pointer items-center gap-3 rounded-md px-3 py-1 text-base font-semibold"
                 >
                   <IconButton iconName="heart" size={18} />
                   <img
-                    className="w-14 rounded-md object-cover"
+                    className="size-14 rounded-md object-cover"
                     src={artwork}
                     alt="thumnail"
                     onError={setFallbackImage}

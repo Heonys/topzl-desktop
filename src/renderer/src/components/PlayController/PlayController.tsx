@@ -70,7 +70,15 @@ export const PlayController = () => {
         className="flex h-full flex-1 cursor-pointer items-center justify-center gap-5"
         onClick={handleDetailOpen}
       >
-        <IconButton iconName="skip-previous" size={23} opacity />
+        <IconButton
+          iconName="skip-previous"
+          size={23}
+          opacity
+          onClick={(e) => {
+            e.stopPropagation();
+            trackPlayer.skipToPrev();
+          }}
+        />
         <IconButton
           opacity
           iconName={playerState === PlayerState.Playing ? "pause" : "play"}
@@ -81,7 +89,15 @@ export const PlayController = () => {
             else trackPlayer.play();
           }}
         />
-        <IconButton iconName="skip-next" size={23} opacity />
+        <IconButton
+          iconName="skip-next"
+          size={23}
+          opacity
+          onClick={(e) => {
+            e.stopPropagation();
+            trackPlayer.skipToNext();
+          }}
+        />
       </div>
 
       <div className="flex h-full w-[360px] items-center justify-end gap-4 pr-5">

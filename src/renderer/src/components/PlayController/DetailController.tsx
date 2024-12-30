@@ -101,7 +101,15 @@ export const DetailController = ({ currentItem }: Props) => {
               </Case>
             </Switch>
           </div>
-          <IconButton iconName="skip-previous" size={25} opacity color={GRAY} />
+          <IconButton
+            iconName="skip-previous"
+            size={25}
+            opacity
+            color={GRAY}
+            onClick={() => {
+              trackPlayer.skipToPrev();
+            }}
+          />
           <IconButton
             opacity
             color={GRAY}
@@ -112,7 +120,15 @@ export const DetailController = ({ currentItem }: Props) => {
               else trackPlayer.play();
             }}
           />
-          <IconButton iconName="skip-next" size={25} opacity color={GRAY} />
+          <IconButton
+            iconName="skip-next"
+            size={25}
+            opacity
+            color={GRAY}
+            onClick={() => {
+              trackPlayer.skipToNext();
+            }}
+          />
           <IconButton iconName="shuffle" size={15} color={GRAY} />
         </div>
       </div>

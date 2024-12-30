@@ -6,6 +6,9 @@ import {
   currentSpeedAtom,
   initProgress,
   currentPlayerStateAtom,
+  getCurrentListIndex,
+  playListAtom,
+  currentMusicAtom,
 } from "../../renderer/src/atom";
 
 const store = getDefaultStore();
@@ -48,6 +51,23 @@ function setupEvent() {
 
   playerEventEmitter.on("play-back-error", (payload) => {
     console.error(payload);
+  });
+
+  playerEventEmitter.on("play-prev", () => {
+    const currentIndex = store.get(getCurrentListIndex);
+    if (currentIndex > 0) {
+      const nextTrack = store.get(playListAtom)[currentIndex - 1];
+      store.set(currentMusicAtom, nextTrack);
+    }
+  });
+
+  playerEventEmitter.on("play-next", () => {
+    const playList = store.get(playListAtom);
+    const currentIndex = store.get(getCurrentListIndex);
+    if (currentIndex < playList.length - 1) {
+      const nextTrack = playList[currentIndex + 1];
+      store.set(currentMusicAtom, nextTrack);
+    }
   });
 }
 
