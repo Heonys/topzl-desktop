@@ -46,8 +46,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           <IconButton iconName="language" title="language" />
           <IconButton iconName="t-shirt" title="t-shirt" />
           <IconButton iconName="dark-mode" title="dark-mode" />
-          <IconButton iconName="cog-8-tooth" title="cog-8-tooth" />
-          <IconButton iconName="push-pin" title="push-pin" />
+          {/* <IconButton iconName="push-pin" title="push-pin" /> */}
         </div>
         <div className="flex w-5 justify-center opacity-20">
           <StaticIcon iconName={"divider-vertical"} color="black" />

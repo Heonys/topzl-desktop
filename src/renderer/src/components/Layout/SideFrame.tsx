@@ -12,14 +12,14 @@ type OptionTypes = {
 };
 const options: OptionTypes[] = [
   {
-    iconName: "record",
-    title: "record",
-    route: "setting",
+    iconName: "chart",
+    title: "chart",
+    route: "chart",
   },
   {
     iconName: "search",
     title: "search",
-    route: "search/side",
+    route: "search",
   },
   {
     iconName: "forder-open",
@@ -27,15 +27,14 @@ const options: OptionTypes[] = [
     route: "local",
   },
   {
-    iconName: "chart",
-    title: "chart",
-    route: "chart",
-  },
-
-  {
     iconName: "download",
     title: "download",
     route: "download",
+  },
+  {
+    iconName: "cog-8-tooth",
+    title: "setting",
+    route: "setting",
   },
 ];
 
@@ -49,12 +48,12 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
       )}
       {...props}
     >
-      <div className="region-none mx-auto flex w-14 -translate-y-12 flex-col gap-4 rounded-lg bg-white py-5">
+      <div className="region-none mx-auto flex w-14 -translate-y-12 flex-col gap-5 rounded-lg bg-white py-5">
         <button
           className="mx-1 flex  items-center justify-center opacity-80 transition-transform hover:scale-110 hover:opacity-100"
           onClick={() => navigate("/")}
         >
-          <img className="size-9 object-cover" src={logo} alt="logo" />
+          <img className="size-8 object-cover" src={logo} alt="logo" />
         </button>
         <div className="-my-4 flex justify-center opacity-10">
           <StaticIcon iconName={"divider-horizontal"} color="black" size={28} />
@@ -65,7 +64,7 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
               key={route}
               iconName={iconName}
               title={title}
-              size={28}
+              size={25}
               onClick={() => {
                 navigate(`/${route}`);
               }}

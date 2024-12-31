@@ -20,3 +20,15 @@ export const MainLayout = ({
     </section>
   );
 };
+
+export const ContentsLayout = ({
+  className,
+  children,
+  ...props
+}: ComponentPropsWithoutRef<"div">) => {
+  return (
+    <div className={twMerge("w-full", className)} {...props}>
+      {children}
+    </div>
+  );
+};

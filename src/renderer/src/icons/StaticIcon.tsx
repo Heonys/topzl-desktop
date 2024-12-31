@@ -5,7 +5,7 @@ import { TbPictureInPicture } from "react-icons/tb";
 import { RiTShirt2Line } from "react-icons/ri";
 import { RxDividerVertical, RxDividerHorizontal } from "react-icons/rx";
 import { VscChromeMaximize } from "react-icons/vsc";
-import { PiPushPinFill, PiVinylRecordDuotone, PiDownloadDuotone } from "react-icons/pi";
+import { PiPushPinFill, PiVinylRecordDuotone } from "react-icons/pi";
 import { IoLanguage, IoSearch, IoStatsChart } from "react-icons/io5";
 import { MdDarkMode, MdOutlineLightMode, MdOutlineLyrics, MdOutlineSpeed } from "react-icons/md";
 import { FaGithub, FaPlay, FaPause, FaRegTrashAlt } from "react-icons/fa";
@@ -20,6 +20,7 @@ import { BiSolidVolumeFull, BiSolidVolumeMute, BiSolidPlaylist } from "react-ico
 import { LuRepeat, LuRepeat1, LuShuffle } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
 import { MdOutlinePlaylistAdd } from "react-icons/md";
+import { FiDownload } from "react-icons/fi";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -41,7 +42,7 @@ const IconMap = {
   ["heart-fill"]: GoHeartFill,
   ["chart"]: IoStatsChart,
   ["record"]: PiVinylRecordDuotone,
-  ["download"]: PiDownloadDuotone,
+  ["download"]: FiDownload,
   ["previous"]: GrFormPreviousLink,
   ["next"]: GrFormNextLink,
   ["refresh"]: GrFormRefresh,

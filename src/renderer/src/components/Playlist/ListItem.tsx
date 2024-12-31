@@ -1,6 +1,5 @@
 import { IconButton } from "@/common";
-import Condition from "@/common/Condition";
-import Droppable from "@/common/Droppable";
+import { Condition, Droppable } from "@/common";
 import { assignToDrag, formatTime } from "@/utils";
 import { MusicItem } from "@shared/plugin/type";
 import { twMerge } from "tailwind-merge";

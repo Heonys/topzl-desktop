@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Condition from "./Condition";
+import { Condition } from "@/common";
 
 type Props = {
   position: "top" | "bottom";
@@ -8,7 +8,7 @@ type Props = {
   onDrop: (from: number, to: number) => void;
 };
 
-const Droppable = ({ position, tag, rowIndex, onDrop }: Props) => {
+export const Droppable = ({ position, tag, rowIndex, onDrop }: Props) => {
   const [isDragOver, setIsDragOver] = useState(false);
 
   const onDragOver = (e: React.DragEvent) => {
@@ -43,5 +43,3 @@ const Droppable = ({ position, tag, rowIndex, onDrop }: Props) => {
     </div>
   );
 };
-
-export default Droppable;

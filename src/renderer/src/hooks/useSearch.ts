@@ -1,5 +1,7 @@
+import { searchResultAtom } from "@/atom";
 import { SupportMediaType } from "@shared/plugin/type";
-import { useCallback } from "react";
+import { useAtom } from "jotai";
+import { useCallback, useState } from "react";
 
 export const useSearch = () => {
   // const currentQueryRef = useRef("");
@@ -26,9 +28,24 @@ export const useSearch = () => {
     검색 요청이 완료되었을 때, currentQueryRef와 일치하지 않으면 결과를 무시
   */
 
-  const search = useCallback(async (query: string, page: number, method: SupportMediaType) => {
-    return window.plugin.callPluginMethod({ method, query, page });
-  }, []);
+  const [searchResult, setSearchResult] = useAtom(searchResultAtom);
+  const [isLoading, setIsLoading] = useState(false);
 
-  return { search };
+  const search = useCallback(
+    async (query: string, page: number, method: SupportMediaType) => {
+      setIsLoading(true);
+      try {
+        const data = await window.plugin.callPluginMethod({ method, query, page });
+        setSearchResult({ query, data });
+        setIsLoading(false);
+        return data;
+      } catch {
+        setIsLoading(false);
+        return { isEnd: true, data: [] };
+      }
+    },
+    [setSearchResult],
+  );
+
+  return { search, searchResult, isLoading };
 };

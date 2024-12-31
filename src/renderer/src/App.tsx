@@ -10,6 +10,7 @@ import {
   PlayController,
   MusicDetail,
   Collapsible,
+  ContentsLayout,
 } from "@/components";
 
 import "rc-slider/assets/index.css";
@@ -20,7 +21,9 @@ const App = () => {
       <HeaderFrame />
       <MainLayout>
         <SideFrame />
-        <Outlet />
+        <ContentsLayout>
+          <Outlet />
+        </ContentsLayout>
       </MainLayout>
       <ModalComponent />
       <Collapsible />

@@ -1,4 +1,4 @@
-import { MusicItem, PlayerState, RepeatMode } from "@shared/plugin/type";
+import { MusicItem, PlayerState, RepeatMode, SearchResult } from "@shared/plugin/type";
 import { atom } from "jotai";
 import { loadable } from "jotai/utils";
 import trackPlayer from "@shared/plugin/trackPlayer";
@@ -31,7 +31,12 @@ const mediaSourceAtomAsync = atom(async (get) => {
 
 export const mediaSourceAtom = loadable(mediaSourceAtomAsync);
 
-// export const searchResultAtom = atom({});
+export const searchHistoryAtom = atom<string[]>([]);
+
+export const searchResultAtom = atom<{
+  query: string;
+  data: SearchResult;
+}>();
 
 const lyricAtomAsync = atom(async (get) => {
   const currentMusic = get(currentMusicAtom);

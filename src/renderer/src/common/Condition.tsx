@@ -6,8 +6,6 @@ type Props = {
   fallback?: ReactNode;
 };
 
-const Condition = ({ children, condition, fallback = null }: Props) => {
+export const Condition = ({ children, condition, fallback = null }: Props) => {
   return <>{condition ? children : fallback}</>;
 };
-
-export default Condition;

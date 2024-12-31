@@ -1,5 +1,5 @@
 import { createHashRouter } from "react-router-dom";
-import { TestPage, SearchPage, SettingPage } from "@/pages";
+import { TestPage, SearchPage, SettingPage, LocalPage, DownloadPage, ChartPage } from "@/pages";
 import App from "@/App";
 
 const options = {
@@ -19,7 +19,10 @@ const router = createHashRouter(
       element: <App />,
       children: [
         { index: true, element: <TestPage /> },
-        { path: "search/:query", element: <SearchPage /> },
+        { path: "chart", element: <ChartPage /> },
+        { path: "search/:query?", element: <SearchPage /> },
+        { path: "local", element: <LocalPage /> },
+        { path: "download", element: <DownloadPage /> },
         { path: "setting", element: <SettingPage /> },
       ],
     },

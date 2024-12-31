@@ -1,3 +1,3 @@
 export const SettingPage = () => {
-  return <div></div>;
+  return <div>SettingPage</div>;
 };
