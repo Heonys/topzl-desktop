@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import StaticIcon from "@/icons/StaticIcon";
 import { IconButton } from "@/common/IconButton";
 import logo from "@resources/logo.png";
@@ -32,6 +32,11 @@ const options: OptionTypes[] = [
     route: "download",
   },
   {
+    iconName: "heart",
+    title: "favorite",
+    route: "favorite",
+  },
+  {
     iconName: "cog-8-tooth",
     title: "setting",
     route: "setting",
@@ -40,6 +45,8 @@ const options: OptionTypes[] = [
 
 export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <aside
       className={twMerge(
@@ -48,15 +55,12 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
       )}
       {...props}
     >
-      <div className="region-none mx-auto flex w-14 -translate-y-12 flex-col gap-5 rounded-lg bg-white py-5">
-        <button
-          className="mx-1 flex  items-center justify-center opacity-80 transition-transform hover:scale-110 hover:opacity-100"
+      <div className="region-none mx-auto flex w-14 -translate-y-12 flex-col gap-3 rounded-lg py-5">
+        <div
+          className="mx-2 flex  items-center justify-center rounded-md bg-white py-1 opacity-80 shadow-xl transition-transform hover:scale-110 hover:opacity-100"
           onClick={() => navigate("/")}
         >
           <img className="size-8 object-cover" src={logo} alt="logo" />
-        </button>
-        <div className="-my-4 flex justify-center opacity-10">
-          <StaticIcon iconName={"divider-horizontal"} color="black" size={28} />
         </div>
         {options.map(({ iconName, title, route }) => {
           return (
@@ -64,7 +68,11 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
               key={route}
               iconName={iconName}
               title={title}
-              size={25}
+              size={27}
+              className={twMerge(
+                "mx-2 box-border rounded-md bg-white py-2 shadow-xl",
+                location.pathname.startsWith(`/${route}`) && "opacity-100 scale-110",
+              )}
               onClick={() => {
                 navigate(`/${route}`);
               }}

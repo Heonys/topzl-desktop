@@ -1,3 +1,3 @@
 export const DownloadPage = () => {
-  return <div>ChartPage</div>;
+  return <div>DownloadPage</div>;
 };

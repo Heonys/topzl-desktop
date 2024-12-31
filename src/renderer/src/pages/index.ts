@@ -4,3 +4,4 @@ export * from "./SearchPage";
 export * from "./ChartPage";
 export * from "./DownloadPage";
 export * from "./LocalPage";
+export * from "./FavoritePage";
