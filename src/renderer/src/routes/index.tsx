@@ -6,7 +6,7 @@ import {
   LocalPage,
   DownloadPage,
   ChartPage,
-  FavoritePage,
+  LibraryPage,
 } from "@/pages";
 import App from "@/App";
 
@@ -31,7 +31,7 @@ const router = createHashRouter(
         { path: "search/:query?", element: <SearchPage /> },
         { path: "local", element: <LocalPage /> },
         { path: "download", element: <DownloadPage /> },
-        { path: "favorite", element: <FavoritePage /> },
+        { path: "library", element: <LibraryPage /> },
         { path: "setting", element: <SettingPage /> },
       ],
     },

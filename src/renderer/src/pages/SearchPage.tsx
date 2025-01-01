@@ -26,8 +26,8 @@ export const SearchPage = () => {
   }, [decodedQuery, mediaType, search, searchResult]);
 
   return (
-    <div className="box-border flex size-full select-text flex-col items-start px-5 font-bold">
-      <div className="mb-2 mt-5 text-3xl font-medium text-gray-500">
+    <div className="box-border flex size-full select-text flex-col items-start font-bold">
+      <div className="mb-2 text-3xl font-medium text-gray-500">
         Search Results for
         <span className=" text-black">{` "${decodedQuery || searchResult?.query}"`}</span>
       </div>
@@ -49,7 +49,7 @@ export const SearchPage = () => {
           ))}
         </TabList>
 
-        <div className="h-[calc(100%-10rem)] overflow-auto scrollbar-hide">
+        <div className="h-[calc(100%-9rem-4rem)] overflow-auto scrollbar-hide">
           <Condition condition={!isLoading}>
             {searchResult &&
               searchResult.data.data.map((item) => {

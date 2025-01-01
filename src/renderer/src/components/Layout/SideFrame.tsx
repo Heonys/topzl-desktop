@@ -32,9 +32,9 @@ const options: OptionTypes[] = [
     route: "download",
   },
   {
-    iconName: "heart",
-    title: "favorite",
-    route: "favorite",
+    iconName: "library-music",
+    title: "library",
+    route: "library",
   },
   {
     iconName: "cog-8-tooth",
@@ -55,7 +55,7 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
       )}
       {...props}
     >
-      <div className="region-none mx-auto flex w-14 -translate-y-12 flex-col gap-3 rounded-lg py-5">
+      <div className="region-none mx-auto flex w-16 -translate-y-12 flex-col gap-2.5 rounded-lg py-5">
         <div
           className="mx-2 flex  items-center justify-center rounded-md bg-white py-1 opacity-80 shadow-xl transition-transform hover:scale-110 hover:opacity-100"
           onClick={() => navigate("/")}
@@ -68,10 +68,11 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
               key={route}
               iconName={iconName}
               title={title}
-              size={27}
+              size={26}
               className={twMerge(
-                "mx-2 box-border rounded-md bg-white py-2 shadow-xl",
-                location.pathname.startsWith(`/${route}`) && "opacity-100 scale-110",
+                "mx-2 rounded-md bg-white py-2.5 shadow-xl",
+                location.pathname.startsWith(`/${route}`) &&
+                  "opacity-100 scale-110 bg-slate-300/20",
               )}
               onClick={() => {
                 navigate(`/${route}`);

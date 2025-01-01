@@ -21,6 +21,8 @@ import { LuRepeat, LuRepeat1, LuShuffle } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
 import { MdOutlinePlaylistAdd } from "react-icons/md";
 import { FiDownload } from "react-icons/fi";
+import { MdOutlineLibraryMusic } from "react-icons/md";
+import { SiApplemusic } from "react-icons/si";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -65,6 +67,8 @@ const IconMap = {
   ["trash"]: FaRegTrashAlt,
   ["down"]: FaChevronDown,
   ["add-playlist"]: MdOutlinePlaylistAdd,
+  ["library-music"]: MdOutlineLibraryMusic,
+  ["apple"]: SiApplemusic,
 };
 
 type Props = {
