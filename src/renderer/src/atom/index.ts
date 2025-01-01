@@ -7,6 +7,13 @@ import { toast } from "react-toastify";
 export const currentMusicAtom = atom<MusicItem | null>(null);
 
 export const playListAtom = atom<MusicItem[]>([]);
+export const allPlaylistsAtom = atom<
+  {
+    title: string;
+    description?: string;
+    data: MusicItem[];
+  }[]
+>([]);
 
 export const getCurrentListIndex = atom((get) => {
   const currentMusic = get(currentMusicAtom);
@@ -48,6 +55,8 @@ export const lyricAtomLodable = loadable(lyricAtomAsync);
 export const musicDetailVisibleAtom = atom(false);
 
 export const panelAtom = atom(false);
+
+export const favoriteListAtom = atom<MusicItem[]>([]);
 
 //  이벤트
 export const initProgress = {

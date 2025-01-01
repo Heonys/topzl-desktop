@@ -5,3 +5,5 @@ export * from "./usePlayer";
 export * from "./useSearch";
 export * from "./useShortcutListener";
 export * from "./useStorage";
+export * from "./useFavorite";
+export * from "./useLibrary";

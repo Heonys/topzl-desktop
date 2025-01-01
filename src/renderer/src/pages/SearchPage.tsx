@@ -42,7 +42,7 @@ export const SearchPage = () => {
           {tabs.map((name) => (
             <Tab
               key={name}
-              className="cursor-pointer rounded-full px-3 py-1 text-lg font-semibold opacity-70 hover:opacity-90 focus:outline-none  "
+              className="cursor-pointer rounded-full px-3 py-1 text-lg font-semibold opacity-70 hover:opacity-90 focus:outline-none"
             >
               {name}
             </Tab>

@@ -8,7 +8,8 @@ export default {
     extend: {
       fontFamily: {
         barlow: ["Barlow"],
-        dh: ["Do Hyeon"]
+        dh: ["Do Hyeon"],
+        sans: ["Sans"]
       }
     },
   },

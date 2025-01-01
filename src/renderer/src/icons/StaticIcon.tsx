@@ -14,7 +14,7 @@ import { GrFormPreviousLink, GrFormNextLink, GrFormRefresh } from "react-icons/g
 import { HiOutlineTrophy } from "react-icons/hi2";
 import { IoFolderOpenOutline } from "react-icons/io5";
 import { HiOutlineCodeBracketSquare } from "react-icons/hi2";
-import { FaPlus } from "react-icons/fa6";
+import { GoPlus } from "react-icons/go";
 import { IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
 import { BiSolidVolumeFull, BiSolidVolumeMute, BiSolidPlaylist } from "react-icons/bi";
 import { LuRepeat, LuRepeat1, LuShuffle } from "react-icons/lu";
@@ -51,7 +51,7 @@ const IconMap = {
   ["trophy"]: HiOutlineTrophy,
   ["forder-open"]: IoFolderOpenOutline,
   ["code-bracket-sqare"]: HiOutlineCodeBracketSquare,
-  ["plus"]: FaPlus,
+  ["plus"]: GoPlus,
   ["play"]: FaPlay,
   ["pause"]: FaPause,
   ["skip-next"]: IoMdSkipForward,

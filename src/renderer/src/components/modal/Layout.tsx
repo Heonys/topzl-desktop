@@ -25,3 +25,7 @@ export const Header = ({ children }: PropsWithChildren) => {
     </header>
   );
 };
+
+export const Contents = ({ children }: PropsWithChildren) => {
+  return <div className="flex-1 p-3">{children}</div>;
+};
