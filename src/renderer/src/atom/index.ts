@@ -10,6 +10,7 @@ export const playListAtom = atom<MusicItem[]>([]);
 export const allPlaylistsAtom = atom<
   {
     title: string;
+    date: string;
     description?: string;
     data: MusicItem[];
   }[]

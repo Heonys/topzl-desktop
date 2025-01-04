@@ -23,6 +23,7 @@ import { MdOutlinePlaylistAdd } from "react-icons/md";
 import { FiDownload } from "react-icons/fi";
 import { MdOutlineLibraryMusic } from "react-icons/md";
 import { SiApplemusic } from "react-icons/si";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -69,6 +70,7 @@ const IconMap = {
   ["add-playlist"]: MdOutlinePlaylistAdd,
   ["library-music"]: MdOutlineLibraryMusic,
   ["apple"]: SiApplemusic,
+  ["rename"]: HiOutlinePencilSquare,
 };
 
 type Props = {

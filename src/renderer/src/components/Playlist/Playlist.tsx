@@ -32,7 +32,7 @@ export const Playlist = () => {
 
   return (
     <div className="m-3 h-full">
-      <div className="text-xl">Playlist {`(${playlist.length})`}</div>
+      <div className="font-sans text-xl font-semibold">현재 재생목록 {`(${playlist.length})`}</div>
       <div className="my-2 h-px w-full bg-black/10" />
       <div className="flex w-full items-center justify-between p-2">
         <div className="flex w-[190px] gap-3">

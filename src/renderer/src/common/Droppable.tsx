@@ -6,9 +6,10 @@ type Props = {
   rowIndex: number;
   tag: string;
   onDrop: (from: number, to: number) => void;
+  isTable?: boolean;
 };
 
-export const Droppable = ({ position, tag, rowIndex, onDrop }: Props) => {
+export const Droppable = ({ position, tag, rowIndex, onDrop, isTable }: Props) => {
   const [isDragOver, setIsDragOver] = useState(false);
 
   const onDragOver = (e: React.DragEvent) => {
@@ -20,7 +21,7 @@ export const Droppable = ({ position, tag, rowIndex, onDrop }: Props) => {
     setIsDragOver(false);
   };
 
-  return (
+  const Contents = (
     <div
       className="absolute left-0 flex h-3 w-full items-center"
       style={{ [position]: "-6px" }}
@@ -38,8 +39,13 @@ export const Droppable = ({ position, tag, rowIndex, onDrop }: Props) => {
       }}
     >
       <Condition condition={isDragOver}>
-        <div className="pointer-events-none absolute h-0.5 w-full bg-red-500" />
+        <div
+          style={{ width: 0 }}
+          className="pointer-events-none absolute h-0.5 w-full bg-red-500"
+        />
       </Condition>
     </div>
   );
+
+  return isTable ? <td className="w-0 max-w-0">{Contents}</td> : Contents;
 };

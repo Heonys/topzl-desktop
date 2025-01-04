@@ -27,9 +27,9 @@ const options: OptionTypes[] = [
     route: "local",
   },
   {
-    iconName: "download",
-    title: "download",
-    route: "download",
+    iconName: "playlist",
+    title: "playlist",
+    route: "playlist",
   },
   {
     iconName: "library-music",

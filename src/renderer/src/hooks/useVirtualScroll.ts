@@ -2,18 +2,10 @@ import { MutableRefObject, useCallback, useEffect, useRef, useState } from "reac
 import throttle from "lodash.throttle";
 
 interface VirtualListProps<T> {
-  /** 스크롤 컨테이너 */
   getScrollElement: () => HTMLElement;
-  /** 스크롤 컨테이너의 CSS 선택자 */
   estimizeItemHeight: number;
-
-  /** 데이터 */
   data: T[];
-  /** 렌더링할 항목 수 */
   renderCount?: number;
-  /** 가상 리스트가 비활성화될 때 렌더링할 항목 수 */
-  fallbackRenderCount?: number;
-  /** 오프셋 높이 */
   offsetHeight?: number | (() => number);
 }
 
@@ -24,14 +16,7 @@ interface VirtualItem<T> {
 }
 
 export const useVirtualScroll = <T>(props: VirtualListProps<T>) => {
-  const {
-    estimizeItemHeight,
-    data,
-    renderCount = 40,
-    fallbackRenderCount = -1,
-    getScrollElement,
-    offsetHeight = 0,
-  } = props;
+  const { estimizeItemHeight, data, renderCount = 40, getScrollElement, offsetHeight = 0 } = props;
   const dataRef = useRef(data);
   dataRef.current = data;
 
@@ -51,21 +36,11 @@ export const useVirtualScroll = <T>(props: VirtualListProps<T>) => {
         const startIndex = Math.max(estimizeStartIndex - (estimizeStartIndex % 2 === 1 ? 3 : 2), 0);
 
         setVirtualItems(
-          realData
-            .slice(
-              startIndex,
-              startIndex +
-                (scrollElementRef.current
-                  ? renderCount
-                  : fallbackRenderCount < 0
-                    ? realData.length
-                    : fallbackRenderCount),
-            )
-            .map((item, index) => ({
-              rowIndex: startIndex + index,
-              dataItem: item,
-              top: (startIndex + index) * estimizeItemHeight,
-            })),
+          realData.slice(startIndex, startIndex + renderCount).map((item, index) => ({
+            rowIndex: startIndex + index,
+            dataItem: item,
+            top: (startIndex + index) * estimizeItemHeight,
+          })),
         );
       },
       32,

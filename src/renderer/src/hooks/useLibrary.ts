@@ -6,7 +6,10 @@ export const useLibrary = () => {
 
   const createPlaylist = (title: string, description?: string) => {
     if (playLists.some((list) => list.title === title)) return;
-    setPlayLists((prev) => [...prev, { title, description, data: [] }]);
+    setPlayLists((prev) => [
+      ...prev,
+      { title, description, date: new Date().toLocaleDateString(), data: [] },
+    ]);
   };
 
   const removePlaylist = (title: string) => {

@@ -25,7 +25,7 @@ export function AlbumCover({ title, iconName, onClick }: Props) {
         {/* <div className="absolute right-1 top-1"></div> */}
       </div>
 
-      <div className="truncate text-center" title={title}>
+      <div className="truncate text-center text-sm" title={title}>
         {title}
       </div>
     </div>
