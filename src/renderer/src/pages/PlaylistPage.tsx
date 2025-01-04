@@ -1,4 +1,4 @@
-import { LibraryList } from "@/components";
+import { PlayListTable } from "@/components";
 import { useCurrentMusic } from "@/hooks";
 import StaticIcon from "@/icons/StaticIcon";
 import { setFallbackImage, getDefaultImage } from "@/utils";
@@ -34,7 +34,7 @@ export const PlaylistPage = () => {
         </div>
       </div>
       <div className="relative my-4 w-full">
-        <LibraryList />
+        <PlayListTable />
       </div>
     </div>
   );

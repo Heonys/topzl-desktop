@@ -24,6 +24,8 @@ import { FiDownload } from "react-icons/fi";
 import { MdOutlineLibraryMusic } from "react-icons/md";
 import { SiApplemusic } from "react-icons/si";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
+import { TiArrowUnsorted } from "react-icons/ti";
+import { HiOutlineSortDescending, HiOutlineSortAscending } from "react-icons/hi";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -71,6 +73,9 @@ const IconMap = {
   ["library-music"]: MdOutlineLibraryMusic,
   ["apple"]: SiApplemusic,
   ["rename"]: HiOutlinePencilSquare,
+  ["sort"]: TiArrowUnsorted,
+  ["sort-asc"]: HiOutlineSortAscending,
+  ["sort-desc"]: HiOutlineSortDescending,
 };
 
 type Props = {

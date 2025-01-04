@@ -39,13 +39,10 @@ export const Droppable = ({ position, tag, rowIndex, onDrop, isTable }: Props) =
       }}
     >
       <Condition condition={isDragOver}>
-        <div
-          style={{ width: 0 }}
-          className="pointer-events-none absolute h-0.5 w-full bg-red-500"
-        />
+        <div className="pointer-events-none absolute h-0.5 w-full bg-red-500" />
       </Condition>
     </div>
   );
 
-  return isTable ? <td className="w-0 max-w-0">{Contents}</td> : Contents;
+  return isTable ? <td className="w-0">{Contents}</td> : Contents;
 };
