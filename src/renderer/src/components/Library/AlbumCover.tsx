@@ -6,10 +6,11 @@ type Props = {
   title: string;
   iconName?: ComponentProps<typeof StaticIcon>["iconName"];
   onClick?: () => void;
+  onDoubleClick?: () => void;
   coverUrl?: string;
 };
 
-export function AlbumCover({ title, iconName, onClick, coverUrl }: Props) {
+export function AlbumCover({ title, iconName, onClick, coverUrl, onDoubleClick }: Props) {
   return (
     <div className="group flex size-36 flex-col gap-1">
       {coverUrl ? (
@@ -17,6 +18,7 @@ export function AlbumCover({ title, iconName, onClick, coverUrl }: Props) {
           className="relative flex w-full flex-1 items-center justify-center rounded-lg opacity-85 group-hover:opacity-100"
           style={coverUrl ? { backgroundImage: `url(${coverUrl})`, backgroundSize: "cover" } : {}}
           onClick={onClick}
+          onDoubleClick={onDoubleClick}
         >
           <div className="flex w-full items-center justify-center">
             {iconName && (
@@ -34,6 +36,7 @@ export function AlbumCover({ title, iconName, onClick, coverUrl }: Props) {
             "relative flex w-full flex-1 items-center justify-center rounded-lg bg-slate-500",
           )}
           onClick={onClick}
+          onDoubleClick={onDoubleClick}
         >
           <div className="flex w-full items-center justify-center">
             {iconName && (

@@ -6,3 +6,5 @@ export * from "./PlaylistPage";
 export * from "./LocalPage";
 export * from "./LibraryPage";
 export * from "./DownloadPage";
+export * from "./PlaylistWithTitlePage";
+export * from "./FavoritePage";

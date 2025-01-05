@@ -8,6 +8,8 @@ import {
   ChartPage,
   LibraryPage,
   DownloadPage,
+  PlaylistWithTitlePage,
+  FavoritePage,
 } from "@/pages";
 import App from "@/App";
 
@@ -32,6 +34,9 @@ const router = createHashRouter(
         { path: "search/:query?", element: <SearchPage /> },
         { path: "local", element: <LocalPage /> },
         { path: "playlist", element: <PlaylistPage /> },
+        { path: "playlist/current", element: <PlaylistPage /> },
+        { path: "playlist/favorite", element: <FavoritePage /> },
+        { path: "playlist/:title", element: <PlaylistWithTitlePage /> },
         { path: "library", element: <LibraryPage /> },
         { path: "download", element: <DownloadPage /> },
         { path: "setting", element: <SettingPage /> },
@@ -40,7 +45,5 @@ const router = createHashRouter(
   ],
   options,
 );
-
-/* 필요시 PATH 파일 추가 */
 
 export default router;

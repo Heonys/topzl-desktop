@@ -5,6 +5,7 @@ import trackPlayer from "@shared/plugin/trackPlayer";
 import { toast } from "react-toastify";
 
 export type PlaylistInfo = {
+  type?: "favorite" | "current";
   title: string;
   data: MusicItem[];
   date?: string;

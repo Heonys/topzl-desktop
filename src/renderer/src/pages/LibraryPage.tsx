@@ -7,8 +7,10 @@ import StaticIcon from "@/icons/StaticIcon";
 import { PlaylistInfo } from "@/atom";
 import { useState } from "react";
 import { Condition } from "@/common";
+import { useNavigate } from "react-router-dom";
 
 export const LibraryPage = () => {
+  const navigate = useNavigate();
   const { playLists, removePlaylist } = useLibrary();
   const { showModal } = useModal();
   const { favoriteList } = useFavorite();
@@ -19,16 +21,14 @@ export const LibraryPage = () => {
     data: favoriteList,
   };
   const [selectedList, setSelectedList] = useState<PlaylistInfo>(initSelect);
+  const isCustomPlaylist = !selectedList.type;
 
   const handleSelectView = (info: PlaylistInfo) => {
     setSelectedList(info);
   };
 
-  const isCustomPlaylist =
-    selectedList && playLists.some((list) => list.title === selectedList.title);
-
   return (
-    <>
+    <section>
       <div className="flex gap-2">
         <img
           className="size-56 rounded-xl object-cover"
@@ -60,7 +60,12 @@ export const LibraryPage = () => {
             <div className="mt-3">{selectedList?.description}</div>
           </div>
           <div className="flex gap-2">
-            <button className="flex items-center gap-2 rounded-lg bg-blue-200 p-2 px-4 font-sans text-sm font-semibold text-blue-600 opacity-85 hover:opacity-100">
+            <button
+              className="flex items-center gap-2 rounded-lg bg-blue-200 p-2 px-4 font-sans text-sm font-semibold text-blue-600 opacity-85 hover:opacity-100"
+              onClick={() => {
+                navigate(`/playlist/${selectedList.type ?? selectedList.title}`);
+              }}
+            >
               <StaticIcon iconName="playlist" size={20} />
               재생목록으로 이동
             </button>
@@ -95,8 +100,10 @@ export const LibraryPage = () => {
               title="좋아요 표시한 음악"
               iconName="apple"
               coverUrl={favoriteList[0]?.artwork}
+              onDoubleClick={() => navigate("/playlist/favorite")}
               onClick={() => {
                 handleSelectView({
+                  type: "favorite",
                   title: "좋아요 표시한 음악",
                   description: "좋아요 표시한 음악 목록 입니다.",
                   data: favoriteList,
@@ -107,8 +114,10 @@ export const LibraryPage = () => {
               title="현재 재생목록"
               iconName="playlist"
               coverUrl={playlist[0]?.artwork}
+              onDoubleClick={() => navigate("/playlist/current")}
               onClick={() => {
                 handleSelectView({
+                  type: "current",
                   title: "현재 재생목록",
                   description: "현재 재생중인 목록 입니다.",
                   data: playlist,
@@ -122,6 +131,7 @@ export const LibraryPage = () => {
                   title={info.title}
                   coverUrl={info.data[0]?.artwork}
                   iconName="playlist"
+                  onDoubleClick={() => navigate(`/playlist/${info.title}`)}
                   onClick={() => handleSelectView(info)}
                 />
               );
@@ -129,6 +139,6 @@ export const LibraryPage = () => {
           </div>
         </TabGroup>
       </div>
-    </>
+    </section>
   );
 };

@@ -36,5 +36,38 @@ export const useLibrary = () => {
     setPlayLists((prev) => prev.filter((it) => it.title !== title));
   };
 
-  return { playLists, createPlaylist, removePlaylist, renamePlaylist, addPlaylistByTitle };
+  const setPlaylistByTitle = (title: string, playList: MusicItem[]) => {
+    setPlayLists((prev) => {
+      const index = prev.findIndex((it) => it.title === title);
+      if (index === -1) return prev;
+      return [
+        ...prev.slice(0, index),
+        { ...prev[index], data: playList },
+        ...prev.slice(index + 1),
+      ];
+    });
+  };
+
+  const removePlaylistByTitle = (title: string, id: number) => {
+    setPlayLists((prev) => {
+      const index = prev.findIndex((it) => it.title === title);
+      if (index === -1) return prev;
+
+      const updatedPlaylist = {
+        ...prev[index],
+        data: prev[index].data.filter((item) => item.id !== id),
+      };
+      return [...prev.slice(0, index), updatedPlaylist, ...prev.slice(index + 1)];
+    });
+  };
+
+  return {
+    playLists,
+    createPlaylist,
+    removePlaylist,
+    renamePlaylist,
+    addPlaylistByTitle,
+    setPlaylistByTitle,
+    removePlaylistByTitle,
+  };
 };

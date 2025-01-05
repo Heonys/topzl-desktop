@@ -14,6 +14,7 @@ export function createMainWindow() {
     center: true,
     frame: false,
     resizable: false,
+    maximizable: false,
     webPreferences: {
       sandbox: true,
       contextIsolation: true,

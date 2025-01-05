@@ -112,8 +112,14 @@ const createColumns = ({ onRemove, onToggle, isFavorite }: ColumnProps) => {
   ];
 };
 
-export const PlayListTable = () => {
-  const { playlist, setPlaylist, setCurrentItem, removePlaylist } = useCurrentMusic();
+type Props = {
+  playlist: MusicItem[];
+  setPlaylist: (item: MusicItem[]) => void;
+  removePlaylist: (id: number) => void;
+};
+
+export const PlayListTable = ({ playlist, setPlaylist, removePlaylist }: Props) => {
+  const { setCurrentItem } = useCurrentMusic();
   const [sorting, setSorting] = useState<SortingState>([]);
   const { isFavorite, favorite, unfavorite } = useFavorite();
 
@@ -209,7 +215,7 @@ export const PlayListTable = () => {
         </tbody>
       </table>
       <Condition condition={playlist.length === 0}>
-        <Empty message="현재 재생목록이 비어있습니다" />
+        <Empty message="재생목록이 비어있습니다" />
       </Condition>
     </div>
   );

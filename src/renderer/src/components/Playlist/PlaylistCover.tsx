@@ -11,11 +11,11 @@ type Props = {
 export function PlaylistCover({ title, playlist, date, onClick }: Props) {
   return (
     <div
-      className="flex h-16 w-full items-center gap-2 rounded-lg hover:bg-black/10"
+      className="flex h-16 w-full items-center gap-2 rounded-lg hover:bg-black/5"
       onClick={onClick}
     >
       <img
-        className="h-full rounded-md object-cover"
+        className="size-[60px] rounded-md object-cover"
         src={getDefaultImage(playlist[0]?.artwork)}
         alt="cover-image"
         onError={setFallbackImage}
