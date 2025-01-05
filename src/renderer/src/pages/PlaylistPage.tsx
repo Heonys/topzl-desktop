@@ -7,7 +7,7 @@ export const PlaylistPage = () => {
   const { playlist } = useCurrentMusic();
 
   return (
-    <div className="">
+    <>
       <div className="flex gap-2">
         <img
           className="size-56 rounded-xl object-cover"
@@ -27,8 +27,8 @@ export const PlaylistPage = () => {
               전체 재생
             </button>
             <button className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 px-4 font-sans text-sm font-semibold opacity-85 hover:opacity-100">
-              <StaticIcon iconName="add-playlist" size={20} />
-              재생목록에 추가
+              <StaticIcon iconName="library-music" size={20} />
+              재생목록
             </button>
           </div>
         </div>
@@ -36,6 +36,6 @@ export const PlaylistPage = () => {
       <div className="relative my-4 w-full">
         <PlayListTable />
       </div>
-    </div>
+    </>
   );
 };

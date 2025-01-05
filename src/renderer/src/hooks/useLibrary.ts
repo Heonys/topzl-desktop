@@ -1,4 +1,5 @@
 import { allPlaylistsAtom } from "@/atom";
+import { MusicItem } from "@shared/plugin/type";
 import { useAtom } from "jotai";
 
 export const useLibrary = () => {
@@ -12,9 +13,28 @@ export const useLibrary = () => {
     ]);
   };
 
+  const renamePlaylist = (title: string, newTitle: string) => {
+    setPlayLists((prev) =>
+      prev.map((list) => (list.title === title ? { ...list, title: newTitle } : list)),
+    );
+  };
+
+  const addPlaylistByTitle = (title: string, item: MusicItem) => {
+    setPlayLists((prev) => {
+      const index = prev.findIndex((it) => it.title === title);
+      if (index === -1) return prev;
+
+      return [
+        ...prev.slice(0, index),
+        { ...prev[index], data: [...prev[index].data, item] },
+        ...prev.slice(index + 1),
+      ];
+    });
+  };
+
   const removePlaylist = (title: string) => {
     setPlayLists((prev) => prev.filter((it) => it.title !== title));
   };
 
-  return { playLists, createPlaylist, removePlaylist };
+  return { playLists, createPlaylist, removePlaylist, renamePlaylist, addPlaylistByTitle };
 };

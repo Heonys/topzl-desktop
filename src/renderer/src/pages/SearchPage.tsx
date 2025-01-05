@@ -1,12 +1,13 @@
-import { useCurrentMusic } from "@/hooks/useCurrentMusic";
-import { useSearch } from "@/hooks";
-import { formatTime, setFallbackImage } from "@/utils";
-import { Tab, TabGroup, TabList } from "@headlessui/react";
-import { SupportMediaType } from "@shared/plugin/type";
 import { useEffect, useState } from "react";
+import { Tab, TabGroup, TabList } from "@headlessui/react";
 import { useParams } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
+import { useCurrentMusic } from "@/hooks/useCurrentMusic";
+import { useFavorite, useSearch } from "@/hooks";
+import { formatTime, setFallbackImage } from "@/utils";
+import { SupportMediaType } from "@shared/plugin/type";
 import { IconButton, Condition } from "@/common";
+import { useModal } from "@/components/Modal/useModal";
 
 const tabs: SupportMediaType[] = ["music", "album", "artist", "sheet"];
 
@@ -14,8 +15,10 @@ export const SearchPage = () => {
   const { query } = useParams();
   const decodedQuery = decodeURIComponent(query || "");
   const { search, isLoading, searchResult } = useSearch();
-  const { currentItem, playMusicWithAddPlaylist, addPlaylist } = useCurrentMusic();
+  const { currentItem, playMusicWithAddPlaylist } = useCurrentMusic();
   const [mediaType, setMediaType] = useState<SupportMediaType>("music");
+  const { isFavorite, favorite, unfavorite } = useFavorite();
+  const { showModal } = useModal();
 
   useEffect(() => {
     if (!searchResult || searchResult.query !== decodedQuery) {
@@ -59,7 +62,14 @@ export const SearchPage = () => {
                     key={id}
                     className="flex h-16 w-full cursor-pointer items-center gap-3 rounded-md px-3 py-1 text-base font-semibold"
                   >
-                    <IconButton iconName="heart" size={18} />
+                    <IconButton
+                      iconName={isFavorite(item.id) ? "heart-fill" : "heart"}
+                      size={18}
+                      onClick={() => {
+                        if (isFavorite(item.id)) unfavorite(item.id);
+                        else favorite(item);
+                      }}
+                    />
                     <img
                       className="size-14 rounded-md object-cover"
                       src={artwork}
@@ -86,7 +96,7 @@ export const SearchPage = () => {
                     <IconButton
                       iconName="add-playlist"
                       size={20}
-                      onClick={() => addPlaylist(item)}
+                      onClick={() => showModal("SelectPlaylist", { selectedItem: item })}
                     />
                   </div>
                 );

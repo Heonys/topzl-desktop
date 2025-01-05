@@ -1,5 +1,6 @@
 import { Case, Condition, Droppable, IconButton, Switch } from "@/common";
-import { useCurrentMusic } from "@/hooks";
+import { Empty } from "@/common/Empty";
+import { useCurrentMusic, useFavorite } from "@/hooks";
 import StaticIcon from "@/icons/StaticIcon";
 import { assignToDrag, formatTime } from "@/utils";
 import { MusicItem } from "@shared/plugin/type";
@@ -17,17 +18,30 @@ import { twMerge } from "tailwind-merge";
 const TAG = "playlist-table";
 const columnHelper = createColumnHelper<MusicItem>();
 
-const createColumns = (onRemove: (id: number) => void) => {
+type ColumnProps = {
+  onRemove: (id: number) => void;
+  isFavorite: (id: number) => boolean;
+  onToggle: (item: MusicItem) => void;
+};
+
+const createColumns = ({ onRemove, onToggle, isFavorite }: ColumnProps) => {
   return [
     columnHelper.display({
       id: "like",
       size: 60,
-      cell: () => (
-        <div className="flex items-center justify-start gap-2">
-          <IconButton iconName="heart" size={17} />
-          <IconButton iconName="download" size={17} />
-        </div>
-      ),
+      cell: (info) => {
+        const origin = info.row.original;
+        return (
+          <div className="flex items-center justify-start gap-2">
+            <IconButton
+              iconName={isFavorite(origin.id) ? "heart-fill" : "heart"}
+              size={17}
+              onClick={() => onToggle(origin)}
+            />
+            <IconButton iconName="download" size={17} />
+          </div>
+        );
+      },
       enableResizing: false,
       enableSorting: false,
     }),
@@ -42,9 +56,9 @@ const createColumns = (onRemove: (id: number) => void) => {
     }),
 
     columnHelper.accessor("title", {
-      header: "title",
+      header: "Title",
       size: 300,
-      cell: (info) => <div className="truncate pr-2">{info.getValue()}</div>,
+      cell: (info) => <div className="truncate pr-1">{info.getValue()}</div>,
       enableResizing: false,
       enableSorting: true,
     }),
@@ -52,7 +66,7 @@ const createColumns = (onRemove: (id: number) => void) => {
     columnHelper.accessor("artist", {
       header: "Artist",
       size: 250,
-      cell: (info) => <div className="truncate px-2">{info.renderValue()}</div>,
+      cell: (info) => <div className="truncate px-1">{info.renderValue()}</div>,
       enableResizing: false,
       enableSorting: true,
     }),
@@ -62,7 +76,7 @@ const createColumns = (onRemove: (id: number) => void) => {
       enableResizing: false,
       enableSorting: true,
       cell: (info) => (
-        <div className="truncate pl-2" title={info.getValue()}>
+        <div className="truncate pl-1" title={info.getValue()}>
           {info.getValue()}
         </div>
       ),
@@ -101,15 +115,24 @@ const createColumns = (onRemove: (id: number) => void) => {
 export const PlayListTable = () => {
   const { playlist, setPlaylist, setCurrentItem, removePlaylist } = useCurrentMusic();
   const [sorting, setSorting] = useState<SortingState>([]);
+  const { isFavorite, favorite, unfavorite } = useFavorite();
 
+  const toggleFavorite = (item: MusicItem) => {
+    if (isFavorite(item.id)) unfavorite(item.id);
+    else favorite(item);
+  };
+
+  const columns = createColumns({
+    onRemove: removePlaylist,
+    isFavorite,
+    onToggle: toggleFavorite,
+  });
   const table = useReactTable({
     debugAll: false,
     data: playlist,
-    state: {
-      sorting,
-    },
+    state: { sorting },
     onSortingChange: setSorting,
-    columns: createColumns(removePlaylist),
+    columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
@@ -185,6 +208,9 @@ export const PlayListTable = () => {
           ))}
         </tbody>
       </table>
+      <Condition condition={playlist.length === 0}>
+        <Empty message="현재 재생목록이 비어있습니다" />
+      </Condition>
     </div>
   );
 };

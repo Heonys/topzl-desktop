@@ -4,17 +4,17 @@ import { loadable } from "jotai/utils";
 import trackPlayer from "@shared/plugin/trackPlayer";
 import { toast } from "react-toastify";
 
+export type PlaylistInfo = {
+  title: string;
+  data: MusicItem[];
+  date?: string;
+  description?: string;
+};
+
 export const currentMusicAtom = atom<MusicItem | null>(null);
 
 export const playListAtom = atom<MusicItem[]>([]);
-export const allPlaylistsAtom = atom<
-  {
-    title: string;
-    date: string;
-    description?: string;
-    data: MusicItem[];
-  }[]
->([]);
+export const allPlaylistsAtom = atom<PlaylistInfo[]>([]);
 
 export const getCurrentListIndex = atom((get) => {
   const currentMusic = get(currentMusicAtom);

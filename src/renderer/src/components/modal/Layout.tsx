@@ -27,5 +27,5 @@ export const Header = ({ children }: PropsWithChildren) => {
 };
 
 export const Contents = ({ children }: PropsWithChildren) => {
-  return <div className="flex-1 p-3">{children}</div>;
+  return <div className="size-full flex-1 overflow-y-auto p-3">{children}</div>;
 };

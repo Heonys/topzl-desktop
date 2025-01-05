@@ -15,7 +15,7 @@ export const useFavorite = () => {
   };
 
   const isFavorite = (id: number) => {
-    return favoriteList.find((it) => it.id === id);
+    return !!favoriteList.find((it) => it.id === id);
   };
 
   return { favoriteList, favorite, unfavorite, isFavorite };

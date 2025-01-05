@@ -1,27 +1,82 @@
-// import { useState } from "react";
 import { Tab, TabGroup, TabList } from "@headlessui/react";
-import fallbackImage from "@/assets/images/fallback.webp";
 import { AlbumCover } from "@/components";
-import { useLibrary } from "@/hooks";
+import { useCurrentMusic, useFavorite, useLibrary } from "@/hooks";
 import { useModal } from "@/components/Modal/useModal";
-import { IconButton } from "@/common";
+import { getDefaultImage, setFallbackImage } from "@/utils";
+import StaticIcon from "@/icons/StaticIcon";
+import { PlaylistInfo } from "@/atom";
+import { useState } from "react";
+import { Condition } from "@/common";
 
 export const LibraryPage = () => {
-  const { playLists } = useLibrary();
+  const { playLists, removePlaylist } = useLibrary();
   const { showModal } = useModal();
+  const { favoriteList } = useFavorite();
+  const { playlist } = useCurrentMusic();
+  const initSelect = {
+    title: "좋아요 표시한 음악",
+    description: "좋아요 표시한 음악 목록 입니다.",
+    data: favoriteList,
+  };
+  const [selectedList, setSelectedList] = useState<PlaylistInfo>(initSelect);
+
+  const handleSelectView = (info: PlaylistInfo) => {
+    setSelectedList(info);
+  };
+
+  const isCustomPlaylist =
+    selectedList && playLists.some((list) => list.title === selectedList.title);
 
   return (
-    <div className="">
+    <>
       <div className="flex gap-2">
-        <img className="size-52 rounded-xl object-cover" src={fallbackImage} alt="fallback-image" />
-        <div className="m-2 mx-4 flex w-full flex-col gap-2 font-sans font-normal">
-          <div className="flex items-center gap-4 pb-3">
-            <h1 className="text-2xl font-bold">현재 재생목록</h1>
-            <IconButton iconName="rename" opacity />
+        <img
+          className="size-56 rounded-xl object-cover"
+          src={getDefaultImage(selectedList?.data[0]?.artwork)}
+          alt="fallback-image"
+          onError={setFallbackImage}
+        />
+        <div className="m-4 flex w-full flex-col font-sans font-normal">
+          <div className="flex flex-1 flex-col gap-1">
+            <div className="flex items-center gap-2">
+              <div className="bg-transparent text-2xl font-bold">{selectedList?.title}</div>
+              {isCustomPlaylist && (
+                <StaticIcon
+                  iconName="rename"
+                  size={15}
+                  onClick={() =>
+                    showModal("RenamePlaylist", {
+                      title: selectedList.title,
+                      callback: (newTitle: string) =>
+                        setSelectedList((prev) => ({ ...prev, title: newTitle })),
+                    })
+                  }
+                />
+              )}
+            </div>
+            <Condition condition={selectedList}>
+              <div className="text-sm text-black/50">{`트랙 ${selectedList?.data.length}개 • 업데이트 ${selectedList?.date}`}</div>
+            </Condition>
+            <div className="mt-3">{selectedList?.description}</div>
           </div>
-          <div className="">설명: 현재 재생중인 재생목록 입니다</div>
-          <div className="">생성일: 2025-01-02</div>
-          <div>음악: 총16곡</div>
+          <div className="flex gap-2">
+            <button className="flex items-center gap-2 rounded-lg bg-blue-200 p-2 px-4 font-sans text-sm font-semibold text-blue-600 opacity-85 hover:opacity-100">
+              <StaticIcon iconName="playlist" size={20} />
+              재생목록으로 이동
+            </button>
+            {isCustomPlaylist && (
+              <button
+                className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 px-4 font-sans text-sm font-semibold opacity-85 hover:opacity-100"
+                onClick={() => {
+                  removePlaylist(selectedList.title);
+                  setSelectedList(initSelect);
+                }}
+              >
+                <StaticIcon iconName="trash" size={15} />
+                재생목록 삭제
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -36,14 +91,44 @@ export const LibraryPage = () => {
               iconName="plus"
               onClick={() => showModal("CreatePlayList")}
             />
-            <AlbumCover title="좋아요 표시한 음악" iconName="apple" />
-            <AlbumCover title="현재 재생목록" iconName="playlist" />
-            {playLists.map(({ title }) => {
-              return <AlbumCover key={title} title={title} iconName="playlist" />;
+            <AlbumCover
+              title="좋아요 표시한 음악"
+              iconName="apple"
+              coverUrl={favoriteList[0]?.artwork}
+              onClick={() => {
+                handleSelectView({
+                  title: "좋아요 표시한 음악",
+                  description: "좋아요 표시한 음악 목록 입니다.",
+                  data: favoriteList,
+                });
+              }}
+            />
+            <AlbumCover
+              title="현재 재생목록"
+              iconName="playlist"
+              coverUrl={playlist[0]?.artwork}
+              onClick={() => {
+                handleSelectView({
+                  title: "현재 재생목록",
+                  description: "현재 재생중인 목록 입니다.",
+                  data: playlist,
+                });
+              }}
+            />
+            {playLists.map((info) => {
+              return (
+                <AlbumCover
+                  key={info.title}
+                  title={info.title}
+                  coverUrl={info.data[0]?.artwork}
+                  iconName="playlist"
+                  onClick={() => handleSelectView(info)}
+                />
+              );
             })}
           </div>
         </TabGroup>
       </div>
-    </div>
+    </>
   );
 };

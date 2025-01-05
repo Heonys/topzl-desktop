@@ -5,3 +5,4 @@ export * from "./ChartPage";
 export * from "./PlaylistPage";
 export * from "./LocalPage";
 export * from "./LibraryPage";
+export * from "./DownloadPage";

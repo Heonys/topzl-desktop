@@ -22,11 +22,6 @@ const options: OptionTypes[] = [
     route: "search",
   },
   {
-    iconName: "forder-open",
-    title: "local",
-    route: "local",
-  },
-  {
     iconName: "playlist",
     title: "playlist",
     route: "playlist",
@@ -35,6 +30,16 @@ const options: OptionTypes[] = [
     iconName: "library-music",
     title: "library",
     route: "library",
+  },
+  {
+    iconName: "forder-open",
+    title: "local",
+    route: "local",
+  },
+  {
+    iconName: "download",
+    title: "download",
+    route: "download",
   },
   {
     iconName: "cog-8-tooth",

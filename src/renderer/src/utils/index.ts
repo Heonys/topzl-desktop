@@ -17,7 +17,7 @@ export function setFallbackImage(event: SyntheticEvent<HTMLImageElement>) {
   (event.target as HTMLImageElement).src = fallbackImage;
 }
 
-export function getDefaultImage(artwork: string) {
+export function getDefaultImage(artwork?: string) {
   return artwork || fallbackImage;
 }
 
