@@ -25,6 +25,9 @@ declare global {
       callPluginMethod: IpcInvoke.Renderer["call-plugin-method"];
       getMediaSource: IpcInvoke.Renderer["get-media-source"];
       searchLyric: IpcInvoke.Renderer["search-lyric"];
+      getTopLists: IpcInvoke.Renderer["get-toplists"];
+      getRecommendedTag: IpcInvoke.Renderer["get-recommended-tag"];
+      getTopListDetail: IpcInvoke.Renderer["get-toplist-detail"];
     };
     notification: {
       error: (callback: (message: IpcEvents.Main["notification-error"]) => void) => void;

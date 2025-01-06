@@ -7,7 +7,6 @@ import {
   PlaylistPage,
   ChartPage,
   LibraryPage,
-  DownloadPage,
   PlaylistWithTitlePage,
   FavoritePage,
 } from "@/pages";
@@ -38,7 +37,6 @@ const router = createHashRouter(
         { path: "playlist/favorite", element: <FavoritePage /> },
         { path: "playlist/:title", element: <PlaylistWithTitlePage /> },
         { path: "library", element: <LibraryPage /> },
-        { path: "download", element: <DownloadPage /> },
         { path: "setting", element: <SettingPage /> },
       ],
     },

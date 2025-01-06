@@ -37,11 +37,6 @@ const options: OptionTypes[] = [
     route: "local",
   },
   {
-    iconName: "download",
-    title: "download",
-    route: "download",
-  },
-  {
     iconName: "cog-8-tooth",
     title: "setting",
     route: "setting",

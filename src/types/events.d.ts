@@ -34,6 +34,9 @@ declare namespace IpcInvoke {
     }) => Promise<SearchResult>;
     "get-media-source": (id: number) => Primise<{ url: string }>;
     "search-lyric": (query: string) => Promise<string>;
+    "get-toplists": () => void;
+    "get-recommended-tag": () => void;
+    "get-toplist-detail": (item: any) => void;
   }
 }
 

@@ -54,7 +54,7 @@ export interface PluginDefine {
   getRecommendSheetTags: () => void;
   getRecommendSheetsByTag: () => void;
   getTopLists: () => void;
-  getTopListDetail: () => void;
+  getTopListDetail: (item: any) => void;
 }
 
 export enum RepeatMode {

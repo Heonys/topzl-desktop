@@ -16,10 +16,11 @@ export const LibraryPage = () => {
   const { favoriteList } = useFavorite();
   const { playlist } = useCurrentMusic();
   const initSelect = {
+    type: "favorite",
     title: "좋아요 표시한 음악",
     description: "좋아요 표시한 음악 목록 입니다.",
     data: favoriteList,
-  };
+  } as PlaylistInfo;
   const [selectedList, setSelectedList] = useState<PlaylistInfo>(initSelect);
   const isCustomPlaylist = !selectedList.type;
 

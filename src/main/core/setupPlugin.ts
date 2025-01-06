@@ -52,6 +52,17 @@ export async function setupPlugin() {
     // const target = await client.songs.get(targetId);
     // return target.lyrics();
   });
+
+  ipcMainHandle("get-toplists", () => {
+    return plugin.getTopLists();
+  });
+  ipcMainHandle("get-recommended-tag", () => {
+    return plugin.getRecommendSheetTags();
+  });
+
+  ipcMainHandle("get-toplist-detail", (item) => {
+    return plugin.getTopListDetail(item);
+  });
 }
 
 async function search(query: string, page: number, method: SupportMediaType) {
