@@ -45,14 +45,19 @@ export const SearchPage = () => {
           {tabs.map((name) => (
             <Tab
               key={name}
-              className="cursor-pointer rounded-full px-3 py-1 text-lg font-semibold opacity-70 hover:opacity-90 focus:outline-none"
+              className={({ selected }) => {
+                return twMerge(
+                  "cursor-pointer px-3 text-xl font-semibold opacity-50 hover:opacity-90 focus:outline-none border-b-4",
+                  selected && "border-black/80 opacity-100",
+                );
+              }}
             >
               {name}
             </Tab>
           ))}
         </TabList>
 
-        <div className="h-[calc(100%-9rem-4rem)] overflow-auto scrollbar-hide">
+        <div className="mt-3 h-[calc(100%-9rem-4rem)] overflow-auto scrollbar-hide">
           <Condition condition={!isLoading}>
             {searchResult &&
               searchResult.data.data.map((item) => {

@@ -28,7 +28,7 @@ const createColumns = ({ onRemove, onToggle, isFavorite }: ColumnProps) => {
   return [
     columnHelper.display({
       id: "like",
-      size: 60,
+      size: 50,
       cell: (info) => {
         const origin = info.row.original;
         return (
@@ -57,7 +57,7 @@ const createColumns = ({ onRemove, onToggle, isFavorite }: ColumnProps) => {
 
     columnHelper.accessor("title", {
       header: "Title",
-      size: 300,
+      size: 250,
       cell: (info) => <div className="truncate pr-1">{info.getValue()}</div>,
       enableResizing: false,
       enableSorting: true,
@@ -65,7 +65,7 @@ const createColumns = ({ onRemove, onToggle, isFavorite }: ColumnProps) => {
 
     columnHelper.accessor("artist", {
       header: "Artist",
-      size: 250,
+      size: 200,
       cell: (info) => <div className="truncate px-1">{info.renderValue()}</div>,
       enableResizing: false,
       enableSorting: true,
@@ -83,7 +83,7 @@ const createColumns = ({ onRemove, onToggle, isFavorite }: ColumnProps) => {
     }),
     columnHelper.accessor("duration", {
       header: () => <span className="flex justify-center">Duration</span>,
-      size: 100,
+      size: 80,
       enableResizing: false,
       enableSorting: false,
       cell: (info) => (

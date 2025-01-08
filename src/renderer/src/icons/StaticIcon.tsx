@@ -26,6 +26,8 @@ import { SiApplemusic } from "react-icons/si";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { HiOutlineSortDescending, HiOutlineSortAscending } from "react-icons/hi";
+import { FaRegCompass } from "react-icons/fa";
+import { LuClock } from "react-icons/lu";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -76,6 +78,8 @@ const IconMap = {
   ["sort"]: TiArrowUnsorted,
   ["sort-asc"]: HiOutlineSortAscending,
   ["sort-desc"]: HiOutlineSortDescending,
+  ["discover"]: FaRegCompass,
+  ["clock"]: LuClock,
 };
 
 type Props = {

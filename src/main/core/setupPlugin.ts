@@ -56,7 +56,7 @@ export async function setupPlugin() {
   ipcMainHandle("get-toplists", () => {
     return plugin.getTopLists();
   });
-  ipcMainHandle("get-recommended-tag", () => {
+  ipcMainHandle("get-recommended-tag", async () => {
     return plugin.getRecommendSheetTags();
   });
 

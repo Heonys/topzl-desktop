@@ -1,14 +1,17 @@
 import { createHashRouter } from "react-router-dom";
 import {
-  TestPage,
+  // TestPage,
   SearchPage,
   SettingPage,
   LocalPage,
   PlaylistPage,
-  ChartPage,
+  DownloadPage,
   LibraryPage,
   PlaylistWithTitlePage,
   FavoritePage,
+  MainPage,
+  DiscoverPage,
+  RecentPage,
 } from "@/pages";
 import App from "@/App";
 
@@ -28,8 +31,7 @@ const router = createHashRouter(
       path: "/",
       element: <App />,
       children: [
-        { index: true, element: <TestPage /> },
-        { path: "chart", element: <ChartPage /> },
+        { index: true, element: <MainPage /> },
         { path: "search/:query?", element: <SearchPage /> },
         { path: "local", element: <LocalPage /> },
         { path: "playlist", element: <PlaylistPage /> },
@@ -38,6 +40,9 @@ const router = createHashRouter(
         { path: "playlist/:title", element: <PlaylistWithTitlePage /> },
         { path: "library", element: <LibraryPage /> },
         { path: "setting", element: <SettingPage /> },
+        { path: "download", element: <DownloadPage /> },
+        { path: "discover", element: <DiscoverPage /> },
+        { path: "recent", element: <RecentPage /> },
       ],
     },
   ],

@@ -2,43 +2,77 @@ import { ComponentPropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { useLocation, useNavigate } from "react-router-dom";
 import StaticIcon from "@/icons/StaticIcon";
-import { IconButton } from "@/common/IconButton";
 import logo from "@resources/logo.png";
 
 type OptionTypes = {
   iconName: ComponentPropsWithoutRef<typeof StaticIcon>["iconName"];
   title: string;
+  divider?: boolean;
   route: string;
 };
 const options: OptionTypes[] = [
   {
-    iconName: "chart",
-    title: "chart",
-    route: "chart",
+    iconName: "search",
+    title: "Menu",
+    divider: true,
+    route: "Menu",
   },
   {
     iconName: "search",
-    title: "search",
+    title: "Search",
     route: "search",
   },
   {
+    iconName: "discover",
+    title: "Discover",
+    route: "discover",
+  },
+  {
+    iconName: "search",
+    title: "Playlist",
+    divider: true,
+    route: "Menu",
+  },
+  {
     iconName: "playlist",
-    title: "playlist",
+    title: "Current",
     route: "playlist",
   },
   {
+    iconName: "clock",
+    title: "Recent",
+    route: "recent",
+  },
+  {
+    iconName: "search",
+    title: "Library",
+    divider: true,
+    route: "Menu",
+  },
+  {
     iconName: "library-music",
-    title: "library",
+    title: "My Library",
     route: "library",
   },
   {
     iconName: "forder-open",
-    title: "local",
+    title: "Local",
     route: "local",
   },
   {
+    iconName: "download",
+    title: "Download",
+    route: "download",
+  },
+  {
+    iconName: "search",
+    title: "General",
+    divider: true,
+    route: "Menu",
+  },
+  {
     iconName: "cog-8-tooth",
-    title: "setting",
+    title: "Setting",
     route: "setting",
   },
 ];
@@ -50,36 +84,46 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
   return (
     <aside
       className={twMerge(
-        "w-20 bg-[#efefef] h-[100vh] overflow-auto draggable flex items-center",
+        "min-w-48 h-[100vh] overflow-auto draggable flex items-center border-r-2 border-black/10",
         className,
       )}
       {...props}
     >
-      <div className="region-none mx-auto flex w-16 -translate-y-12 flex-col gap-2.5 rounded-lg py-5">
+      <div className="region-none mx-auto flex w-32 -translate-y-12 flex-col gap-2.5 rounded-lg py-5 font-barlow font-bold">
         <div
-          className="mx-2 flex  items-center justify-center rounded-md bg-white py-1 opacity-80 shadow-xl transition-transform hover:scale-110 hover:opacity-100"
+          className="mx-2 flex w-full items-center justify-start gap-5 rounded-md  py-1 opacity-80 transition-transform hover:scale-110 hover:opacity-100"
           onClick={() => navigate("/")}
         >
-          <img className="size-8 object-cover" src={logo} alt="logo" />
+          <img className="size-7 object-cover" src={logo} alt="logo" />
+          <div className="text-xl">Topzl</div>
         </div>
-        {options.map(({ iconName, title, route }) => {
-          return (
-            <IconButton
-              key={route}
-              iconName={iconName}
-              title={title}
-              size={26}
-              className={twMerge(
-                "mx-2 rounded-md bg-white py-2.5 shadow-xl",
-                location.pathname.startsWith(`/${route}`) &&
-                  "opacity-100 scale-110 bg-slate-300/20",
-              )}
-              onClick={() => {
-                navigate(`/${route}`);
-              }}
-            />
-          );
-        })}
+        <div className="mx-2 flex w-full flex-col justify-center gap-3 rounded-md">
+          {options.map(({ iconName, title, route, divider }) => {
+            if (divider) {
+              return (
+                <div key={title} className="text-sm text-slate-500 opacity-70">
+                  {title}
+                </div>
+              );
+            }
+            return (
+              <div
+                key={route}
+                className={twMerge(
+                  "flex w-full items-center justify-start gap-5 py-1 opacity-60 hover:opacity-100 hover:scale-110 transition-all",
+                  location.pathname.startsWith(`/${route}`) &&
+                    "opacity-100 scale-110 bg-black/10 border-r-4 border-black/60",
+                )}
+                onClick={() => {
+                  navigate(`/${route}`);
+                }}
+              >
+                <StaticIcon iconName={iconName} title={title} size={20} />
+                <div className="text-sm">{title}</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </aside>
   );

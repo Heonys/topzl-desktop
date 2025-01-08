@@ -1,18 +1,13 @@
-import { PlaylistOverview, PlayListTable } from "@/components";
+import { PlayListTable } from "@/components";
 import { useCurrentMusic } from "@/hooks";
 
-export const PlaylistPage = () => {
+export const DownloadPage = () => {
   const { playlist, setPlaylist, removePlaylist } = useCurrentMusic();
 
   return (
-    <section className="">
-      <div className="flex gap-2">
-        <PlaylistOverview
-          playlist={playlist}
-          title="현재 재생목록"
-          description="현재 재생중인 재생목록 입니다"
-        />
-      </div>
+    <section>
+      <h1 className="font-sans text-2xl font-bold">다운로드 목록</h1>
+
       <div className="relative my-4 w-full">
         <PlayListTable
           playlist={playlist}

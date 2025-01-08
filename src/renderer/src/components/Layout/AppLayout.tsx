@@ -27,7 +27,7 @@ export const ContentsLayout = ({
   ...props
 }: ComponentPropsWithoutRef<"div">) => {
   return (
-    <div className={twMerge("w-full px-5 pt-5", className)} {...props}>
+    <div className={twMerge("px-5 pt-5 flex-1", className)} {...props}>
       {children}
     </div>
   );
