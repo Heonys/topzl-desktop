@@ -37,7 +37,7 @@ export function PlaylistOverview({ playlist, title, description, date }: Props) 
             onClick={() => navigate("/library")}
           >
             <StaticIcon iconName="library-music" size={20} />
-            재생목록
+            보관함
           </button>
         </div>
       </div>

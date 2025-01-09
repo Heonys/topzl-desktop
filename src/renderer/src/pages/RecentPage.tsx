@@ -1,3 +1,3 @@
 export const RecentPage = () => {
-  return <div>RecentPage</div>;
+  return <div></div>;
 };

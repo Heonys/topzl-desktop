@@ -82,7 +82,7 @@ const createColumns = ({ onRemove, onToggle, isFavorite }: ColumnProps) => {
       ),
     }),
     columnHelper.accessor("duration", {
-      header: () => <span className="flex justify-center">Duration</span>,
+      header: () => <span className="flex justify-center">Time</span>,
       size: 80,
       enableResizing: false,
       enableSorting: false,

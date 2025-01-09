@@ -2,75 +2,85 @@ import { ComponentPropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { useLocation, useNavigate } from "react-router-dom";
 import StaticIcon from "@/icons/StaticIcon";
-import logo from "@resources/logo.png";
 
-type OptionTypes = {
-  iconName: ComponentPropsWithoutRef<typeof StaticIcon>["iconName"];
-  title: string;
-  divider?: boolean;
-  route: string;
-};
+type OptionTypes =
+  | {
+      type: "icon";
+      iconName: ComponentPropsWithoutRef<typeof StaticIcon>["iconName"];
+      title: string;
+      route: string;
+    }
+  | {
+      type: "divider";
+      title: string;
+    };
 const options: OptionTypes[] = [
   {
-    iconName: "search",
+    type: "divider",
     title: "Menu",
-    divider: true,
-    route: "Menu",
   },
   {
+    type: "icon",
+    iconName: "home",
+    title: "Home",
+    route: "home",
+  },
+  {
+    type: "icon",
     iconName: "search",
     title: "Search",
     route: "search",
   },
   {
+    type: "icon",
     iconName: "discover",
     title: "Discover",
     route: "discover",
   },
   {
-    iconName: "search",
+    type: "divider",
     title: "Playlist",
-    divider: true,
-    route: "Menu",
   },
   {
+    type: "icon",
     iconName: "playlist",
     title: "Current",
     route: "playlist",
   },
   {
+    type: "icon",
     iconName: "clock",
     title: "Recent",
     route: "recent",
   },
   {
-    iconName: "search",
+    type: "divider",
     title: "Library",
-    divider: true,
-    route: "Menu",
   },
   {
+    type: "icon",
     iconName: "library-music",
     title: "My Library",
     route: "library",
   },
   {
+    type: "icon",
     iconName: "forder-open",
     title: "Local",
     route: "local",
   },
   {
+    type: "icon",
     iconName: "download",
     title: "Download",
     route: "download",
   },
   {
-    iconName: "search",
+    type: "divider",
     title: "General",
-    divider: true,
-    route: "Menu",
   },
   {
+    type: "icon",
     iconName: "cog-8-tooth",
     title: "Setting",
     route: "setting",
@@ -89,28 +99,22 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
       )}
       {...props}
     >
-      <div className="region-none mx-auto flex w-32 -translate-y-12 flex-col gap-2.5 rounded-lg py-5 font-barlow font-bold">
-        <div
-          className="mx-2 flex w-full items-center justify-start gap-5 rounded-md  py-1 opacity-80 transition-transform hover:scale-110 hover:opacity-100"
-          onClick={() => navigate("/")}
-        >
-          <img className="size-7 object-cover" src={logo} alt="logo" />
-          <div className="text-xl">Topzl</div>
-        </div>
-        <div className="mx-2 flex w-full flex-col justify-center gap-3 rounded-md">
-          {options.map(({ iconName, title, route, divider }) => {
-            if (divider) {
+      <div className="region-none ml-5 flex w-32 -translate-y-12 flex-col gap-2.5 rounded-lg py-5 font-barlow font-bold">
+        <div className="mx-2 flex w-full flex-col justify-center gap-2.5 rounded-md">
+          {options.map((option) => {
+            if (option.type === "divider") {
               return (
-                <div key={title} className="text-sm text-slate-500 opacity-70">
-                  {title}
+                <div key={option.title} className="text-sm text-slate-500 opacity-70">
+                  {option.title}
                 </div>
               );
             }
+            const { iconName, route, title } = option;
             return (
               <div
                 key={route}
                 className={twMerge(
-                  "flex w-full items-center justify-start gap-5 py-1 opacity-60 hover:opacity-100 hover:scale-110 transition-all",
+                  "flex w-full items-center justify-start gap-5 py-1 opacity-60 hover:opacity-100 hover:scale-110 transition-all pl-3 rounded-l-lg",
                   location.pathname.startsWith(`/${route}`) &&
                     "opacity-100 scale-110 bg-black/10 border-r-4 border-black/60",
                 )}

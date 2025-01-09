@@ -28,6 +28,7 @@ import { TiArrowUnsorted } from "react-icons/ti";
 import { HiOutlineSortDescending, HiOutlineSortAscending } from "react-icons/hi";
 import { FaRegCompass } from "react-icons/fa";
 import { LuClock } from "react-icons/lu";
+import { HiMiniHome } from "react-icons/hi2";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -80,6 +81,7 @@ const IconMap = {
   ["sort-desc"]: HiOutlineSortDescending,
   ["discover"]: FaRegCompass,
   ["clock"]: LuClock,
+  ["home"]: HiMiniHome,
 };
 
 type Props = {

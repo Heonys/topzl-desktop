@@ -1,6 +1,5 @@
-import { createHashRouter } from "react-router-dom";
+import { createHashRouter, Navigate } from "react-router-dom";
 import {
-  // TestPage,
   SearchPage,
   SettingPage,
   LocalPage,
@@ -31,7 +30,8 @@ const router = createHashRouter(
       path: "/",
       element: <App />,
       children: [
-        { index: true, element: <MainPage /> },
+        { index: true, element: <Navigate to="/home" replace /> },
+        { path: "home", element: <MainPage /> },
         { path: "search/:query?", element: <SearchPage /> },
         { path: "local", element: <LocalPage /> },
         { path: "playlist", element: <PlaylistPage /> },

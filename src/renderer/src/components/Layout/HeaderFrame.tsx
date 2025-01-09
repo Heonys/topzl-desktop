@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { HeaderNavigator } from "@/components";
 import StaticIcon from "@/icons/StaticIcon";
 import { IconButton } from "@/common";
+import logo from "@resources/logo.png";
 
 export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
   const navigate = useNavigate();
@@ -22,7 +23,16 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
       )}
       {...props}
     >
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center justify-center gap-5">
+        <div className="flex w-40 items-center gap-1 ">
+          <div
+            className="mx-2 flex w-10 items-center justify-start gap-1 rounded-lg bg-white px-2 py-1 shadow-xl"
+            onClick={() => navigate("/")}
+          >
+            <img className="size-6 object-cover" src={logo} alt="logo" />
+          </div>
+          <div className="font-barlow font-bold">Topzl</div>
+        </div>
         <HeaderNavigator />
         <div className="region-none flex h-7 items-center justify-center gap-2 rounded-xl bg-white p-1 px-2">
           <StaticIcon iconName={"search"} color="black" size={18} opacity={0.5} />

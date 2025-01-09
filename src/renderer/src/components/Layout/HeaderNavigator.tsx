@@ -5,7 +5,7 @@ export const HeaderNavigator = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="region-none flex gap-1 rounded-xl bg-white p-1 px-2 ">
+    <div className="region-none flex gap-1 rounded-xl bg-white p-1 px-2">
       <IconButton
         iconName="previous"
         title="previous"
