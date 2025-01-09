@@ -1,21 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-
-function Component() {
-  return <div className="h-96 w-full"></div>;
-}
-
-const routers = [
-  { id: "general", title: "General", component: Component },
-  { id: "shortcut", title: "Shortcut", component: Component },
-  { id: "playback", title: "Playback", component: Component },
-  { id: "lyric", title: "Lyric", component: Component },
-  { id: "search", title: "Search", component: Component },
-  { id: "download", title: "Download", component: Component },
-  { id: "update", title: "Update", component: Component },
-  { id: "network", title: "Network", component: Component },
-  { id: "backup", title: "Backup & Restore", component: Component },
-];
+import routers from "@/components/Setting/router";
 
 export const SettingPage = () => {
   const [selected, setSelected] = useState(routers[0].id);
@@ -94,8 +79,9 @@ export const SettingPage = () => {
           const { id, title } = router;
           const Component = router.component;
           return (
-            <div id={`setting-${id}`} key={id} className="flex flex-col">
-              <h1 className="text-lg font-bold">{title}</h1>
+            <div id={`setting-${id}`} key={id} className="flex max-w-[750px] flex-col">
+              <h1 className="text-lg font-bold text-black">{title}</h1>
+              <div className="my-2 h-px w-full bg-black/10"></div>
               <Component />
             </div>
           );
