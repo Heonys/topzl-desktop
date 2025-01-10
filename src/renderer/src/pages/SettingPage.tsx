@@ -79,10 +79,10 @@ export const SettingPage = () => {
           const { id, title } = router;
           const Component = router.component;
           return (
-            <div id={`setting-${id}`} key={id} className="flex max-w-[750px] flex-col">
-              <h1 className="text-lg font-bold text-black">{title}</h1>
-              <div className="my-2 h-px w-full bg-black/10"></div>
+            <div id={`setting-${id}`} key={id} className="mx-auto flex max-w-[750px] flex-col">
+              <h1 className="text-xl font-bold text-black">{title}</h1>
               <Component />
+              <div className="my-2 h-[2px] w-full bg-black/5"></div>
             </div>
           );
         })}
