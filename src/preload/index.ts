@@ -1,13 +1,9 @@
-import { contextBridge, ipcRenderer } from "electron";
-import { i18n, appConfig, shortcut, plugin, notification } from "./api";
+import { contextBridge } from "electron";
+import { i18n, appConfig, shortcut, plugin, notification, action } from "./api";
 
 if (!process.contextIsolated) {
   throw new Error("contextIsolation must be enabled in the BrowserWindow");
 }
-
-const action = {
-  sendFrameAction: (payload) => ipcRenderer.send("window-frame-action", payload),
-} satisfies Window["action"];
 
 try {
   contextBridge.exposeInMainWorld("action", action);

@@ -4,6 +4,7 @@ import { LyricsSearch } from "./LyricsSearch";
 import CreatePlayList from "./CreatePlayList";
 import RenamePlaylist from "./RenamePlaylist";
 import SelectPlaylist from "./SelectPlaylist";
+import ScanLocalMusic from "./ScanLocalMusic";
 
 export const modalTemplates = {
   TestModal,
@@ -11,6 +12,7 @@ export const modalTemplates = {
   CreatePlayList,
   RenamePlaylist,
   SelectPlaylist,
+  ScanLocalMusic,
 };
 
 export type ModalTemplates = typeof modalTemplates;

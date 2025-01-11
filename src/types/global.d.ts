@@ -4,6 +4,7 @@ declare global {
   interface Window {
     action: {
       sendFrameAction: (payload: IpcEvents.Renderer["window-frame-action"]) => void;
+      showOpenDialog: IpcInvoke.Renderer["show-open-dialog"];
     };
     i18n: {
       setupLang: IpcInvoke.Renderer["i18n-setup"];

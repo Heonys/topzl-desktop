@@ -60,6 +60,9 @@ export const panelAtom = atom(false);
 
 export const favoriteListAtom = atom<MusicItem[]>([]);
 
+export const localDirAtom = atom<string[]>([]);
+export const localSelectedDirAtom = atom<string[]>([]);
+
 //  이벤트
 export const initProgress = {
   currentTime: 0,

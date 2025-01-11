@@ -1,3 +1,4 @@
+type Electron = import("electron");
 type AppConfig = import("@shared/config/type").AppConfig;
 type AppConfigKeyPath = import("@shared/config/type").AppConfigKeyPath;
 type AppConfigKeyPathValue = import("@shared/config/type").AppConfigKeyPathValue;
@@ -37,6 +38,9 @@ declare namespace IpcInvoke {
     "get-toplists": () => void;
     "get-recommended-tag": () => void;
     "get-toplist-detail": (item: any) => void;
+    "show-open-dialog": (
+      options: Electron.OpenDialogOptions,
+    ) => Promise<Electron.OpenDialogReturnValue>;
   }
 }
 

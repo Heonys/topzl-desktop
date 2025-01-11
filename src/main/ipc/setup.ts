@@ -1,5 +1,6 @@
+import { dialog } from "electron";
 import { getMainWindow } from "@/window/mainWindow";
-import { ipcMainOn } from "@/ipc/main";
+import { ipcMainHandle, ipcMainOn } from "@/ipc/main";
 
 export function setupIpcMain() {
   ipcMainOn("window-frame-action", (action) => {
@@ -15,5 +16,11 @@ export function setupIpcMain() {
         return mainWindow.minimize();
       }
     }
+  });
+
+  ipcMainHandle("show-open-dialog", (options) => {
+    const mainWindow = getMainWindow();
+    if (!mainWindow) throw new Error("Invalid Window");
+    return dialog.showOpenDialog(options);
   });
 }

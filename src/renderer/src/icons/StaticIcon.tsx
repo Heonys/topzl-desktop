@@ -34,6 +34,7 @@ import { IoCheckmark } from "react-icons/io5";
 import { CgCloseR } from "react-icons/cg";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdHistory } from "react-icons/md";
+import { BsFolderPlus } from "react-icons/bs";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -92,6 +93,7 @@ const IconMap = {
   ["box-close"]: CgCloseR,
   ["notification"]: IoMdNotificationsOutline,
   ["history"]: MdHistory,
+  ["forder-plus"]: BsFolderPlus,
 };
 
 type Props = {
