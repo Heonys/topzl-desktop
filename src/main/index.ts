@@ -4,9 +4,8 @@ import { setupIpcMain } from "@/ipc/setup";
 import { setupI18n } from "@shared/i18n/main";
 import { setupTray } from "@/tray";
 import { getAppConfigPathSync, setupMainConfig, setAppConfigPath } from "@shared/config/main";
-import { setupGlobalShortcut, handleUrlScheme } from "@/core";
+import { setupGlobalShortcut, handleUrlScheme, setupPlugin, setupGlobalContext } from "@/core";
 import { isDev } from "@/utils/common";
-import { setupPlugin } from "./core/setupPlugin";
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
@@ -56,4 +55,5 @@ app.whenReady().then(async () => {
   setupTray();
   createMainWindow();
   setupIpcMain();
+  setupGlobalContext();
 });

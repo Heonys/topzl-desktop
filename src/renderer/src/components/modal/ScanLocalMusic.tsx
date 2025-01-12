@@ -9,7 +9,7 @@ const ScanLocalMusic = () => {
   const { hideModal } = useModal();
 
   const addForder = async () => {
-    const result = await window.action.showOpenDialog({
+    const result = await window.common.showOpenDialog({
       title: "폴더 추가",
       properties: ["openDirectory"],
     });
@@ -57,12 +57,12 @@ const ScanLocalMusic = () => {
                   return (
                     <div key={dir} className="flex items-center gap-2 p-2">
                       <input
+                        type="checkbox"
                         checked={isChecked}
                         onChange={() => {
                           if (isChecked) uncheck(dir);
                           else check(dir);
                         }}
-                        type="checkbox"
                       />
                       <div className="flex-1">{dir}</div>
                       <StaticIcon

@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, IpcMainEvent, IpcMainInvokeEvent } from "electron";
+import { BrowserWindow, ipcMain, IpcMainEvent, IpcMainInvokeEvent, WebContents } from "electron";
 // import { validationEventFrame } from "@/utils/validation";
 import { getMainWindow } from "@/window/mainWindow";
 
@@ -15,6 +15,15 @@ export function ipcMainOn<T extends keyof IpcEvents.Renderer>(
     } catch (error) {
       console.error(error);
     }
+  });
+}
+
+export function ipcMainOnSync<T extends keyof IpcEvents.RendererSync>(
+  channel: T,
+  callback: (payload: Parameters<IpcEvents.RendererSync[T]>, event: IpcMainEvent) => void,
+) {
+  ipcMain.on(channel, (event, payload) => {
+    callback(payload, event);
   });
 }
 
@@ -42,6 +51,14 @@ export function ipcMainSend<T extends keyof IpcEvents.Main>(
   payload?: IpcEvents.Main[T],
 ) {
   mainWindow.webContents.send(channel, payload);
+}
+
+export function ipcMainSendWebContents<T extends keyof IpcEvents.Main>(
+  channel: T,
+  webContents: WebContents,
+  payload?: IpcEvents.Main[T],
+) {
+  webContents.send(channel, payload);
 }
 
 export function ipcMainSendMainWindow<T extends keyof IpcEvents.Main>(

@@ -66,12 +66,12 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           <IconButton
             iconName="minimize"
             title="minimize"
-            onClick={() => window.action.sendFrameAction("MINIMIZE")}
+            onClick={() => window.common.sendFrameAction("MINIMIZE")}
           />
           <IconButton
             iconName="x-mark"
             title="close"
-            onClick={() => window.action.sendFrameAction("CLOSE")}
+            onClick={() => window.common.sendFrameAction("CLOSE")}
           />
         </div>
       </div>

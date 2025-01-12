@@ -37,6 +37,7 @@
     "src/main/ipc/render-events.d.ts",
     "src/shared/**/renderer.ts",
     "src/shared/plugin/setup.ts",
-    "src/shared/lyric/parser.ts"
+    "src/shared/lyric/parser.ts",
+    "src/shared/local/setup.ts"
   ],
 }

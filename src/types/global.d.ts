@@ -2,9 +2,10 @@ type CleanUp = () => void;
 
 declare global {
   interface Window {
-    action: {
+    common: {
       sendFrameAction: (payload: IpcEvents.Renderer["window-frame-action"]) => void;
       showOpenDialog: IpcInvoke.Renderer["show-open-dialog"];
+      getGlobalContext: IpcEvents.RendererSync["global-context"];
     };
     i18n: {
       setupLang: IpcInvoke.Renderer["i18n-setup"];

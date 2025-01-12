@@ -23,6 +23,13 @@ export function ipcRendererSend<T extends keyof IpcEvents.Renderer>(
   ipcRenderer.send(channel, payload);
 }
 
+export function ipcRendererSendSync<T extends keyof IpcEvents.RendererSync>(
+  channel: T,
+  payload?: Parameters<IpcEvents.RendererSync[T]>,
+) {
+  return ipcRenderer.sendSync(channel, payload) as ReturnType<IpcEvents.RendererSync[T]>;
+}
+
 export function ipcRendererInvoke<T extends keyof IpcInvoke.Renderer>(
   channel: T,
   ...arg: Parameters<IpcInvoke.Renderer[T]>

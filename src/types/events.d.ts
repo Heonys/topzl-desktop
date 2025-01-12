@@ -6,6 +6,7 @@ type ShortcutKeys = import("@shared/config/type").ShortcutKeys;
 type SupportMediaType = import("@shared/plugin/type").SupportMediaType;
 type SearchResult = import("@shared/plugin/type").SearchResult;
 type SearchedLyric = import("@shared/plugin/type").SearchedLyric;
+type GlobalContext = import("@shared/local/type").GlobalContext;
 
 declare namespace IpcInvoke {
   // ipcRender.invoke -> ipcMain.handle
@@ -48,6 +49,11 @@ declare namespace IpcEvents {
   // ipcRender.send -> ipcMain.on
   interface Renderer {
     "window-frame-action": "CLOSE" | "MINIMIZE" | "MAXIMIZE";
+  }
+
+  // ipcRender.send -> ipcMain.on (sync)
+  interface RendererSync {
+    "global-context": () => GlobalContext;
   }
 
   // ipcMain.send -> ipcRender.on

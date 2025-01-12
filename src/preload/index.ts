@@ -1,12 +1,12 @@
 import { contextBridge } from "electron";
-import { i18n, appConfig, shortcut, plugin, notification, action } from "./api";
+import { i18n, appConfig, shortcut, plugin, notification, common } from "./api";
 
 if (!process.contextIsolated) {
   throw new Error("contextIsolation must be enabled in the BrowserWindow");
 }
 
 try {
-  contextBridge.exposeInMainWorld("action", action);
+  contextBridge.exposeInMainWorld("common", common);
   contextBridge.exposeInMainWorld("i18n", i18n);
   contextBridge.exposeInMainWorld("appConfig", appConfig);
   contextBridge.exposeInMainWorld("shortcut", shortcut);
