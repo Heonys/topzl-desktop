@@ -28,7 +28,6 @@
       "@/*": ["src/renderer/src/*"],
       "@shared/*": ["src/shared/*"],
       "@resources/*": ["resources/*"],
-      "@workers/*": ["src/workers/*"]
     }
   },
   "include": [
@@ -39,7 +38,6 @@
     "src/shared/**/renderer.ts",
     "src/shared/plugin/setup.ts",
     "src/shared/lyric/parser.ts",
-    "src/shared/local/setup.ts",
-    "src/workers/index.ts"
+    "src/shared/local/main.ts",
   ],
 }

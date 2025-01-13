@@ -7,14 +7,6 @@ export const LocalPage = () => {
   const { playlist, setPlaylist, removePlaylist } = useCurrentMusic();
   const { showModal } = useModal();
 
-  // useEffect(() => {
-  //   const worker = createWorker("local");
-  //   worker.onmessage = ({ data }) => {
-  //     console.log(data);
-  //   };
-  //   worker.postMessage("hello");
-  // }, []);
-
   return (
     <section>
       <h1 className="font-sans text-2xl font-bold">로컬 파일 관리</h1>

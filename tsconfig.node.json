@@ -12,6 +12,7 @@
     "paths": {
       "@/*": ["src/main/*"],
       "@shared/*": ["src/shared/*"],
+      "@workers/*": ["src/workers/*"]
     },
   },
   "include": [
@@ -19,6 +20,7 @@
     "src/preload/**/*",
     "src/types/*.d.ts",
     "src/shared/**/*",
-    "src/renderer/src/atom"
+    "src/renderer/src/atom",
+    "src/workers/**/*"
   ],
 }
