@@ -6,6 +6,7 @@ import { setupTray } from "@/tray";
 import { getAppConfigPathSync, setupMainConfig, setAppConfigPath } from "@shared/config/main";
 import { setupGlobalShortcut, handleUrlScheme, setupPlugin, setupGlobalContext } from "@/core";
 import { isDev } from "@/utils/common";
+import { setupWorker } from "@/workers/setupWorker";
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
@@ -56,4 +57,5 @@ app.whenReady().then(async () => {
   createMainWindow();
   setupIpcMain();
   setupGlobalContext();
+  setupWorker();
 });
