@@ -11,7 +11,7 @@ function callPluginMethod({ method, query, page }: Props) {
   return ipcRendererInvoke("call-plugin-method", { method, query, page });
 }
 
-function getMediaSource(id: number) {
+function getMediaSource(id: string) {
   return ipcRendererInvoke("get-media-source", id);
 }
 

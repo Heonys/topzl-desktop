@@ -6,7 +6,7 @@ type ShortcutKeys = import("@shared/config/type").ShortcutKeys;
 type SupportMediaType = import("@shared/plugin/type").SupportMediaType;
 type SearchResult = import("@shared/plugin/type").SearchResult;
 type SearchedLyric = import("@shared/plugin/type").SearchedLyric;
-type GlobalContext = import("@shared/local/type").GlobalContext;
+type GlobalContext = import("@/core/globalContext").GlobalContext;
 
 declare namespace IpcInvoke {
   // ipcRender.invoke -> ipcMain.handle
@@ -34,7 +34,7 @@ declare namespace IpcInvoke {
       query: string;
       page: number;
     }) => Promise<SearchResult>;
-    "get-media-source": (id: number) => Primise<{ url: string }>;
+    "get-media-source": (id: string) => Primise<{ url: string }>;
     "search-lyric": (query: string) => Promise<string>;
     "get-toplists": () => void;
     "get-recommended-tag": () => void;
@@ -42,7 +42,6 @@ declare namespace IpcInvoke {
     "show-open-dialog": (
       options: Electron.OpenDialogOptions,
     ) => Promise<Electron.OpenDialogReturnValue>;
-    "worker-file-watcher": (filePath: string[]) => Promise<any>;
   }
 }
 
@@ -50,6 +49,10 @@ declare namespace IpcEvents {
   // ipcRender.send -> ipcMain.on
   interface Renderer {
     "window-frame-action": "CLOSE" | "MINIMIZE" | "MAXIMIZE";
+    "worker-setup-watcher": void;
+    "worker-change-paths": [addPaths: string[], removePaths: string[]];
+    "worker-on-add": (...args: any[]) => any;
+    "worker-on-remove": (...args: any[]) => any;
   }
 
   // ipcRender.send -> ipcMain.on (sync)

@@ -19,7 +19,7 @@ export const Playlist = () => {
     setCurrentItem(music);
   };
 
-  const onRemove = (id: number) => {
+  const onRemove = (id: string) => {
     removePlaylist(id);
   };
 

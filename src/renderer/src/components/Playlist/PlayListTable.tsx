@@ -19,8 +19,8 @@ const TAG = "playlist-table";
 const columnHelper = createColumnHelper<MusicItem>();
 
 type ColumnProps = {
-  onRemove: (id: number) => void;
-  isFavorite: (id: number) => boolean;
+  onRemove: (id: string) => void;
+  isFavorite: (id: string) => boolean;
   onToggle: (item: MusicItem) => void;
 };
 
@@ -115,7 +115,7 @@ const createColumns = ({ onRemove, onToggle, isFavorite }: ColumnProps) => {
 type Props = {
   playlist: MusicItem[];
   setPlaylist: (item: MusicItem[]) => void;
-  removePlaylist: (id: number) => void;
+  removePlaylist: (id: string) => void;
 };
 
 export const PlayListTable = ({ playlist, setPlaylist, removePlaylist }: Props) => {

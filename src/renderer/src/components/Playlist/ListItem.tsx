@@ -9,7 +9,7 @@ type Props = {
   top: number;
   isPlaying?: boolean;
   rowIndex: number;
-  onRemove: (id: number) => void;
+  onRemove: (id: string) => void;
   onChangeMusic: (music: MusicItem) => void;
   onDrop: (from: number, to: number) => void;
 };

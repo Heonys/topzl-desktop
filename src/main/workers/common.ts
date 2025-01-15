@@ -1,29 +1,42 @@
-import * as mm from "music-metadata";
-import fs from "fs-extra";
-// import CryptoJS from "crypto-js";
+import { parseFile, IPicture } from "music-metadata";
+import CryptoJS from "crypto-js";
+import type { MusicItem } from "@shared/plugin/type";
 import url from "node:url";
 import path from "node:path";
-// import type { MusicItem } from "@shared/plugin/type";
 
-export async function extractMusicItem(filePath: string) {
-  // const hash = CryptoJS.MD5(filePath).toString();
-
-  const metadata = await mm.parseFile(filePath);
-  console.log(metadata);
-
-  return 22;
-  // const jschardet = await import("jschardet");
+export async function extractMusicItem(filePath: string): Promise<MusicItem> {
+  const hash = CryptoJS.MD5(filePath).toString();
+  try {
+    const metadata = await parseFile(filePath);
+    const common = metadata.common;
+    return {
+      id: hash,
+      title: common.title ?? path.parse(filePath).name,
+      artist: common.artist ?? "Unknown",
+      album: common.album ?? "Unknown",
+      duration: metadata.format.duration ?? 0,
+      artwork: common.picture?.[0] ? toBase64Image(common.picture[0]) : "",
+      url: ensureFileURL(filePath),
+      localPath: filePath,
+    };
+  } catch {
+    return {
+      id: hash,
+      title: path.parse(filePath).name,
+      artist: "Unknown",
+      album: "Unknown",
+      duration: 0,
+      artwork: "",
+      url: ensureFileURL(filePath),
+      localPath: filePath,
+    };
+  }
 }
 
 export function ensureFileURL(filePath: string) {
   return filePath.startsWith("file:") ? filePath : url.pathToFileURL(filePath).toString();
 }
 
-export async function getFilesInDirectory(dirPath: string) {
-  try {
-    const files = await fs.readdir(dirPath);
-    return files.map((file) => path.join(dirPath, file));
-  } catch {
-    throw new Error("Error reading directory");
-  }
+function toBase64Image(picture: IPicture) {
+  return `data:${picture.format};base64,${picture.data.toString("base64")}`;
 }

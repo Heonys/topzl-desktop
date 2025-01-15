@@ -1,6 +1,6 @@
 import { Case, IconButton, Switch } from "@/common";
 import { usePlayer } from "@/hooks";
-import { formatTime } from "@/utils";
+import { formatTime, getDefaultImage, setFallbackImage } from "@/utils";
 import trackPlayer from "@shared/plugin/trackPlayer";
 import { MusicItem, PlayerState, RepeatMode } from "@shared/plugin/type";
 import Slider from "rc-slider";
@@ -26,8 +26,9 @@ export const DetailController = ({ currentItem }: Props) => {
     <div className="flex h-4/5 w-2/5 flex-col items-center justify-center gap-4 text-white">
       <img
         className="size-[50vh] rounded-2xl object-cover"
-        src={currentItem.artwork}
         alt="artwork"
+        src={getDefaultImage(currentItem.artwork)}
+        onError={setFallbackImage}
       />
       <div className="flex w-full flex-col gap-4 px-14">
         <div className="flex w-full gap-3">

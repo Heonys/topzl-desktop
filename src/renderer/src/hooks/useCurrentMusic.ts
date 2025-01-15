@@ -19,7 +19,7 @@ export const useCurrentMusic = () => {
     }
   };
 
-  const removePlaylist = (id: number) => {
+  const removePlaylist = (id: string) => {
     const newPlayList = playlist.filter((it) => it.id !== id);
     setPlaylist(newPlayList);
   };

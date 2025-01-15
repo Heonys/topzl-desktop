@@ -35,7 +35,10 @@ declare global {
       error: (callback: (message: IpcEvents.Main["notification-error"]) => void) => void;
     };
     worker: {
-      setupWatcher: IpcInvoke.Renderer["worker-file-watcher"];
+      setupWatcher: (payload: IpcEvents.Renderer["worker-setup-watcher"]) => void;
+      changeWorkerPath: (...args: IpcEvents.Renderer["worker-change-paths"]) => void;
+      onAdd: (fn: IpcEvents.Renderer["worker-on-add"]) => void;
+      onRemove: (fn: IpcEvents.Renderer["worker-on-remove"]) => void;
     };
   }
 }

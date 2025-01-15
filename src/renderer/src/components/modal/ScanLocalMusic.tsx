@@ -15,18 +15,11 @@ const ScanLocalMusic = () => {
     });
     if (!result.canceled) {
       const selected = result.filePaths[0];
-      setupWatcher(result.filePaths);
       if (!localDir.includes(selected)) {
         addDir(selected);
         check(selected);
       }
     }
-  };
-
-  const setupWatcher = (filePath: string[]) => {
-    window.worker.setupWatcher(filePath).then((res) => {
-      console.log(res);
-    });
   };
 
   return (

@@ -18,7 +18,7 @@ export function ipcRenderOff<T extends keyof IpcEvents.Main>(
 
 export function ipcRendererSend<T extends keyof IpcEvents.Renderer>(
   channel: T,
-  payload: IpcEvents.Renderer[T],
+  payload?: IpcEvents.Renderer[T],
 ) {
   ipcRenderer.send(channel, payload);
 }

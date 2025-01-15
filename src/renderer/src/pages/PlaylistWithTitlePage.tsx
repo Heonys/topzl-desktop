@@ -12,7 +12,7 @@ export const PlaylistWithTitlePage = () => {
     return (item: MusicItem[]) => setPlaylistByTitle(title, item);
   };
   const removePlaylist = (title: string) => {
-    return (id: number) => removePlaylistByTitle(title, id);
+    return (id: string) => removePlaylistByTitle(title, id);
   };
 
   if (!playlistInfo) return;

@@ -1,13 +1,15 @@
 export type SupportMediaType = "music" | "album" | "sheet" | "artist";
 
 export type MusicItem = {
+  id: string;
   album: string;
   artist: string;
   artwork: string;
   duration: number;
   title: string;
-  id: number;
-  url_slug: string;
+  lyric?: string;
+  url?: string;
+  localPath?: string;
 };
 
 export type AlbumItem = any;
@@ -47,7 +49,7 @@ export interface PluginDefine {
   cacheControl: "cache" | "no-cache" | "no-store";
   supportedSearchType: SupportMediaType[];
   search: SearchFunc;
-  getMediaSource: (id: number) => Promise<{ url: string }>;
+  getMediaSource: (id: string) => Promise<{ url: string }>;
   getAlbumInfo: () => void;
   getMusicSheetInfo: () => void;
   getArtistWorks: () => void;

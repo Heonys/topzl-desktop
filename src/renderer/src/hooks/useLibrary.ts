@@ -48,7 +48,7 @@ export const useLibrary = () => {
     });
   };
 
-  const removePlaylistByTitle = (title: string, id: number) => {
+  const removePlaylistByTitle = (title: string, id: string) => {
     setPlayLists((prev) => {
       const index = prev.findIndex((it) => it.title === title);
       if (index === -1) return prev;

@@ -10,11 +10,11 @@ export const useFavorite = () => {
     setFavoriteList((prev) => [...prev, musicItem]);
   };
 
-  const unfavorite = (id: number) => {
+  const unfavorite = (id: string) => {
     setFavoriteList((prev) => prev.filter((it) => it.id !== id));
   };
 
-  const isFavorite = (id: number) => {
+  const isFavorite = (id: string) => {
     return !!favoriteList.find((it) => it.id === id);
   };
 
