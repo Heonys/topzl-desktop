@@ -4,3 +4,4 @@ export * from "./shortcut";
 export * from "./plugin";
 export * from "./notification";
 export * from "./common";
+export * from "./worker";

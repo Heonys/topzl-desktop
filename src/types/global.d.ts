@@ -34,6 +34,9 @@ declare global {
     notification: {
       error: (callback: (message: IpcEvents.Main["notification-error"]) => void) => void;
     };
+    worker: {
+      setupWatcher: IpcInvoke.Renderer["worker-file-watcher"];
+    };
   }
 }
 

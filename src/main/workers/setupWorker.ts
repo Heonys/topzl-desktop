@@ -1,18 +1,23 @@
+import * as Comlink from "comlink";
+import nodeEndpoint from "comlink/dist/umd/node-adapter";
 import { Worker } from "node:worker_threads";
-import LocalFileWatcher from "./localFileWatcher?modulePath";
-import Downloader from "./downloader?modulePath";
+import type { LocalFileWatcher } from "./localFileWatcher";
+import WatcherPath from "./localFileWatcher?modulePath";
+import DownloaderPath from "./downloader?modulePath";
+import { ipcMainHandle } from "@/ipc/main";
+// import { extractMusicItem } from "./common";
 
 const workerPathMap = {
-  ["local-file-watcher"]: LocalFileWatcher,
-  ["downloader"]: Downloader,
+  ["local-file-watcher"]: WatcherPath,
+  ["downloader"]: DownloaderPath,
 } as const;
 
-export function setupWorker() {
-  const worker = new Worker(workerPathMap["local-file-watcher"]);
-  worker.on("message", (message) => {
-    console.log(message);
+export async function setupWorker() {
+  ipcMainHandle("worker-file-watcher", (filePath) => {
+    const worker = new Worker(workerPathMap["local-file-watcher"]);
+    const watcher = Comlink.wrap<LocalFileWatcher>(nodeEndpoint(worker));
+    return watcher.setup(filePath);
   });
-  worker.postMessage("world");
 
   /*
   TODO: Local Worker

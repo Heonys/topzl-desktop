@@ -42,6 +42,7 @@ declare namespace IpcInvoke {
     "show-open-dialog": (
       options: Electron.OpenDialogOptions,
     ) => Promise<Electron.OpenDialogReturnValue>;
+    "worker-file-watcher": (filePath: string[]) => Promise<any>;
   }
 }
 
