@@ -40,6 +40,14 @@ export class LocalFileWatcher {
         this.debouncedOnRemove();
       }
     });
+
+    this._onAdd = (items: MusicItem[]) => {
+      parentPort?.postMessage({ type: "add", value: items });
+    };
+
+    this._onRemove = (paths: string[]) => {
+      parentPort?.postMessage({ type: "remove", value: paths });
+    };
   }
 
   changePath(addPaths: string[], removePaths: string[]) {
@@ -47,14 +55,6 @@ export class LocalFileWatcher {
     if (removePaths.length > 0) {
       this.watcher.unwatch(removePaths);
     }
-  }
-
-  onAdd(fn: (...args: any) => void) {
-    this._onAdd = fn;
-  }
-
-  onRemove(fn: (...args: any) => void) {
-    this._onRemove = fn;
   }
 
   private debouncedOnAdd = debounce(() => {

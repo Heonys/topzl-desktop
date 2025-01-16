@@ -2,10 +2,11 @@ import { Condition } from "@/common";
 import { Backdrop, Header, Contents } from "./Layout";
 import { useModal } from "./useModal";
 import StaticIcon from "@/icons/StaticIcon";
-import useLocal from "@/hooks/useLocal";
+import { useDirectoryManager } from "@/hooks";
 
 const ScanLocalMusic = () => {
-  const { localDir, localSelectedDir, addDir, removeDir, check, uncheck } = useLocal();
+  const { paths, selectedPaths, addDir, removeDir, check, uncheck, syncWithWatcher } =
+    useDirectoryManager();
   const { hideModal } = useModal();
 
   const addForder = async () => {
@@ -15,15 +16,20 @@ const ScanLocalMusic = () => {
     });
     if (!result.canceled) {
       const selected = result.filePaths[0];
-      if (!localDir.includes(selected)) {
+      if (!paths.includes(selected)) {
         addDir(selected);
         check(selected);
       }
     }
   };
 
+  const onClose = () => {
+    syncWithWatcher();
+    hideModal();
+  };
+
   return (
-    <Backdrop>
+    <Backdrop onClose={onClose}>
       <div
         className="flex h-[50vh] w-[50vw] flex-col rounded-lg bg-white"
         onClick={(e) => e.stopPropagation()}
@@ -51,9 +57,9 @@ const ScanLocalMusic = () => {
             </div>
 
             <div className="mt-2 flex-1 rounded-lg border border-black/10">
-              <Condition condition={localDir.length}>
-                {localDir.map((dir) => {
-                  const isChecked = localSelectedDir.includes(dir);
+              <Condition condition={paths.length}>
+                {paths.map((dir) => {
+                  const isChecked = selectedPaths.includes(dir);
                   return (
                     <div key={dir} className="flex items-center gap-2 p-2">
                       <input
@@ -80,7 +86,7 @@ const ScanLocalMusic = () => {
             <div className="flex justify-end">
               <button
                 className="rounded-lg bg-[#E0E0E0] p-2 px-4 font-sans text-sm font-semibold"
-                onClick={hideModal}
+                onClick={onClose}
               >
                 확인
               </button>

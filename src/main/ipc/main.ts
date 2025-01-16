@@ -56,7 +56,7 @@ export function ipcMainSend<T extends keyof IpcEvents.Main>(
 export function ipcMainSendWebContents<T extends keyof IpcEvents.Main>(
   channel: T,
   webContents: WebContents,
-  payload?: IpcEvents.Main[T],
+  payload: IpcEvents.Main[T],
 ) {
   webContents.send(channel, payload);
 }

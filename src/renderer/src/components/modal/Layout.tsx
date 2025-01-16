@@ -2,12 +2,16 @@ import { PropsWithChildren } from "react";
 import { useModal } from "./useModal";
 import StaticIcon from "@/icons/StaticIcon";
 
-export const Backdrop = ({ children }: PropsWithChildren) => {
+type BackdropProps = {
+  onClose?: () => void;
+} & PropsWithChildren;
+
+export const Backdrop = ({ onClose, children }: BackdropProps) => {
   const { hideModal } = useModal();
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
-      onClick={hideModal}
+      onClick={onClose ?? hideModal}
     >
       {children}
     </div>

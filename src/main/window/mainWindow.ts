@@ -20,6 +20,7 @@ export function createMainWindow() {
       contextIsolation: true,
       nodeIntegration: false,
       preload: path.join(__dirname, "../preload/index.js"),
+      // webSecurity: false,
     },
     icon: nativeImage.createFromPath(getResourcePath("logo.png")),
   });

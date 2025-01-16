@@ -1,4 +1,4 @@
-import { ipcRendererSend } from "../ipcRenderer";
+import { ipcRendererOn, ipcRendererSend } from "../ipcRenderer";
 
 function setupWatcher() {
   ipcRendererSend("worker-setup-watcher");
@@ -8,17 +8,21 @@ function changeWorkerPath(addPaths: string[], removePaths: string[]) {
   ipcRendererSend("worker-change-paths", [addPaths, removePaths]);
 }
 
-function onAdd(fn: (...args: any) => void) {
-  ipcRendererSend("worker-on-add", fn);
+function onAddedItems(callback: (items: IpcEvents.Main["sync-watch-add"]) => void) {
+  ipcRendererOn("sync-watch-add", (_, items) => {
+    callback(items);
+  });
 }
 
-function onRemove(fn: (...args: any) => void) {
-  ipcRendererSend("worker-on-remove", fn);
+function onRemovedPath(callback: (items: IpcEvents.Main["sync-watch-remove"]) => void) {
+  ipcRendererOn("sync-watch-remove", (_, paths) => {
+    callback(paths);
+  });
 }
 
 export const worker = {
   setupWatcher,
   changeWorkerPath,
-  onAdd,
-  onRemove,
+  onAddedItems,
+  onRemovedPath,
 } satisfies Window["worker"];

@@ -62,6 +62,7 @@ export const favoriteListAtom = atom<MusicItem[]>([]);
 
 export const localDirAtom = atom<string[]>([]);
 export const localSelectedDirAtom = atom<string[]>([]);
+export const localMusicAtom = atom<MusicItem[]>([]);
 
 //  이벤트
 export const initProgress = {

@@ -19,7 +19,7 @@ const TAG = "playlist-table";
 const columnHelper = createColumnHelper<MusicItem>();
 
 type ColumnProps = {
-  onRemove: (id: string) => void;
+  onRemove?: (id: string) => void;
   isFavorite: (id: string) => boolean;
   onToggle: (item: MusicItem) => void;
 };
@@ -92,30 +92,34 @@ const createColumns = ({ onRemove, onToggle, isFavorite }: ColumnProps) => {
         </div>
       ),
     }),
-    columnHelper.display({
-      id: "remove",
-      size: 20,
-      cell: (info) => (
-        <div className="flex items-center justify-start">
-          <IconButton
-            iconName="x-mark"
-            size={17}
-            onClick={() => {
-              onRemove(info.row.original.id);
-            }}
-          />
-        </div>
-      ),
-      enableResizing: false,
-      enableSorting: false,
-    }),
+    ...(onRemove
+      ? [
+          columnHelper.display({
+            id: "remove",
+            size: 20,
+            cell: (info) => (
+              <div className="flex items-center justify-start">
+                <IconButton
+                  iconName="x-mark"
+                  size={17}
+                  onClick={() => {
+                    onRemove(info.row.original.id);
+                  }}
+                />
+              </div>
+            ),
+            enableResizing: false,
+            enableSorting: false,
+          }),
+        ]
+      : []),
   ];
 };
 
 type Props = {
   playlist: MusicItem[];
   setPlaylist: (item: MusicItem[]) => void;
-  removePlaylist: (id: string) => void;
+  removePlaylist?: (id: string) => void;
 };
 
 export const PlayListTable = ({ playlist, setPlaylist, removePlaylist }: Props) => {

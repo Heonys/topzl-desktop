@@ -37,8 +37,8 @@ declare global {
     worker: {
       setupWatcher: (payload: IpcEvents.Renderer["worker-setup-watcher"]) => void;
       changeWorkerPath: (...args: IpcEvents.Renderer["worker-change-paths"]) => void;
-      onAdd: (fn: IpcEvents.Renderer["worker-on-add"]) => void;
-      onRemove: (fn: IpcEvents.Renderer["worker-on-remove"]) => void;
+      onAddedItems: (callback: (items: IpcEvents.Main["sync-watch-add"]) => void) => void;
+      onRemovedPath: (callback: (paths: IpcEvents.Main["sync-watch-remove"]) => void) => void;
     };
   }
 }

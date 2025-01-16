@@ -135,22 +135,18 @@ class TrackPlayer {
     }
   }
 
-  /** 暂停播放 */
   pause() {
     if (this.hasSource()) {
       this.audio.pause();
     }
   }
-  /** 开始播放 */
   play() {
     if (this.hasSource()) {
-      this.audio.play().catch(() => {
-        // 播放失败会自动被onerror监控到
-        // trackPlayerEventsEmitter.emit(TrackPlayerEvent.Error, e);
+      this.audio.play().catch((err) => {
+        console.error(err);
       });
     }
   }
-  /** 设置音量 */
   setVolume(volume: number) {
     this.audio.volume = volume;
   }
@@ -197,6 +193,13 @@ class TrackPlayer {
   skipToNext() {
     playerEventEmitter.emit("play-next");
   }
+
+  // fileTest() {
+  //   this.audio.src =
+  //     "atom://Users/siwmu/Desktop/music/%EB%AD%90%EB%9D%BC%ED%95%A0%EA%B9%8C-The%20Breeze-1.mp3";
+  //   // "file:///C:/Users/siwmu/Desktop/music/%EB%AD%90%EB%9D%BC%ED%95%A0%EA%B9%8C-The%20Breeze-1.mp3";
+  //   this.play();
+  // }
 }
 
 const trackPlayer = new TrackPlayer();

@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, protocol, net } from "electron";
 import { createMainWindow, getMainWindow, showMainWindow } from "@/window/mainWindow";
 import { setupIpcMain } from "@/ipc/setup";
 import { setupI18n } from "@shared/i18n/main";
@@ -7,6 +7,9 @@ import { getAppConfigPathSync, setupMainConfig, setAppConfigPath } from "@shared
 import { setupGlobalShortcut, handleUrlScheme, setupPlugin, setupGlobalContext } from "@/core";
 import { isDev } from "@/utils/common";
 import { setupWorker } from "@/workers/setupWorker";
+
+import path from "node:path";
+import url from "node:url";
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
@@ -58,4 +61,9 @@ app.whenReady().then(async () => {
   setupIpcMain();
   setupGlobalContext();
   setupWorker();
+
+  // protocol.handle("atom", (request) => {
+  //   const filePath = request.url.slice("atom://".length);
+  //   return net.fetch(`file://C:/${filePath}`);
+  // });
 });

@@ -1,11 +1,21 @@
 import { parseFile, IPicture } from "music-metadata";
 import CryptoJS from "crypto-js";
+// import fs from "fs-extra";
 import type { MusicItem } from "@shared/plugin/type";
 import url from "node:url";
 import path from "node:path";
 
 export async function extractMusicItem(filePath: string): Promise<MusicItem> {
   const hash = CryptoJS.MD5(filePath).toString();
+
+  // const fileBuffer = await fs.readFile(filePath);
+  // console.log("@@@", fileBuffer);
+
+  /*
+    const blob = new Blob([fileBuffer], { type: 'audio/mpeg' });
+  const blobUrl = URL.createObjectURL(blob);
+  */
+
   try {
     const metadata = await parseFile(filePath);
     const common = metadata.common;

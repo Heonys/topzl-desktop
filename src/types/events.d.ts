@@ -7,6 +7,7 @@ type SupportMediaType = import("@shared/plugin/type").SupportMediaType;
 type SearchResult = import("@shared/plugin/type").SearchResult;
 type SearchedLyric = import("@shared/plugin/type").SearchedLyric;
 type GlobalContext = import("@/core/globalContext").GlobalContext;
+type MusicItem = import("@shared/plugin/type").MusicItem;
 
 declare namespace IpcInvoke {
   // ipcRender.invoke -> ipcMain.handle
@@ -51,8 +52,6 @@ declare namespace IpcEvents {
     "window-frame-action": "CLOSE" | "MINIMIZE" | "MAXIMIZE";
     "worker-setup-watcher": void;
     "worker-change-paths": [addPaths: string[], removePaths: string[]];
-    "worker-on-add": (...args: any[]) => any;
-    "worker-on-remove": (...args: any[]) => any;
   }
 
   // ipcRender.send -> ipcMain.on (sync)
@@ -65,5 +64,7 @@ declare namespace IpcEvents {
     "sync-app-config": AppConfig;
     "global-shortcut-execute": ShortcutKeys;
     "notification-error": string;
+    "sync-watch-add": MusicItem[];
+    "sync-watch-remove": string[];
   }
 }
