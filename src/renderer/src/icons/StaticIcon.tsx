@@ -30,7 +30,7 @@ import { FaRegCompass } from "react-icons/fa";
 import { LuClock } from "react-icons/lu";
 import { HiMiniHome } from "react-icons/hi2";
 import { IoChevronDownOutline } from "react-icons/io5";
-import { IoCheckmark } from "react-icons/io5";
+import { IoCheckmark, IoCheckmarkCircleOutline } from "react-icons/io5";
 import { CgCloseR } from "react-icons/cg";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdHistory } from "react-icons/md";
@@ -94,6 +94,7 @@ const IconMap = {
   ["notification"]: IoMdNotificationsOutline,
   ["history"]: MdHistory,
   ["forder-plus"]: BsFolderPlus,
+  ["check-circle"]: IoCheckmarkCircleOutline,
 };
 
 type Props = {

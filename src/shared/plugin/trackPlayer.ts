@@ -70,7 +70,6 @@ class TrackPlayer {
     };
   }
 
-  /** 设置音源 */
   setTrackSource(
     trackSource: {
       headers?: Record<string, string>;
@@ -101,10 +100,9 @@ class TrackPlayer {
         },
       ],
     });
-    // 拓展播放功能
+
     const urlObj = new URL(trackSource.url);
     if (urlObj.username && urlObj.password) {
-      // TODO: 这部分逻辑需要抽离出来 特殊逻辑
       const mediaSource = new MediaSource();
       this.audio.src = URL.createObjectURL(mediaSource);
       mediaSource.addEventListener("sourceopen", () => {
@@ -133,6 +131,14 @@ class TrackPlayer {
     } else {
       this.audio.src = url;
     }
+  }
+
+  async setLocalTrackSource(musicItem: MusicItem) {
+    const buffer = await window.fs.readFile(musicItem.localPath!);
+    this.setTrackSource(
+      { url: URL.createObjectURL(new Blob([buffer], { type: "audio/*" })) },
+      musicItem,
+    );
   }
 
   pause() {
@@ -193,13 +199,6 @@ class TrackPlayer {
   skipToNext() {
     playerEventEmitter.emit("play-next");
   }
-
-  // fileTest() {
-  //   this.audio.src =
-  //     "atom://Users/siwmu/Desktop/music/%EB%AD%90%EB%9D%BC%ED%95%A0%EA%B9%8C-The%20Breeze-1.mp3";
-  //   // "file:///C:/Users/siwmu/Desktop/music/%EB%AD%90%EB%9D%BC%ED%95%A0%EA%B9%8C-The%20Breeze-1.mp3";
-  //   this.play();
-  // }
 }
 
 const trackPlayer = new TrackPlayer();

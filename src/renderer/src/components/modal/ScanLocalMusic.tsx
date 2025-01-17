@@ -3,17 +3,21 @@ import { Backdrop, Header, Contents } from "./Layout";
 import { useModal } from "./useModal";
 import StaticIcon from "@/icons/StaticIcon";
 import { useDirectoryManager } from "@/hooks";
+import { useState } from "react";
 
 const ScanLocalMusic = () => {
   const { paths, selectedPaths, addDir, removeDir, check, uncheck, syncWithWatcher } =
     useDirectoryManager();
   const { hideModal } = useModal();
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
 
   const addForder = async () => {
+    setIsOpenDialog(true);
     const result = await window.common.showOpenDialog({
       title: "폴더 추가",
       properties: ["openDirectory"],
     });
+    setIsOpenDialog(false);
     if (!result.canceled) {
       const selected = result.filePaths[0];
       if (!paths.includes(selected)) {
@@ -29,7 +33,7 @@ const ScanLocalMusic = () => {
   };
 
   return (
-    <Backdrop onClose={onClose}>
+    <Backdrop onClose={onClose} disabled={isOpenDialog}>
       <div
         className="flex h-[50vh] w-[50vw] flex-col rounded-lg bg-white"
         onClick={(e) => e.stopPropagation()}
@@ -87,6 +91,7 @@ const ScanLocalMusic = () => {
               <button
                 className="rounded-lg bg-[#E0E0E0] p-2 px-4 font-sans text-sm font-semibold"
                 onClick={onClose}
+                disabled={isOpenDialog}
               >
                 확인
               </button>

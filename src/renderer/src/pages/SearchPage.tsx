@@ -69,6 +69,7 @@ export const SearchPage = () => {
                   >
                     <IconButton
                       iconName={isFavorite(item.id) ? "heart-fill" : "heart"}
+                      color={isFavorite(item.id) ? "red" : "black"}
                       size={18}
                       onClick={() => {
                         if (isFavorite(item.id)) unfavorite(item.id);

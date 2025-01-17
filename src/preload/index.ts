@@ -1,5 +1,5 @@
 import { contextBridge } from "electron";
-import { i18n, appConfig, shortcut, plugin, notification, common, worker } from "./api";
+import { i18n, appConfig, shortcut, plugin, notification, common, worker, fsDelegate } from "./api";
 
 if (!process.contextIsolated) {
   throw new Error("contextIsolation must be enabled in the BrowserWindow");
@@ -13,6 +13,7 @@ try {
   contextBridge.exposeInMainWorld("plugin", plugin);
   contextBridge.exposeInMainWorld("notification", notification);
   contextBridge.exposeInMainWorld("worker", worker);
+  contextBridge.exposeInMainWorld("fs", fsDelegate);
 } catch (error) {
   console.error(error);
 }

@@ -7,9 +7,11 @@ export function setupWatcher() {
   window.worker.setupWatcher();
 
   window.worker.onAddedItems((items) => {
-    console.log(items);
-
-    store.set(localMusicAtom, (prev) => [...prev, ...items]);
+    store.set(localMusicAtom, (prev) => {
+      const prevIds = new Set(prev.map((it) => it.id));
+      const newItems = items.filter((item) => !prevIds.has(item.id));
+      return [...prev, ...newItems];
+    });
   });
 
   window.worker.onRemovedPath((paths) => {

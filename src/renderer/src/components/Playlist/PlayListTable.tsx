@@ -1,6 +1,6 @@
 import { Case, Condition, Droppable, IconButton, Switch } from "@/common";
 import { Empty } from "@/common/Empty";
-import { useCurrentMusic, useFavorite } from "@/hooks";
+import { useCurrentMusic } from "@/hooks";
 import StaticIcon from "@/icons/StaticIcon";
 import { assignToDrag, formatTime } from "@/utils";
 import { MusicItem } from "@shared/plugin/type";
@@ -14,31 +14,26 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { FavoriteButton, DownloadButton } from "@/components/Playlist";
 
 const TAG = "playlist-table";
 const columnHelper = createColumnHelper<MusicItem>();
 
 type ColumnProps = {
   onRemove?: (id: string) => void;
-  isFavorite: (id: string) => boolean;
-  onToggle: (item: MusicItem) => void;
 };
 
-const createColumns = ({ onRemove, onToggle, isFavorite }: ColumnProps) => {
+const createColumns = ({ onRemove }: ColumnProps) => {
   return [
     columnHelper.display({
       id: "like",
-      size: 50,
+      size: 55,
       cell: (info) => {
         const origin = info.row.original;
         return (
           <div className="flex items-center justify-start gap-2">
-            <IconButton
-              iconName={isFavorite(origin.id) ? "heart-fill" : "heart"}
-              size={17}
-              onClick={() => onToggle(origin)}
-            />
-            <IconButton iconName="download" size={17} />
+            <FavoriteButton musicItem={origin} />
+            <DownloadButton musicItem={origin} />
           </div>
         );
       },
@@ -120,22 +115,15 @@ type Props = {
   playlist: MusicItem[];
   setPlaylist: (item: MusicItem[]) => void;
   removePlaylist?: (id: string) => void;
+  maxheight?: string;
 };
 
-export const PlayListTable = ({ playlist, setPlaylist, removePlaylist }: Props) => {
+export const PlayListTable = ({ playlist, setPlaylist, removePlaylist, maxheight }: Props) => {
   const { setCurrentItem } = useCurrentMusic();
   const [sorting, setSorting] = useState<SortingState>([]);
-  const { isFavorite, favorite, unfavorite } = useFavorite();
-
-  const toggleFavorite = (item: MusicItem) => {
-    if (isFavorite(item.id)) unfavorite(item.id);
-    else favorite(item);
-  };
 
   const columns = createColumns({
     onRemove: removePlaylist,
-    isFavorite,
-    onToggle: toggleFavorite,
   });
   const table = useReactTable({
     debugAll: false,
@@ -155,7 +143,12 @@ export const PlayListTable = ({ playlist, setPlaylist, removePlaylist }: Props) 
   };
 
   return (
-    <div className="max-h-[45vh] overflow-y-auto overflow-x-hidden p-2 font-sans">
+    <div
+      className="overflow-y-auto overflow-x-hidden p-2 font-sans"
+      style={{
+        maxHeight: maxheight ?? "45vh",
+      }}
+    >
       <table className="w-full table-fixed border-collapse select-none">
         <thead>
           <tr className="border-b text-left">

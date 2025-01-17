@@ -5,3 +5,4 @@ export * from "./plugin";
 export * from "./notification";
 export * from "./common";
 export * from "./worker";
+export * from "./fsDelegate";

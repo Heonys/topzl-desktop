@@ -28,10 +28,15 @@ const mediaSourceAtomAsync = atom(async (get) => {
   const currentMusic = get(currentMusicAtom);
   if (!currentMusic) return { url: "" };
   try {
-    const result = await window.plugin.getMediaSource(currentMusic.id);
-    trackPlayer.setTrackSource({ url: result.url }, currentMusic);
-    trackPlayer.play();
-    return result;
+    if (currentMusic.localPath) {
+      trackPlayer.setLocalTrackSource(currentMusic).then(() => {
+        trackPlayer.play();
+      });
+    } else {
+      const result = await window.plugin.getMediaSource(currentMusic.id);
+      trackPlayer.setTrackSource({ url: result.url }, currentMusic);
+      trackPlayer.play();
+    }
   } catch {
     toast.error("재생할 수 없습니다");
     trackPlayer.skipToNext();

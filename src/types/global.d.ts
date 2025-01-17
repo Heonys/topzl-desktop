@@ -40,6 +40,9 @@ declare global {
       onAddedItems: (callback: (items: IpcEvents.Main["sync-watch-add"]) => void) => void;
       onRemovedPath: (callback: (paths: IpcEvents.Main["sync-watch-remove"]) => void) => void;
     };
+    fs: {
+      readFile: (filePath: string) => Promise<Buffer>;
+    };
   }
 }
 
