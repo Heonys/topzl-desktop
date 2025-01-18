@@ -20,9 +20,19 @@ function onRemovedPath(callback: (items: IpcEvents.Main["sync-watch-remove"]) =>
   });
 }
 
+function setupDownloadConfig(config: any) {
+  ipcRendererSend("worker-setup", config);
+}
+
+function downloadFile(mediaSource: string, filePath: string) {
+  ipcRendererSend("worker-download", [mediaSource, filePath]);
+}
+
 export const worker = {
   setupWatcher,
   changeWorkerPath,
   onAddedItems,
   onRemovedPath,
+  setupDownloadConfig,
+  downloadFile,
 } satisfies Window["worker"];

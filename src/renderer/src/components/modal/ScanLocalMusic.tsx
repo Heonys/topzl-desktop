@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { Condition } from "@/common";
-import { Backdrop, Header, Contents } from "./Layout";
-import { useModal } from "./useModal";
 import StaticIcon from "@/icons/StaticIcon";
 import { useDirectoryManager } from "@/hooks";
-import { useState } from "react";
+import { Backdrop, Header, Contents } from "./Layout";
+import { useModal } from "./useModal";
 
 const ScanLocalMusic = () => {
   const { paths, selectedPaths, addDir, removeDir, check, uncheck, syncWithWatcher } =

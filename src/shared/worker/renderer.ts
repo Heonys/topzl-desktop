@@ -20,3 +20,7 @@ export function setupWatcher() {
     });
   });
 }
+
+export function setupDownloader() {
+  window.worker.setupDownloadConfig("download path, concurrency");
+}

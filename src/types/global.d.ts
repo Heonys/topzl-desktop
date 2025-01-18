@@ -39,6 +39,8 @@ declare global {
       changeWorkerPath: (...args: IpcEvents.Renderer["worker-change-paths"]) => void;
       onAddedItems: (callback: (items: IpcEvents.Main["sync-watch-add"]) => void) => void;
       onRemovedPath: (callback: (paths: IpcEvents.Main["sync-watch-remove"]) => void) => void;
+      setupDownloadConfig: (config: IpcEvents.Renderer["worker-setup"]) => void;
+      downloadFile: (...args: IpcEvents.Renderer["worker-download"]) => void;
     };
     fs: {
       readFile: (filePath: string) => Promise<Buffer>;

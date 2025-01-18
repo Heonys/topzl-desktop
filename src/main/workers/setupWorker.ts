@@ -2,9 +2,10 @@ import * as Comlink from "comlink";
 import nodeEndpoint from "comlink/dist/umd/node-adapter";
 import { Worker } from "node:worker_threads";
 import type { LocalFileWatcher } from "./localFileWatcher";
+import type { Downloader } from "./downloader";
+import { ipcMainOn, ipcMainSendWebContents } from "@/ipc/main";
 import WatcherPath from "./localFileWatcher?modulePath";
 import DownloaderPath from "./downloader?modulePath";
-import { ipcMainOn, ipcMainSendWebContents } from "@/ipc/main";
 
 const workerPathMap = {
   ["local-file-watcher"]: WatcherPath,
@@ -42,5 +43,14 @@ function setupFileWatcher() {
 
 //TODO: Downloader Worker
 async function setupDownloader() {
-  // ipcOn -> downloadFile
+  const worker = new Worker(workerPathMap["downloader"]);
+  const watcher = Comlink.wrap<Downloader>(nodeEndpoint(worker));
+
+  ipcMainOn("worker-setup", (config) => {
+    console.log(config);
+  });
+
+  ipcMainOn("worker-download", (payload) => {
+    watcher.downloadFile(...payload);
+  });
 }

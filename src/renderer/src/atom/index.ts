@@ -34,6 +34,10 @@ const mediaSourceAtomAsync = atom(async (get) => {
       });
     } else {
       const result = await window.plugin.getMediaSource(currentMusic.id);
+
+      const downloadPath = "C:\\Users\\siwmu\\Desktop\\download\\test.mp3";
+      window.worker.downloadFile(result.url, downloadPath);
+
       trackPlayer.setTrackSource({ url: result.url }, currentMusic);
       trackPlayer.play();
     }
@@ -68,6 +72,8 @@ export const favoriteListAtom = atom<MusicItem[]>([]);
 export const localDirAtom = atom<string[]>([]);
 export const localSelectedDirAtom = atom<string[]>([]);
 export const localMusicAtom = atom<MusicItem[]>([]);
+
+export const downloadedMusicAtom = atom<MusicItem[]>([]);
 
 //  이벤트
 export const initProgress = {
