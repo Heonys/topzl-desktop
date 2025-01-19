@@ -1,5 +1,6 @@
 import { IconButton } from "@/common";
 import { useFavorite } from "@/hooks";
+import { useDownload } from "@/hooks/useDownload";
 import type { MusicItem } from "@shared/plugin/type";
 
 export function FavoriteButton({ musicItem }: { musicItem: MusicItem }) {
@@ -23,6 +24,7 @@ export function FavoriteButton({ musicItem }: { musicItem: MusicItem }) {
 export function DownloadButton({ musicItem }: { musicItem: MusicItem }) {
   // 다운로드가 완료되었거나, local 파일인경우
   // const isDownloaded = "";
+  const { download } = useDownload();
 
   return (
     <>
@@ -35,7 +37,14 @@ export function DownloadButton({ musicItem }: { musicItem: MusicItem }) {
           opacity
         />
       ) : (
-        <IconButton iconName="download" title="download" size={17} />
+        <IconButton
+          iconName="download"
+          title="download"
+          size={17}
+          onClick={() => {
+            download(musicItem);
+          }}
+        />
       )}
     </>
   );

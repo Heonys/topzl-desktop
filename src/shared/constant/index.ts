@@ -17,3 +17,9 @@ export enum DownloadState {
   ERROR = "ERROR",
   DONE = "DONE",
 }
+
+export type DownloadProgress = {
+  state: DownloadState;
+  current: number;
+  total: number;
+};

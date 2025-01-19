@@ -23,4 +23,8 @@ export function setupWatcher() {
 
 export function setupDownloader() {
   window.worker.setupDownloadConfig("download path, concurrency");
+
+  // 1. 다운로드 설정 변경
+
+  // 2. download status 동기화 -> 이건 다운로드할떄 이뤄져야하지?
 }

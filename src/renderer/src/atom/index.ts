@@ -34,11 +34,6 @@ const mediaSourceAtomAsync = atom(async (get) => {
       });
     } else {
       const result = await window.plugin.getMediaSource(currentMusic.id);
-
-      // 확장자는 mediasouce에서 가져와야함
-      const downloadPath = `C:\\Users\\siwmu\\Desktop\\download\\${currentMusic.title}.mp3`;
-      window.worker.downloadFile(result.url, downloadPath);
-
       trackPlayer.setTrackSource({ url: result.url }, currentMusic);
       trackPlayer.play();
     }

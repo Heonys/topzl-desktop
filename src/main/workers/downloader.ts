@@ -1,10 +1,11 @@
 import * as Comlink from "comlink";
 import nodeEndpoint from "comlink/dist/umd/node-adapter";
 import fs from "fs-extra";
+import { rimraf } from "rimraf";
 import { Readable } from "node:stream";
 import type { ReadableStream } from "node:stream/web";
 import { parentPort } from "node:worker_threads";
-// import { DownloadState } from "@shared/constant";
+import type { DownloadProgress } from "@shared/constant";
 
 if (!parentPort) {
   throw new Error("InvalidWorker");
@@ -16,14 +17,34 @@ type StreamOptions = {
   onError?: (e: Error) => void;
 };
 
+type onChangeFn = (progerss: DownloadProgress) => void;
+
 export class Downloader {
-  async downloadFile(mediaSource: string, filePath: string, options: StreamOptions) {
+  private _onChange!: onChangeFn;
+
+  setupProcess(onChange: onChangeFn) {
+    this._onChange = onChange;
+  }
+
+  async downloadFile(mediaSource: string, filePath: string) {
     const response = await fetch(mediaSource);
     const webStream = response.body as ReadableStream;
 
-    const nodeReadStream = this.toCustomReadStream(webStream, options);
-    const writeStream = fs.createWriteStream(filePath);
-    nodeReadStream.pipe(writeStream);
+    try {
+      const nodeReadStream = this.toCustomReadStream(webStream, {});
+      const writeStream = fs.createWriteStream(filePath);
+      const downloadStream = nodeReadStream.pipe(writeStream);
+
+      downloadStream.on("close", () => {
+        //
+      });
+
+      downloadStream.on("error", () => {
+        this.removeFile(filePath);
+      });
+    } catch {
+      this.removeFile(filePath);
+    }
   }
 
   private toReadStream(webStream: ReadableStream) {
@@ -49,6 +70,16 @@ export class Downloader {
     };
     rs.on("error", (e) => onError?.(e));
     return rs;
+  }
+
+  private async removeFile(filePath: string) {
+    try {
+      const stat = await fs.stat(filePath);
+      if (stat.isFile()) rimraf(filePath);
+      return true;
+    } catch {
+      return false;
+    }
   }
 }
 

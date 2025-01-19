@@ -21,7 +21,7 @@ function onRemovedPath(callback: (items: IpcEvents.Main["sync-watch-remove"]) =>
 }
 
 function setupDownloadConfig(config: any) {
-  ipcRendererSend("worker-setup", config);
+  ipcRendererSend("worker-setup-download", config);
 }
 
 function downloadFile(mediaSource: string, filePath: string) {

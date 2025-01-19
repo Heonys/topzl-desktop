@@ -52,7 +52,7 @@ declare namespace IpcEvents {
     "window-frame-action": "CLOSE" | "MINIMIZE" | "MAXIMIZE";
     "worker-setup-watcher": void;
     "worker-change-paths": [addPaths: string[], removePaths: string[]];
-    "worker-setup": any;
+    "worker-setup-download": any;
     "worker-download": [mediaSource: string, filePath: string];
   }
 

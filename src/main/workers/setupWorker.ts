@@ -41,13 +41,18 @@ function setupFileWatcher() {
   });
 }
 
-//TODO: Downloader Worker
 async function setupDownloader() {
   const worker = new Worker(workerPathMap["downloader"]);
   const watcher = Comlink.wrap<Downloader>(nodeEndpoint(worker));
 
-  ipcMainOn("worker-setup", (config) => {
-    console.log(config);
+  ipcMainOn("worker-setup-download", (config) => {
+    console.log("setup config", config);
+
+    watcher.setupProcess(
+      Comlink.proxy((progerss) => {
+        console.log(progerss);
+      }),
+    );
   });
 
   ipcMainOn("worker-download", (payload) => {

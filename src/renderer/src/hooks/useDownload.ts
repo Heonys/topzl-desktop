@@ -1,37 +1,53 @@
 import { useAtom } from "jotai";
+import PQueue from "p-queue";
 import { downloadedMusicAtom } from "@/atom";
 import type { MusicItem } from "@shared/plugin/type";
-import PQueue from "p-queue";
-// import { useCurrentMusic } from "./useCurrentMusic";
+import type { DownloadProgress } from "@shared/constant";
 
 const downloadQueue = new PQueue({ concurrency: 5 });
+const downloadProgressMap = new Map<string, DownloadProgress>();
+const initPath = window.common.getGlobalContext().appPath.downloads;
 
 export const useDownload = () => {
-  // const {} = useCurrentMusic();
   const [downloadedList, setDownloadedList] = useAtom(downloadedMusicAtom);
-  // downloadingProgress
 
   const isDownloaded = (id: string) => {
     return downloadedList.find((it) => it.id === id);
   };
 
-  const download = (musicItem: MusicItem | MusicItem[]) => {
+  const download = async (musicItem: MusicItem | MusicItem[]) => {
     const musicItems = Array.isArray(musicItem) ? musicItem : [musicItem];
-
     const validItems = musicItems.filter((it) => !isDownloaded(it.id));
-    /*
-      다운로드를 대기하는 다운로드 Queue에 삽입
-      순차적인 다운로드 ...
-    */
 
+    const downloadCallback = validItems.map((musicItem) => {
+      return async () => {
+        const mediaSource = await getMediaSource(musicItem);
+        const ext = getExtensionName(mediaSource.url);
+        const downloadPath = `${initPath}\\${musicItem.title}.${ext}`;
+        window.worker.downloadFile(mediaSource.url, downloadPath);
+      };
+    });
+
+    downloadQueue.addAll(downloadCallback);
     setDownloadedList((prev) => [...prev, ...validItems]);
+  };
 
-    // window.worker.downloadFile()
+  const getMediaSource = (currentMusic: MusicItem) => {
+    return window.plugin.getMediaSource(currentMusic.id);
+  };
+
+  const getExtensionName = (path: string) => {
+    return path.match(/.*\/.+\.([^./?#]+)/)?.[1] ?? "mp3";
   };
 
   const setConcurrency = (concurrency: number) => {
     downloadQueue.concurrency = Math.min(20, Math.max(1, concurrency));
   };
 
-  return { isDownloaded, download, setConcurrency };
+  const getDownloadStatus = (id: string) => {
+    // 근데 이거 실시간으로 업데이트 되야함 -> useEffect로 빼야할 듯
+    return downloadProgressMap.get(id);
+  };
+
+  return { isDownloaded, download, setConcurrency, getDownloadStatus, getMediaSource };
 };
