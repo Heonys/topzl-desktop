@@ -8,6 +8,7 @@ type SearchResult = import("@shared/plugin/type").SearchResult;
 type SearchedLyric = import("@shared/plugin/type").SearchedLyric;
 type GlobalContext = import("@/core/globalContext").GlobalContext;
 type MusicItem = import("@shared/plugin/type").MusicItem;
+type DownloadProgress = import("@shared/constant/index").DownloadProgress;
 
 declare namespace IpcInvoke {
   // ipcRender.invoke -> ipcMain.handle
@@ -68,5 +69,7 @@ declare namespace IpcEvents {
     "notification-error": string;
     "sync-watch-add": MusicItem[];
     "sync-watch-remove": string[];
+    "sync-download-status": DownloadProgress;
+    "plugin-error": string;
   }
 }

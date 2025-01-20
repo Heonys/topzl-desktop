@@ -19,7 +19,9 @@ export enum DownloadState {
 }
 
 export type DownloadProgress = {
+  // id: string;
   state: DownloadState;
-  current: number;
-  total: number;
+  current?: number;
+  total?: number;
+  message?: string;
 };

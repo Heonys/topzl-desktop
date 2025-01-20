@@ -45,12 +45,10 @@ async function setupDownloader() {
   const worker = new Worker(workerPathMap["downloader"]);
   const watcher = Comlink.wrap<Downloader>(nodeEndpoint(worker));
 
-  ipcMainOn("worker-setup-download", (config) => {
-    console.log("setup config", config);
-
-    watcher.setupProcess(
+  ipcMainOn("worker-setup-download", (config, event) => {
+    watcher.onChange(
       Comlink.proxy((progerss) => {
-        console.log(progerss);
+        ipcMainSendWebContents("sync-download-status", event.sender, progerss);
       }),
     );
   });

@@ -2,10 +2,11 @@ import * as Comlink from "comlink";
 import nodeEndpoint from "comlink/dist/umd/node-adapter";
 import fs from "fs-extra";
 import { rimraf } from "rimraf";
+import throttle from "lodash.throttle";
 import { Readable } from "node:stream";
 import type { ReadableStream } from "node:stream/web";
 import { parentPort } from "node:worker_threads";
-import type { DownloadProgress } from "@shared/constant";
+import { DownloadProgress, DownloadState } from "@shared/constant";
 
 if (!parentPort) {
   throw new Error("InvalidWorker");
@@ -21,25 +22,41 @@ type onChangeFn = (progerss: DownloadProgress) => void;
 
 export class Downloader {
   private _onChange!: onChangeFn;
+  state: DownloadState = DownloadState.NONE;
 
-  setupProcess(onChange: onChangeFn) {
-    this._onChange = onChange;
+  onChange(onChangeFn: onChangeFn) {
+    this._onChange = onChangeFn;
   }
 
   async downloadFile(mediaSource: string, filePath: string) {
     const response = await fetch(mediaSource);
     const webStream = response.body as ReadableStream;
+    const total = +response.headers.get("content-length")!;
+    this.state = DownloadState.LOADING;
 
     try {
-      const nodeReadStream = this.toCustomReadStream(webStream, {});
+      const nodeReadStream = this.toReadStream(webStream, {
+        onRead: throttle((current) => {
+          if (this.state !== DownloadState.LOADING) return;
+          this.state = DownloadState.LOADING;
+          this._onChange({ state: this.state, current, total });
+        }, 100),
+        onError: (e) => {
+          this.state = DownloadState.ERROR;
+          this._onChange({ state: this.state, message: e.message });
+        },
+      });
       const writeStream = fs.createWriteStream(filePath);
       const downloadStream = nodeReadStream.pipe(writeStream);
 
       downloadStream.on("close", () => {
-        //
+        this.state = DownloadState.DONE;
+        this._onChange({ state: this.state, current: total, total });
       });
 
-      downloadStream.on("error", () => {
+      downloadStream.on("error", (e) => {
+        this.state = DownloadState.ERROR;
+        this._onChange({ state: this.state, message: e.message });
         this.removeFile(filePath);
       });
     } catch {
@@ -47,11 +64,7 @@ export class Downloader {
     }
   }
 
-  private toReadStream(webStream: ReadableStream) {
-    return Readable.fromWeb(webStream);
-  }
-
-  private toCustomReadStream(webStream: ReadableStream, options: StreamOptions) {
+  private toReadStream(webStream: ReadableStream, options: StreamOptions) {
     const reader = webStream.getReader();
     const rs = new Readable();
     const { onRead, onDone, onError } = options;
@@ -66,6 +79,7 @@ export class Downloader {
       } else {
         rs.push(null);
         onDone?.();
+        return;
       }
     };
     rs.on("error", (e) => onError?.(e));

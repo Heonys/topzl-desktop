@@ -31,13 +31,14 @@ export function ipcMainHandle<T extends keyof IpcInvoke.Renderer>(
   channel: T,
   callback: (
     payload: Parameters<IpcInvoke.Renderer[T]>[0],
+    event: IpcMainInvokeEvent,
   ) => ReturnType<IpcInvoke.Renderer[T]> | Promise<ReturnType<IpcInvoke.Renderer[T]>>,
   errorCallback?: (event: IpcMainInvokeEvent) => void,
 ) {
   ipcMain.handle(channel, (event, payload) => {
     if (!event.senderFrame) return;
     try {
-      return callback(payload);
+      return callback(payload, event);
     } catch (error) {
       if (errorCallback) errorCallback(event);
       console.error(error);

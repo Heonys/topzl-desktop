@@ -2,7 +2,6 @@ import { MusicItem, PlayerState, RepeatMode, SearchResult } from "@shared/plugin
 import { atom } from "jotai";
 import { loadable } from "jotai/utils";
 import trackPlayer from "@shared/plugin/trackPlayer";
-import { toast } from "react-toastify";
 
 export type PlaylistInfo = {
   type?: "favorite" | "current";
@@ -38,7 +37,6 @@ const mediaSourceAtomAsync = atom(async (get) => {
       trackPlayer.play();
     }
   } catch {
-    toast.error("재생할 수 없습니다");
     trackPlayer.skipToNext();
   }
 });

@@ -1,5 +1,6 @@
-import playerEventEmitter from "./eventEmitter";
+import { toast } from "react-toastify";
 import { getDefaultStore } from "jotai";
+import playerEventEmitter from "./eventEmitter";
 import {
   currentProgressAtom,
   currentVolumeAtom,
@@ -16,6 +17,10 @@ const store = getDefaultStore();
 export async function setupPlayer() {
   // const deviceId = await navigator.mediaDevices.enumerateDevices();
   setupEvent();
+
+  window.plugin.onErrorHandler(() => {
+    toast.error("재생 URL을 찾을 수 없습니다");
+  });
 
   // TODO: 스토리지에서 사용자 설정 가져와서 기존 설정으로 초기화
 }
@@ -70,11 +75,3 @@ function setupEvent() {
     }
   });
 }
-
-// function setCurrentMusic(music: MusicItem) {
-//   const currentMusic = store.get(currentMusicAtom);
-//   if (currentMusic?.id !== music.id) {
-//     store.set(currentMusicAtom, music);
-//     playerEventEmitter.emit("music-changed", music);
-//   }
-// }

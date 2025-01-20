@@ -3,7 +3,7 @@ import { app } from "electron";
 import fs from "fs-extra";
 import path from "node:path";
 import _plugin from "@shared/plugin";
-import { ipcMainHandle } from "@/ipc/main";
+import { ipcMainHandle, ipcMainSendWebContents } from "@/ipc/main";
 import Genius from "genius-lyrics";
 
 const ACCESS_TOKEN = import.meta.env.MAIN_VITE_GENIUS_ACCESS_TOKEN;
@@ -35,8 +35,13 @@ export async function setupPlugin() {
   ipcMainHandle("call-plugin-method", ({ query, page, method }) => {
     return search(query, page, method);
   });
-  ipcMainHandle("get-media-source", (id) => {
-    return plugin.getMediaSource(id);
+  ipcMainHandle("get-media-source", async (id, event) => {
+    try {
+      const result = await plugin.getMediaSource(id);
+      return result;
+    } catch {
+      ipcMainSendWebContents("plugin-error", event.sender, "File Location Error");
+    }
   });
 
   ipcMainHandle("search-lyric", async (query) => {

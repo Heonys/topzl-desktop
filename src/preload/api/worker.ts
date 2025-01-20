@@ -1,4 +1,5 @@
-import { ipcRendererOn, ipcRendererSend } from "../ipcRenderer";
+import type { IpcRendererEvent } from "electron";
+import { ipcRendererOn, ipcRendererSend, ipcRenderOff } from "../ipcRenderer";
 
 function setupWatcher() {
   ipcRendererSend("worker-setup-watcher");
@@ -28,6 +29,14 @@ function downloadFile(mediaSource: string, filePath: string) {
   ipcRendererSend("worker-download", [mediaSource, filePath]);
 }
 
+function syncStatus(callback: (progress: IpcEvents.Main["sync-download-status"]) => void) {
+  const handler = (event: IpcRendererEvent, payload: IpcEvents.Main["sync-download-status"]) => {
+    callback(payload);
+  };
+  ipcRendererOn("sync-download-status", handler);
+  return () => ipcRenderOff("sync-download-status", handler);
+}
+
 export const worker = {
   setupWatcher,
   changeWorkerPath,
@@ -35,4 +44,5 @@ export const worker = {
   onRemovedPath,
   setupDownloadConfig,
   downloadFile,
+  syncStatus,
 } satisfies Window["worker"];

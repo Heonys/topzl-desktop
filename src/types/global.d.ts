@@ -30,9 +30,12 @@ declare global {
       getTopLists: IpcInvoke.Renderer["get-toplists"];
       getRecommendedTag: IpcInvoke.Renderer["get-recommended-tag"];
       getTopListDetail: IpcInvoke.Renderer["get-toplist-detail"];
+      onErrorHandler: (callback: (message: IpcEvents.Main["plugin-error"]) => void) => void;
     };
     notification: {
-      error: (callback: (message: IpcEvents.Main["notification-error"]) => void) => void;
+      error: (
+        callback: (callback: (message: IpcEvents.Main["notification-error"]) => void) => void,
+      ) => void;
     };
     worker: {
       setupWatcher: (payload: IpcEvents.Renderer["worker-setup-watcher"]) => void;
@@ -41,6 +44,7 @@ declare global {
       onRemovedPath: (callback: (paths: IpcEvents.Main["sync-watch-remove"]) => void) => void;
       setupDownloadConfig: (config: IpcEvents.Renderer["worker-setup-download"]) => void;
       downloadFile: (...args: IpcEvents.Renderer["worker-download"]) => void;
+      syncStatus: (callback: (progress: IpcEvents.Main["sync-download-status"]) => void) => CleanUp;
     };
     fs: {
       readFile: (filePath: string) => Promise<Buffer>;

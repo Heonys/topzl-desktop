@@ -1,15 +1,27 @@
+import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import PQueue from "p-queue";
 import { downloadedMusicAtom } from "@/atom";
+import { DownloadState, type DownloadProgress } from "@shared/constant";
 import type { MusicItem } from "@shared/plugin/type";
-import type { DownloadProgress } from "@shared/constant";
 
+export const downloadProgressMap = new Map<string, DownloadProgress>();
 const downloadQueue = new PQueue({ concurrency: 5 });
-const downloadProgressMap = new Map<string, DownloadProgress>();
 const initPath = window.common.getGlobalContext().appPath.downloads;
+const INIT_PROGRESS = { id: "INIT_PROGRESS", state: DownloadState.NONE };
 
-export const useDownload = () => {
+export const useDownload = (musicItem: MusicItem) => {
   const [downloadedList, setDownloadedList] = useAtom(downloadedMusicAtom);
+  const [status, setStatus] = useState<DownloadProgress>(INIT_PROGRESS);
+
+  useEffect(() => {
+    setStatus(downloadProgressMap.get(musicItem.id) || INIT_PROGRESS);
+    const cleanup = window.worker.syncStatus((progress) => {
+      downloadProgressMap.set(musicItem.id, progress);
+      setStatus(progress);
+    });
+    return cleanup;
+  }, [musicItem]);
 
   const isDownloaded = (id: string) => {
     return downloadedList.find((it) => it.id === id);
@@ -21,10 +33,17 @@ export const useDownload = () => {
 
     const downloadCallback = validItems.map((musicItem) => {
       return async () => {
-        const mediaSource = await getMediaSource(musicItem);
-        const ext = getExtensionName(mediaSource.url);
-        const downloadPath = `${initPath}\\${musicItem.title}.${ext}`;
-        window.worker.downloadFile(mediaSource.url, downloadPath);
+        try {
+          const mediaSource = await getMediaSource(musicItem);
+          const ext = getExtensionName(mediaSource.url);
+          const downloadPath = `${initPath}\\${musicItem.title}.${ext}`;
+          window.worker.downloadFile(mediaSource.url, downloadPath);
+        } catch {
+          setStatus({
+            state: DownloadState.ERROR,
+            message: "File Location Error",
+          });
+        }
       };
     });
 
@@ -44,10 +63,20 @@ export const useDownload = () => {
     downloadQueue.concurrency = Math.min(20, Math.max(1, concurrency));
   };
 
-  const getDownloadStatus = (id: string) => {
-    // 근데 이거 실시간으로 업데이트 되야함 -> useEffect로 빼야할 듯
-    return downloadProgressMap.get(id);
-  };
-
-  return { isDownloaded, download, setConcurrency, getDownloadStatus, getMediaSource };
+  return { isDownloaded, download, setConcurrency, getMediaSource, status };
 };
+
+// export const useDownloadProgress = (musicItem: MusicItem) => {
+//   const [status, setStatus] = useState<DownloadProgress>(INIT_PROGRESS);
+
+//   useEffect(() => {
+//     setStatus(downloadProgressMap.get(musicItem.id) || INIT_PROGRESS);
+//     const cleanup = window.worker.syncStatus((progress) => {
+//       downloadProgressMap.set(musicItem.id, progress);
+//       setStatus(progress);
+//     });
+//     return cleanup;
+//   }, [musicItem]);
+
+//   return { status };
+// };

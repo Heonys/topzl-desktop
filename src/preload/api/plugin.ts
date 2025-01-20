@@ -1,4 +1,4 @@
-import { ipcRendererInvoke } from "../ipcRenderer";
+import { ipcRendererInvoke, ipcRendererOn } from "../ipcRenderer";
 import type { SupportMediaType } from "@shared/plugin/type";
 
 type Props = {
@@ -29,6 +29,12 @@ function getTopListDetail(item: any) {
   return ipcRendererInvoke("get-toplist-detail", item);
 }
 
+function onErrorHandler(callback: (message: string) => void) {
+  ipcRendererOn("plugin-error", (event, payload) => {
+    callback(payload);
+  });
+}
+
 export const plugin = {
   callPluginMethod,
   getMediaSource,
@@ -36,4 +42,5 @@ export const plugin = {
   getTopLists,
   getRecommendedTag,
   getTopListDetail,
+  onErrorHandler,
 } satisfies Window["plugin"];
