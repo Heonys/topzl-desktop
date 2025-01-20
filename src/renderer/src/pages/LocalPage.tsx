@@ -22,7 +22,7 @@ export const LocalPage = () => {
         <div className="flex items-center gap-1 rounded-md bg-black/10 px-2">
           <StaticIcon iconName="search" size={18} className="opacity-70" />
           <input
-            className="rounded-md bg-transparent px-2 outline-none"
+            className="w-48 rounded-md bg-transparent px-2 outline-none"
             type="text"
             placeholder="search local music"
           />

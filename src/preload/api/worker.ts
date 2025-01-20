@@ -25,8 +25,8 @@ function setupDownloadConfig(config: any) {
   ipcRendererSend("worker-setup-download", config);
 }
 
-function downloadFile(mediaSource: string, filePath: string) {
-  ipcRendererSend("worker-download", [mediaSource, filePath]);
+function downloadFile(id: string, mediaSource: string, filePath: string) {
+  ipcRendererSend("worker-download", [id, mediaSource, filePath]);
 }
 
 function syncStatus(callback: (progress: IpcEvents.Main["sync-download-status"]) => void) {

@@ -28,7 +28,7 @@ export class Downloader {
     this._onChange = onChangeFn;
   }
 
-  async downloadFile(mediaSource: string, filePath: string) {
+  async downloadFile(id: string, mediaSource: string, filePath: string) {
     const response = await fetch(mediaSource);
     const webStream = response.body as ReadableStream;
     const total = +response.headers.get("content-length")!;
@@ -39,11 +39,11 @@ export class Downloader {
         onRead: throttle((current) => {
           if (this.state !== DownloadState.LOADING) return;
           this.state = DownloadState.LOADING;
-          this._onChange({ state: this.state, current, total });
+          this._onChange({ id, state: this.state, current, total });
         }, 100),
         onError: (e) => {
           this.state = DownloadState.ERROR;
-          this._onChange({ state: this.state, message: e.message });
+          this._onChange({ id, state: this.state, message: e.message });
         },
       });
       const writeStream = fs.createWriteStream(filePath);
@@ -51,12 +51,12 @@ export class Downloader {
 
       downloadStream.on("close", () => {
         this.state = DownloadState.DONE;
-        this._onChange({ state: this.state, current: total, total });
+        this._onChange({ id, state: this.state, current: total, total });
       });
 
       downloadStream.on("error", (e) => {
         this.state = DownloadState.ERROR;
-        this._onChange({ state: this.state, message: e.message });
+        this._onChange({ id, state: this.state, message: e.message });
         this.removeFile(filePath);
       });
     } catch {

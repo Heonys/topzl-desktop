@@ -25,20 +25,19 @@ export function FavoriteButton({ musicItem }: { musicItem: MusicItem }) {
 }
 
 function MemoizedDownloadButton({ musicItem }: { musicItem: MusicItem }) {
-  const { download, status } = useDownload(musicItem);
-  // const { status } = useDownloadProgress(musicItem);
-
+  const { download, getStatus } = useDownload(musicItem);
+  const status = getStatus();
   return (
     <>
       {musicItem.localPath ? (
         <IconButton
-          iconName="check-circle"
+          iconName="forder-open"
           color="dodgerblue"
-          title="downloaded"
+          title="local file"
           size={17}
           opacity
         />
-      ) : (
+      ) : status.id === musicItem.id ? (
         <Switch switch={status?.state}>
           <Case case={DownloadState.LOADING}>
             <motion.div
@@ -71,6 +70,15 @@ function MemoizedDownloadButton({ musicItem }: { musicItem: MusicItem }) {
             <IconButton iconName="error" title="error" size={17} color="red" />
           </Case>
         </Switch>
+      ) : (
+        <IconButton
+          iconName="download"
+          title="download"
+          size={17}
+          onClick={() => {
+            download(musicItem);
+          }}
+        />
       )}
     </>
   );

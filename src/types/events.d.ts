@@ -54,7 +54,8 @@ declare namespace IpcEvents {
     "worker-setup-watcher": void;
     "worker-change-paths": [addPaths: string[], removePaths: string[]];
     "worker-setup-download": any;
-    "worker-download": [mediaSource: string, filePath: string];
+    "worker-download": [id: string, mediaSource: string, filePath: string];
+    "open-folder": string;
   }
 
   // ipcRender.send -> ipcMain.on (sync)

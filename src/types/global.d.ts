@@ -48,6 +48,7 @@ declare global {
     };
     fs: {
       readFile: (filePath: string) => Promise<Buffer>;
+      openFolder: (path: string) => void;
     };
   }
 }
