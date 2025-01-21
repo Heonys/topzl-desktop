@@ -1,4 +1,4 @@
-export type SupportMediaType = "music" | "album" | "sheet" | "artist";
+export type SupportMediaType = "music" | "album" | "playlist" | "artist";
 
 export type MusicItem = {
   id: string;

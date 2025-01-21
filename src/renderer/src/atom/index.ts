@@ -2,6 +2,7 @@ import { MusicItem, PlayerState, RepeatMode, SearchResult } from "@shared/plugin
 import { atom } from "jotai";
 import { loadable } from "jotai/utils";
 import trackPlayer from "@shared/plugin/trackPlayer";
+import type { SupportMediaType } from "@shared/plugin/type";
 
 export type PlaylistInfo = {
   type?: "favorite" | "current";
@@ -49,6 +50,7 @@ export const searchResultAtom = atom<{
   query: string;
   data: SearchResult;
 }>();
+export const searchMediaTypeAtom = atom<SupportMediaType>("music");
 
 const lyricAtomAsync = atom(async (get) => {
   const currentMusic = get(currentMusicAtom);

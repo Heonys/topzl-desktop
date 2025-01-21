@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { lyricAtomLodable } from "@/atom";
-import { Loading } from "@/common/Loading";
+import { LoadingSpinner } from "@/common";
 
 export const Lyric = () => {
   const lyricState = useAtomValue(lyricAtomLodable);
@@ -11,7 +11,7 @@ export const Lyric = () => {
         <div className="flex size-full items-center justify-center">
           <div className="flex flex-col items-center justify-center">
             <p className="font-dh text-xl text-gray-300">가사를 찾고 있습니다</p>
-            <Loading />
+            <LoadingSpinner classname="bg-gray-300" />
           </div>
         </div>
       )}

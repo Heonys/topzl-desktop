@@ -1,4 +1,5 @@
 import { motion, Variants } from "motion/react";
+import { ClassNameValue, twMerge } from "tailwind-merge";
 
 const variants: Variants = {
   inital: {
@@ -9,7 +10,11 @@ const variants: Variants = {
   },
 };
 
-export const Loading = () => {
+type Props = {
+  classname?: ClassNameValue;
+};
+
+export const LoadingSpinner = ({ classname }: Props) => {
   return (
     <motion.div className="flex size-20 items-center justify-center gap-2">
       {[1, 2, 3].map((_, index) => {
@@ -26,7 +31,7 @@ export const Loading = () => {
               repeatType: "reverse",
               delay: index * 0.2,
             }}
-            className="size-4 rounded-full bg-gray-300"
+            className={twMerge("size-4 rounded-full", classname)}
           ></motion.div>
         );
       })}

@@ -1,7 +1,7 @@
-import { searchResultAtom } from "@/atom";
-import { SupportMediaType } from "@shared/plugin/type";
 import { useAtom } from "jotai";
 import { useCallback, useState } from "react";
+import { searchResultAtom, searchMediaTypeAtom } from "@/atom";
+import type { SupportMediaType } from "@shared/plugin/type";
 
 export const useSearch = () => {
   // const currentQueryRef = useRef("");
@@ -29,6 +29,7 @@ export const useSearch = () => {
   */
 
   const [searchResult, setSearchResult] = useAtom(searchResultAtom);
+  const [mediaType, setMediaType] = useAtom(searchMediaTypeAtom);
   const [isLoading, setIsLoading] = useState(false);
 
   const search = useCallback(
@@ -47,5 +48,9 @@ export const useSearch = () => {
     [setSearchResult],
   );
 
-  return { search, searchResult, isLoading };
+  const onChangeType = (type: SupportMediaType) => {
+    setMediaType(type);
+  };
+
+  return { search, searchResult, isLoading, mediaType, onChangeType };
 };
