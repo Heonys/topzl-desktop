@@ -4,28 +4,29 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSearch } from "@/hooks";
 import type { SupportMediaType } from "@shared/plugin/type";
 import { Condition } from "@/common";
-import { SearchResult, SearchTab } from "@/components/Search";
+import { SearchResultRouter, SearchTab } from "@/components/Search";
 import { LoadingSpinner } from "@/common/LoadingSpinner";
 
-const tabs: SupportMediaType[] = ["music", "album", "artist"];
+const tabs: SupportMediaType[] = ["music", "album", "artist", "playlist"];
 
 export const SearchPage = () => {
   const { query } = useParams();
   const decodedQuery = decodeURIComponent(query || "");
-  const { search, isLoading, searchResult, mediaType, onChangeType } = useSearch();
+  const { search, isLoading, searchResults, mediaType, onChangeType } = useSearch();
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (decodedQuery) {
-      search(decodedQuery, 1, mediaType);
+      search(mediaType, decodedQuery);
     }
-  }, [decodedQuery, mediaType, search]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [decodedQuery, mediaType]);
 
   return (
     <div className="box-border flex size-full select-text flex-col items-start">
       <div className="mb-2 flex items-center gap-2 text-3xl font-medium text-gray-500">
-        <span className=" text-black">{`"${decodedQuery || searchResult?.query || ""}" `}</span>
+        <span className=" text-black">{`"${decodedQuery || searchResults[mediaType]?.query || ""}" `}</span>
         <span>에 대한 검색 결과</span>
       </div>
 
@@ -54,7 +55,12 @@ export const SearchPage = () => {
                   </div>
                 }
               >
-                {searchResult && <SearchResult data={searchResult.data} type={tab} />}
+                {searchResults[tab]?.data && (
+                  <SearchResultRouter
+                    searchResult={searchResults[tab].data}
+                    type={searchResults[tab].type}
+                  />
+                )}
               </Condition>
             </TabPanel>
           ))}

@@ -1,56 +1,58 @@
+import { useCallback, useRef, useState } from "react";
 import { useAtom } from "jotai";
-import { useCallback, useState } from "react";
+import { produce } from "immer";
 import { searchResultAtom, searchMediaTypeAtom } from "@/atom";
 import type { SupportMediaType } from "@shared/plugin/type";
 
 export const useSearch = () => {
-  // const currentQueryRef = useRef("");
-  /*
-    최근 검색어 저장
-    페이지 번호 설정 등
-
-    useSeach 참고
-
-    -> 이전검색에 대한 쿼리와 데이터를 저장
-    현재 검색어와 쿼리와 타입이 같다면 저장한 데이터를 다시 보여면됨
-
-
-    새로운 데이터를 받으면 ref를 업데이트
-
-    사용자가 입력한 데이터가 없으면 이전 검색어를 사용하여 보여줌 -> ref갱신
-
-
-
-    ref는 현재 검색어의 값을 추적하기 위해 사용함
-    왜냐하면 비동기 작업중에 검색어가 바뀌었을때 ref와 쿼리가 다르면 업데이틀르 방지하기 위함
-
-
-    검색 요청이 완료되었을 때, currentQueryRef와 일치하지 않으면 결과를 무시
-  */
-
-  const [searchResult, setSearchResult] = useAtom(searchResultAtom);
+  const [searchResults, setSearchResults] = useAtom(searchResultAtom);
   const [mediaType, setMediaType] = useAtom(searchMediaTypeAtom);
   const [isLoading, setIsLoading] = useState(false);
+  const currentQueryRef = useRef("");
 
   const search = useCallback(
-    async (query: string, page: number, method: SupportMediaType) => {
-      setIsLoading(true);
+    async (type: SupportMediaType, searchQuery?: string) => {
+      const searchResult = searchResults[type];
+      const isFresh =
+        searchQuery && (searchResult?.query !== searchQuery || searchResult?.type !== type);
+      const page = isFresh ? 1 : searchResult!.page + 1;
+      const query = isFresh ? searchQuery : searchResult!.query;
+      currentQueryRef.current = query;
+
+      if (searchResult.query === query && searchResult.type === type) return;
+
       try {
-        const data = await window.plugin.callPluginMethod({ method, query, page });
-        setSearchResult({ query, data });
-        setIsLoading(false);
+        setIsLoading(true);
+        const data = await window.plugin.callPluginMethod({ query, page, method: type });
+        if (query !== currentQueryRef.current) return;
+
+        setSearchResults((prev) =>
+          produce(prev, (draft) => {
+            draft[type] = {
+              query,
+              page,
+              type,
+              data: {
+                isEnd: data.isEnd,
+                data: isFresh ? data.data : [...(draft[type]?.data?.data ?? []), ...data.data],
+              },
+            };
+          }),
+        );
+
         return data;
       } catch {
-        setIsLoading(false);
         return { isEnd: true, data: [] };
+      } finally {
+        setIsLoading(false);
       }
     },
-    [setSearchResult],
+    [setSearchResults, searchResults],
   );
 
   const onChangeType = (type: SupportMediaType) => {
     setMediaType(type);
   };
 
-  return { search, searchResult, isLoading, mediaType, onChangeType };
+  return { search, searchResults, isLoading, mediaType, onChangeType };
 };

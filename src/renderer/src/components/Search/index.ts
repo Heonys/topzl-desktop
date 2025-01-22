@@ -1,4 +1,4 @@
-export * from "./SearchResult";
+export * from "./SearchResultRouter";
 export * from "./SearchTab";
 export * from "./MusicResult";
 export * from "./AlbumResult";

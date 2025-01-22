@@ -3,6 +3,7 @@ import { atom } from "jotai";
 import { loadable } from "jotai/utils";
 import trackPlayer from "@shared/plugin/trackPlayer";
 import type { SupportMediaType } from "@shared/plugin/type";
+// import { SearchResultState } from "@shared/constant";
 
 export type PlaylistInfo = {
   type?: "favorite" | "current";
@@ -46,10 +47,17 @@ export const mediaSourceAtom = loadable(mediaSourceAtomAsync);
 
 export const searchHistoryAtom = atom<string[]>([]);
 
-export const searchResultAtom = atom<{
-  query: string;
-  data: SearchResult;
-}>();
+type SearchResults = {
+  [K in SupportMediaType]: {
+    query: string;
+    page: number;
+    type: SupportMediaType;
+    data: SearchResult;
+  };
+};
+
+const INIT_SEARCH_RESULT = { music: {}, album: {}, artist: {}, playlist: {} } as SearchResults;
+export const searchResultAtom = atom<SearchResults>(INIT_SEARCH_RESULT);
 export const searchMediaTypeAtom = atom<SupportMediaType>("music");
 
 const lyricAtomAsync = atom(async (get) => {

@@ -1,21 +1,23 @@
 import { Condition, IconButton } from "@/common";
 import { useModal } from "../Modal/useModal";
-import { useCurrentMusic, useFavorite } from "@/hooks";
+import { useCurrentMusic, useFavorite, useSearch } from "@/hooks";
 import { cn, formatTime, setFallbackImage } from "@/utils";
 import { Empty } from "@/common/Empty";
 
 type Props = {
-  searchResult: SearchResult;
+  musicItems: MusicItem[];
+  mediaType: SupportMediaType;
 };
 
-export const MusicResult = ({ searchResult }: Props) => {
+export const MusicResult = ({ musicItems, mediaType }: Props) => {
   const { currentItem, playMusicWithAddPlaylist } = useCurrentMusic();
   const { isFavorite, favorite, unfavorite } = useFavorite();
   const { showModal } = useModal();
+  const { search } = useSearch();
 
   return (
     <>
-      {searchResult.data.map((item) => {
+      {musicItems.map((item) => {
         const { id, title, artist, artwork, duration } = item;
         return (
           <div
@@ -63,11 +65,15 @@ export const MusicResult = ({ searchResult }: Props) => {
         );
       })}
       <Condition
-        condition={searchResult.data.length === 0} //
-        // 이거 버튼 방식말고 스크롤 내리면 자동으로 불러오는 방식으로 개선해보기
+        condition={musicItems.length === 0}
         fallback={
           <div className="flex h-16 items-center justify-center">
-            <button className="rounded-md border-2 border-black/40 p-1 px-2 text-black/80">
+            <button
+              className="rounded-md border-2 border-black/40 p-1 px-2 text-black/80"
+              onClick={() => {
+                search(mediaType);
+              }}
+            >
               더 불러오기
             </button>
           </div>

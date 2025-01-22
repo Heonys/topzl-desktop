@@ -1,4 +1,4 @@
-export type SupportMediaType = "music" | "album" | "playlist" | "artist";
+export type SupportMediaType = "music" | "album" | "artist" | "playlist";
 
 export type MusicItem = {
   id: string;
@@ -12,8 +12,22 @@ export type MusicItem = {
   localPath?: string;
 };
 
-export type AlbumItem = any;
-export type ArtistItem = any;
+export type AlbumItem = {
+  artist: string;
+  artwork: string;
+  id: string;
+  date: string;
+  title: string;
+  _musicList: MusicItem[];
+};
+
+export type ArtistItem = {
+  name: string;
+  id: string;
+  avatar: string;
+  url_slug: string;
+};
+
 export type MusicSheetItem = any;
 
 export type SearchResult = {
