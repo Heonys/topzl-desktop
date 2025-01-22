@@ -47,12 +47,12 @@ const options: OptionTypes[] = [
     title: "Current",
     route: "playlist",
   },
-  {
-    type: "icon",
-    iconName: "clock",
-    title: "Recent",
-    route: "recent",
-  },
+  // {
+  //   type: "icon",
+  //   iconName: "record",
+  //   title: "Album",
+  //   route: "album",
+  // },
   {
     type: "divider",
     title: "Library",

@@ -9,4 +9,4 @@ export * from "./PlaylistWithTitlePage";
 export * from "./FavoritePage";
 export * from "./MainPage";
 export * from "./DiscoverPage";
-export * from "./RecentPage";
+export * from "./SearchViewPage";

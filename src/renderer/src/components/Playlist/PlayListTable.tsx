@@ -116,9 +116,16 @@ type Props = {
   setPlaylist: (item: MusicItem[]) => void;
   removePlaylist?: (id: string) => void;
   maxheight?: string;
+  draggable?: boolean;
 };
 
-export const PlayListTable = ({ playlist, setPlaylist, removePlaylist, maxheight }: Props) => {
+export const PlayListTable = ({
+  playlist,
+  setPlaylist,
+  removePlaylist,
+  maxheight,
+  draggable,
+}: Props) => {
   const { setCurrentItem } = useCurrentMusic();
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -186,7 +193,7 @@ export const PlayListTable = ({ playlist, setPlaylist, removePlaylist, maxheight
             <tr
               key={row.id}
               className="relative h-10 text-sm font-medium even:bg-black/5"
-              draggable
+              draggable={draggable}
               onDoubleClick={() => {
                 setCurrentItem(row.original);
               }}

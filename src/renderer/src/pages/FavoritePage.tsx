@@ -18,6 +18,7 @@ export const FavoritePage = () => {
           playlist={favoriteList}
           setPlaylist={setFavoriteList}
           removePlaylist={unfavorite}
+          draggable
         />
       </div>
     </section>

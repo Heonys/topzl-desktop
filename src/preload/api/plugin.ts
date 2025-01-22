@@ -7,8 +7,8 @@ type Props = {
   page: number;
 };
 
-function callPluginMethod({ method, query, page }: Props) {
-  return ipcRendererInvoke("call-plugin-method", { method, query, page });
+function searchMusic({ method, query, page }: Props) {
+  return ipcRendererInvoke("search-music", { method, query, page });
 }
 
 function getMediaSource(id: string) {
@@ -36,7 +36,7 @@ function onErrorHandler(callback: (message: string) => void) {
 }
 
 export const plugin = {
-  callPluginMethod,
+  searchMusic,
   getMediaSource,
   searchLyric,
   getTopLists,

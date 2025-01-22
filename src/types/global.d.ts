@@ -24,7 +24,7 @@ declare global {
       ) => CleanUp;
     };
     plugin: {
-      callPluginMethod: IpcInvoke.Renderer["call-plugin-method"];
+      searchMusic: IpcInvoke.Renderer["search-music"];
       getMediaSource: IpcInvoke.Renderer["get-media-source"];
       searchLyric: IpcInvoke.Renderer["search-lyric"];
       getTopLists: IpcInvoke.Renderer["get-toplists"];

@@ -32,6 +32,7 @@ export const PlaylistWithTitlePage = () => {
           playlist={playlistInfo.data}
           setPlaylist={setPlaylist(playlistInfo.title)}
           removePlaylist={removePlaylist(playlistInfo.title)}
+          draggable
         />
       </div>
     </section>

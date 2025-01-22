@@ -31,7 +31,7 @@ export const DownloadPage = () => {
       </div>
 
       <div className="relative my-4 w-full">
-        <PlayListTable playlist={downloadedList} setPlaylist={setDownloadedList} />
+        <PlayListTable playlist={downloadedList} setPlaylist={setDownloadedList} draggable />
       </div>
     </section>
   );

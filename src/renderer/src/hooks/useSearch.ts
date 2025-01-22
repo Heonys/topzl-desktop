@@ -23,7 +23,7 @@ export const useSearch = () => {
 
       try {
         setIsLoading(true);
-        const data = await window.plugin.callPluginMethod({ query, page, method: type });
+        const data = await window.plugin.searchMusic({ query, page, method: type });
         if (query !== currentQueryRef.current) return;
 
         setSearchResults((prev) =>

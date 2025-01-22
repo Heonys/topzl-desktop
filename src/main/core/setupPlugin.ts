@@ -32,7 +32,7 @@ async function checkPath() {
 
 export async function setupPlugin() {
   await checkPath();
-  ipcMainHandle("call-plugin-method", ({ query, page, method }) => {
+  ipcMainHandle("search-music", ({ query, page, method }) => {
     return search(query, page, method);
   });
   ipcMainHandle("get-media-source", async (id, event) => {

@@ -48,7 +48,7 @@ export const SettingPage = () => {
   }, []);
 
   return (
-    <div className="flex size-full flex-col gap-2 font-sans font-bold">
+    <section className="flex size-full flex-col gap-2 font-sans font-bold">
       <h1 className="text-2xl">설정</h1>
       <div className="relative mt-2 flex w-full items-start gap-4 pb-4 text-sm">
         {routers.map(({ title, id }) => {
@@ -87,6 +87,6 @@ export const SettingPage = () => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };

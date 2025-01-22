@@ -1,52 +1,43 @@
+import { Condition } from "@/common";
+import { Empty } from "@/common/Empty";
 import { ArtistItem } from "@shared/plugin/type";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   searchResult: ArtistItem[];
   mediaType: SupportMediaType;
 };
 
-export const ArtistResult = ({ searchResult }: Props) => {
-  console.log(searchResult);
+export const ArtistResult = ({ searchResult, mediaType }: Props) => {
+  const navigate = useNavigate();
 
   return (
-    <div className="grid w-full grid-cols-5 gap-3">
-      {searchResult.map((item) => {
-        return (
-          <SearchAlbumCover
-            key={item.id}
-            data={item}
-            onClick={() => {
-              // navigate("");
-            }}
-          />
-        );
-      })}
-    </div>
-  );
-};
-
-type CardProps = {
-  data: ArtistItem;
-  onClick: () => void;
-};
-
-const SearchAlbumCover = ({ data, onClick }: CardProps) => {
-  return (
-    <div className="group flex flex-col gap-2">
-      <div
-        className="relative aspect-square flex-1 overflow-hidden rounded-xl opacity-85 group-hover:opacity-100"
-        onClick={onClick}
-      >
-        <div
-          className="size-full bg-cover bg-center transition-transform duration-300 ease-out group-hover:scale-110"
-          style={{ backgroundImage: `url(${data.avatar})` }}
-        />
+    <Condition
+      condition={searchResult.length > 0}
+      fallback={<Empty message="일치하는 검색 결과가 없습니다" />}
+    >
+      <div className="grid w-full grid-cols-5 gap-3">
+        {searchResult.map((item) => (
+          <div className="group flex flex-col gap-2" key={item.id}>
+            <div
+              className="relative aspect-square flex-1 overflow-hidden rounded-xl opacity-85 group-hover:opacity-100"
+              onClick={() => {
+                navigate(`/searchView/${mediaType}/${item.id}`, { state: { item } });
+              }}
+            >
+              <div
+                className="size-full bg-cover bg-center transition-transform duration-300 ease-out group-hover:scale-110"
+                style={{ backgroundImage: `url(${item.avatar})` }}
+              />
+            </div>
+            <div className="flex w-full flex-col items-start">
+              <div className="w-full truncate text-sm" title={item.name}>
+                {item.name}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-      <div className="flex w-full flex-col items-start">
-        <div className="w-full truncate text-sm" title={data.name}>
-          {data.name}
-        </div>
-      </div>
-    </div>
+    </Condition>
   );
 };

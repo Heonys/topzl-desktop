@@ -1,6 +1,6 @@
 export const MainPage = () => {
   return (
-    <div>
+    <section>
       <div>다시듣기 </div>
       <div>빠른 선곡</div>
       <button
@@ -10,6 +10,6 @@ export const MainPage = () => {
       >
         test
       </button>
-    </div>
+    </section>
   );
 };

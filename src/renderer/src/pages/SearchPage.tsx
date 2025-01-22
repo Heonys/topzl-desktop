@@ -24,7 +24,7 @@ export const SearchPage = () => {
   }, [decodedQuery, mediaType]);
 
   return (
-    <div className="box-border flex size-full select-text flex-col items-start">
+    <section className="box-border flex size-full select-text flex-col items-start">
       <div className="mb-2 flex items-center gap-2 text-3xl font-medium text-gray-500">
         <span className=" text-black">{`"${decodedQuery || searchResults[mediaType]?.query || ""}" `}</span>
         <span>에 대한 검색 결과</span>
@@ -66,6 +66,6 @@ export const SearchPage = () => {
           ))}
         </TabPanels>
       </TabGroup>
-    </div>
+    </section>
   );
 };

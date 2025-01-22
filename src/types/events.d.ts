@@ -31,7 +31,7 @@ declare namespace IpcInvoke {
       keyPath: T;
       value: AppConfigKeyPathValue<T>;
     }) => Promise<boolean>;
-    "call-plugin-method": (arg: {
+    "search-music": (arg: {
       method: SupportMediaType;
       query: string;
       page: number;

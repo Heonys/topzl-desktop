@@ -30,7 +30,12 @@ export const LocalPage = () => {
       </div>
 
       <div className="relative my-4 w-full">
-        <PlayListTable playlist={localMusic} setPlaylist={setLocalMusic} maxheight="63vh" />
+        <PlayListTable
+          playlist={localMusic}
+          setPlaylist={setLocalMusic}
+          maxheight="63vh"
+          draggable
+        />
       </div>
     </section>
   );

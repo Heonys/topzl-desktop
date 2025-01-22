@@ -1,4 +1,11 @@
-export type SupportMediaType = "music" | "album" | "artist" | "playlist";
+export type SupportMediaItemMap = {
+  music: MusicItem;
+  album: AlbumItem;
+  artist: ArtistItem;
+  playlist: MusicSheetItem;
+};
+
+export type SupportMediaType = keyof SupportMediaItemMap;
 
 export type MusicItem = {
   id: string;
@@ -25,10 +32,17 @@ export type ArtistItem = {
   name: string;
   id: string;
   avatar: string;
-  url_slug: string;
 };
 
-export type MusicSheetItem = any;
+export type MusicSheetItem = {
+  id: string;
+  title: string;
+  artist: string;
+  artwork: string;
+  createAt: string;
+  worksNum: number;
+  artistItem: ArtistItem;
+};
 
 export type SearchResult = {
   isEnd?: boolean;

@@ -18,6 +18,7 @@ export const PlaylistPage = () => {
           playlist={playlist}
           setPlaylist={setPlaylist}
           removePlaylist={removePlaylist}
+          draggable
         />
       </div>
     </section>

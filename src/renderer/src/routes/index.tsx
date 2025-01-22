@@ -10,7 +10,7 @@ import {
   FavoritePage,
   MainPage,
   DiscoverPage,
-  RecentPage,
+  SearchViewPage,
 } from "@/pages";
 import App from "@/App";
 
@@ -42,7 +42,9 @@ const router = createHashRouter(
         { path: "setting", element: <SettingPage /> },
         { path: "download", element: <DownloadPage /> },
         { path: "discover", element: <DiscoverPage /> },
-        { path: "recent", element: <RecentPage /> },
+        { path: "searchView/album/:id", element: <SearchViewPage mediaType="album" /> },
+        { path: "searchView/artist/:id", element: <SearchViewPage mediaType="artist" /> },
+        { path: "searchView/playlist/:id", element: <SearchViewPage mediaType="playlist" /> },
       ],
     },
   ],
