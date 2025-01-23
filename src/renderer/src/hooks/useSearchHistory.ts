@@ -1,6 +1,8 @@
 import { searchHistoryAtom } from "@/atom";
 import { useAtom } from "jotai";
 
+const MAX_HISTORY = 7;
+
 export const useSearchHistory = () => {
   const [history, setHistory] = useAtom(searchHistoryAtom);
 
@@ -13,7 +15,10 @@ export const useSearchHistory = () => {
   };
 
   const addHistory = (query: string) => {
-    setHistory((prev) => (prev.includes(query) ? prev : [query, ...prev]));
+    setHistory((prev) => {
+      const newHistory = prev.includes(query) ? prev : [query, ...prev];
+      return newHistory.slice(0, MAX_HISTORY);
+    });
   };
 
   return { history, clearHistory, removeHistory, addHistory };

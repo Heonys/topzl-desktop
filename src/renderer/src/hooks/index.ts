@@ -8,3 +8,4 @@ export * from "./useStorage";
 export * from "./useFavorite";
 export * from "./useLibrary";
 export * from "./useDirectoryManager";
+export * from "./useSearchHistory";

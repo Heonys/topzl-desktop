@@ -1,18 +1,33 @@
-import { ComponentPropsWithoutRef, useState } from "react";
+import { ComponentPropsWithoutRef, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useNavigate } from "react-router-dom";
 import { HeaderNavigator } from "@/components";
+import { SearchHistory } from "@/components/Search";
 import StaticIcon from "@/icons/StaticIcon";
-import { IconButton } from "@/common";
+import { Condition, IconButton } from "@/common";
+import { useSearchHistory } from "@/hooks";
 import logo from "@resources/logo.png";
 
 export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
   const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState("");
+  const { addHistory } = useSearchHistory();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [showHistory, setShowHistory] = useState(false);
+  const isFocusedRef = useRef(false);
 
   const handleSearch = async () => {
-    navigate(`/search/${encodeURIComponent(inputValue)}`);
-    setInputValue("");
+    const inputValue = inputRef.current?.value;
+    if (inputValue) {
+      inputRef.current.value = "";
+      search(inputValue);
+    }
+  };
+
+  const search = (qeury: string) => {
+    navigate(`/search/${encodeURIComponent(qeury)}`);
+    addHistory(qeury);
+    setShowHistory(false);
+    inputRef.current?.blur();
   };
 
   return (
@@ -34,20 +49,46 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           <div className="font-barlow font-bold">Topzl</div>
         </div>
         <HeaderNavigator />
-        <div className="region-none flex h-7 items-center justify-center gap-2 rounded-lg bg-black/10 p-4">
-          <StaticIcon iconName={"search"} color="black" size={18} opacity={0.6} />
-          <input
-            className="border-0 bg-transparent font-sans text-sm font-semibold leading-5 outline-none placeholder:text-black/50"
-            type="text"
-            placeholder="음악, 앨범, 아티스트 검색"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={(key) => {
-              if (key.key === "Enter") {
-                handleSearch();
-              }
-            }}
-          />
+        <div className="relative w-80">
+          <div className="region-none flex h-7 items-center gap-2 rounded-lg bg-black/10 p-4 px-5">
+            <StaticIcon iconName={"search"} color="black" size={18} opacity={0.6} />
+            <input
+              ref={inputRef}
+              spellCheck={false}
+              className="flex-1 bg-transparent font-sans text-sm font-semibold leading-5 outline-none placeholder:text-black/50"
+              type="text"
+              maxLength={40}
+              placeholder="음악, 앨범, 아티스트 검색"
+              onFocus={() => {
+                setShowHistory(true);
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  if (!isFocusedRef.current) {
+                    setShowHistory(false);
+                  }
+                });
+              }}
+              onKeyDown={({ key }) => {
+                if (key === "Enter") handleSearch();
+              }}
+            />
+          </div>
+          <Condition condition={showHistory}>
+            <SearchHistory
+              onClick={(query) => {
+                search(query);
+              }}
+              onFocus={() => {
+                isFocusedRef.current = true;
+                setShowHistory(true);
+              }}
+              onBlur={() => {
+                isFocusedRef.current = false;
+                setShowHistory(false);
+              }}
+            />
+          </Condition>
         </div>
       </div>
       <div className="region-none flex h-full items-center pr-4 text-2xl">
