@@ -49,6 +49,12 @@ export type SearchResult = {
   data: MusicItem[];
 };
 
+export interface SheetInfoResult {
+  isEnd?: boolean;
+  // sheetItem: MusicSheetItem;
+  musicList: MusicItem[];
+}
+
 export type CurrentLyric = {
   time: number; // 시간(초)
   lrc: string; // 가사
@@ -79,7 +85,7 @@ export interface PluginDefine {
   search: SearchFunc;
   getMediaSource: (id: string) => Promise<{ url: string }>;
   getAlbumInfo: () => void;
-  getMusicSheetInfo: () => void;
+  getMusicSheetInfo: (itme: MusicSheetItem, page: number) => Promise<SheetInfoResult>;
   getArtistWorks: () => void;
   getRecommendSheetTags: () => void;
   getRecommendSheetsByTag: () => void;

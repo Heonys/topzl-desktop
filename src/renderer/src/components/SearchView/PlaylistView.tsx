@@ -1,14 +1,18 @@
+import { Condition, LoadingSpinner } from "@/common";
+import useAlbumDetail from "@/hooks/useAlbumDetail";
 import StaticIcon from "@/icons/StaticIcon";
-import { getDefaultImage, setFallbackImage } from "@/utils";
+import { cn, getDefaultImage, setFallbackImage } from "@/utils";
 import { MusicSheetItem } from "@shared/plugin/type";
+import { PlayListTable } from "../Playlist";
+import { useState } from "react";
 
 type Props = {
-  playlistId: string;
   playlistItem: MusicSheetItem;
 };
 
 export const PlaylistView = ({ playlistItem }: Props) => {
-  console.log(playlistItem);
+  const { isLoading, musicList } = useAlbumDetail(playlistItem);
+  const [like, setLike] = useState(false);
 
   return (
     <>
@@ -25,7 +29,7 @@ export const PlaylistView = ({ playlistItem }: Props) => {
               <div className="rounded-md p-0.5 px-1 text-sm font-bold uppercase text-blue-500 ring-2 ring-blue-300">
                 Playlist
               </div>
-              <h1 className="text-2xl font-bold">{playlistItem.title}</h1>
+              <h1 className="max-w-lg truncate text-2xl font-bold">{playlistItem.title}</h1>
             </div>
 
             <div className="flex items-center gap-2">
@@ -44,15 +48,41 @@ export const PlaylistView = ({ playlistItem }: Props) => {
               <StaticIcon iconName="play" size={13} />
               전체 재생
             </button>
-            <button className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 font-sans text-sm font-semibold opacity-85 hover:opacity-100">
-              <StaticIcon iconName="heart" size={20} />
+            <button
+              className={cn(
+                "flex items-center gap-2 rounded-lg p-2 bg-[#E0E0E0] font-sans text-sm font-semibold opacity-85 hover:opacity-100",
+                like ? "bg-rose-200" : "ring-1 ring-black/10",
+              )}
+              onClick={() => {
+                setLike((prev) => !prev);
+              }}
+            >
+              <StaticIcon
+                iconName={like ? "heart-fill" : "heart"}
+                size={20}
+                color={like ? "red" : "black"}
+                className="opacity-70"
+              />
               좋아요
+            </button>
+            <button className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 font-sans text-sm font-semibold opacity-85 hover:opacity-100">
+              <StaticIcon iconName="add-playlist" size={20} />
+              재생목록에 추가
             </button>
           </div>
         </div>
       </div>
-      <div className="relative my-4 w-full">
-        {/* <PlayListTable playlist={albumItem._musicList} setPlaylist={() => {}} /> */}
+      <div className="relative my-4 h-[45vh] w-full">
+        <Condition
+          condition={!isLoading}
+          fallback={
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <LoadingSpinner classname="bg-slate-500" />
+            </div>
+          }
+        >
+          <PlayListTable playlist={musicList} />
+        </Condition>
       </div>
     </>
   );

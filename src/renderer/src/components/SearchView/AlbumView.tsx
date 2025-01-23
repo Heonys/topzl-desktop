@@ -4,7 +4,6 @@ import { AlbumItem } from "@shared/plugin/type";
 import { PlayListTable } from "../Playlist";
 
 type Props = {
-  albumId: string;
   albumItem: AlbumItem;
 };
 
@@ -42,7 +41,7 @@ export const AlbumView = ({ albumItem }: Props) => {
         </div>
       </div>
       <div className="relative my-4 w-full">
-        <PlayListTable playlist={albumItem._musicList} setPlaylist={() => {}} />
+        <PlayListTable playlist={albumItem._musicList} />
       </div>
     </>
   );

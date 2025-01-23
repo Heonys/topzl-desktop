@@ -11,6 +11,10 @@ function searchMusic({ method, query, page }: Props) {
   return ipcRendererInvoke("search-music", { method, query, page });
 }
 
+function searchPlaylist({ item, page }: { item: MusicSheetItem; page: number }) {
+  return ipcRendererInvoke("search-playlist", { item, page });
+}
+
 function getMediaSource(id: string) {
   return ipcRendererInvoke("get-media-source", id);
 }
@@ -37,6 +41,7 @@ function onErrorHandler(callback: (message: string) => void) {
 
 export const plugin = {
   searchMusic,
+  searchPlaylist,
   getMediaSource,
   searchLyric,
   getTopLists,

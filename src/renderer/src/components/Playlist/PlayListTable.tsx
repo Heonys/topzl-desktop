@@ -42,8 +42,8 @@ const createColumns = ({ onRemove }: ColumnProps) => {
     }),
 
     columnHelper.accessor((_, index) => index + 1, {
-      cell: (info) => info.getValue(),
       header: "#",
+      cell: (info) => <div>{info.getValue()}</div>,
       id: "index",
       size: 40,
       enableResizing: false,
@@ -51,7 +51,7 @@ const createColumns = ({ onRemove }: ColumnProps) => {
     }),
 
     columnHelper.accessor("title", {
-      header: "Title",
+      header: "Track",
       size: 250,
       cell: (info) => <div className="truncate pr-1">{info.getValue()}</div>,
       enableResizing: false,
@@ -59,14 +59,14 @@ const createColumns = ({ onRemove }: ColumnProps) => {
     }),
 
     columnHelper.accessor("artist", {
-      header: "Artist",
+      header: () => <div className="px-1">Artist</div>,
       size: 200,
       cell: (info) => <div className="truncate px-1">{info.renderValue()}</div>,
       enableResizing: false,
       enableSorting: true,
     }),
     columnHelper.accessor("album", {
-      header: "Album",
+      header: () => <div className="pl-1">Album</div>,
       size: 200,
       enableResizing: false,
       enableSorting: true,
@@ -113,7 +113,7 @@ const createColumns = ({ onRemove }: ColumnProps) => {
 
 type Props = {
   playlist: MusicItem[];
-  setPlaylist: (item: MusicItem[]) => void;
+  setPlaylist?: (item: MusicItem[]) => void;
   removePlaylist?: (id: string) => void;
   maxheight?: string;
   draggable?: boolean;
@@ -146,7 +146,7 @@ export const PlayListTable = ({
     if (from === to) return;
     const newData = [...playlist.slice(0, from), ...playlist.slice(from + 1)];
     newData.splice(from > to ? to : to - 1, 0, playlist[from]);
-    setPlaylist(newData);
+    setPlaylist?.(newData);
   };
 
   return (

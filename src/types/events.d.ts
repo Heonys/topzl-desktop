@@ -5,9 +5,11 @@ type AppConfigKeyPathValue = import("@shared/config/type").AppConfigKeyPathValue
 type ShortcutKeys = import("@shared/config/type").ShortcutKeys;
 type SupportMediaType = import("@shared/plugin/type").SupportMediaType;
 type SearchResult = import("@shared/plugin/type").SearchResult;
+type SheetInfoResult = import("@shared/plugin/type").SheetInfoResult;
 type SearchedLyric = import("@shared/plugin/type").SearchedLyric;
 type GlobalContext = import("@/core/globalContext").GlobalContext;
 type MusicItem = import("@shared/plugin/type").MusicItem;
+type MusicSheetItem = import("@shared/plugin/type").MusicSheetItem;
 type DownloadProgress = import("@shared/constant/index").DownloadProgress;
 
 declare namespace IpcInvoke {
@@ -36,6 +38,7 @@ declare namespace IpcInvoke {
       query: string;
       page: number;
     }) => Promise<SearchResult>;
+    "search-playlist": ({ item: MusicSheetItem, page: number }) => Promise<SheetInfoResult>;
     "get-media-source": (id: string) => Primise<{ url: string }>;
     "search-lyric": (query: string) => Promise<string>;
     "get-toplists": () => void;

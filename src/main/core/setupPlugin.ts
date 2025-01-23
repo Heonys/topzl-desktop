@@ -35,6 +35,11 @@ export async function setupPlugin() {
   ipcMainHandle("search-music", ({ query, page, method }) => {
     return search(query, page, method);
   });
+
+  ipcMainHandle("search-playlist", ({ item, page }) => {
+    return plugin.getMusicSheetInfo(item, page);
+  });
+
   ipcMainHandle("get-media-source", async (id, event) => {
     try {
       const result = await plugin.getMediaSource(id);

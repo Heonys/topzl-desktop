@@ -1,7 +1,6 @@
 import { ArtistItem } from "@shared/plugin/type";
 
 type Props = {
-  artistId: string;
   artistItem: ArtistItem;
 };
 

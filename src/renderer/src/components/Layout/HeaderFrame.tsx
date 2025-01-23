@@ -23,8 +23,8 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
       )}
       {...props}
     >
-      <div className="flex items-center justify-center gap-5">
-        <div className="flex w-40 items-center gap-1 ">
+      <div className="flex items-center justify-center gap-3">
+        <div className="mr-2 flex w-40 items-center gap-1">
           <div
             className="mx-2 flex w-10 items-center justify-start gap-1 rounded-lg bg-white px-2 py-1 shadow-xl"
             onClick={() => navigate("/")}
@@ -34,12 +34,12 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           <div className="font-barlow font-bold">Topzl</div>
         </div>
         <HeaderNavigator />
-        <div className="region-none flex h-7 items-center justify-center gap-2 rounded-xl bg-white p-1 px-2">
-          <StaticIcon iconName={"search"} color="black" size={18} opacity={0.5} />
+        <div className="region-none flex h-7 items-center justify-center gap-2 rounded-lg bg-black/10 p-4">
+          <StaticIcon iconName={"search"} color="black" size={18} opacity={0.6} />
           <input
-            className="border-0 text-base leading-5 outline-none"
+            className="border-0 bg-transparent font-sans text-sm font-semibold leading-5 outline-none placeholder:text-black/50"
             type="text"
-            placeholder="Search"
+            placeholder="음악, 앨범, 아티스트 검색"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={(key) => {

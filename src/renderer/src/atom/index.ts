@@ -2,7 +2,7 @@ import { MusicItem, PlayerState, RepeatMode, SearchResult } from "@shared/plugin
 import { atom } from "jotai";
 import { loadable } from "jotai/utils";
 import trackPlayer from "@shared/plugin/trackPlayer";
-import type { SupportMediaType, SupportMediaItemMap } from "@shared/plugin/type";
+import type { SupportMediaType } from "@shared/plugin/type";
 
 export type PlaylistInfo = {
   type?: "favorite" | "current";

@@ -17,13 +17,13 @@ export const SearchViewPage = ({ mediaType }: Props) => {
       {id && (
         <Switch switch={mediaType}>
           <Case case="album">
-            <AlbumView albumId={id} albumItem={item} />
+            <AlbumView albumItem={item} />
           </Case>
           {/* <Case case="artist">
             <ArtistView artistId={id} artistItem={selectedAlbum as any} />
           </Case> */}
           <Case case="playlist">
-            <PlaylistView playlistId={id} playlistItem={item} />
+            <PlaylistView playlistItem={item} />
           </Case>
         </Switch>
       )}
