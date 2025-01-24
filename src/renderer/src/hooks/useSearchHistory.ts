@@ -16,8 +16,8 @@ export const useSearchHistory = () => {
 
   const addHistory = (query: string) => {
     setHistory((prev) => {
-      const newHistory = prev.includes(query) ? prev : [query, ...prev];
-      return newHistory.slice(0, MAX_HISTORY);
+      const newHistory = prev.filter((it) => it !== query);
+      return [query, ...newHistory].slice(0, MAX_HISTORY);
     });
   };
 

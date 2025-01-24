@@ -32,7 +32,7 @@ import { HiMiniHome } from "react-icons/hi2";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { IoCheckmark, IoCheckmarkCircleOutline } from "react-icons/io5";
 import { CgCloseR } from "react-icons/cg";
-import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoMdNotificationsOutline, IoIosMore } from "react-icons/io";
 import { MdHistory } from "react-icons/md";
 import { BsFolderPlus } from "react-icons/bs";
 import { RiLoader2Fill } from "react-icons/ri";
@@ -99,6 +99,7 @@ const IconMap = {
   ["check-circle"]: IoCheckmarkCircleOutline,
   ["loading"]: RiLoader2Fill,
   ["error"]: MdErrorOutline,
+  ["more"]: IoIosMore,
 };
 
 type Props = {

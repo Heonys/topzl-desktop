@@ -19,7 +19,9 @@ export const useSearch = () => {
       const query = isFresh ? searchQuery : searchResult!.query;
       currentQueryRef.current = query;
 
-      if (searchResult.query === query && searchResult.type === type) return;
+      if (searchResult.query === query && searchResult.type === type && searchQuery !== undefined) {
+        return;
+      }
 
       try {
         setIsLoading(true);

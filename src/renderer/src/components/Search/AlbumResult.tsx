@@ -2,13 +2,15 @@ import { useNavigate } from "react-router-dom";
 import { AlbumItem } from "@shared/plugin/type";
 import { Empty } from "@/common/Empty";
 import { Condition } from "@/common";
+import { LoadMoreFooter } from "./LoadMoreFooter";
 
 type Props = {
   searchResult: AlbumItem[];
+  isEnd: boolean;
   mediaType: SupportMediaType;
 };
 
-export const AlbumResult = ({ searchResult, mediaType }: Props) => {
+export const AlbumResult = ({ searchResult, isEnd, mediaType }: Props) => {
   const navigate = useNavigate();
 
   return (
@@ -39,6 +41,7 @@ export const AlbumResult = ({ searchResult, mediaType }: Props) => {
           </div>
         ))}
       </div>
+      <LoadMoreFooter isEnd={isEnd} mediaType={mediaType} />
     </Condition>
   );
 };

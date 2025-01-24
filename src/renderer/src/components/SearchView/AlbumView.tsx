@@ -1,5 +1,6 @@
+import { useState } from "react";
 import StaticIcon from "@/icons/StaticIcon";
-import { getDefaultImage, setFallbackImage } from "@/utils";
+import { cn, getDefaultImage, setFallbackImage } from "@/utils";
 import { AlbumItem } from "@shared/plugin/type";
 import { PlayListTable } from "../Playlist";
 
@@ -8,6 +9,8 @@ type Props = {
 };
 
 export const AlbumView = ({ albumItem }: Props) => {
+  const [like, setLike] = useState(false);
+
   return (
     <>
       <div className="flex gap-2">
@@ -33,8 +36,21 @@ export const AlbumView = ({ albumItem }: Props) => {
               <StaticIcon iconName="play" size={13} />
               전체 재생
             </button>
-            <button className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 font-sans text-sm font-semibold opacity-85 hover:opacity-100">
-              <StaticIcon iconName="heart" size={20} />
+            <button
+              className={cn(
+                "flex items-center gap-2 rounded-lg p-2 bg-[#E0E0E0] font-sans text-sm font-semibold opacity-85 hover:opacity-100",
+                like ? "bg-rose-200" : "ring-1 ring-black/10",
+              )}
+              onClick={() => {
+                setLike((prev) => !prev);
+              }}
+            >
+              <StaticIcon
+                iconName={like ? "heart-fill" : "heart"}
+                size={20}
+                color={like ? "red" : "black"}
+                className="opacity-70"
+              />
               좋아요
             </button>
           </div>

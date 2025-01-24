@@ -1,22 +1,26 @@
 import { Condition, IconButton } from "@/common";
 import { useModal } from "../Modal/useModal";
-import { useCurrentMusic, useFavorite, useSearch } from "@/hooks";
+import { useCurrentMusic, useFavorite } from "@/hooks";
 import { cn, formatTime, setFallbackImage } from "@/utils";
 import { Empty } from "@/common/Empty";
+import { LoadMoreFooter } from "./LoadMoreFooter";
 
 type Props = {
   musicItems: MusicItem[];
+  isEnd: boolean;
   mediaType: SupportMediaType;
 };
 
-export const MusicResult = ({ musicItems, mediaType }: Props) => {
+export const MusicResult = ({ musicItems, isEnd, mediaType }: Props) => {
   const { currentItem, playMusicWithAddPlaylist } = useCurrentMusic();
   const { isFavorite, favorite, unfavorite } = useFavorite();
   const { showModal } = useModal();
-  const { search } = useSearch();
 
   return (
-    <>
+    <Condition
+      condition={musicItems.length > 0}
+      fallback={<Empty message="조건에 맞는 검색 결과가 없습니다" />}
+    >
       {musicItems.map((item) => {
         const { id, title, artist, artwork, duration } = item;
         return (
@@ -64,23 +68,7 @@ export const MusicResult = ({ musicItems, mediaType }: Props) => {
           </div>
         );
       })}
-      <Condition
-        condition={musicItems.length === 0}
-        fallback={
-          <div className="flex h-16 items-center justify-center">
-            <button
-              className="rounded-md border-2 border-black/40 p-1 px-2 text-black/80"
-              onClick={() => {
-                search(mediaType);
-              }}
-            >
-              더 불러오기
-            </button>
-          </div>
-        }
-      >
-        <Empty message="조건에 맞는 검색 결과가 없습니다" />
-      </Condition>
-    </>
+      <LoadMoreFooter isEnd={isEnd} mediaType={mediaType} />
+    </Condition>
   );
 };

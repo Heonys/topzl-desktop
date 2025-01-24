@@ -8,23 +8,27 @@ type Props = {
 };
 
 export const SearchResultRouter = ({ searchResult, type }: Props) => {
+  const { data, isEnd } = searchResult;
+
   return (
     <Switch switch={type}>
       <Case case="music">
-        <MusicResult musicItems={searchResult.data} mediaType={type} />
+        <MusicResult musicItems={data} isEnd={isEnd} mediaType={type} />
       </Case>
       <Case case="album">
-        <AlbumResult searchResult={searchResult.data as unknown as AlbumItem[]} mediaType={type} />
+        <AlbumResult searchResult={data as unknown as AlbumItem[]} isEnd={isEnd} mediaType={type} />
       </Case>
       <Case case="artist">
         <ArtistResult
-          searchResult={searchResult.data as unknown as ArtistItem[]}
+          searchResult={data as unknown as ArtistItem[]}
+          isEnd={isEnd}
           mediaType={type}
         />
       </Case>
       <Case case="playlist">
         <PlaylistResult
-          searchResult={searchResult.data as unknown as MusicSheetItem[]}
+          searchResult={data as unknown as MusicSheetItem[]}
+          isEnd={isEnd}
           mediaType={type}
         />
       </Case>

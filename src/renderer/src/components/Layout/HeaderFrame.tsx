@@ -10,7 +10,7 @@ import logo from "@resources/logo.png";
 
 export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
   const navigate = useNavigate();
-  const { addHistory } = useSearchHistory();
+  const { history, addHistory } = useSearchHistory();
   const inputRef = useRef<HTMLInputElement>(null);
   const [showHistory, setShowHistory] = useState(false);
   const isFocusedRef = useRef(false);
@@ -71,10 +71,11 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
               }}
               onKeyDown={({ key }) => {
                 if (key === "Enter") handleSearch();
+                if (key === "Escape") setShowHistory(false);
               }}
             />
           </div>
-          <Condition condition={showHistory}>
+          <Condition condition={history.length > 0 && showHistory}>
             <SearchHistory
               onClick={(query) => {
                 search(query);

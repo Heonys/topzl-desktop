@@ -45,7 +45,7 @@ export type MusicSheetItem = {
 };
 
 export type SearchResult = {
-  isEnd?: boolean;
+  isEnd: boolean;
   data: MusicItem[];
 };
 

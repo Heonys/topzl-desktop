@@ -1,15 +1,17 @@
+// import { useNavigate } from "react-router-dom";
 import { Condition } from "@/common";
 import { Empty } from "@/common/Empty";
 import { ArtistItem } from "@shared/plugin/type";
-import { useNavigate } from "react-router-dom";
+import { LoadMoreFooter } from "./LoadMoreFooter";
 
 type Props = {
   searchResult: ArtistItem[];
+  isEnd: boolean;
   mediaType: SupportMediaType;
 };
 
-export const ArtistResult = ({ searchResult, mediaType }: Props) => {
-  const navigate = useNavigate();
+export const ArtistResult = ({ searchResult, isEnd, mediaType }: Props) => {
+  // const navigate = useNavigate();
 
   return (
     <Condition
@@ -22,7 +24,7 @@ export const ArtistResult = ({ searchResult, mediaType }: Props) => {
             <div
               className="relative aspect-square flex-1 overflow-hidden rounded-xl opacity-85 group-hover:opacity-100"
               onClick={() => {
-                navigate(`/searchView/${mediaType}/${item.id}`, { state: { item } });
+                // navigate(`/searchView/${mediaType}/${item.id}`, { state: { item } });
               }}
             >
               <div
@@ -38,6 +40,7 @@ export const ArtistResult = ({ searchResult, mediaType }: Props) => {
           </div>
         ))}
       </div>
+      <LoadMoreFooter isEnd={isEnd} mediaType={mediaType} />
     </Condition>
   );
 };

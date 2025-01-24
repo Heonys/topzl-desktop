@@ -3,13 +3,15 @@ import { Condition } from "@/common";
 import { Empty } from "@/common/Empty";
 import type { MusicSheetItem } from "@shared/plugin/type";
 import { useNavigate } from "react-router-dom";
+import { LoadMoreFooter } from "./LoadMoreFooter";
 
 type Props = {
   searchResult: MusicSheetItem[];
+  isEnd: boolean;
   mediaType: SupportMediaType;
 };
 
-export const PlaylistResult = ({ searchResult, mediaType }: Props) => {
+export const PlaylistResult = ({ searchResult, isEnd, mediaType }: Props) => {
   const navigate = useNavigate();
   return (
     <Condition
@@ -42,6 +44,7 @@ export const PlaylistResult = ({ searchResult, mediaType }: Props) => {
           </div>
         ))}
       </div>
+      <LoadMoreFooter isEnd={isEnd} mediaType={mediaType} />
     </Condition>
   );
 };
