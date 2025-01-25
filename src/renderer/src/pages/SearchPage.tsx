@@ -51,7 +51,7 @@ export const SearchPage = () => {
                 condition={!isLoading}
                 fallback={
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <LoadingSpinner classname="bg-slate-500" />
+                    <LoadingSpinner classname="bg-black/80 size-5" message="잠시만 기다려 주세요" />
                   </div>
                 }
               >

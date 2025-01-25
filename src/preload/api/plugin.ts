@@ -11,8 +11,8 @@ function searchMusic({ method, query, page }: Props) {
   return ipcRendererInvoke("search-music", { method, query, page });
 }
 
-function searchPlaylist({ item, page }: { item: MusicSheetItem; page: number }) {
-  return ipcRendererInvoke("search-playlist", { item, page });
+function searchPlaylist(payload: { item: MusicSheetItem; page: number }) {
+  return ipcRendererInvoke("search-playlist", payload);
 }
 
 function getMediaSource(id: string) {
@@ -23,14 +23,12 @@ function searchLyric(query: string) {
   return ipcRendererInvoke("search-lyric", query);
 }
 
-function getTopLists() {
-  return ipcRendererInvoke("get-toplists");
+function getRecommendedPlaylistTag() {
+  return ipcRendererInvoke("get-recommended-playlist-tag");
 }
-function getRecommendedTag() {
-  return ipcRendererInvoke("get-recommended-tag");
-}
-function getTopListDetail(item: any) {
-  return ipcRendererInvoke("get-toplist-detail", item);
+
+function getRecommendedPlaylist(payload: { tag: any; page: number }) {
+  return ipcRendererInvoke("get-recommended-playlist", payload);
 }
 
 function onErrorHandler(callback: (message: string) => void) {
@@ -44,8 +42,7 @@ export const plugin = {
   searchPlaylist,
   getMediaSource,
   searchLyric,
-  getTopLists,
-  getRecommendedTag,
-  getTopListDetail,
+  getRecommendedPlaylistTag,
+  getRecommendedPlaylist,
   onErrorHandler,
 } satisfies Window["plugin"];

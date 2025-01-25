@@ -63,15 +63,11 @@ export async function setupPlugin() {
     // return target.lyrics();
   });
 
-  ipcMainHandle("get-toplists", () => {
-    return plugin.getTopLists();
-  });
-  ipcMainHandle("get-recommended-tag", async () => {
+  ipcMainHandle("get-recommended-playlist-tag", async () => {
     return plugin.getRecommendSheetTags();
   });
-
-  ipcMainHandle("get-toplist-detail", (item) => {
-    return plugin.getTopListDetail(item);
+  ipcMainHandle("get-recommended-playlist", async ({ tag, page }) => {
+    return plugin.getRecommendSheetsByTag(tag, page);
   });
 }
 

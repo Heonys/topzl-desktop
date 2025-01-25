@@ -28,15 +28,12 @@ declare global {
       searchPlaylist: IpcInvoke.Renderer["search-playlist"];
       getMediaSource: IpcInvoke.Renderer["get-media-source"];
       searchLyric: IpcInvoke.Renderer["search-lyric"];
-      getTopLists: IpcInvoke.Renderer["get-toplists"];
-      getRecommendedTag: IpcInvoke.Renderer["get-recommended-tag"];
-      getTopListDetail: IpcInvoke.Renderer["get-toplist-detail"];
+      getRecommendedPlaylistTag: IpcInvoke.Renderer["get-recommended-playlist-tag"];
+      getRecommendedPlaylist: IpcInvoke.Renderer["get-recommended-playlist"];
       onErrorHandler: (callback: (message: IpcEvents.Main["plugin-error"]) => void) => void;
     };
     notification: {
-      error: (
-        callback: (callback: (message: IpcEvents.Main["notification-error"]) => void) => void,
-      ) => void;
+      error: (callback: (message: IpcEvents.Main["notification-error"]) => void) => void;
     };
     worker: {
       setupWatcher: (payload: IpcEvents.Renderer["worker-setup-watcher"]) => void;

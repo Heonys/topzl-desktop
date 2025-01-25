@@ -10,6 +10,7 @@ type SearchedLyric = import("@shared/plugin/type").SearchedLyric;
 type GlobalContext = import("@/core/globalContext").GlobalContext;
 type MusicItem = import("@shared/plugin/type").MusicItem;
 type MusicSheetItem = import("@shared/plugin/type").MusicSheetItem;
+type MusicSheetResult = import("@shared/plugin/type").MusicSheetResult;
 type DownloadProgress = import("@shared/constant/index").DownloadProgress;
 
 declare namespace IpcInvoke {
@@ -41,9 +42,10 @@ declare namespace IpcInvoke {
     "search-playlist": ({ item: MusicSheetItem, page: number }) => Promise<SheetInfoResult>;
     "get-media-source": (id: string) => Primise<{ url: string }>;
     "search-lyric": (query: string) => Promise<string>;
-    "get-toplists": () => void;
-    "get-recommended-tag": () => void;
-    "get-toplist-detail": (item: any) => void;
+
+    "get-recommended-playlist-tag": () => Promise<void>;
+    "get-recommended-playlist": ({ tag: any, page: number }) => Promise<MusicSheetResult>;
+
     "show-open-dialog": (
       options: Electron.OpenDialogOptions,
     ) => Promise<Electron.OpenDialogReturnValue>;

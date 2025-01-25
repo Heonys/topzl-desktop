@@ -9,7 +9,6 @@ type Props = {
 
 export const SearchResultRouter = ({ searchResult, type }: Props) => {
   const { data, isEnd } = searchResult;
-
   return (
     <Switch switch={type}>
       <Case case="music">

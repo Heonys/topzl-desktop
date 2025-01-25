@@ -36,7 +36,8 @@ import { IoMdNotificationsOutline, IoIosMore } from "react-icons/io";
 import { MdHistory } from "react-icons/md";
 import { BsFolderPlus } from "react-icons/bs";
 import { RiLoader2Fill } from "react-icons/ri";
-import { MdErrorOutline } from "react-icons/md";
+import { MdErrorOutline, MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import { MdAudiotrack } from "react-icons/md";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -100,6 +101,9 @@ const IconMap = {
   ["loading"]: RiLoader2Fill,
   ["error"]: MdErrorOutline,
   ["more"]: IoIosMore,
+  ["navigate-next"]: MdNavigateNext,
+  ["navigate-prev"]: MdNavigateBefore,
+  ["track"]: MdAudiotrack,
 };
 
 type Props = {

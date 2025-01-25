@@ -6,6 +6,7 @@ const useAlbumDetail = (item: MusicSheetItem) => {
   const [musicList, setMusicList] = useState<MusicItem[]>([]);
 
   const getAlbumDetail = async () => {
+    // const randomNum = Math.floor(Math.random() * 4) + 1;
     setIsLoading(true);
     try {
       const data = await window.plugin.searchPlaylist({ item, page: 1 });

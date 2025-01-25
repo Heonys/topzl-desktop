@@ -25,12 +25,12 @@ const options: OptionTypes[] = [
     title: "Home",
     route: "home",
   },
-  {
-    type: "icon",
-    iconName: "search",
-    title: "Search",
-    route: "search",
-  },
+  // {
+  //   type: "icon",
+  //   iconName: "search",
+  //   title: "Search",
+  //   route: "search",
+  // },
   {
     type: "icon",
     iconName: "discover",
@@ -47,12 +47,6 @@ const options: OptionTypes[] = [
     title: "Current",
     route: "playlist",
   },
-  // {
-  //   type: "icon",
-  //   iconName: "record",
-  //   title: "Album",
-  //   route: "album",
-  // },
   {
     type: "divider",
     title: "Library",

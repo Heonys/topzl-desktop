@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, useRef, useState } from "react";
+import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useNavigate } from "react-router-dom";
 import { HeaderNavigator } from "@/components";
@@ -30,6 +30,21 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
     inputRef.current?.blur();
   };
 
+  useEffect(() => {
+    const keyDownHandler = (event: globalThis.KeyboardEvent) => {
+      if (event.ctrlKey && event.key === "k") {
+        event.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", keyDownHandler);
+    return () => document.removeEventListener("keydown", keyDownHandler);
+  }, []);
+
+  if (!showHistory) {
+    isFocusedRef.current = false;
+  }
+
   return (
     <header
       className={twMerge(
@@ -50,12 +65,12 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
         </div>
         <HeaderNavigator />
         <div className="relative w-80">
-          <div className="region-none flex h-7 items-center gap-2 rounded-lg bg-black/10 p-4 px-5">
+          <div className="region-none flex h-7 w-full items-center gap-2 rounded-lg bg-black/10 p-4 pr-3">
             <StaticIcon iconName={"search"} color="black" size={18} opacity={0.6} />
             <input
               ref={inputRef}
               spellCheck={false}
-              className="flex-1 bg-transparent font-sans text-sm font-semibold leading-5 outline-none placeholder:text-black/50"
+              className="w-40 flex-1 bg-transparent font-sans text-sm font-semibold leading-5 outline-none placeholder:text-black/50"
               type="text"
               maxLength={40}
               placeholder="음악, 앨범, 아티스트 검색"
@@ -74,6 +89,12 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
                 if (key === "Escape") setShowHistory(false);
               }}
             />
+            <div
+              className="cursor-pointer rounded-md px-2 py-0.5 font-sans text-xs shadow-md ring-1 ring-black/20"
+              onClick={handleSearch}
+            >
+              Enter
+            </div>
           </div>
           <Condition condition={history.length > 0 && showHistory}>
             <SearchHistory

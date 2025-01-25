@@ -32,6 +32,7 @@ export type ArtistItem = {
   name: string;
   id: string;
   avatar: string;
+  url_slug: string;
 };
 
 export type MusicSheetItem = {
@@ -42,6 +43,12 @@ export type MusicSheetItem = {
   createAt: string;
   worksNum: number;
   artistItem: ArtistItem;
+  url_slug: string;
+};
+
+export type MusicSheetResult = {
+  isEnd: boolean;
+  data: MusicSheetItem[];
 };
 
 export type SearchResult = {
@@ -88,7 +95,7 @@ export interface PluginDefine {
   getMusicSheetInfo: (itme: MusicSheetItem, page: number) => Promise<SheetInfoResult>;
   getArtistWorks: () => void;
   getRecommendSheetTags: () => void;
-  getRecommendSheetsByTag: () => void;
+  getRecommendSheetsByTag: (tag: any, page: number) => Promise<MusicSheetResult>;
   getTopLists: () => void;
   getTopListDetail: (item: any) => void;
 }
