@@ -15,7 +15,7 @@ export function AlbumCover({ title, iconName, onClick, coverUrl, onDoubleClick }
     <div className="group flex size-[8.5rem] flex-col gap-1">
       {coverUrl ? (
         <div
-          className="relative flex w-full flex-1 items-center justify-center rounded-lg opacity-85 group-hover:opacity-100"
+          className="relative flex w-full flex-1 items-center justify-center rounded-lg opacity-90 group-hover:opacity-100"
           style={coverUrl ? { backgroundImage: `url(${coverUrl})`, backgroundSize: "cover" } : {}}
           onClick={onClick}
           onDoubleClick={onDoubleClick}

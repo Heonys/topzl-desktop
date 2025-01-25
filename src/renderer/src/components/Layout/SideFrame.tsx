@@ -25,26 +25,26 @@ const options: OptionTypes[] = [
     title: "Home",
     route: "home",
   },
+  {
+    type: "icon",
+    iconName: "search",
+    title: "Search",
+    route: "search",
+  },
   // {
   //   type: "icon",
-  //   iconName: "search",
-  //   title: "Search",
-  //   route: "search",
+  //   iconName: "explore",
+  //   title: "Discover",
+  //   route: "discover",
+  // },
+  // {
+  //   type: "divider",
+  //   title: "Playlist",
   // },
   {
     type: "icon",
-    iconName: "discover",
-    title: "Discover",
-    route: "discover",
-  },
-  {
-    type: "divider",
-    title: "Playlist",
-  },
-  {
-    type: "icon",
     iconName: "playlist",
-    title: "Current",
+    title: "Playlist",
     route: "playlist",
   },
   {
@@ -94,7 +94,7 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
       {...props}
     >
       <div className="region-none ml-5 flex w-32 -translate-y-12 flex-col gap-2.5 rounded-lg py-5 font-barlow font-bold">
-        <div className="mx-2 flex w-full flex-col justify-center gap-2.5 rounded-md">
+        <div className="mx-2 flex w-full flex-col justify-center gap-3 rounded-md">
           {options.map((option) => {
             if (option.type === "divider") {
               return (

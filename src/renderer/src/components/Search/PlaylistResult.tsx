@@ -22,7 +22,7 @@ export const PlaylistResult = ({ searchResult, isEnd, mediaType }: Props) => {
         {searchResult.map((item) => (
           <div className="group flex flex-col gap-2" key={item.id}>
             <div
-              className="relative aspect-square flex-1 overflow-hidden rounded-xl opacity-85 group-hover:opacity-100"
+              className="relative aspect-square flex-1 overflow-hidden rounded-xl opacity-90 group-hover:opacity-100"
               onClick={() => {
                 navigate(`/searchView/${mediaType}/${item.id}`, { state: { item } });
               }}

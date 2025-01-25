@@ -9,7 +9,7 @@ export const PlaylistCover = ({ musicItem }: Props) => {
   return (
     <div className="group flex flex-col gap-2">
       <div
-        className="relative aspect-square flex-1 overflow-hidden rounded-xl opacity-85 group-hover:opacity-100"
+        className="relative aspect-square flex-1 overflow-hidden rounded-xl opacity-90 group-hover:opacity-100"
         onDoubleClick={() => {
           playMusicWithAddPlaylist(musicItem);
         }}

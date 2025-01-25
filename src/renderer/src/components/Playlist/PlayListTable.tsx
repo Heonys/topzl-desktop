@@ -151,9 +151,9 @@ export const PlayListTable = ({
 
   return (
     <div
-      className="overflow-y-auto overflow-x-hidden p-2 font-sans"
+      className="relative overflow-y-auto overflow-x-hidden p-2 font-sans"
       style={{
-        maxHeight: maxheight ?? "45vh",
+        height: maxheight ?? "45vh",
       }}
     >
       <table className="w-full table-fixed border-collapse select-none">

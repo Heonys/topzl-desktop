@@ -21,8 +21,8 @@ export const QuickRecommend = () => {
           </div>
           <IconButton iconName="more" className="mr-3 self-end" size={25} />
         </div>
-        <div className="grid w-full grid-cols-6 gap-3">
-          {musicList.slice(0, 18).map((item) => (
+        <div className="grid w-full grid-cols-5 gap-3">
+          {musicList.map((item) => (
             <PlaylistCover key={item.id} musicItem={item} />
           ))}
         </div>

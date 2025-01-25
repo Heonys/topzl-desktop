@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Slider from "rc-slider";
 import trackPlayer from "@shared/plugin/trackPlayer";
-import { setFallbackImage, getDefaultImage, formatTime } from "@/utils";
+import { setFallbackImage, getDefaultImage } from "@/utils";
 import { Switch, Case, IconButton } from "@/common";
 import { PlayerState, RepeatMode } from "@shared/plugin/type";
 import { usePanel, useDetail, usePlayer, useCurrentMusic } from "@/hooks";
@@ -33,8 +33,8 @@ export const PlayController = () => {
   };
 
   return (
-    <div className="region-none absolute bottom-0 left-0 flex h-16 w-full items-center border-t bg-white">
-      <button
+    <div className="region-none absolute bottom-0 left-0 flex h-16 w-full items-center border-t bg-white px-8">
+      <div
         className="group absolute -top-1.5 left-0 flex h-3 w-full items-center"
         onClick={handleProgressClick}
       >
@@ -43,12 +43,12 @@ export const PlayController = () => {
           className="absolute -left-full h-0.5 w-full bg-blue-600 transition-all duration-75 ease-linear group-hover:h-1"
           style={{ transform: `translateX(${(currentTime / duration) * 100}%)` }}
         ></div>
-      </button>
-      <div className="box-border h-[48px] w-[360px] px-3">
+      </div>
+      <div className="box-border h-[48px] w-[360px]">
         {currentItem && (
           <div className="flex cursor-pointer items-center gap-3" onClick={handleDetailOpen}>
             <img
-              className="size-10 rounded object-cover"
+              className="size-11 rounded object-cover"
               crossOrigin="anonymous"
               alt="currentMusic"
               src={getDefaultImage(currentItem.artwork)}
@@ -57,10 +57,10 @@ export const PlayController = () => {
             <div className="flex max-w-[calc(100%-50px)] flex-1 flex-col">
               <div className="truncate">{currentItem.title}</div>
               <div className="flex items-center justify-between">
-                <div className="max-w-[200px] truncate text-sm opacity-80">
+                <div className="max-w-[250px] truncate text-sm text-black/50">
                   {currentItem.artist}
                 </div>
-                <div className="text-sm">{`${formatTime(currentTime)}/${formatTime(currentItem.duration)}`}</div>
+                {/* <div className="text-sm">{`${formatTime(currentTime)}/${formatTime(currentItem.duration)}`}</div> */}
               </div>
             </div>
           </div>

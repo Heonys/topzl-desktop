@@ -6,6 +6,7 @@ import type { SupportMediaType } from "@shared/plugin/type";
 import { Condition } from "@/common";
 import { SearchResultRouter, SearchTab } from "@/components/Search";
 import { LoadingSpinner } from "@/common/LoadingSpinner";
+import { Empty } from "@/common/Empty";
 
 const tabs: SupportMediaType[] = ["music", "album", "artist", "playlist"];
 
@@ -55,11 +56,13 @@ export const SearchPage = () => {
                   </div>
                 }
               >
-                {searchResults[tab]?.data && (
+                {searchResults[tab]?.data ? (
                   <SearchResultRouter
                     searchResult={searchResults[tab].data}
                     type={searchResults[tab].type}
                   />
+                ) : (
+                  <Empty message="검색 결과가 없습니다" />
                 )}
               </Condition>
             </TabPanel>

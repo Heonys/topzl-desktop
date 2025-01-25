@@ -9,7 +9,7 @@ export const Empty = ({ message, className }: Props) => {
   return (
     <div
       className={twMerge(
-        "flex min-h-[280px] w-full items-center justify-center font-sans font-medium",
+        "absolute left-1/2 top-1/2 flex -translate-x-1/2  -translate-y-1/2 font-sans font-semibold",
         className,
       )}
     >

@@ -26,7 +26,6 @@ import { SiApplemusic } from "react-icons/si";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { HiOutlineSortDescending, HiOutlineSortAscending } from "react-icons/hi";
-import { FaRegCompass } from "react-icons/fa";
 import { LuClock } from "react-icons/lu";
 import { HiMiniHome } from "react-icons/hi2";
 import { IoChevronDownOutline } from "react-icons/io5";
@@ -38,6 +37,7 @@ import { BsFolderPlus } from "react-icons/bs";
 import { RiLoader2Fill } from "react-icons/ri";
 import { MdErrorOutline, MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { MdAudiotrack } from "react-icons/md";
+import { MdOutlineExplore } from "react-icons/md";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -88,7 +88,7 @@ const IconMap = {
   ["sort"]: TiArrowUnsorted,
   ["sort-asc"]: HiOutlineSortAscending,
   ["sort-desc"]: HiOutlineSortDescending,
-  ["discover"]: FaRegCompass,
+  ["explore"]: MdOutlineExplore,
   ["clock"]: LuClock,
   ["home"]: HiMiniHome,
   ["chevron-down"]: IoChevronDownOutline,
