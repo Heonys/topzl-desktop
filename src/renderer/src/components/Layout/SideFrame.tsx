@@ -32,13 +32,9 @@ const options: OptionTypes[] = [
     route: "search",
   },
   {
-    type: "divider",
-    title: "Playlist",
-  },
-  {
     type: "icon",
     iconName: "playlist",
-    title: "Current",
+    title: "Playlist",
     route: "playlist",
   },
   {

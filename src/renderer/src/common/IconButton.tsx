@@ -1,9 +1,9 @@
 import { ComponentPropsWithoutRef } from "react";
-import StaticIcon from "@/icons/StaticIcon";
+import StaticIcon, { type IconNames } from "@/icons/StaticIcon";
 import { twMerge } from "tailwind-merge";
 
 type Props = {
-  iconName: ComponentPropsWithoutRef<typeof StaticIcon>["iconName"];
+  iconName: IconNames;
   size?: number;
   opacity?: boolean;
   color?: string;

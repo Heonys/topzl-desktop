@@ -1,6 +1,6 @@
-import { MusicItem, PlayerState, RepeatMode, SearchResult } from "@shared/plugin/type";
 import { atom } from "jotai";
 import { loadable } from "jotai/utils";
+import { MusicItem, PlayerState, RepeatMode, SearchResult } from "@shared/plugin/type";
 import trackPlayer from "@shared/plugin/trackPlayer";
 import type { SupportMediaType } from "@shared/plugin/type";
 
@@ -90,3 +90,20 @@ export const currentVolumeAtom = atom(0.2);
 export const currentSpeedAtom = atom(1);
 export const currentRepeatModeAtom = atom(RepeatMode.Queue);
 export const currentPlayerStateAtom = atom(PlayerState.None);
+
+// 컨텍스트 메뉴
+
+export type ContextMenuItem = {
+  icon?: string;
+  title: string;
+  divider?: boolean;
+  onClick?: () => void;
+};
+
+export type ContextMenu = {
+  menuItems: ContextMenuItem[];
+  x: number;
+  y: number;
+};
+
+export const contextMenuAtom = atom<ContextMenu | null>(null);

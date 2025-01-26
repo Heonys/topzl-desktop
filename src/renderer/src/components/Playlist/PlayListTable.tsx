@@ -1,9 +1,5 @@
-import { Case, Condition, Droppable, IconButton, Switch } from "@/common";
-import { Empty } from "@/common/Empty";
-import { useCurrentMusic } from "@/hooks";
-import StaticIcon from "@/icons/StaticIcon";
-import { assignToDrag, formatTime } from "@/utils";
-import { MusicItem } from "@shared/plugin/type";
+import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 import {
   createColumnHelper,
   flexRender,
@@ -12,8 +8,12 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { Case, Condition, Droppable, IconButton, Switch } from "@/common";
+import { Empty } from "@/common/Empty";
+import { useContextMenu, useCurrentMusic } from "@/hooks";
+import StaticIcon from "@/icons/StaticIcon";
+import { assignToDrag, formatTime } from "@/utils";
+import { MusicItem } from "@shared/plugin/type";
 import { FavoriteButton, DownloadButton } from "@/components/Playlist";
 
 const TAG = "playlist-table";
@@ -128,6 +128,7 @@ export const PlayListTable = ({
 }: Props) => {
   const { setCurrentItem } = useCurrentMusic();
   const [sorting, setSorting] = useState<SortingState>([]);
+  const { showContextMenu } = useContextMenu();
 
   const columns = createColumns({
     onRemove: removePlaylist,
@@ -199,6 +200,22 @@ export const PlayListTable = ({
               }}
               onDragStart={(e) => {
                 assignToDrag(e, TAG, index);
+              }}
+              onContextMenu={(e) => {
+                showContextMenu({
+                  x: e.clientX,
+                  y: e.clientY,
+                  menuItems: [
+                    {
+                      title: "rename",
+                      onClick: () => {},
+                    },
+                    {
+                      title: "delete",
+                      onClick: () => {},
+                    },
+                  ],
+                });
               }}
             >
               {row.getVisibleCells().map((cell) => (

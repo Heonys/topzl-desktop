@@ -11,6 +11,7 @@ import {
   MusicDetail,
   Collapsible,
   ContentsLayout,
+  ContextMenuContainer,
 } from "@/components";
 
 import "rc-slider/assets/index.css";
@@ -26,6 +27,7 @@ const App = () => {
         </ContentsLayout>
       </MainLayout>
       <ModalComponent />
+      <ContextMenuContainer />
       <Collapsible />
       <PlayController />
       {createPortal(<MusicDetail />, document.getElementById("detail")!)}

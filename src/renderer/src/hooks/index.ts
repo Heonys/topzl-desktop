@@ -10,3 +10,4 @@ export * from "./useLibrary";
 export * from "./useDirectoryManager";
 export * from "./useSearchHistory";
 export * from "./useAlbumDetail";
+export * from "./useContextMenu";
