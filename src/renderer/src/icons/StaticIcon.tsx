@@ -38,6 +38,7 @@ import { RiLoader2Fill } from "react-icons/ri";
 import { MdErrorOutline, MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { MdAudiotrack } from "react-icons/md";
 import { MdOutlineExplore } from "react-icons/md";
+import { MdOutlinePrivacyTip } from "react-icons/md";
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -104,6 +105,7 @@ const IconMap = {
   ["navigate-next"]: MdNavigateNext,
   ["navigate-prev"]: MdNavigateBefore,
   ["track"]: MdAudiotrack,
+  ["privacy"]: MdOutlinePrivacyTip,
 };
 
 type Props = {

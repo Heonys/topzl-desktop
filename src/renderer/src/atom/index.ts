@@ -78,6 +78,8 @@ export const localMusicAtom = atom<MusicItem[]>([]);
 
 export const downloadedMusicAtom = atom<MusicItem[]>([]);
 
+export const recommededList = atom<MusicItem[]>([]);
+
 //  이벤트
 export const initProgress = {
   currentTime: 0,

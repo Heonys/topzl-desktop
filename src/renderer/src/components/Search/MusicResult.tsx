@@ -42,6 +42,7 @@ export const MusicResult = ({ musicItems, isEnd, mediaType }: Props) => {
               src={artwork}
               alt="thumnail"
               onError={setFallbackImage}
+              loading="lazy"
             />
             <div
               className={cn(

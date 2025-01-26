@@ -31,20 +31,14 @@ const options: OptionTypes[] = [
     title: "Search",
     route: "search",
   },
-  // {
-  //   type: "icon",
-  //   iconName: "explore",
-  //   title: "Discover",
-  //   route: "discover",
-  // },
-  // {
-  //   type: "divider",
-  //   title: "Playlist",
-  // },
+  {
+    type: "divider",
+    title: "Playlist",
+  },
   {
     type: "icon",
     iconName: "playlist",
-    title: "Playlist",
+    title: "Current",
     route: "playlist",
   },
   {
@@ -78,6 +72,12 @@ const options: OptionTypes[] = [
     iconName: "cog-8-tooth",
     title: "Setting",
     route: "setting",
+  },
+  {
+    type: "icon",
+    iconName: "privacy",
+    title: "Guideline",
+    route: "about",
   },
 ];
 

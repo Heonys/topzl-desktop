@@ -1,18 +1,20 @@
-import { Condition, IconButton } from "@/common";
-import useAlbumDetail from "@/hooks/useAlbumDetail";
+import { Condition, IconButton, LoadingSpinner } from "@/common";
+import { useRecommendList } from "@/hooks/useAlbumDetail";
 import { PlaylistCover } from "./PlaylistCover";
 import StaticIcon from "@/icons/StaticIcon";
 
-const mockSheet = {
-  artistItem: { url_slug: "ellie_bp" },
-  url_slug: "k-pop",
-} as MusicSheetItem;
-
 export const QuickRecommend = () => {
-  const { isLoading, musicList } = useAlbumDetail(mockSheet);
+  const { isLoading, musicList } = useRecommendList();
 
   return (
-    <Condition condition={!isLoading}>
+    <Condition
+      condition={!isLoading}
+      fallback={
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <LoadingSpinner classname="bg-black/80 size-5" />
+        </div>
+      }
+    >
       <div className="flex flex-col gap-4">
         <div className="flex items-center">
           <div className="flex flex-1 items-center gap-2">

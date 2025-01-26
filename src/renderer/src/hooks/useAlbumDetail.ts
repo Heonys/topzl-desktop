@@ -1,12 +1,13 @@
+import { recommededList } from "@/atom";
 import { MusicSheetItem } from "@shared/plugin/type";
+import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
-const useAlbumDetail = (item: MusicSheetItem) => {
+export const useAlbumDetail = (item: MusicSheetItem) => {
   const [isLoading, setIsLoading] = useState(true);
   const [musicList, setMusicList] = useState<MusicItem[]>([]);
 
   const getAlbumDetail = async () => {
-    // const randomNum = Math.floor(Math.random() * 4) + 1;
     setIsLoading(true);
     try {
       const data = await window.plugin.searchPlaylist({ item, page: 1 });
@@ -25,4 +26,32 @@ const useAlbumDetail = (item: MusicSheetItem) => {
   return { musicList, isLoading };
 };
 
-export default useAlbumDetail;
+const kpopSheet = {
+  artistItem: { url_slug: "ellie_bp" },
+  url_slug: "k-pop",
+} as MusicSheetItem;
+
+export const useRecommendList = () => {
+  const [musicList, setMusicList] = useAtom(recommededList);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getAlbumDetail = async () => {
+    setIsLoading(true);
+    try {
+      const data = await window.plugin.searchPlaylist({ item: kpopSheet, page: 1 });
+      setMusicList(data.musicList);
+    } catch {
+      setMusicList([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (musicList.length === 0) {
+      getAlbumDetail();
+    }
+  }, []);
+
+  return { musicList, isLoading };
+};

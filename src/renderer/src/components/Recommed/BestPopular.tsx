@@ -1,28 +1,32 @@
-import { Condition, IconButton } from "@/common";
-import useAlbumDetail from "@/hooks/useAlbumDetail";
-import { PlaylistCover } from "./PlaylistCover";
+import { motion } from "motion/react";
+import defaultCover from "@/assets/images/defaultCover.webp";
 
-const mockSheet = {
-  artistItem: { url_slug: "audiomack" },
-  url_slug: "best-songs-of-24",
-} as MusicSheetItem;
+// const mockSheet = {
+//   artistItem: { url_slug: "audiomack" },
+//   url_slug: "best-songs-of-24",
+// } as MusicSheetItem;
 
 export const BestPopular = () => {
-  const { isLoading, musicList } = useAlbumDetail(mockSheet);
-
   return (
-    <Condition condition={!isLoading}>
-      <div className="flex items-center">
-        <h1 className="flex-1 font-sans text-2xl font-bold">2024년 베스트</h1>
-        <IconButton iconName="more" className="mr-3 self-end" size={25} />
+    <div className="relative h-[200px] cursor-pointer overflow-hidden rounded-2xl">
+      <motion.img
+        className="absolute left-0 top-0 w-full"
+        src={defaultCover}
+        alt="sample"
+        initial={{ y: 0 }}
+        animate={{ y: "-50%" }}
+        transition={{
+          repeat: Infinity,
+          repeatType: "mirror",
+          duration: 50,
+        }}
+      />
+      <div
+        className="absolute left-3 top-3 flex font-sans text-3xl font-bold text-white"
+        style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
+      >
+        Best of 2024
       </div>
-      <div className="mt-5 max-w-[880px]">
-        <div className="grid w-full grid-cols-5 gap-3">
-          {musicList.slice(0, 5).map((item) => (
-            <PlaylistCover key={item.id} musicItem={item} />
-          ))}
-        </div>
-      </div>
-    </Condition>
+    </div>
   );
 };

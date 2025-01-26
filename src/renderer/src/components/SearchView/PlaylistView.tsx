@@ -1,5 +1,5 @@
 import { Condition, LoadingSpinner } from "@/common";
-import useAlbumDetail from "@/hooks/useAlbumDetail";
+import { useAlbumDetail } from "@/hooks/useAlbumDetail";
 import StaticIcon from "@/icons/StaticIcon";
 import { cn, getDefaultImage, setFallbackImage } from "@/utils";
 import { MusicSheetItem } from "@shared/plugin/type";
