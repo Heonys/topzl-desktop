@@ -3,13 +3,17 @@ import StaticIcon from "@/icons/StaticIcon";
 import { cn, getDefaultImage, setFallbackImage } from "@/utils";
 import { AlbumItem } from "@shared/plugin/type";
 import { PlayListTable } from "../Playlist";
+import { useCurrentMusic } from "@/hooks";
+import { useModal } from "../Modal/useModal";
 
 type Props = {
   albumItem: AlbumItem;
 };
 
 export const AlbumView = ({ albumItem }: Props) => {
+  const { playWithAddAllPlaylist } = useCurrentMusic();
   const [like, setLike] = useState(false);
+  const { showModal } = useModal();
 
   return (
     <>
@@ -32,7 +36,12 @@ export const AlbumView = ({ albumItem }: Props) => {
             <div className="text-sm text-black/50">{`트랙 ${albumItem._musicList?.length}개 • 발매일 ${albumItem.date || new Date().toLocaleDateString()}`}</div>
           </div>
           <div className="flex gap-2">
-            <button className="flex items-center gap-2 rounded-lg bg-blue-200 p-2 px-4 font-sans text-sm font-semibold text-blue-600 opacity-85 hover:opacity-100">
+            <button
+              className="flex items-center gap-2 rounded-lg bg-blue-200 p-2 px-4 font-sans text-sm font-semibold text-blue-600 opacity-85 hover:opacity-100"
+              onClick={() => {
+                playWithAddAllPlaylist(albumItem._musicList[0], albumItem._musicList);
+              }}
+            >
               <StaticIcon iconName="play" size={13} />
               전체 재생
             </button>
@@ -52,6 +61,19 @@ export const AlbumView = ({ albumItem }: Props) => {
                 className="opacity-70"
               />
               좋아요
+            </button>
+            <button
+              className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 font-sans text-sm font-semibold opacity-85 hover:opacity-100"
+              onClick={() => {
+                showModal("CreatePlayList", {
+                  title: albumItem.title,
+                  description: albumItem.artist,
+                  musicItems: albumItem._musicList,
+                });
+              }}
+            >
+              <StaticIcon iconName="add-playlist" size={20} />
+              재생목록 만들기
             </button>
           </div>
         </div>

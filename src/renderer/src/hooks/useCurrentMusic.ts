@@ -7,9 +7,15 @@ export const useCurrentMusic = () => {
   const asyncMediaSource = useAtomValue(mediaSourceAtom);
   const [playlist, setPlaylist] = useAtom(playListAtom);
 
-  const playMusicWithAddPlaylist = (music: MusicItem) => {
-    setCurrentItem(music);
-    addPlaylist(music);
+  const playWithAddPlaylist = (musicItem: MusicItem) => {
+    setCurrentItem(musicItem);
+    addPlaylist(musicItem);
+  };
+
+  const playWithAddAllPlaylist = (musicItem: MusicItem, musicItems: MusicItem[]) => {
+    if (!musicItem) return;
+    setCurrentItem(musicItem);
+    mergePlaylist(musicItems);
   };
 
   const addPlaylist = (musicItem: MusicItem) => {
@@ -17,6 +23,15 @@ export const useCurrentMusic = () => {
       const newPlayList = [...playlist, musicItem];
       setPlaylist(newPlayList);
     }
+  };
+
+  const mergePlaylist = (musicItems: MusicItem[]) => {
+    setPlaylist((prev) => {
+      const newItems = musicItems.filter((musicItem) => {
+        return !prev.some((it) => it.id === musicItem.id);
+      });
+      return [...prev, ...newItems];
+    });
   };
 
   const removePlaylist = (id: string) => {
@@ -41,11 +56,12 @@ export const useCurrentMusic = () => {
     currentItem,
     setCurrentItem,
     asyncMediaSource,
-    playMusicWithAddPlaylist,
+    playWithAddPlaylist,
     playlist,
     setPlaylist,
     addPlaylist,
     removePlaylist,
     addNextTrack,
+    playWithAddAllPlaylist,
   };
 };

@@ -1,9 +1,10 @@
-import { contextBridge } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 import { i18n, appConfig, shortcut, plugin, notification, common, worker, fsDelegate } from "./api";
 
 if (!process.contextIsolated) {
   throw new Error("contextIsolation must be enabled in the BrowserWindow");
 }
+ipcRenderer.setMaxListeners(30);
 
 try {
   contextBridge.exposeInMainWorld("common", common);

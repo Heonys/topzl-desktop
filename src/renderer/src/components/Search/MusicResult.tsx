@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const MusicResult = ({ musicItems, isEnd, mediaType }: Props) => {
-  const { currentItem, playMusicWithAddPlaylist } = useCurrentMusic();
+  const { currentItem, playWithAddPlaylist } = useCurrentMusic();
   const { isFavorite, favorite, unfavorite } = useFavorite();
   const { showModal } = useModal();
 
@@ -52,7 +52,7 @@ export const MusicResult = ({ musicItems, isEnd, mediaType }: Props) => {
                   : " hover:bg-gray-100 hover:opacity-100",
               )}
               onDoubleClick={() => {
-                playMusicWithAddPlaylist(item);
+                playWithAddPlaylist(item);
               }}
             >
               <div className="flex flex-col gap-0">

@@ -128,7 +128,7 @@ export const PlayListTable = ({
   maxheight,
   draggable,
 }: Props) => {
-  const { addNextTrack, playMusicWithAddPlaylist } = useCurrentMusic();
+  const { addNextTrack, playWithAddPlaylist } = useCurrentMusic();
   const [sorting, setSorting] = useState<SortingState>([]);
   const { showContextMenu } = useContextMenu();
   const { favorite } = useFavorite();
@@ -201,7 +201,7 @@ export const PlayListTable = ({
               className="relative h-10 text-sm font-medium even:bg-black/5"
               draggable={draggable}
               onDoubleClick={() => {
-                playMusicWithAddPlaylist(row.original);
+                playWithAddPlaylist(row.original);
               }}
               onDragStart={(e) => {
                 assignToDrag(e, TAG, index);

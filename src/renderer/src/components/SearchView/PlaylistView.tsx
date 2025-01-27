@@ -5,14 +5,18 @@ import { cn, getDefaultImage, setFallbackImage } from "@/utils";
 import { MusicSheetItem } from "@shared/plugin/type";
 import { PlayListTable } from "../Playlist";
 import { useState } from "react";
+import { useCurrentMusic } from "@/hooks";
+import { useModal } from "../Modal/useModal";
 
 type Props = {
   playlistItem: MusicSheetItem;
 };
 
 export const PlaylistView = ({ playlistItem }: Props) => {
+  const { playWithAddAllPlaylist } = useCurrentMusic();
   const { isLoading, musicList } = useAlbumDetail(playlistItem);
   const [like, setLike] = useState(false);
+  const { showModal } = useModal();
 
   return (
     <>
@@ -44,7 +48,12 @@ export const PlaylistView = ({ playlistItem }: Props) => {
             <div className="text-sm text-black/50">{`트랙 ${playlistItem.worksNum}개 • 생성일 ${playlistItem.createAt}`}</div>
           </div>
           <div className="flex gap-2">
-            <button className="flex items-center gap-2 rounded-lg bg-blue-200 p-2 px-4 font-sans text-sm font-semibold text-blue-600 opacity-85 hover:opacity-100">
+            <button
+              className="flex items-center gap-2 rounded-lg bg-blue-200 p-2 px-4 font-sans text-sm font-semibold text-blue-600 opacity-85 hover:opacity-100"
+              onClick={() => {
+                playWithAddAllPlaylist(musicList[0], musicList);
+              }}
+            >
               <StaticIcon iconName="play" size={13} />
               전체 재생
             </button>
@@ -65,9 +74,18 @@ export const PlaylistView = ({ playlistItem }: Props) => {
               />
               좋아요
             </button>
-            <button className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 font-sans text-sm font-semibold opacity-85 hover:opacity-100">
+            <button
+              className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 font-sans text-sm font-semibold opacity-85 hover:opacity-100"
+              onClick={() => {
+                showModal("CreatePlayList", {
+                  title: playlistItem.title,
+                  description: playlistItem.artist,
+                  musicItems: musicList,
+                });
+              }}
+            >
               <StaticIcon iconName="add-playlist" size={20} />
-              재생목록에 추가
+              재생목록 만들기
             </button>
           </div>
         </div>

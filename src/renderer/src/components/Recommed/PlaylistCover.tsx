@@ -6,13 +6,13 @@ type Props = {
 };
 
 export const PlaylistCover = ({ musicItem }: Props) => {
-  const { playMusicWithAddPlaylist } = useCurrentMusic();
+  const { playWithAddPlaylist } = useCurrentMusic();
   return (
     <div className="group flex flex-col gap-2">
       <div
         className="relative aspect-square flex-1 overflow-hidden rounded-xl group-hover:opacity-90"
         onDoubleClick={() => {
-          playMusicWithAddPlaylist(musicItem);
+          playWithAddPlaylist(musicItem);
         }}
       >
         <div
@@ -25,7 +25,7 @@ export const PlaylistCover = ({ musicItem }: Props) => {
             color="white"
             className="cursor-pointer"
             onClick={() => {
-              playMusicWithAddPlaylist(musicItem);
+              playWithAddPlaylist(musicItem);
             }}
           />
         </div>

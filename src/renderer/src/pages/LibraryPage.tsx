@@ -58,7 +58,7 @@ export const LibraryPage = () => {
             <Condition condition={selectedList}>
               <div className="text-sm text-black/50">{`트랙 ${selectedList?.data.length}개 • 업데이트 ${selectedList?.date}`}</div>
             </Condition>
-            <div className="mt-3">{selectedList?.description}</div>
+            <div className="mt-3 font-medium">{selectedList?.description}</div>
           </div>
           <div className="flex gap-2">
             <button
@@ -91,7 +91,7 @@ export const LibraryPage = () => {
           <TabList className="flex gap-4 font-sans font-semibold">
             <Tab className="border-b-4 border-blue-300 transition-all">보관함</Tab>
           </TabList>
-          <div className="grid max-h-[320px] grid-cols-6 place-items-center gap-2 overflow-y-auto pt-4">
+          <div className="grid max-h-[320px] grid-cols-6 place-items-center gap-2 overflow-y-auto pt-2">
             <AlbumCover
               title="새 재생목록 추가"
               iconName="plus"
