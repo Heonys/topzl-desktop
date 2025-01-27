@@ -10,23 +10,27 @@ const downloadQueue = new PQueue({ concurrency: 5 });
 const initPath = window.common.getGlobalContext().appPath.downloads;
 const INIT_PROGRESS = { id: "INIT_PROGRESS", state: DownloadState.NONE };
 
-export const useDownload = (musicItem: MusicItem) => {
+export const useDownload = (musicItem?: MusicItem) => {
   const [downloadedList, setDownloadedList] = useAtom(downloadedMusicAtom);
   const [status, setStatus] = useState<DownloadProgress>(INIT_PROGRESS);
 
   useEffect(() => {
-    setStatus(downloadProgressMap.get(musicItem.id) || INIT_PROGRESS);
-    const cleanup = window.worker.syncStatus((progress) => {
-      downloadProgressMap.set(progress.id, progress);
-      setStatus(progress);
-    });
-    return cleanup;
+    if (musicItem) {
+      setStatus(downloadProgressMap.get(musicItem.id) || INIT_PROGRESS);
+      const cleanup = window.worker.syncStatus((progress) => {
+        downloadProgressMap.set(progress.id, progress);
+        setStatus(progress);
+      });
+      return cleanup;
+    }
   }, [musicItem]);
 
   const getStatus = () => {
-    const id = musicItem.id;
-    if (status.id === id) return status;
-    return downloadProgressMap.get(id) ?? { id, state: DownloadState.NONE };
+    if (musicItem) {
+      const id = musicItem.id;
+      if (status.id === id) return status;
+      return downloadProgressMap.get(id) ?? { id, state: DownloadState.NONE };
+    }
   };
 
   const isDownloaded = (id: string) => {
@@ -68,5 +72,11 @@ export const useDownload = (musicItem: MusicItem) => {
     downloadQueue.concurrency = Math.min(20, Math.max(1, concurrency));
   };
 
-  return { isDownloaded, download, setConcurrency, getMediaSource, getStatus };
+  return {
+    isDownloaded,
+    download,
+    setConcurrency,
+    getMediaSource,
+    getStatus,
+  };
 };

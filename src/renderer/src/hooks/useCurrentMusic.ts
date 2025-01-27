@@ -12,9 +12,9 @@ export const useCurrentMusic = () => {
     addPlaylist(music);
   };
 
-  const addPlaylist = (music: MusicItem) => {
-    if (!playlist.find((it) => it.id === music.id)) {
-      const newPlayList = [...playlist, music];
+  const addPlaylist = (musicItem: MusicItem) => {
+    if (!playlist.find((it) => it.id === musicItem.id)) {
+      const newPlayList = [...playlist, musicItem];
       setPlaylist(newPlayList);
     }
   };
@@ -22,6 +22,19 @@ export const useCurrentMusic = () => {
   const removePlaylist = (id: string) => {
     const newPlayList = playlist.filter((it) => it.id !== id);
     setPlaylist(newPlayList);
+  };
+
+  const addNextTrack = (musicItem: MusicItem) => {
+    if (!currentItem) {
+      addPlaylist(musicItem);
+    } else {
+      const targetIndex = playlist.indexOf(currentItem);
+      setPlaylist((prevList) => [
+        ...prevList.slice(0, targetIndex + 1),
+        musicItem,
+        ...prevList.slice(targetIndex + 1),
+      ]);
+    }
   };
 
   return {
@@ -33,5 +46,6 @@ export const useCurrentMusic = () => {
     setPlaylist,
     addPlaylist,
     removePlaylist,
+    addNextTrack,
   };
 };

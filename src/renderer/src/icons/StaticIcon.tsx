@@ -37,8 +37,10 @@ import { BsFolderPlus } from "react-icons/bs";
 import { RiLoader2Fill } from "react-icons/ri";
 import { MdErrorOutline, MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { MdAudiotrack } from "react-icons/md";
-import { MdOutlineExplore } from "react-icons/md";
-import { MdOutlinePrivacyTip } from "react-icons/md";
+import { MdOutlineExplore, MdOutlinePrivacyTip, MdOutlinePlaylistPlay } from "react-icons/md";
+import { MdPlaylistRemove } from "react-icons/md";
+
+export type IconNames = keyof typeof IconMap;
 
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
@@ -83,6 +85,8 @@ const IconMap = {
   ["trash"]: FaRegTrashAlt,
   ["down"]: FaChevronDown,
   ["add-playlist"]: MdOutlinePlaylistAdd,
+  ["next-playlist"]: MdOutlinePlaylistPlay,
+  ["remove-playlist"]: MdPlaylistRemove,
   ["library-music"]: MdOutlineLibraryMusic,
   ["apple"]: SiApplemusic,
   ["rename"]: HiOutlinePencilSquare,

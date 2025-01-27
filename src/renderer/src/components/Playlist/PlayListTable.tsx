@@ -10,11 +10,13 @@ import {
 } from "@tanstack/react-table";
 import { Case, Condition, Droppable, IconButton, Switch } from "@/common";
 import { Empty } from "@/common/Empty";
-import { useContextMenu, useCurrentMusic } from "@/hooks";
+import { useContextMenu, useCurrentMusic, useFavorite, useDownload } from "@/hooks";
 import StaticIcon from "@/icons/StaticIcon";
 import { assignToDrag, formatTime } from "@/utils";
 import { MusicItem } from "@shared/plugin/type";
 import { FavoriteButton, DownloadButton } from "@/components/Playlist";
+import { ContextMenuItem } from "@/atom";
+import { useModal } from "../Modal/useModal";
 
 const TAG = "playlist-table";
 const columnHelper = createColumnHelper<MusicItem>();
@@ -126,9 +128,12 @@ export const PlayListTable = ({
   maxheight,
   draggable,
 }: Props) => {
-  const { setCurrentItem } = useCurrentMusic();
+  const { addNextTrack, playMusicWithAddPlaylist } = useCurrentMusic();
   const [sorting, setSorting] = useState<SortingState>([]);
   const { showContextMenu } = useContextMenu();
+  const { favorite } = useFavorite();
+  const { download, isDownloaded } = useDownload();
+  const { showModal } = useModal();
 
   const columns = createColumns({
     onRemove: removePlaylist,
@@ -196,7 +201,7 @@ export const PlayListTable = ({
               className="relative h-10 text-sm font-medium even:bg-black/5"
               draggable={draggable}
               onDoubleClick={() => {
-                setCurrentItem(row.original);
+                playMusicWithAddPlaylist(row.original);
               }}
               onDragStart={(e) => {
                 assignToDrag(e, TAG, index);
@@ -205,15 +210,49 @@ export const PlayListTable = ({
                 showContextMenu({
                   x: e.clientX,
                   y: e.clientY,
+                  musicInfo: row.original,
                   menuItems: [
                     {
-                      title: "rename",
-                      onClick: () => {},
+                      type: "menu",
+                      icon: "next-playlist",
+                      title: "다음 곡으로 추가",
+                      onClick: () => addNextTrack(row.original),
                     },
                     {
-                      title: "delete",
-                      onClick: () => {},
+                      type: "menu",
+                      icon: "add-playlist",
+                      title: "재생목록에 저장",
+                      onClick: () => {
+                        showModal("SelectPlaylist", { selectedItem: row.original });
+                      },
                     },
+                    ...(removePlaylist
+                      ? [
+                          {
+                            type: "menu",
+                            icon: "remove-playlist",
+                            title: "현재 재생목록에서 삭제",
+                            onClick: () => removePlaylist(row.original.id),
+                          } as ContextMenuItem,
+                        ]
+                      : []),
+                    {
+                      type: "menu",
+                      icon: "heart",
+                      title: "좋아요 목록에 추가",
+                      onClick: () => favorite(row.original),
+                    },
+                    ...(!isDownloaded(row.original.id)
+                      ? ([
+                          { type: "divider" },
+                          {
+                            type: "menu",
+                            icon: "download",
+                            title: "다운로드",
+                            onClick: () => download(row.original),
+                          },
+                        ] as ContextMenuItem[])
+                      : []),
                   ],
                 });
               }}

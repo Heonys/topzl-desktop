@@ -91,7 +91,7 @@ export const LibraryPage = () => {
           <TabList className="flex gap-4 font-sans font-semibold">
             <Tab className="border-b-4 border-blue-300 transition-all">보관함</Tab>
           </TabList>
-          <div className="grid max-h-[320px] grid-cols-6 place-items-center gap-1 overflow-y-auto pt-4">
+          <div className="grid max-h-[320px] grid-cols-6 place-items-center gap-2 overflow-y-auto pt-4">
             <AlbumCover
               title="새 재생목록 추가"
               iconName="plus"

@@ -37,7 +37,7 @@ function MemoizedDownloadButton({ musicItem }: { musicItem: MusicItem }) {
           size={17}
           opacity
         />
-      ) : status.id === musicItem.id ? (
+      ) : status?.id === musicItem.id ? (
         <Switch switch={status?.state}>
           <Case case={DownloadState.LOADING}>
             <motion.div

@@ -93,14 +93,19 @@ export const currentPlayerStateAtom = atom(PlayerState.None);
 
 // 컨텍스트 메뉴
 
-export type ContextMenuItem = {
-  icon?: string;
-  title: string;
-  divider?: boolean;
-  onClick?: () => void;
-};
+export type ContextMenuItem =
+  | {
+      type: "menu";
+      icon?: string;
+      title?: string;
+      onClick?: () => void;
+    }
+  | {
+      type: "divider";
+    };
 
 export type ContextMenu = {
+  musicInfo?: MusicItem;
   menuItems: ContextMenuItem[];
   x: number;
   y: number;

@@ -11,3 +11,4 @@ export * from "./useDirectoryManager";
 export * from "./useSearchHistory";
 export * from "./useAlbumDetail";
 export * from "./useContextMenu";
+export * from "./useDownload";
