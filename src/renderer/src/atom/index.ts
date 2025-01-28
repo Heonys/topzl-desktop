@@ -88,7 +88,8 @@ export const initProgress = {
 export const currentProgressAtom = atom(initProgress);
 export const currentVolumeAtom = atom(0.2);
 export const currentSpeedAtom = atom(1);
-export const currentRepeatModeAtom = atom(RepeatMode.Queue);
+export const currentRepeatModeAtom = atom(RepeatMode.None);
+export const currentShuffleModeAtom = atom(false);
 export const currentPlayerStateAtom = atom(PlayerState.None);
 
 // 컨텍스트 메뉴

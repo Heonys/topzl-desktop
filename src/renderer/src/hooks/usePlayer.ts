@@ -6,6 +6,7 @@ import {
   currentVolumeAtom,
   currentSpeedAtom,
   currentRepeatModeAtom,
+  currentShuffleModeAtom,
 } from "@/atom";
 
 export const usePlayer = () => {
@@ -15,6 +16,7 @@ export const usePlayer = () => {
   const speed = useAtomValue(currentSpeedAtom);
 
   const [repeatMode, setRepeatMode] = useAtom(currentRepeatModeAtom);
+  const [shuffleMode, setSuffleMode] = useAtom(currentShuffleModeAtom);
 
   const toggleRepeatMode = () => {
     let nextRepeatMode = repeatMode;
@@ -24,15 +26,19 @@ export const usePlayer = () => {
         break;
       }
       case RepeatMode.Loop: {
-        nextRepeatMode = RepeatMode.Shuffle;
+        nextRepeatMode = RepeatMode.None;
         break;
       }
-      case RepeatMode.Shuffle: {
+      case RepeatMode.None: {
         nextRepeatMode = RepeatMode.Queue;
         break;
       }
     }
     setRepeatMode(nextRepeatMode);
+  };
+
+  const toggleShuffleMode = () => {
+    setSuffleMode((prev) => !prev);
   };
 
   return {
@@ -42,5 +48,7 @@ export const usePlayer = () => {
     speed,
     repeatMode,
     toggleRepeatMode,
+    shuffleMode,
+    toggleShuffleMode,
   };
 };

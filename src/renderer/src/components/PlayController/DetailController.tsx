@@ -19,6 +19,8 @@ export const DetailController = ({ currentItem }: Props) => {
     volume,
     repeatMode,
     toggleRepeatMode,
+    shuffleMode,
+    toggleShuffleMode,
   } = usePlayer();
   const lastVolumeRef = useRef<number>();
 
@@ -91,14 +93,14 @@ export const DetailController = ({ currentItem }: Props) => {
         <div className="flex items-center justify-center gap-6">
           <div onClick={toggleRepeatMode}>
             <Switch switch={repeatMode}>
-              <Case case={RepeatMode.Queue}>
+              <Case case={RepeatMode.None}>
                 <IconButton iconName="repeat" size={15} color={GRAY} />
               </Case>
-              <Case case={RepeatMode.Loop}>
-                <IconButton iconName="repeat-1" size={15} color={GRAY} />
+              <Case case={RepeatMode.Queue}>
+                <IconButton iconName="repeat" size={15} color="white" opacity />
               </Case>
-              <Case case={RepeatMode.Shuffle}>
-                <IconButton iconName="shuffle" size={15} color={GRAY} />
+              <Case case={RepeatMode.Loop}>
+                <IconButton iconName="repeat-1" size={15} color="white" opacity />
               </Case>
             </Switch>
           </div>
@@ -130,7 +132,13 @@ export const DetailController = ({ currentItem }: Props) => {
               trackPlayer.skipToNext();
             }}
           />
-          <IconButton iconName="shuffle" size={15} color={GRAY} />
+          <div onClick={toggleShuffleMode}>
+            {shuffleMode ? (
+              <IconButton iconName="shuffle" size={15} color="white" opacity />
+            ) : (
+              <IconButton iconName="shuffle" size={15} color={GRAY} />
+            )}
+          </div>
         </div>
       </div>
     </div>

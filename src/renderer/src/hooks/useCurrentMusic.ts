@@ -1,11 +1,12 @@
 import { useAtom, useAtomValue } from "jotai";
-import { currentMusicAtom, mediaSourceAtom, playListAtom } from "@/atom";
+import { currentMusicAtom, mediaSourceAtom, playListAtom, getCurrentListIndex } from "@/atom";
 import { MusicItem } from "@shared/plugin/type";
 
 export const useCurrentMusic = () => {
   const [currentItem, setCurrentItem] = useAtom(currentMusicAtom);
   const asyncMediaSource = useAtomValue(mediaSourceAtom);
   const [playlist, setPlaylist] = useAtom(playListAtom);
+  const curretIndex = useAtomValue(getCurrentListIndex);
 
   const playWithAddPlaylist = (musicItem: MusicItem) => {
     setCurrentItem(musicItem);
@@ -63,5 +64,6 @@ export const useCurrentMusic = () => {
     removePlaylist,
     addNextTrack,
     playWithAddAllPlaylist,
+    curretIndex,
   };
 };

@@ -101,8 +101,8 @@ export interface PluginDefine {
 }
 
 export enum RepeatMode {
-  Shuffle = "shuffle",
-  Queue = "queue-repeat",
+  None = "none",
+  Queue = "queue",
   Loop = "loop",
 }
 

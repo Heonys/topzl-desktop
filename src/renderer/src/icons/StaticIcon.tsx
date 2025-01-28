@@ -17,7 +17,7 @@ import { HiOutlineCodeBracketSquare } from "react-icons/hi2";
 import { GoPlus } from "react-icons/go";
 import { IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
 import { BiSolidVolumeFull, BiSolidVolumeMute, BiSolidPlaylist } from "react-icons/bi";
-import { LuRepeat, LuRepeat1, LuShuffle } from "react-icons/lu";
+import { LuRepeat, LuRepeat1 } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
 import { MdOutlinePlaylistAdd } from "react-icons/md";
 import { FiDownload } from "react-icons/fi";
@@ -39,6 +39,8 @@ import { MdErrorOutline, MdNavigateNext, MdNavigateBefore } from "react-icons/md
 import { MdAudiotrack } from "react-icons/md";
 import { MdOutlineExplore, MdOutlinePrivacyTip, MdOutlinePlaylistPlay } from "react-icons/md";
 import { MdPlaylistRemove } from "react-icons/md";
+import { PiShuffleAngularBold } from "react-icons/pi";
+import { PiShuffleBold } from "react-icons/pi";
 
 export type IconNames = keyof typeof IconMap;
 
@@ -80,7 +82,8 @@ const IconMap = {
   ["playlist"]: BiSolidPlaylist,
   ["repeat"]: LuRepeat,
   ["repeat-1"]: LuRepeat1,
-  ["shuffle"]: LuShuffle,
+  ["shuffle"]: PiShuffleBold,
+  ["shuffle2"]: PiShuffleAngularBold,
   ["speed"]: MdOutlineSpeed,
   ["trash"]: FaRegTrashAlt,
   ["down"]: FaChevronDown,

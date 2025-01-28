@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import { getDefaultStore } from "jotai";
+import shuffle from "lodash.shuffle";
 import playerEventEmitter from "./eventEmitter";
 import {
   currentProgressAtom,
@@ -10,7 +11,11 @@ import {
   getCurrentListIndex,
   playListAtom,
   currentMusicAtom,
+  currentRepeatModeAtom,
+  currentShuffleModeAtom,
 } from "../../renderer/src/atom";
+import { RepeatMode } from "./type";
+import trackPlayer from "./trackPlayer";
 
 const store = getDefaultStore();
 
@@ -28,10 +33,26 @@ export async function setupPlayer() {
 function setupEvent() {
   playerEventEmitter.on("play-end", () => {
     store.set(currentProgressAtom, initProgress);
-    /*
-     1. progress bar 상태 초기화
-     2. 반복모드 종류에 따라서 현재 음악 다시 재생할지 재생목록의 음악 재생할지 확인
-    */
+
+    const playList = store.get(playListAtom);
+    const currentIndex = store.get(getCurrentListIndex);
+
+    const repeadMode = store.get(currentRepeatModeAtom);
+    switch (repeadMode) {
+      case RepeatMode.None:
+        trackPlayer.skipToNext();
+        break;
+      case RepeatMode.Queue:
+        if (playList.length - 1 === currentIndex) {
+          store.set(currentMusicAtom, playList[0]);
+        } else {
+          trackPlayer.skipToNext();
+        }
+        break;
+      case RepeatMode.Loop:
+        trackPlayer.play();
+        break;
+    }
   });
 
   playerEventEmitter.on("time-updated", (playload) => {
@@ -69,9 +90,23 @@ function setupEvent() {
   playerEventEmitter.on("play-next", () => {
     const playList = store.get(playListAtom);
     const currentIndex = store.get(getCurrentListIndex);
+    const currentShuffleMode = store.get(currentShuffleModeAtom);
+
     if (currentIndex < playList.length - 1) {
-      const nextTrack = playList[currentIndex + 1];
-      store.set(currentMusicAtom, nextTrack);
+      if (currentShuffleMode) {
+        const beforeList = playList.slice(0, currentIndex + 1);
+        const afterList = playList.slice(currentIndex + 1);
+        const newList = [...beforeList, ...shuffle(afterList)];
+        store.set(playListAtom, newList);
+        store.set(currentMusicAtom, newList[currentIndex + 1]);
+      } else {
+        const nextTrack = playList[currentIndex + 1];
+        store.set(currentMusicAtom, nextTrack);
+      }
     }
+    // if (currentIndex < playList.length - 1) {
+    //   const nextTrack = playList[currentIndex + 1];
+    //   store.set(currentMusicAtom, nextTrack);
+    // }
   });
 }

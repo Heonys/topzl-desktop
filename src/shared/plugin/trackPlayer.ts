@@ -167,10 +167,6 @@ class TrackPlayer {
     }
   }
 
-  setLoop(isLoop: boolean) {
-    this.audio.loop = isLoop;
-  }
-
   isPlaying() {
     return !this.audio.paused;
   }

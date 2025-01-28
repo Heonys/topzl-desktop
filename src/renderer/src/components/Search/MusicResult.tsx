@@ -1,9 +1,11 @@
 import { Condition, IconButton } from "@/common";
 import { useModal } from "../Modal/useModal";
-import { useCurrentMusic } from "@/hooks";
+import { useCurrentMusic, usePlayer } from "@/hooks";
 import { cn, formatTime, setFallbackImage } from "@/utils";
 import { Empty } from "@/common/Empty";
 import { LoadMoreFooter } from "./LoadMoreFooter";
+import { Equaliser } from "@/common/Equaliser";
+import { PlayerState } from "@shared/plugin/type";
 
 type Props = {
   musicItems: MusicItem[];
@@ -13,6 +15,7 @@ type Props = {
 
 export const MusicResult = ({ musicItems, isEnd, mediaType }: Props) => {
   const { currentItem, playWithAddPlaylist } = useCurrentMusic();
+  const { playerState } = usePlayer();
   const { showModal } = useModal();
 
   return (
@@ -32,8 +35,12 @@ export const MusicResult = ({ musicItems, isEnd, mediaType }: Props) => {
                 : "hover:bg-gray-100 hover:opacity-100",
             )}
           >
-            <div className="w-7 font-lex text-sm font-semibold">
-              {`${index + 1}`.padStart(2, "0")}
+            <div className="flex w-7 items-center justify-center font-lex text-sm font-semibold">
+              {id === currentItem?.id && playerState === PlayerState.Playing ? (
+                <Equaliser />
+              ) : (
+                `${index + 1}`.padStart(2, "0")
+              )}
             </div>
             <img
               className="size-14 rounded-md object-cover"

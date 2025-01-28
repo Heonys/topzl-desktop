@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Slider from "rc-slider";
 import trackPlayer from "@shared/plugin/trackPlayer";
-import { setFallbackImage, getDefaultImage } from "@/utils";
+import { setFallbackImage, getDefaultImage, cn } from "@/utils";
 import { Switch, Case, IconButton } from "@/common";
 import { PlayerState, RepeatMode } from "@shared/plugin/type";
 import { usePanel, useDetail, usePlayer, useCurrentMusic } from "@/hooks";
@@ -14,6 +14,8 @@ export const PlayController = () => {
     speed,
     repeatMode,
     toggleRepeatMode,
+    shuffleMode,
+    toggleShuffleMode,
   } = usePlayer();
   const { currentItem } = useCurrentMusic();
   const { onOpen } = useDetail();
@@ -107,7 +109,7 @@ export const PlayController = () => {
           onMouseOver={() => setShowBubble(true)}
           onMouseOut={() => setShowBubble(false)}
         >
-          <IconButton iconName="speed" size={18} opacity />
+          <IconButton iconName="speed" size={18} opacity title="재생속도" />
           {showBubble && (
             <div className="absolute bottom-full left-1/2 flex h-32 w-12 -translate-x-1/2  flex-col items-center justify-center gap-2 bg-white shadow-xl">
               <Slider
@@ -132,17 +134,32 @@ export const PlayController = () => {
         </div>
         <div onClick={toggleRepeatMode}>
           <Switch switch={repeatMode}>
+            <Case case={RepeatMode.None}>
+              <IconButton
+                iconName="repeat"
+                size={18}
+                className="opacity-30"
+                title="반복하지 않음"
+              />
+            </Case>
             <Case case={RepeatMode.Queue}>
-              <IconButton iconName="repeat" size={18} opacity />
+              <IconButton iconName="repeat" size={18} opacity title="전체 반복" />
             </Case>
             <Case case={RepeatMode.Loop}>
-              <IconButton iconName="repeat-1" size={18} opacity />
-            </Case>
-            <Case case={RepeatMode.Shuffle}>
-              <IconButton iconName="shuffle" size={18} opacity />
+              <IconButton iconName="repeat-1" size={18} opacity title="한곡 반복" />
             </Case>
           </Switch>
         </div>
+        <IconButton
+          iconName="shuffle"
+          size={18}
+          className={cn("cursor-pointer", shuffleMode ? "opacity-100" : "opacity-30")}
+          title={shuffleMode ? "셔플" : "셔플 비활성화"}
+          onClick={toggleShuffleMode}
+        />
+
+        <IconButton onClick={onToggle} iconName="playlist" size={18} opacity title="재생목록" />
+
         <div className="flex items-center gap-1">
           <IconButton
             onClick={() => {
@@ -157,6 +174,7 @@ export const PlayController = () => {
             iconName={volume === 0 ? "mute" : "volume"}
             size={18}
             opacity
+            title="음량"
           />
           <Slider
             min={0}
@@ -174,7 +192,6 @@ export const PlayController = () => {
             }}
           />
         </div>
-        <IconButton onClick={onToggle} iconName="playlist" size={18} opacity />
       </div>
     </div>
   );
