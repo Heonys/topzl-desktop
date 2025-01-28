@@ -50,6 +50,12 @@
     src: url('./assets/fonts/NotoSansKR-Bold.ttf') format('truetype');
   }
 
+  @font-face {
+    font-family: 'Lexend Giga';
+    font-weight: 400;
+    src: url('./assets/fonts/LexendGiga-Regular.ttf') format('truetype');
+  }
+
   #app {
     @apply h-full
   }

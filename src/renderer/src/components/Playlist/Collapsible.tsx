@@ -1,6 +1,6 @@
 import { motion, AnimatePresence, Variants } from "motion/react";
 import { usePanel } from "@/hooks";
-import { Playlist } from "./Playlist";
+import { CollapsiblePlaylist } from "./CollapsiblePlaylist";
 
 const variants: Variants = {
   hidden: {
@@ -42,7 +42,7 @@ export const Collapsible = () => {
             animate="visible"
             exit="exit"
           >
-            <Playlist />
+            <CollapsiblePlaylist />
           </motion.div>
         </motion.div>
       )}

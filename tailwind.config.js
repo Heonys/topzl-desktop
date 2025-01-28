@@ -9,7 +9,8 @@ export default {
       fontFamily: {
         barlow: ["Barlow"],
         dh: ["Do Hyeon"],
-        sans: ["Sans"]
+        sans: ["Sans"],
+        lex: ["Lexend Giga"]
       }
     },
   },

@@ -243,15 +243,14 @@ export const PlayListTable = ({
                       onClick: () => favorite(row.original),
                     },
                     ...(!isDownloaded(row.original.id)
-                      ? ([
-                          { type: "divider" },
+                      ? [
                           {
                             type: "menu",
                             icon: "download",
                             title: "다운로드",
                             onClick: () => download(row.original),
-                          },
-                        ] as ContextMenuItem[])
+                          } as ContextMenuItem,
+                        ]
                       : []),
                   ],
                 });

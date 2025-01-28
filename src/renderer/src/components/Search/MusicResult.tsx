@@ -1,6 +1,6 @@
 import { Condition, IconButton } from "@/common";
 import { useModal } from "../Modal/useModal";
-import { useCurrentMusic, useFavorite } from "@/hooks";
+import { useCurrentMusic } from "@/hooks";
 import { cn, formatTime, setFallbackImage } from "@/utils";
 import { Empty } from "@/common/Empty";
 import { LoadMoreFooter } from "./LoadMoreFooter";
@@ -13,7 +13,6 @@ type Props = {
 
 export const MusicResult = ({ musicItems, isEnd, mediaType }: Props) => {
   const { currentItem, playWithAddPlaylist } = useCurrentMusic();
-  const { isFavorite, favorite, unfavorite } = useFavorite();
   const { showModal } = useModal();
 
   return (
@@ -21,22 +20,21 @@ export const MusicResult = ({ musicItems, isEnd, mediaType }: Props) => {
       condition={musicItems.length > 0}
       fallback={<Empty message="조건에 맞는 검색 결과가 없습니다" />}
     >
-      {musicItems.map((item) => {
+      {musicItems.map((item, index) => {
         const { id, title, artist, artwork, duration } = item;
         return (
           <div
             key={id}
-            className="flex h-16 w-full cursor-pointer items-center gap-3 rounded-md px-3 py-1 text-base font-semibold"
+            className={cn(
+              "group flex h-16 w-full cursor-pointer items-center gap-2 rounded-md px-3 py-1 text-base font-semibold",
+              id === currentItem?.id
+                ? "bg-blue-100 opacity-100"
+                : "hover:bg-gray-100 hover:opacity-100",
+            )}
           >
-            <IconButton
-              iconName={isFavorite(item.id) ? "heart-fill" : "heart"}
-              color={isFavorite(item.id) ? "red" : "black"}
-              size={18}
-              onClick={() => {
-                if (isFavorite(item.id)) unfavorite(item.id);
-                else favorite(item);
-              }}
-            />
+            <div className="w-7 font-lex text-sm font-semibold">
+              {`${index + 1}`.padStart(2, "0")}
+            </div>
             <img
               className="size-14 rounded-md object-cover"
               src={artwork}
@@ -47,19 +45,31 @@ export const MusicResult = ({ musicItems, isEnd, mediaType }: Props) => {
             <div
               className={cn(
                 "flex flex-1 items-center justify-between h-full rounded-md px-3 opacity-70 focus:outline-none",
-                id === currentItem?.id
-                  ? "bg-blue-100 opacity-100"
-                  : " hover:bg-gray-100 hover:opacity-100",
+                "group-hover:opacity-100",
               )}
               onDoubleClick={() => {
                 playWithAddPlaylist(item);
               }}
             >
-              <div className="flex flex-col gap-0">
-                <div>{title}</div>
+              <div className="flex max-w-[550px] flex-1 flex-col">
+                <div className="truncate">{title}</div>
                 <div className="text-xs text-gray-600">{artist}</div>
               </div>
-              <div className="text-sm">{formatTime(duration)}</div>
+              {/* <div className="">
+                <div className="block group-hover:hidden"></div>
+                <div className="hidden flex-col group-hover:flex">
+                  <IconButton
+                    iconName={isFavorite(item.id) ? "heart-fill" : "heart"}
+                    color={isFavorite(item.id) ? "red" : "black"}
+                    size={18}
+                    onClick={() => {
+                      if (isFavorite(item.id)) unfavorite(item.id);
+                      else favorite(item);
+                    }}
+                  />
+                </div>
+              </div> */}
+              <div className="w-10 text-start font-barlow text-sm">{formatTime(duration)}</div>
             </div>
             <IconButton
               iconName="add-playlist"

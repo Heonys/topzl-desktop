@@ -5,7 +5,6 @@ import { getDefaultImage, setFallbackImage } from "@/utils";
 
 const MENU_ITEM_WIDTH = 220;
 const MENU_ITEM_HEIGHT = 36;
-const MENU_PADDING_HEIGHT = 70;
 const OFFSET = 5;
 
 export function ContextMenuContainer() {
@@ -25,7 +24,15 @@ export function ContextMenuContainer() {
     (acc, cur) => (cur.type === "divider" ? acc : acc + 1),
     0,
   );
-  const [computedX, computedY] = computedPosition(contextMenu.x, contextMenu.y, itemCount);
+
+  const MENU_PADDING_HEIGHT = contextMenu.musicInfo ? 70 : 0;
+
+  const [computedX, computedY] = computedPosition(
+    contextMenu.x,
+    contextMenu.y,
+    itemCount,
+    MENU_PADDING_HEIGHT,
+  );
 
   return (
     <div
@@ -72,8 +79,8 @@ export function ContextMenuContainer() {
   );
 }
 
-function computedPosition(x: number, y: number, count: number) {
-  const MENU_CONTAINER_MAX_HEIGHT = count * MENU_ITEM_HEIGHT + MENU_PADDING_HEIGHT;
+function computedPosition(x: number, y: number, count: number, padding: number) {
+  const MENU_CONTAINER_MAX_HEIGHT = count * MENU_ITEM_HEIGHT + padding;
   const isLeft = x < window.innerWidth / 2 ? 0 : 1;
   const isTop = y < window.innerHeight / 2 ? 0 : 2;
   switch (isLeft + isTop) {

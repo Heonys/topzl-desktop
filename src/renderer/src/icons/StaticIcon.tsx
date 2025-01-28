@@ -9,7 +9,7 @@ import { PiPushPinFill, PiVinylRecordDuotone } from "react-icons/pi";
 import { IoLanguage, IoSearch, IoStatsChart } from "react-icons/io5";
 import { MdDarkMode, MdOutlineLightMode, MdOutlineLyrics, MdOutlineSpeed } from "react-icons/md";
 import { FaGithub, FaPlay, FaPause, FaRegTrashAlt } from "react-icons/fa";
-import { GoHeart, GoHeartFill } from "react-icons/go";
+import { PiHeart, PiHeartFill } from "react-icons/pi";
 import { GrFormPreviousLink, GrFormNextLink, GrFormRefresh } from "react-icons/gr";
 import { HiOutlineTrophy } from "react-icons/hi2";
 import { IoFolderOpenOutline } from "react-icons/io5";
@@ -31,7 +31,7 @@ import { HiMiniHome } from "react-icons/hi2";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { IoCheckmark, IoCheckmarkCircleOutline } from "react-icons/io5";
 import { CgCloseR } from "react-icons/cg";
-import { IoMdNotificationsOutline, IoIosMore } from "react-icons/io";
+import { IoMdNotificationsOutline, IoIosMore, IoMdMore } from "react-icons/io";
 import { MdHistory } from "react-icons/md";
 import { BsFolderPlus } from "react-icons/bs";
 import { RiLoader2Fill } from "react-icons/ri";
@@ -58,8 +58,8 @@ const IconMap = {
   ["light-mode"]: MdOutlineLightMode,
   ["search"]: IoSearch,
   ["github"]: FaGithub,
-  ["heart"]: GoHeart,
-  ["heart-fill"]: GoHeartFill,
+  ["heart"]: PiHeart,
+  ["heart-fill"]: PiHeartFill,
   ["chart"]: IoStatsChart,
   ["record"]: PiVinylRecordDuotone,
   ["download"]: FiDownload,
@@ -106,6 +106,7 @@ const IconMap = {
   ["loading"]: RiLoader2Fill,
   ["error"]: MdErrorOutline,
   ["more"]: IoIosMore,
+  ["more-verticle"]: IoMdMore,
   ["navigate-next"]: MdNavigateNext,
   ["navigate-prev"]: MdNavigateBefore,
   ["track"]: MdAudiotrack,

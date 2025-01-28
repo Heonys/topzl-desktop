@@ -29,7 +29,7 @@ export const ListItem = ({
     <div
       className={twMerge(
         "even:bg-black/5",
-        "flex items-center justify-between p-2 text-sm absolute left-0 w-full font-sans font-semibold",
+        "flex items-center justify-between p-2 text-xs absolute left-0 w-full font-sans font-semibold",
         isPlaying ? "!bg-blue-100" : "hover:bg-gray-100",
       )}
       style={{ top }}
