@@ -3,7 +3,7 @@ import nodeEndpoint from "comlink/dist/umd/node-adapter";
 import fs from "fs-extra";
 import { rimraf } from "rimraf";
 import throttle from "lodash.throttle";
-import { Readable } from "node:stream";
+import { pipeline, Readable } from "node:stream";
 import type { ReadableStream } from "node:stream/web";
 import { parentPort } from "node:worker_threads";
 import { DownloadProgress, DownloadState } from "@shared/constant";
@@ -29,6 +29,39 @@ export class Downloader {
   }
 
   async downloadFile(id: string, mediaSource: string, filePath: string) {
+    const response = await fetch(mediaSource);
+    const webStream = response.body as ReadableStream;
+    const readableStream = Readable.fromWeb(webStream);
+    const writeStream = fs.createWriteStream(filePath);
+
+    const total = +response.headers.get("content-length")!;
+    let downloaded = 0;
+    this.state = DownloadState.LOADING;
+
+    const throttleUpdate = throttle((current: number) => {
+      if (this.state !== DownloadState.LOADING) return;
+      this.state = DownloadState.LOADING;
+      this._onChange({ id, state: this.state, current, total });
+    }, 100);
+
+    pipeline(readableStream, writeStream, (err) => {
+      if (err) {
+        this.state = DownloadState.ERROR;
+        this._onChange({ id, state: this.state, message: err.message });
+        this.removeFile(filePath);
+      } else {
+        this.state = DownloadState.DONE;
+        this._onChange({ id, state: this.state, current: total, total });
+      }
+    });
+
+    readableStream.on("data", (chunk) => {
+      downloaded += chunk.length;
+      throttleUpdate(downloaded);
+    });
+  }
+
+  async downloadFileCustomStream(id: string, mediaSource: string, filePath: string) {
     const response = await fetch(mediaSource);
     const webStream = response.body as ReadableStream;
     const total = +response.headers.get("content-length")!;

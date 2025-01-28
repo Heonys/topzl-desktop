@@ -1,14 +1,16 @@
 import { motion } from "motion/react";
 import defaultCover from "@/assets/images/defaultCover.webp";
+import { useNavigate } from "react-router-dom";
 
-// const mockSheet = {
-//   artistItem: { url_slug: "audiomack" },
-//   url_slug: "best-songs-of-24",
-// } as MusicSheetItem;
-
-export const BestPopular = () => {
+export const BestPopularCard = () => {
+  const navigate = useNavigate();
   return (
-    <div className="relative h-[200px] cursor-pointer overflow-hidden rounded-2xl">
+    <div
+      className="relative h-[200px] cursor-pointer overflow-hidden rounded-2xl"
+      onClick={() => {
+        navigate("/playlist/toplist");
+      }}
+    >
       <motion.img
         className="absolute left-0 top-0 w-full"
         src={defaultCover}

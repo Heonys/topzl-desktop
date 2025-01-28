@@ -11,6 +11,7 @@ import {
   MainPage,
   SearchViewPage,
   GuidelinePage,
+  BestPopularPage,
 } from "@/pages";
 import App from "@/App";
 
@@ -37,6 +38,7 @@ const router = createHashRouter(
         { path: "playlist", element: <PlaylistPage /> },
         { path: "playlist/current", element: <PlaylistPage /> },
         { path: "playlist/favorite", element: <FavoritePage /> },
+        { path: "playlist/toplist", element: <BestPopularPage /> },
         { path: "playlist/:title", element: <PlaylistWithTitlePage /> },
         { path: "library", element: <LibraryPage /> },
         { path: "setting", element: <SettingPage /> },

@@ -10,3 +10,4 @@ export * from "./FavoritePage";
 export * from "./MainPage";
 export * from "./SearchViewPage";
 export * from "./GuidelinePage";
+export * from "./BestPopularPage";

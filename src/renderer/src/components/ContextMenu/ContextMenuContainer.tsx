@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useContextMenu } from "@/hooks";
 import StaticIcon, { IconNames } from "@/icons/StaticIcon";
+import { getDefaultImage, setFallbackImage } from "@/utils";
 
 const MENU_ITEM_WIDTH = 220;
 const MENU_ITEM_HEIGHT = 36;
@@ -41,8 +42,9 @@ export function ContextMenuContainer() {
           <div className="box-border flex items-center gap-3 p-2">
             <img
               className="size-10 rounded-md object-cover"
-              src={contextMenu.musicInfo.artwork}
+              src={getDefaultImage(contextMenu.musicInfo.artwork)}
               alt="contextmenu image"
+              onError={setFallbackImage}
             />
             <div className="flex max-w-36 flex-col">
               <div className="truncate text-sm">{contextMenu.musicInfo.title}</div>

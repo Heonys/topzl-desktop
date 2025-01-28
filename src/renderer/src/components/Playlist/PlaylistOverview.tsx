@@ -27,7 +27,7 @@ export function PlaylistOverview({ playlist, title, description, date }: Props) 
         <div className="flex flex-1 flex-col gap-1">
           <h1 className="text-2xl font-bold">{title}</h1>
           <div className="text-sm text-black/50">{`트랙 ${playlist.length}개 • 업데이트 ${date || new Date().toLocaleDateString()}`}</div>
-          <div className="mt-3 font-medium">{description}</div>
+          <div className="mt-3 text-sm font-medium">{description}</div>
         </div>
         <div className="flex gap-2">
           <button

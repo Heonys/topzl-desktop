@@ -1,4 +1,4 @@
-import { Condition, IconButton, LoadingSpinner } from "@/common";
+import { Condition, LoadingSpinner } from "@/common";
 import { useRecommendList } from "@/hooks/useAlbumDetail";
 import { PlaylistCover } from "./PlaylistCover";
 import StaticIcon from "@/icons/StaticIcon";
@@ -21,7 +21,6 @@ export const QuickRecommend = () => {
             <StaticIcon iconName="record" size={20} />
             <h1 className="font-sans text-2xl font-bold ">빠른 선곡</h1>
           </div>
-          <IconButton iconName="more" className="mr-3 self-end" size={25} />
         </div>
         <div className="grid w-full grid-cols-5 gap-3">
           {musicList.map((item) => (

@@ -60,7 +60,7 @@ export const LibraryPage = () => {
             <Condition condition={selectedList}>
               <div className="text-sm text-black/50">{`트랙 ${selectedList?.data.length}개 • 업데이트 ${selectedList?.date}`}</div>
             </Condition>
-            <div className="mt-3 font-medium">{selectedList?.description}</div>
+            <div className="mt-3 text-sm font-medium">{selectedList?.description}</div>
           </div>
           <div className="flex gap-2">
             <button
