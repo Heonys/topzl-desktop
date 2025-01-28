@@ -1,8 +1,8 @@
 import { useCurrentMusic, useLibrary } from "@/hooks";
 import { Backdrop, Contents, Header } from "./Layout";
 import { useModal } from "./useModal";
-import { PlaylistCover } from "../Playlist";
 import { MusicItem } from "@shared/plugin/type";
+import { ModalNewPlaylistCover, ModalPlaylistCover } from "./ModalPlaylistCover";
 
 type Props = {
   selectedItem: MusicItem;
@@ -30,8 +30,9 @@ const SelectPlaylist = ({ selectedItem }: Props) => {
           <div className="font-sans font-semibold">재생목록에 저장</div>
         </Header>
         <Contents>
-          <div className="mx-3 flex h-full flex-1 flex-col gap-2">
-            <PlaylistCover
+          <div className="mx-1 flex h-full flex-1 flex-col gap-1 overflow-y-auto">
+            <ModalNewPlaylistCover selectedItem={selectedItem} />
+            <ModalPlaylistCover
               title="현재 재생목록"
               playlist={playlist}
               date="2025.1.5"
@@ -42,7 +43,7 @@ const SelectPlaylist = ({ selectedItem }: Props) => {
             />
             {playLists.map(({ title, date, data }) => {
               return (
-                <PlaylistCover
+                <ModalPlaylistCover
                   key={title}
                   title={title}
                   playlist={data}

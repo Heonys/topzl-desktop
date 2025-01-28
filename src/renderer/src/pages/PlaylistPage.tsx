@@ -5,7 +5,7 @@ export const PlaylistPage = () => {
   const { playlist, setPlaylist, removePlaylist } = useCurrentMusic();
 
   return (
-    <section className="">
+    <section>
       <div className="flex gap-2">
         <PlaylistOverview
           playlist={playlist}

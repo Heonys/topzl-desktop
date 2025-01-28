@@ -38,9 +38,11 @@ export const LibraryPage = () => {
           onError={setFallbackImage}
         />
         <div className="m-4 flex w-full flex-col font-sans font-normal">
-          <div className="flex flex-1 flex-col gap-1">
+          <div className="flex flex-1 flex-col gap-1  ">
             <div className="flex items-center gap-2">
-              <div className="bg-transparent text-2xl font-bold">{selectedList?.title}</div>
+              <div className="max-w-[500px] truncate bg-transparent text-2xl font-bold ">
+                {selectedList?.title}
+              </div>
               {isCustomPlaylist && (
                 <StaticIcon
                   iconName="rename"

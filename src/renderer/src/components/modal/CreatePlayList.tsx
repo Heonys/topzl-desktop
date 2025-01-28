@@ -6,9 +6,10 @@ import { useLibrary } from "@/hooks";
 type FormType = { title: string; description: string };
 type Props = {
   musicItems?: MusicItem[];
+  overrideClose?: () => void;
 } & Partial<FormType>;
 
-const CreatePlayList = ({ title, description, musicItems }: Props) => {
+const CreatePlayList = ({ title, description, musicItems, overrideClose }: Props) => {
   const { hideModal } = useModal();
   const { createPlaylist, setPlaylistByTitle } = useLibrary();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -21,7 +22,11 @@ const CreatePlayList = ({ title, description, musicItems }: Props) => {
     if (musicItems) {
       setPlaylistByTitle(title.trim(), musicItems);
     }
-    hideModal();
+    if (overrideClose) {
+      overrideClose();
+    } else {
+      hideModal();
+    }
   };
 
   useEffect(() => {

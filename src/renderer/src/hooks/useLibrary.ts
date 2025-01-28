@@ -21,14 +21,16 @@ export const useLibrary = () => {
 
   const addPlaylistByTitle = (title: string, item: MusicItem) => {
     setPlayLists((prev) => {
-      const index = prev.findIndex((it) => it.title === title);
-      if (index === -1) return prev;
+      const targetPlatlist = prev.find((it) => it.title === title);
+      if (!targetPlatlist) return prev;
+      const isDuplicate = targetPlatlist.data.some((it) => it.id === item.id);
+      if (isDuplicate) return prev;
 
-      return [
-        ...prev.slice(0, index),
-        { ...prev[index], data: [...prev[index].data, item] },
-        ...prev.slice(index + 1),
-      ];
+      const updatedTargetPlaylist = {
+        ...targetPlatlist,
+        data: [...targetPlatlist.data, item],
+      };
+      return prev.map((it) => (it.title === title ? updatedTargetPlaylist : it));
     });
   };
 
