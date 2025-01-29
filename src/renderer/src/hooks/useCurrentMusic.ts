@@ -8,14 +8,19 @@ export const useCurrentMusic = () => {
   const [playlist, setPlaylist] = useAtom(playListAtom);
   const curretIndex = useAtomValue(getCurrentListIndex);
 
+  const changeCurrentItem = (track: MusicItem) => {
+    setCurrentItem(track);
+    window.plugin.setCurrentTrack(track);
+  };
+
   const playWithAddPlaylist = (musicItem: MusicItem) => {
-    setCurrentItem(musicItem);
+    changeCurrentItem(musicItem);
     addPlaylist(musicItem);
   };
 
   const playWithAddAllPlaylist = (musicItem: MusicItem, musicItems: MusicItem[]) => {
     if (!musicItem) return;
-    setCurrentItem(musicItem);
+    changeCurrentItem(musicItem);
     mergePlaylist(musicItems);
   };
 
@@ -55,7 +60,6 @@ export const useCurrentMusic = () => {
 
   return {
     currentItem,
-    setCurrentItem,
     asyncMediaSource,
     playWithAddPlaylist,
     playlist,
@@ -65,5 +69,6 @@ export const useCurrentMusic = () => {
     addNextTrack,
     playWithAddAllPlaylist,
     curretIndex,
+    changeCurrentItem,
   };
 };

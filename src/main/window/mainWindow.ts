@@ -16,7 +16,6 @@ export function createMainWindow() {
     resizable: false,
     maximizable: false,
     webPreferences: {
-      // sandbox: true,
       contextIsolation: true,
       nodeIntegration: true,
       preload: path.join(__dirname, "../preload/index.js"),

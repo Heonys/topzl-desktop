@@ -8,6 +8,8 @@ import { setupGlobalShortcut, handleUrlScheme, setupPlugin, setupGlobalContext }
 import { isDev } from "@/utils/common";
 import { setupWorker } from "@/workers/setupWorker";
 
+if (!app.requestSingleInstanceLock()) app.quit();
+
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
@@ -24,18 +26,14 @@ if (isDev) {
   app.setAsDefaultProtocolClient("topzl");
 }
 
-if (!app.requestSingleInstanceLock()) {
-  app.quit();
-} else {
-  app.on("second-instance", (event, commandLine) => {
-    if (getMainWindow()) {
-      showMainWindow();
-    }
-    if (process.platform !== "darwin") {
-      handleUrlScheme(commandLine.pop());
-    }
-  });
-}
+app.on("second-instance", (event, commandLine) => {
+  if (getMainWindow()) {
+    showMainWindow();
+  }
+  if (process.platform !== "darwin") {
+    handleUrlScheme(commandLine.pop());
+  }
+});
 
 app.on("open-url", (evnet, url) => {
   handleUrlScheme(url);

@@ -73,7 +73,7 @@ const options: OptionTypes[] = [
     type: "icon",
     iconName: "privacy",
     title: "Guideline",
-    route: "about",
+    route: "guideline",
   },
 ];
 

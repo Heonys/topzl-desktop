@@ -16,6 +16,9 @@ export function setupIpcMain() {
       case "MINIMIZE": {
         return mainWindow.minimize();
       }
+      case "HIDE": {
+        return mainWindow.hide();
+      }
     }
   });
 

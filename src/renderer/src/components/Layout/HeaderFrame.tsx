@@ -134,7 +134,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           <IconButton
             iconName="x-mark"
             title="close"
-            onClick={() => window.common.sendFrameAction("CLOSE")}
+            onClick={() => window.common.sendFrameAction("HIDE")}
           />
         </div>
       </div>

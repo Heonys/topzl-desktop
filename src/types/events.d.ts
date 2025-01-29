@@ -12,6 +12,7 @@ type MusicItem = import("@shared/plugin/type").MusicItem;
 type MusicSheetItem = import("@shared/plugin/type").MusicSheetItem;
 type MusicSheetResult = import("@shared/plugin/type").MusicSheetResult;
 type DownloadProgress = import("@shared/constant/index").DownloadProgress;
+type TrayCommand = import("@shared/plugin/type").TrayCommand;
 
 declare namespace IpcInvoke {
   // ipcRender.invoke -> ipcMain.handle
@@ -55,12 +56,13 @@ declare namespace IpcInvoke {
 declare namespace IpcEvents {
   // ipcRender.send -> ipcMain.on
   interface Renderer {
-    "window-frame-action": "CLOSE" | "MINIMIZE" | "MAXIMIZE";
+    "window-frame-action": "CLOSE" | "MINIMIZE" | "MAXIMIZE" | "HIDE";
     "worker-setup-watcher": void;
     "worker-change-paths": [addPaths: string[], removePaths: string[]];
     "worker-setup-download": any;
     "worker-download": [id: string, mediaSource: string, filePath: string];
     "open-folder": string;
+    "current-track": MusicItem;
   }
 
   // ipcRender.send -> ipcMain.on (sync)
@@ -77,5 +79,7 @@ declare namespace IpcEvents {
     "sync-watch-remove": string[];
     "sync-download-status": DownloadProgress;
     "plugin-error": string;
+    "tray-command": TrayCommand;
+    "change-route": string;
   }
 }

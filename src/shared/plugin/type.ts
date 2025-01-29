@@ -130,3 +130,13 @@ export type EventPayloadMap = {
   "play-prev": undefined;
   "play-next": undefined;
 };
+
+export type TrayCommand =
+  | "TogglePlayAndPause"
+  | "Skip-Previous"
+  | "Skip-Next"
+  | "Repeat-None"
+  | "Repeat-Queue"
+  | "Repeat-Loop"
+  | "Shuffle-On"
+  | "Shuffle-Off";

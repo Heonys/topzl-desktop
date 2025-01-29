@@ -1,4 +1,4 @@
-import { ipcRendererInvoke, ipcRendererOn } from "../ipcRenderer";
+import { ipcRendererInvoke, ipcRendererOn, ipcRendererSend } from "../ipcRenderer";
 import type { SupportMediaType } from "@shared/plugin/type";
 
 type Props = {
@@ -37,6 +37,10 @@ function onErrorHandler(callback: (message: string) => void) {
   });
 }
 
+function setCurrentTrack(track: MusicItem) {
+  ipcRendererSend("current-track", track);
+}
+
 export const plugin = {
   searchMusic,
   searchPlaylist,
@@ -45,4 +49,5 @@ export const plugin = {
   getRecommendedPlaylistTag,
   getRecommendedPlaylist,
   onErrorHandler,
+  setCurrentTrack,
 } satisfies Window["plugin"];

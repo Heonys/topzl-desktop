@@ -6,6 +6,8 @@ declare global {
       sendFrameAction: (payload: IpcEvents.Renderer["window-frame-action"]) => void;
       showOpenDialog: IpcInvoke.Renderer["show-open-dialog"];
       getGlobalContext: IpcEvents.RendererSync["global-context"];
+      onTrayCommand: (callback: (command: IpcEvents.Main["tray-command"]) => void) => void;
+      onNavigateTo: (callback: (command: IpcEvents.Main["change-route"]) => void) => void;
     };
     i18n: {
       setupLang: IpcInvoke.Renderer["i18n-setup"];
@@ -31,6 +33,7 @@ declare global {
       getRecommendedPlaylistTag: IpcInvoke.Renderer["get-recommended-playlist-tag"];
       getRecommendedPlaylist: IpcInvoke.Renderer["get-recommended-playlist"];
       onErrorHandler: (callback: (message: IpcEvents.Main["plugin-error"]) => void) => void;
+      setCurrentTrack: (track: IpcEvents.Renderer["current-track"]) => void;
     };
     notification: {
       error: (callback: (message: IpcEvents.Main["notification-error"]) => void) => void;

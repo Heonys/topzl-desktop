@@ -6,7 +6,8 @@ import { useVirtualScroll } from "@/hooks/useVirtualScroll";
 
 export const CollapsiblePlaylist = () => {
   const scrollElementRef = useRef<HTMLDivElement>(null);
-  const { currentItem, setCurrentItem, playlist, setPlaylist, removePlaylist } = useCurrentMusic();
+  const { currentItem, changeCurrentItem, playlist, setPlaylist, removePlaylist } =
+    useCurrentMusic();
 
   const virtualController = useVirtualScroll({
     data: playlist,
@@ -16,7 +17,7 @@ export const CollapsiblePlaylist = () => {
   });
 
   const onChangeMusic = (music: MusicItem) => {
-    setCurrentItem(music);
+    changeCurrentItem(music);
   };
 
   const onRemove = (id: string) => {

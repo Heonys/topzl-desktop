@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { ModalComponent } from "@/components/Modal/ModalComponent";
 import {
@@ -15,8 +15,18 @@ import {
 } from "@/components";
 
 import "rc-slider/assets/index.css";
+import { useEffect } from "react";
 
 const App = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.common.onNavigateTo((route) => {
+      navigate(route);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <RootLayout>
       <HeaderFrame />

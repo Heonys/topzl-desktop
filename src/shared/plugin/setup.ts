@@ -28,6 +28,29 @@ export async function setupPlayer() {
   });
 
   // TODO: 스토리지에서 사용자 설정 가져와서 기존 설정으로 초기화
+
+  window.common.onTrayCommand((command) => {
+    switch (command) {
+      case "TogglePlayAndPause":
+        if (trackPlayer.isPlaying()) trackPlayer.pause();
+        else trackPlayer.play();
+        return;
+      case "Skip-Next":
+        return trackPlayer.skipToNext();
+      case "Skip-Previous":
+        return trackPlayer.skipToPrev();
+      case "Repeat-None":
+        return store.set(currentRepeatModeAtom, RepeatMode.None);
+      case "Repeat-Queue":
+        return store.set(currentRepeatModeAtom, RepeatMode.Queue);
+      case "Repeat-Loop":
+        return store.set(currentRepeatModeAtom, RepeatMode.Loop);
+      case "Shuffle-On":
+        return store.set(currentShuffleModeAtom, true);
+      case "Shuffle-Off":
+        return store.set(currentShuffleModeAtom, false);
+    }
+  });
 }
 
 function setupEvent() {

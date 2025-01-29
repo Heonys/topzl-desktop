@@ -6,6 +6,7 @@ const Download = () => {
         <div className="text-sm font-bold text-black">최대 동시 다운로드 수</div>
 
         <div className="text-sm font-bold text-black">기본 다운로드 품질</div>
+        <div className="text-sm font-bold text-black">다운로드 알림</div>
       </div>
     </div>
   );

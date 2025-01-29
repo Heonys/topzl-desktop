@@ -43,7 +43,7 @@ const router = createHashRouter(
         { path: "library", element: <LibraryPage /> },
         { path: "setting", element: <SettingPage /> },
         { path: "download", element: <DownloadPage /> },
-        { path: "about", element: <GuidelinePage /> },
+        { path: "guideline", element: <GuidelinePage /> },
         { path: "searchView/album/:id", element: <SearchViewPage mediaType="album" /> },
         { path: "searchView/artist/:id", element: <SearchViewPage mediaType="artist" /> },
         { path: "searchView/playlist/:id", element: <SearchViewPage mediaType="playlist" /> },
