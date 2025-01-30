@@ -62,3 +62,11 @@ app.whenReady().then(async () => {
   //   return net.fetch(`file://C:/${filePath}`);
   // });
 });
+
+// function fn() {
+//   const mainWindow = getMainWindow();
+//   const { port1, port2 } = new MessageChannelMain();
+
+//   mainWindow.webContents.postMessage("port", null, [port2]);
+//   port1.postMessage({ send: "port1 -> port2" });
+// }

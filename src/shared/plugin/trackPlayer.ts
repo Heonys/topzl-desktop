@@ -189,7 +189,11 @@ class TrackPlayer {
   }
 
   skipToPrev() {
-    playerEventEmitter.emit("play-prev");
+    if (this.audio.currentTime < 3) {
+      playerEventEmitter.emit("play-prev");
+    } else {
+      this.audio.currentTime = 0;
+    }
   }
 
   skipToNext() {

@@ -125,7 +125,11 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           <StaticIcon iconName={"divider-vertical"} color="black" />
         </div> */}
         <div className="flex gap-3 rounded-xl border bg-white p-1 px-2">
-          <IconButton iconName="picture-in-picture" title="pip" />
+          <IconButton
+            iconName="picture-in-picture"
+            title="pip"
+            onClick={() => window.common.setPipMode()}
+          />
           <IconButton
             iconName="minimize"
             title="minimize"

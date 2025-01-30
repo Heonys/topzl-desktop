@@ -28,10 +28,15 @@ function onNavigateTo(callback: (route: string) => void) {
   });
 }
 
+function setPipMode() {
+  ipcRendererSend("set-pip-mode");
+}
+
 export const common = {
   sendFrameAction,
   showOpenDialog,
   getGlobalContext,
   onTrayCommand,
   onNavigateTo,
+  setPipMode,
 } satisfies Window["common"];

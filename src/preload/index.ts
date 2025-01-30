@@ -6,6 +6,13 @@ if (!process.contextIsolated) {
 }
 ipcRenderer.setMaxListeners(30);
 
+// ipcRenderer.on("port", (e) => {
+//   // e.ports is a list of ports sent along with this message
+//   e.ports[0].onmessage = (messageEvent) => {
+//     console.log(messageEvent.data);
+//   };
+// });
+
 try {
   contextBridge.exposeInMainWorld("common", common);
   contextBridge.exposeInMainWorld("i18n", i18n);

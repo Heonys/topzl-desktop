@@ -7,7 +7,7 @@ let mainWindow: BrowserWindow;
 
 export function createMainWindow() {
   mainWindow = new BrowserWindow({
-    title: "Electron App",
+    title: "Topzl Desktop",
     width: 1114,
     height: 718,
     show: false,

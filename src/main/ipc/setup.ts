@@ -2,6 +2,7 @@ import { dialog, shell } from "electron";
 import fs from "fs-extra";
 import { getMainWindow } from "@/window/mainWindow";
 import { ipcMainHandle, ipcMainOn } from "@/ipc/main";
+import { getPipmodeWindow, showPipmodeWindow } from "@/window/pipmodeWindow";
 
 export function setupIpcMain() {
   ipcMainOn("window-frame-action", (action) => {
@@ -31,6 +32,12 @@ export function setupIpcMain() {
   ipcMainOn("open-folder", (path) => {
     if (fs.existsSync(path)) {
       shell.openPath(path);
+    }
+  });
+
+  ipcMainOn("set-pip-mode", () => {
+    if (!getPipmodeWindow()) {
+      showPipmodeWindow();
     }
   });
 }
