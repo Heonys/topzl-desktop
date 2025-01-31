@@ -63,7 +63,7 @@ declare namespace IpcEvents {
     "worker-download": [id: string, mediaSource: string, filePath: string];
     "open-folder": string;
     "current-track": MusicItem;
-    "set-pip-mode": void;
+    "set-pip-mode": MusicItem | null;
   }
 
   // ipcRender.send -> ipcMain.on (sync)

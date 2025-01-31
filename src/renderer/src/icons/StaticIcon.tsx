@@ -39,7 +39,6 @@ import { MdErrorOutline, MdNavigateNext, MdNavigateBefore } from "react-icons/md
 import { MdAudiotrack } from "react-icons/md";
 import { MdOutlineExplore, MdOutlinePrivacyTip, MdOutlinePlaylistPlay } from "react-icons/md";
 import { MdPlaylistRemove } from "react-icons/md";
-import { PiShuffleAngularBold } from "react-icons/pi";
 import { PiShuffleBold } from "react-icons/pi";
 
 export type IconNames = keyof typeof IconMap;
@@ -83,7 +82,6 @@ const IconMap = {
   ["repeat"]: LuRepeat,
   ["repeat-1"]: LuRepeat1,
   ["shuffle"]: PiShuffleBold,
-  ["shuffle2"]: PiShuffleAngularBold,
   ["speed"]: MdOutlineSpeed,
   ["trash"]: FaRegTrashAlt,
   ["down"]: FaChevronDown,

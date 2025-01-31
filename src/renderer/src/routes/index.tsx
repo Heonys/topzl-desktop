@@ -12,6 +12,7 @@ import {
   SearchViewPage,
   GuidelinePage,
   BestPopularPage,
+  PipmodePage,
 } from "@/pages";
 import App from "@/App";
 
@@ -27,6 +28,7 @@ const options = {
 
 const router = createHashRouter(
   [
+    { path: "/pipmode", element: <PipmodePage /> },
     {
       path: "/",
       element: <App />,

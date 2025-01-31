@@ -13,20 +13,13 @@ export default defineConfig({
       rollupOptions: {
         input: {
           index: resolve(__dirname, "src/preload/index.ts"),
+          pipmode: resolve(__dirname, "src/preload/pipmode.ts"),
         },
       },
     },
   },
   renderer: {
     plugins: [react(), tsconfigPaths()],
-    build: {
-      rollupOptions: {
-        input: {
-          index: resolve(__dirname, "src/renderer/index.html"),
-          pipmode: resolve(__dirname, "src/render-pipmode/index.html"),
-        },
-      },
-    },
     server: {
       port: 5123,
       strictPort: true,

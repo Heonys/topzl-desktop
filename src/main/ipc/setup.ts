@@ -1,15 +1,15 @@
-import { dialog, shell } from "electron";
+import { BrowserWindow, dialog, shell } from "electron";
 import fs from "fs-extra";
 import { getMainWindow } from "@/window/mainWindow";
 import { ipcMainHandle, ipcMainOn } from "@/ipc/main";
 import { getPipmodeWindow, showPipmodeWindow } from "@/window/pipmodeWindow";
 
 export function setupIpcMain() {
-  ipcMainOn("window-frame-action", (action) => {
+  ipcMainOn("window-frame-action", (action, event) => {
     const mainWindow = getMainWindow();
     switch (action) {
       case "CLOSE": {
-        return mainWindow.close();
+        return BrowserWindow.fromWebContents(event.sender)?.close();
       }
       case "MAXIMIZE": {
         return mainWindow.maximize();
@@ -35,9 +35,9 @@ export function setupIpcMain() {
     }
   });
 
-  ipcMainOn("set-pip-mode", () => {
+  ipcMainOn("set-pip-mode", (currentItem) => {
     if (!getPipmodeWindow()) {
-      showPipmodeWindow();
+      showPipmodeWindow(currentItem);
     }
   });
 }

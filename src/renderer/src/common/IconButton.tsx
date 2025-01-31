@@ -21,7 +21,7 @@ export const IconButton = ({
     <button
       className={twMerge(
         "flex cursor-pointer opacity-100 items-center justify-center transition-transform hover:scale-110 hover:opacity-100",
-        opacity ? "opacity-100" : "opacity-60",
+        opacity ? "opacity-100" : "opacity-70",
         className,
       )}
       {...props}

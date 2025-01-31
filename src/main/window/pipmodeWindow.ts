@@ -1,12 +1,14 @@
+import { BrowserWindow, MessageChannelMain } from "electron";
+import path from "node:path";
 import { isDev } from "@/utils/common";
-import { BrowserWindow } from "electron";
+import { getMainWindow } from "./mainWindow";
 
-let mainWindow: BrowserWindow | null;
+let pipWindow: BrowserWindow | null;
 
-export function createPipmodeWinodw() {
-  mainWindow = new BrowserWindow({
+export function createPipmodeWinodw(currentItem?: MusicItem | null) {
+  pipWindow = new BrowserWindow({
     width: 340,
-    height: 72,
+    height: 85,
     resizable: false,
     maximizable: false,
     frame: false,
@@ -15,41 +17,44 @@ export function createPipmodeWinodw() {
     alwaysOnTop: true,
     skipTaskbar: true,
     webPreferences: {
-      // contextIsolation: true,
-      // nodeIntegration: false,
-      // preload: "",
+      contextIsolation: true,
+      nodeIntegration: true,
+      preload: path.join(__dirname, "../preload/pipmode.js"),
     },
   });
 
-  if (isDev) {
-    //
+  if (isDev && process.env.ELECTRON_RENDERER_URL) {
+    pipWindow.loadURL(`${process.env.ELECTRON_RENDERER_URL}/#/pipmode`);
   } else {
-    //
+    pipWindow.loadFile(path.join(__dirname, "../renderer/index.html/#/pipmode"));
   }
 
-  mainWindow.on("ready-to-show", () => {
+  pipWindow.on("ready-to-show", () => {
     showPipmodeWindow();
   });
+
+  pipWindow.on("close", () => {
+    pipWindow = null;
+  });
+
+  const mainWindow = getMainWindow();
+  const { port1, port2 } = new MessageChannelMain();
+
+  mainWindow.webContents.postMessage("port", null, [port1]);
+  pipWindow.webContents.postMessage("port", { track: currentItem }, [port2]);
 }
 
-export const getPipmodeWindow = () => mainWindow;
+export const getPipmodeWindow = () => pipWindow;
 
-export const closePipmode = () => {
-  if (mainWindow) {
-    mainWindow.close();
-    mainWindow = null;
-  }
-};
-
-export function showPipmodeWindow() {
-  if (!mainWindow) {
-    createPipmodeWinodw();
+export function showPipmodeWindow(currentItem?: MusicItem | null) {
+  if (!pipWindow) {
+    createPipmodeWinodw(currentItem);
     return;
   }
-  if (mainWindow.isMinimized()) {
-    mainWindow.restore();
+  if (pipWindow.isMinimized()) {
+    pipWindow.restore();
   } else {
-    mainWindow.show();
+    pipWindow.show();
   }
-  mainWindow.focus();
+  pipWindow.focus();
 }

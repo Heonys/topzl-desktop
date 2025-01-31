@@ -28,8 +28,8 @@ function onNavigateTo(callback: (route: string) => void) {
   });
 }
 
-function setPipMode() {
-  ipcRendererSend("set-pip-mode");
+function setPipMode(curretItem: MusicItem | null) {
+  ipcRendererSend("set-pip-mode", curretItem);
 }
 
 export const common = {
