@@ -17,6 +17,7 @@ export const BestPopularCard = () => {
         alt="sample"
         initial={{ y: 0 }}
         animate={{ y: "-50%" }}
+        draggable={false}
         transition={{
           repeat: Infinity,
           repeatType: "mirror",

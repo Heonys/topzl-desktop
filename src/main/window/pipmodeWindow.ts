@@ -1,14 +1,14 @@
 import { BrowserWindow, MessageChannelMain } from "electron";
 import path from "node:path";
 import { isDev } from "@/utils/common";
-import { getMainWindow } from "./mainWindow";
+import { getMainWindow, showMainWindow } from "./mainWindow";
 
 let pipWindow: BrowserWindow | null;
 
 export function createPipmodeWinodw(currentItem?: MusicItem | null, state?: PlayerState) {
   pipWindow = new BrowserWindow({
     width: 340,
-    height: 85,
+    height: 90,
     resizable: false,
     maximizable: false,
     frame: false,
@@ -35,6 +35,7 @@ export function createPipmodeWinodw(currentItem?: MusicItem | null, state?: Play
 
   pipWindow.on("close", () => {
     pipWindow = null;
+    showMainWindow();
   });
 
   const mainWindow = getMainWindow();

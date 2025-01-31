@@ -130,7 +130,10 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           <IconButton
             iconName="picture-in-picture"
             title="pip"
-            onClick={() => window.common.setPipMode(currentItem, playerState)}
+            onClick={() => {
+              window.common.setPipMode(currentItem, playerState);
+              window.common.sendFrameAction("HIDE");
+            }}
           />
           <IconButton
             iconName="minimize"

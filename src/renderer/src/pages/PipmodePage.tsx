@@ -41,28 +41,34 @@ export const PipmodePage = () => {
       />
 
       <div className="flex h-[65px] flex-1 flex-col items-center justify-center">
-        <div className="w-full p-2 text-center font-sans text-xs font-medium text-white opacity-90">
-          {currentMusic
-            ? `${currentMusic.artist} - ${currentMusic.title}`
-            : "재생중인 곡이 없습니다"}
+        <div className="flex w-full max-w-[230px] flex-col items-center text-center font-sans font-medium opacity-90">
+          <div className="w-full truncate px-1 text-[10px] text-white/70">
+            {currentMusic && currentMusic.artist}
+          </div>
+          <div className="w-full truncate px-1 py-0.5 text-xs text-white">
+            {currentMusic ? currentMusic.title : "재생중인 곡이 없습니다"}
+          </div>
         </div>
         <div className="flex flex-1 items-center  justify-center gap-5">
           <IconButton
             className="region-none"
             iconName="skip-previous"
             color="white"
+            size={19}
             onClick={() => handleClickAction("Skip-Previous")}
           />
           <IconButton
             className="region-none"
             iconName={playerState === PlayerState.Playing ? "pause" : "play"}
             color="white"
+            size={19}
             onClick={() => handleClickAction("TogglePlayAndPause")}
           />
           <IconButton
             className="region-none"
             iconName="skip-next"
             color="white"
+            size={19}
             onClick={() => handleClickAction("Skip-Next")}
           />
         </div>

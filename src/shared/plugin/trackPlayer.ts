@@ -14,7 +14,7 @@ class TrackPlayer {
     this.audio = new Audio();
     this.audio.preload = "auto";
     this.audio.controls = false;
-    this.audio.volume = 0.2;
+    this.audio.volume = 0.1;
     this.hls = new Hls();
     this.hls.attachMedia(this.audio);
 
