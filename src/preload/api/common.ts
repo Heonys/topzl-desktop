@@ -17,7 +17,7 @@ function getGlobalContext() {
   return ipcRendererSendSync("global-context");
 }
 
-function onTrayCommand(callback: (command: TrayCommand) => void) {
+function onTrayCommand(callback: (command: Command) => void) {
   ipcRendererOn("tray-command", (_, command) => {
     callback(command);
   });
@@ -28,8 +28,12 @@ function onNavigateTo(callback: (route: string) => void) {
   });
 }
 
-function setPipMode(curretItem: MusicItem | null) {
-  ipcRendererSend("set-pip-mode", curretItem);
+function setPipMode(curretItem: MusicItem | null, state: PlayerState) {
+  ipcRendererSend("set-pip-mode", { data: curretItem, state });
+}
+
+function proxyCommand(command: Command) {
+  ipcRendererSend("proxy-command", command);
 }
 
 export const common = {
@@ -39,4 +43,5 @@ export const common = {
   onTrayCommand,
   onNavigateTo,
   setPipMode,
+  proxyCommand,
 } satisfies Window["common"];

@@ -107,6 +107,7 @@ function setupEvent() {
     if (currentIndex > 0) {
       const nextTrack = store.get(playListAtom)[currentIndex - 1];
       store.set(currentMusicAtom, nextTrack);
+      window.messagePort.sendMessage({ type: "data", data: nextTrack });
     }
   });
 
@@ -122,9 +123,11 @@ function setupEvent() {
         const newList = [...beforeList, ...shuffle(afterList)];
         store.set(playListAtom, newList);
         store.set(currentMusicAtom, newList[currentIndex + 1]);
+        window.messagePort.sendMessage({ type: "data", data: newList[currentIndex + 1] });
       } else {
         const nextTrack = playList[currentIndex + 1];
         store.set(currentMusicAtom, nextTrack);
+        window.messagePort.sendMessage({ type: "data", data: nextTrack });
       }
     }
     // if (currentIndex < playList.length - 1) {

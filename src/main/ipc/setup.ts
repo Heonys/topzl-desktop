@@ -35,9 +35,9 @@ export function setupIpcMain() {
     }
   });
 
-  ipcMainOn("set-pip-mode", (currentItem) => {
+  ipcMainOn("set-pip-mode", ({ data, state }) => {
     if (!getPipmodeWindow()) {
-      showPipmodeWindow(currentItem);
+      showPipmodeWindow(data, state);
     }
   });
 }

@@ -12,7 +12,8 @@ type MusicItem = import("@shared/plugin/type").MusicItem;
 type MusicSheetItem = import("@shared/plugin/type").MusicSheetItem;
 type MusicSheetResult = import("@shared/plugin/type").MusicSheetResult;
 type DownloadProgress = import("@shared/constant/index").DownloadProgress;
-type TrayCommand = import("@shared/plugin/type").TrayCommand;
+type Command = import("@shared/plugin/type").Command;
+type PlayerState = import("@shared/plugin/type").PlayerState;
 
 declare namespace IpcInvoke {
   // ipcRender.invoke -> ipcMain.handle
@@ -63,7 +64,8 @@ declare namespace IpcEvents {
     "worker-download": [id: string, mediaSource: string, filePath: string];
     "open-folder": string;
     "current-track": MusicItem;
-    "set-pip-mode": MusicItem | null;
+    "set-pip-mode": { data: MusicItem | null; state: PlayerState };
+    "proxy-command": Command;
   }
 
   // ipcRender.send -> ipcMain.on (sync)
@@ -80,7 +82,7 @@ declare namespace IpcEvents {
     "sync-watch-remove": string[];
     "sync-download-status": DownloadProgress;
     "plugin-error": string;
-    "tray-command": TrayCommand;
+    "tray-command": Command;
     "change-route": string;
   }
 }

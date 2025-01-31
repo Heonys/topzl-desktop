@@ -11,7 +11,7 @@ export const useCurrentMusic = () => {
   const changeCurrentItem = (track: MusicItem) => {
     setCurrentItem(track);
     window.plugin.setCurrentTrack(track);
-    window.messagePort.sendMessage(track);
+    window.messagePort.sendMessage({ type: "data", data: track });
   };
 
   const playWithAddPlaylist = (musicItem: MusicItem) => {

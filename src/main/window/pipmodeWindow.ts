@@ -5,7 +5,7 @@ import { getMainWindow } from "./mainWindow";
 
 let pipWindow: BrowserWindow | null;
 
-export function createPipmodeWinodw(currentItem?: MusicItem | null) {
+export function createPipmodeWinodw(currentItem?: MusicItem | null, state?: PlayerState) {
   pipWindow = new BrowserWindow({
     width: 340,
     height: 85,
@@ -41,14 +41,14 @@ export function createPipmodeWinodw(currentItem?: MusicItem | null) {
   const { port1, port2 } = new MessageChannelMain();
 
   mainWindow.webContents.postMessage("port", null, [port1]);
-  pipWindow.webContents.postMessage("port", { track: currentItem }, [port2]);
+  pipWindow.webContents.postMessage("port", { track: currentItem, state }, [port2]);
 }
 
 export const getPipmodeWindow = () => pipWindow;
 
-export function showPipmodeWindow(currentItem?: MusicItem | null) {
+export function showPipmodeWindow(currentItem?: MusicItem | null, state?: PlayerState) {
   if (!pipWindow) {
-    createPipmodeWinodw(currentItem);
+    createPipmodeWinodw(currentItem, state);
     return;
   }
   if (pipWindow.isMinimized()) {

@@ -5,12 +5,13 @@ import { HeaderNavigator } from "@/components";
 import { SearchHistory } from "@/components/Search";
 import StaticIcon from "@/icons/StaticIcon";
 import { Condition, IconButton } from "@/common";
-import { useCurrentMusic, useSearchHistory } from "@/hooks";
+import { useCurrentMusic, usePlayer, useSearchHistory } from "@/hooks";
 import logo from "@resources/logo.png";
 
 export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
   const navigate = useNavigate();
   const { currentItem } = useCurrentMusic();
+  const { playerState } = usePlayer();
   const { history, addHistory } = useSearchHistory();
   const inputRef = useRef<HTMLInputElement>(null);
   const [showHistory, setShowHistory] = useState(false);
@@ -62,7 +63,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           >
             <img className="size-6 object-cover" src={logo} alt="logo" />
           </div>
-          <div className="font-barlow text-lg font-bold text-black">Topzl</div>
+          <div className="text-xl text-black">Topzl</div>
         </div>
         <HeaderNavigator />
         <div className="relative w-80">
@@ -129,7 +130,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           <IconButton
             iconName="picture-in-picture"
             title="pip"
-            onClick={() => window.common.setPipMode(currentItem)}
+            onClick={() => window.common.setPipMode(currentItem, playerState)}
           />
           <IconButton
             iconName="minimize"

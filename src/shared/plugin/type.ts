@@ -115,7 +115,6 @@ export enum PlayerState {
   None,
   Playing,
   Paused,
-  Buffering,
 }
 
 export type EventPayloadMap = {
@@ -131,7 +130,7 @@ export type EventPayloadMap = {
   "play-next": undefined;
 };
 
-export type TrayCommand =
+export type Command =
   | "TogglePlayAndPause"
   | "Skip-Previous"
   | "Skip-Next"
@@ -140,3 +139,5 @@ export type TrayCommand =
   | "Repeat-Loop"
   | "Shuffle-On"
   | "Shuffle-Off";
+
+export type MessageData = { type: "data"; data: MusicItem } | { type: "satus"; data: PlayerState };

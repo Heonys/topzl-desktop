@@ -2,14 +2,14 @@ import "./shared";
 import { contextBridge, ipcRenderer } from "electron";
 
 let messagePort: MessagePort | null = null;
-let currnetMusic: MusicItem | null;
+let syncData: { track: MusicItem | null; state: PlayerState };
 
 type Handler = (data: any) => void;
 const handlers: Handler[] = [];
 
 ipcRenderer.on("port", (e, data) => {
   messagePort = e.ports[0];
-  currnetMusic = data;
+  syncData = data;
   messagePort.onmessage = (messageEvent) => {
     const data = messageEvent.data;
     handlers.forEach((handler) => handler(data));
@@ -30,13 +30,13 @@ function sendMessage(data: any) {
   }
 }
 
-function syncCurrentMusic() {
-  return currnetMusic;
+function syncCurrentMusicAndState() {
+  return syncData;
 }
 
 contextBridge.exposeInMainWorld("messagePort", {
   on,
   off,
   sendMessage,
-  syncCurrentMusic,
+  syncCurrentMusicAndState,
 });

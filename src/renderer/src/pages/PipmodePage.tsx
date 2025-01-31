@@ -1,18 +1,29 @@
+import { useEffect, useState } from "react";
 import { getDefaultImage } from "@/utils";
 import { IconButton } from "@/common";
-import { useEffect, useState } from "react";
+import { PlayerState } from "@shared/plugin/type";
 
 export const PipmodePage = () => {
   const [currentMusic, setCurrentMusic] = useState<MusicItem | null>(null);
+  const [playerState, setPlayerState] = useState<PlayerState>(PlayerState.None);
 
   useEffect(() => {
-    const data = (window as any).messagePort.syncCurrentMusic();
+    const data = (window as any).messagePort.syncCurrentMusicAndState();
     setCurrentMusic(data.track);
+    setPlayerState(data.state);
 
-    window.messagePort.on((data) => {
-      setCurrentMusic(data);
+    window.messagePort.on((message) => {
+      if (message.type === "data") {
+        setCurrentMusic(message.data);
+      } else {
+        setPlayerState(message.data);
+      }
     });
   }, []);
+
+  const handleClickAction = (command: Command) => {
+    window.common.proxyCommand(command);
+  };
 
   return (
     <div className="draggable relative flex size-full select-none items-center justify-center gap-2 px-3">
@@ -31,14 +42,29 @@ export const PipmodePage = () => {
 
       <div className="flex h-[65px] flex-1 flex-col items-center justify-center">
         <div className="w-full p-2 text-center font-sans text-xs font-medium text-white opacity-90">
-          {currentMusic && `${currentMusic.artist} - ${currentMusic.title}`}
+          {currentMusic
+            ? `${currentMusic.artist} - ${currentMusic.title}`
+            : "재생중인 곡이 없습니다"}
         </div>
         <div className="flex flex-1 items-center  justify-center gap-5">
-          <IconButton className="region-none" iconName="repeat" color="white" size={14} />
-          <IconButton className="region-none" iconName="skip-previous" color="white" />
-          <IconButton className="region-none" iconName="play" color="white" />
-          <IconButton className="region-none" iconName="skip-next" color="white" />
-          <IconButton className="region-none" iconName="shuffle" color="white" size={14} />
+          <IconButton
+            className="region-none"
+            iconName="skip-previous"
+            color="white"
+            onClick={() => handleClickAction("Skip-Previous")}
+          />
+          <IconButton
+            className="region-none"
+            iconName={playerState === PlayerState.Playing ? "pause" : "play"}
+            color="white"
+            onClick={() => handleClickAction("TogglePlayAndPause")}
+          />
+          <IconButton
+            className="region-none"
+            iconName="skip-next"
+            color="white"
+            onClick={() => handleClickAction("Skip-Next")}
+          />
         </div>
       </div>
 

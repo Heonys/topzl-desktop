@@ -40,6 +40,10 @@ export function setupTray() {
       tray.setToolTip("Topzl");
     }
   });
+
+  ipcMainOn("proxy-command", (command) => {
+    sendTrayCommand(command);
+  });
 }
 
 function setupTrayMenu() {
@@ -106,7 +110,7 @@ function setupTrayMenu() {
   );
 }
 
-function sendTrayCommand(command: TrayCommand) {
+function sendTrayCommand(command: Command) {
   ipcMainSendMainWindow("tray-command", command);
 }
 

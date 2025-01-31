@@ -8,6 +8,7 @@ import {
   currentRepeatModeAtom,
   currentShuffleModeAtom,
 } from "@/atom";
+import { useEffect } from "react";
 
 export const usePlayer = () => {
   const playerState = useAtomValue(currentPlayerStateAtom);
@@ -40,6 +41,10 @@ export const usePlayer = () => {
   const toggleShuffleMode = () => {
     setSuffleMode((prev) => !prev);
   };
+
+  useEffect(() => {
+    window.messagePort.sendMessage({ type: "satus", data: playerState });
+  }, [playerState]);
 
   return {
     playerState,

@@ -1,3 +1,5 @@
+import { MessageData } from "@shared/plugin/type";
+
 type CleanUp = () => void;
 
 declare global {
@@ -8,7 +10,8 @@ declare global {
       getGlobalContext: IpcEvents.RendererSync["global-context"];
       onTrayCommand: (callback: (command: IpcEvents.Main["tray-command"]) => void) => void;
       onNavigateTo: (callback: (command: IpcEvents.Main["change-route"]) => void) => void;
-      setPipMode: (currentItem: MusicItem | null) => void;
+      setPipMode: (currentItem: MusicItem | null, state: PlayerState) => void;
+      proxyCommand: (command: IpcEvents.Main["tray-command"]) => void;
     };
     i18n: {
       setupLang: IpcInvoke.Renderer["i18n-setup"];
@@ -53,8 +56,8 @@ declare global {
       openFolder: (path: string) => void;
     };
     messagePort: {
-      sendMessage: (data: MusicItem) => void;
-      on: (callback: (data: MusicItem) => void) => void;
+      sendMessage: (data: MessageData) => void;
+      on: (callback: (data: MessageData) => void) => void;
       // off: () => void;
     };
   }
