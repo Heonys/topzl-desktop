@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "./out/main/index.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Heonys/topzl-desktop"
+  },
   "scripts": {
     "dev": "electron-vite dev",
     "start": "electron-vite preview",
