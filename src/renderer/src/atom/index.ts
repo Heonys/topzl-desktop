@@ -38,6 +38,7 @@ const mediaSourceAtomAsync = atom(async (get) => {
       trackPlayer.play();
     }
   } catch {
+    trackPlayer.clear();
     trackPlayer.skipToNext();
   }
 });

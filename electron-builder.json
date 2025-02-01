@@ -3,16 +3,13 @@
   "productName": "topzl",
   "files": ["out"],
   "extraResources": ["resources/**"],
-  "icon": "./resources/desktopicon.png",
-  "mac": {
-    "target": "dmg"
-  },
-  "linux": {
-    "target": "AppImage",
-    "category": "Utility"
-  },
+  "icon": "./resources/logo.png",
   "win": {
-    "target": ["portable"]
+    "publisherName": "heonys",
+    "target": ["portable","zip"]
   },
-  "npmRebuild": false
+  "npmRebuild": false,
+  "publish": {
+    "provider": "github"
+  }
 }

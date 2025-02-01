@@ -71,7 +71,7 @@ export const DetailController = ({ currentItem }: Props) => {
             />
           </div>
         </div>
-        <div className="flex w-full items-center gap-3">
+        <div className="flex w-full items-center gap-3 font-sans font-bold">
           <div className="p-1 text-xs text-gray-300">{formatTime(currentTime)}</div>
           <Slider
             min={0}

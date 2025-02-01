@@ -41,7 +41,7 @@ export const MusicDetail = () => {
             className="size-full opacity-85 blur-3xl brightness-90 contrast-75"
             style={{ backgroundImage: `url(${currentItem.artwork})` }}
           />
-          <div className="absolute left-0 top-0 flex size-full items-center justify-center gap-4">
+          <div className="absolute left-0 top-0 flex size-full items-center justify-center gap-2">
             <DetailController currentItem={currentItem} />
             <Lyric />
           </div>

@@ -115,6 +115,7 @@ function setupEvent() {
     const playList = store.get(playListAtom);
     const currentIndex = store.get(getCurrentListIndex);
     const currentShuffleMode = store.get(currentShuffleModeAtom);
+    const repeadMode = store.get(currentRepeatModeAtom);
 
     if (currentIndex < playList.length - 1) {
       if (currentShuffleMode) {
@@ -129,10 +130,10 @@ function setupEvent() {
         store.set(currentMusicAtom, nextTrack);
         window.messagePort.sendMessage({ type: "data", data: nextTrack });
       }
+    } else {
+      if (repeadMode === RepeatMode.Queue) {
+        store.set(currentMusicAtom, playList[0]);
+      }
     }
-    // if (currentIndex < playList.length - 1) {
-    //   const nextTrack = playList[currentIndex + 1];
-    //   store.set(currentMusicAtom, nextTrack);
-    // }
   });
 }

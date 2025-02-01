@@ -49,7 +49,7 @@ const App = () => {
         limit={5}
         pauseOnFocusLoss={false}
         hideProgressBar
-        autoClose={1500}
+        autoClose={2500}
         newestOnTop
         position="top-center"
       ></ToastContainer>
