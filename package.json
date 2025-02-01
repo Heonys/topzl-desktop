@@ -15,7 +15,8 @@
     "dist:mac": "npm run build && electron-builder --mac --arm64",
     "dist:linux": "npm run build && electron-builder --linux --x64",
     "dist:dir": "electron-builder --dir",
-    "test:unit": "vitest src"
+    "test:unit": "vitest src",
+    "publish:win": "electron-builder -w --publish always"
   },
   "dependencies": {
     "@electron-toolkit/utils": "^3.0.0",

@@ -3,10 +3,11 @@
   "productName": "topzl",
   "files": ["out"],
   "extraResources": ["resources/**"],
-  "icon": "./resources/logo.png",
+  "icon": "resources/logo.png",
   "win": {
     "publisherName": "heonys",
-    "target": ["portable","zip"]
+    "target": ["portable"],
+    "icon": "resources/logo.png"
   },
   "npmRebuild": false,
   "publish": {
