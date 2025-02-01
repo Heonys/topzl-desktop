@@ -1,16 +1,19 @@
 {
-  "appId": "com.heonys.topzl",
   "productName": "topzl",
+  "appId": "com.heonys.topzl",
+  "artifactName": "${name}-${version}-${os}.${ext}",
   "files": ["out"],
   "extraResources": ["resources/**"],
   "icon": "resources/logo.png",
   "win": {
     "publisherName": "heonys",
-    "target": ["portable"],
+    "target": ["portable", "zip"],
     "icon": "resources/logo.png"
   },
   "npmRebuild": false,
   "publish": {
-    "provider": "github"
+    "provider": "github",
+    "owner": "heonys",
+    "repo": "topzl-desktop"
   }
 }

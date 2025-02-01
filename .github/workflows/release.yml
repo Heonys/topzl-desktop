@@ -9,9 +9,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install -g yarn@1.22.19
-      - run: yarn install
-      - run: yarn publish:win
+
+      - name: Install Dependencies and Publish Release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          npm install
+          npm run publish:win
 
 
 
