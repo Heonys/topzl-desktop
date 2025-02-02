@@ -12,10 +12,6 @@
     "icon": "resources/logo.png"
   },
   "npmRebuild": false,
-  "extraMetadata": {
-    "main": "out/main/index.js"
-  },
-  "extends": null,
   "publish": {
     "provider": "github",
     "owner": "heonys",
