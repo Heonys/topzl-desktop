@@ -1,4 +1,5 @@
 {
+  "asar": true,
   "productName": "topzl",
   "appId": "com.heonys.topzl",
   "artifactName": "${name}-${version}-${os}.${ext}",
@@ -7,10 +8,14 @@
   "icon": "resources/logo.png",
   "win": {
     "publisherName": "heonys",
-    "target": ["portable", "zip"],
+    "target": ["portable"],
     "icon": "resources/logo.png"
   },
   "npmRebuild": false,
+  "extraMetadata": {
+    "main": "out/main/index.js"
+  },
+  "extends": null,
   "publish": {
     "provider": "github",
     "owner": "heonys",
