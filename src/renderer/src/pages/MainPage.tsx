@@ -1,4 +1,4 @@
-import { QuickRecommend, RecentPlayList, BestPopularCard } from "@/components/Recommed";
+import { QuickRecommend, RecentPlayList, BestPopularCard } from "@/components/recommed";
 
 export const MainPage = () => {
   return (

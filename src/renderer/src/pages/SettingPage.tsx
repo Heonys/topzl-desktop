@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import routers from "@/components/Setting/router";
+import routers from "@/components/setting/router";
 
 export const SettingPage = () => {
   const [selected, setSelected] = useState(routers[0].id);

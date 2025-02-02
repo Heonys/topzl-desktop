@@ -1,6 +1,6 @@
 import { Case, Switch } from "@/common";
 import { ArtistItem, AlbumItem, MusicSheetItem } from "@shared/plugin/type";
-import { MusicResult, AlbumResult, ArtistResult, PlaylistResult } from "@/components/Search";
+import { MusicResult, AlbumResult, ArtistResult, PlaylistResult } from "@/components/search";
 
 type Props = {
   type: SupportMediaType;

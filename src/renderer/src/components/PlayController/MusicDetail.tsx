@@ -1,6 +1,6 @@
 import { motion, Variants, AnimatePresence } from "motion/react";
 import { useDetail, useCurrentMusic } from "@/hooks";
-import { DetailController, Lyric } from "@/components/PlayController";
+import { DetailController, Lyric } from "@/components/playController";
 import { IconButton } from "@/common";
 
 const variants: Variants = {

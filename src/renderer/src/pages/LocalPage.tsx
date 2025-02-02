@@ -1,5 +1,5 @@
 import { PlayListTable } from "@/components";
-import { useModal } from "@/components/Modal/useModal";
+import { useModal } from "@/components/modal/useModal";
 import { useDirectoryManager } from "@/hooks";
 import StaticIcon from "@/icons/StaticIcon";
 

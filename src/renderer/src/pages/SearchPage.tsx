@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSearch } from "@/hooks";
 import type { SupportMediaType } from "@shared/plugin/type";
 import { Condition } from "@/common";
-import { SearchResultRouter, SearchTab } from "@/components/Search";
+import { SearchResultRouter, SearchTab } from "@/components/search";
 import { LoadingSpinner } from "@/common/LoadingSpinner";
 import { Empty } from "@/common/Empty";
 

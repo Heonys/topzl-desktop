@@ -1,7 +1,7 @@
 import { Tab, TabGroup, TabList } from "@headlessui/react";
 import { AlbumCover } from "@/components";
 import { useCurrentMusic, useFavorite, useLibrary } from "@/hooks";
-import { useModal } from "@/components/Modal/useModal";
+import { useModal } from "@/components/modal/useModal";
 import { getDefaultImage, setFallbackImage } from "@/utils";
 import StaticIcon from "@/icons/StaticIcon";
 import { PlaylistInfo } from "@/atom";

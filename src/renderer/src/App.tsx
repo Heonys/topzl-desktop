@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { ModalComponent } from "@/components/Modal/ModalComponent";
+import { ModalComponent } from "@/components/modal/ModalComponent";
 import {
   RootLayout,
   MainLayout,

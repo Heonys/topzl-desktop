@@ -2,9 +2,9 @@ import { useState } from "react";
 import StaticIcon from "@/icons/StaticIcon";
 import { cn, getDefaultImage, setFallbackImage } from "@/utils";
 import { AlbumItem } from "@shared/plugin/type";
-import { PlayListTable } from "../Playlist";
+import { PlayListTable } from "../playlist";
 import { useCurrentMusic } from "@/hooks";
-import { useModal } from "../Modal/useModal";
+import { useModal } from "../modal/useModal";
 
 type Props = {
   albumItem: AlbumItem;

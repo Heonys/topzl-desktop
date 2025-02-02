@@ -1,10 +1,10 @@
-import BackupAndRestore from "./BackupAndRestore";
-import Download from "./Download";
-import General from "./General";
-import Lyric from "./Lyric";
-import Playback from "./Playback";
-import Shortcut from "./Shortcut";
-import Update from "./Update";
+import BackupAndRestore from "./backupAndRestore";
+import Download from "./download";
+import General from "./general";
+import Lyric from "./lyric";
+import Playback from "./playback";
+import Shortcut from "./shortcut";
+import Update from "./update";
 
 export default [
   { id: "general", title: "General", component: General },

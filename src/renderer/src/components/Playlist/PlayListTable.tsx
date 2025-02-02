@@ -14,9 +14,9 @@ import { useContextMenu, useCurrentMusic, useFavorite, useDownload } from "@/hoo
 import StaticIcon from "@/icons/StaticIcon";
 import { assignToDrag, formatTime } from "@/utils";
 import { MusicItem } from "@shared/plugin/type";
-import { FavoriteButton, DownloadButton } from "@/components/Playlist";
+import { FavoriteButton, DownloadButton } from "@/components/playlist";
 import { ContextMenuItem } from "@/atom";
-import { useModal } from "../Modal/useModal";
+import { useModal } from "../modal/useModal";
 
 const TAG = "playlist-table";
 const columnHelper = createColumnHelper<MusicItem>();

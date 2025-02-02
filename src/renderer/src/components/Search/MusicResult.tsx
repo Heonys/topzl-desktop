@@ -1,5 +1,5 @@
 import { Condition, IconButton } from "@/common";
-import { useModal } from "../Modal/useModal";
+import { useModal } from "../modal/useModal";
 import { useCurrentMusic, usePlayer } from "@/hooks";
 import { cn, formatTime, setFallbackImage } from "@/utils";
 import { Empty } from "@/common/Empty";

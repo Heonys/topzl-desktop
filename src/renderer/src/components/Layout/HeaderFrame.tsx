@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useNavigate } from "react-router-dom";
 import { HeaderNavigator } from "@/components";
-import { SearchHistory } from "@/components/Search";
+import { SearchHistory } from "@/components/search";
 import StaticIcon from "@/icons/StaticIcon";
 import { Condition, IconButton } from "@/common";
 import { useCurrentMusic, usePlayer, useSearchHistory } from "@/hooks";

@@ -1,5 +1,5 @@
 import { useLocation, useParams } from "react-router-dom";
-import { AlbumView, PlaylistView } from "@/components/SearchView";
+import { AlbumView, PlaylistView } from "@/components/searchView";
 import { Case, Switch } from "@/common";
 import { SupportMediaItemMap } from "@shared/plugin/type";
 
