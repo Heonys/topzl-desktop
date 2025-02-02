@@ -3,9 +3,13 @@
 </p>
 
 
+
 <p align="center">
     <a href="https://github.com/Heonys/topzl-desktop/releases">
-        <img src="https://img.shields.io/github/v/release/Heonys/topzl-desktop?style=flat-square" />
+        <img src="https://img.shields.io/github/v/release/Heonys/topzl-desktop" />
+    </a>
+    <a href="https://github.com/Heonys/topzl-desktop/actions/workflows/release.yml">
+        <img src="https://github.com/Heonys/topzl-desktop/actions/workflows/release.yml/badge.svg" />
     </a>
 </p>
 
