@@ -26,7 +26,7 @@ export function createPipmodeWinodw(currentItem?: MusicItem | null, state?: Play
   if (isDev && process.env.ELECTRON_RENDERER_URL) {
     pipWindow.loadURL(`${process.env.ELECTRON_RENDERER_URL}/#/pipmode`);
   } else {
-    pipWindow.loadFile(path.join(__dirname, "../renderer/index.html/#/pipmode"));
+    pipWindow.loadURL(`file://${path.join(__dirname, "../renderer/index.html")}#/pipmode`);
   }
 
   pipWindow.on("ready-to-show", () => {
