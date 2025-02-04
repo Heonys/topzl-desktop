@@ -11,6 +11,7 @@
     "dev": "electron-vite dev",
     "start": "electron-vite preview",
     "build": "npm run typecheck && electron-vite build",
+    "lint": "eslint ./src",
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
@@ -25,6 +26,7 @@
   "dependencies": {
     "@electron-toolkit/utils": "^3.0.0",
     "axios": "^1.7.9",
+    "better-sqlite3": "^11.8.1",
     "cheerio": "^1.0.0",
     "chokidar": "^4.0.3",
     "comlink": "^4.4.2",
@@ -39,11 +41,11 @@
     "rimraf": "^6.0.1"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^7.6.0",
     "@eslint/js": "^9.14.0",
     "@headlessui/react": "^2.2.0",
     "@tailwindcss/typography": "^0.5.15",
     "@tanstack/react-table": "^8.20.6",
+    "@types/better-sqlite3": "^7.6.12",
     "@types/crypto-js": "^4.2.2",
     "@types/lodash.debounce": "^4.0.9",
     "@types/lodash.shuffle": "^4.2.9",
