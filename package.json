@@ -32,6 +32,7 @@
     "comlink": "^4.4.2",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.13",
+    "dexie": "^4.0.11",
     "fs-extra": "^11.2.0",
     "genius-lyrics": "^4.4.7",
     "i18next": "^24.0.5",

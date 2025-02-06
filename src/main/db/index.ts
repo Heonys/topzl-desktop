@@ -18,12 +18,8 @@ export function setupDatabase() {
     `,
     ).run();
 
-    const insert = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
-    insert.run("John Doe", "john.doe@example.com");
-    insert.run("Jane Doe", "jane.doe@example.com");
-
     const rows = db.prepare("SELECT * FROM users").all();
-    console.log(rows); // 삽입된 데이터 출력
+    console.log(rows);
   } catch (error) {
     console.error("DB initialization failed", error);
   }

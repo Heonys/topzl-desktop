@@ -7,7 +7,6 @@ import { getAppConfigPathSync, setupMainConfig, setAppConfigPath } from "@shared
 import { setupGlobalShortcut, handleUrlScheme, setupPlugin, setupGlobalContext } from "@/core";
 import { isDev } from "@/utils/common";
 import { setupWorker } from "@/workers/setupWorker";
-import { setupDatabase } from "@/db";
 
 if (!app.requestSingleInstanceLock()) app.quit();
 
@@ -57,7 +56,6 @@ app.whenReady().then(async () => {
   setupIpcMain();
   setupGlobalContext();
   setupWorker();
-  setupDatabase();
 
   // protocol.handle("atom", (request) => {
   //   const filePath = request.url.slice("atom://".length);
