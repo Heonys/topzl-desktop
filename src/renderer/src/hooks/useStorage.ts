@@ -1,50 +1,40 @@
-import { MusicItem } from "@shared/plugin/type";
-import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
+import { useAtom } from "jotai";
+import { storageAtom, LocalStorageType, STORAGE_KEY, defaultStorage } from "@/db/store";
 
-export type StorageTypes = {
-  currentMusic: MusicItem | null;
-  currentProgress: number;
-  repeatMode: string;
-  volume: number;
-  speed: number;
-};
+export function useStorage() {
+  const [storage, _setStorage] = useAtom<LocalStorageType>(storageAtom);
 
-const storageAtom = atom<StorageTypes>({
-  currentMusic: null,
-  currentProgress: 0,
-  repeatMode: "queue-repeat",
-  volume: 1,
-  speed: 1,
-});
+  const getPreference = <T extends keyof LocalStorageType>(key: T) => {
+    if (storage) return storage[key];
+    return null;
+  };
 
-export function useStorage<T extends keyof StorageTypes>() {
-  const [storage, _setStorage] = useAtom<StorageTypes>(storageAtom);
-
-  const updateStorage = (key: T, value: StorageTypes[T]) => {
+  const updateStorage = <T extends keyof LocalStorageType>(key: T, value: LocalStorageType[T]) => {
     _setStorage((prev) => {
       const newStorage = { ...prev, [key]: value };
-      localStorage.setItem("user-preference", JSON.stringify(newStorage));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newStorage));
       return newStorage;
     });
   };
 
   useEffect(() => {
-    const userPreference = localStorage.getItem("user-preference");
+    const userPreference = localStorage.getItem(STORAGE_KEY);
     if (userPreference) {
       _setStorage(JSON.parse(userPreference));
     } else {
-      localStorage.setItem("user-preference", JSON.stringify(storage));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultStorage));
+      _setStorage(defaultStorage);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("user-preference", JSON.stringify(storage));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(storage));
   }, [storage]);
 
   return {
-    storage,
+    getPreference,
     updateStorage,
   };
 }
