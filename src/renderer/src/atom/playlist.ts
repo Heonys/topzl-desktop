@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { currentMusicAtom } from "../current";
+import { currentMusicAtom } from "./current";
 
 export type PlaylistInfo = {
   type?: "favorite" | "current";
@@ -8,8 +8,8 @@ export type PlaylistInfo = {
   date?: string;
   description?: string;
 };
-
 export const playListAtom = atom<MusicItem[]>([]);
+
 export const allPlaylistsAtom = atom<PlaylistInfo[]>([]);
 
 export const getCurrentListIndex = atom((get) => {

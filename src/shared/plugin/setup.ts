@@ -13,7 +13,7 @@ import {
   currentMusicAtom,
   currentRepeatModeAtom,
   currentShuffleModeAtom,
-} from "../../renderer/src/atom";
+} from "src/renderer/src/atom";
 import { RepeatMode } from "./type";
 import trackPlayer from "./trackPlayer";
 

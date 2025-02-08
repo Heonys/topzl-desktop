@@ -1,9 +1,10 @@
 import { atom } from "jotai";
-import { loadable } from "jotai/utils";
+import { loadable, atomWithStorage } from "jotai/utils";
 import trackPlayer from "@shared/plugin/trackPlayer";
 import { PlayerState, RepeatMode } from "@shared/plugin/type";
 
-export const currentMusicAtom = atom<MusicItem | null>(null);
+let isMounted = false;
+export const currentMusicAtom = atomWithStorage<MusicItem | null>("currentMusic", null);
 
 const mediaSourceAtomAsync = atom(async (get) => {
   const currentMusic = get(currentMusicAtom);
@@ -16,7 +17,10 @@ const mediaSourceAtomAsync = atom(async (get) => {
     } else {
       const result = await window.plugin.getMediaSource(currentMusic.id);
       trackPlayer.setTrackSource({ url: result.url }, currentMusic);
-      trackPlayer.play();
+      if (isMounted) {
+        trackPlayer.play();
+      }
+      isMounted = true;
     }
   } catch {
     trackPlayer.clear();
@@ -32,10 +36,10 @@ export const initProgress = {
   duration: Infinity,
 };
 export const currentProgressAtom = atom(initProgress);
-export const currentVolumeAtom = atom(0.1);
-export const currentSpeedAtom = atom(1);
-export const currentRepeatModeAtom = atom(RepeatMode.None);
-export const currentShuffleModeAtom = atom(false);
+export const currentVolumeAtom = atomWithStorage("volume", 0.1);
+export const currentSpeedAtom = atomWithStorage("speed", 1);
+export const currentRepeatModeAtom = atomWithStorage("repeatMode", RepeatMode.None);
+export const currentShuffleModeAtom = atomWithStorage("shuffleMode", false);
 export const currentPlayerStateAtom = atom(PlayerState.None);
 
 // Lyric

@@ -42,5 +42,6 @@
     "src/shared/constant/index.ts",
     "src/shared/plugin/type.ts",
     "src/renderer/src/atom",
+    "src/shared/storage"
   ],
 }

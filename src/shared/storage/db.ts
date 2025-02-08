@@ -1,5 +1,5 @@
 import { Dexie, Table } from "dexie";
-import { LocalStorageType, IndexedDBType } from "./store";
+import { PlaylistInfo } from "src/renderer/src/atom";
 
 class UserPreferenceDB extends Dexie {
   preference!: Table<Record<string, any>>;
@@ -14,21 +14,26 @@ class UserPreferenceDB extends Dexie {
 
 export const db = new UserPreferenceDB();
 
-export function getStorage<T extends keyof LocalStorageType>(key: T) {
-  const rawData = localStorage.getItem(key);
-  if (rawData) return JSON.parse(rawData);
-  return null;
+export interface IndexedDBType {
+  playlist: MusicItem[];
+  playlistAll: PlaylistInfo[];
+  favoriteList: MusicItem[];
+  downloadedList: MusicItem[];
+
+  searchHistory: string[];
+
+  localDir: string[];
+  selectedLocalDir: string[];
+  localMusicList: MusicItem[];
 }
 
-export function setStorage<T extends keyof LocalStorageType>(key: T, value: LocalStorageType[T]) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-export async function getIndexedDB<T extends keyof IndexedDBType>(key: T) {
+export async function getIndexedDB<T extends keyof IndexedDBType>(
+  key: T,
+): Promise<{ value: IndexedDBType[T] }> {
   const rawData = await db.transaction("readonly", db.preference, async () => {
     return db.preference.get(key);
   });
-  console.log(rawData);
+  return rawData;
 }
 
 export async function setIndexedDB<T extends keyof IndexedDBType>(key: T, value: IndexedDBType[T]) {
