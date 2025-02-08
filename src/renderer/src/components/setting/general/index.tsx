@@ -31,7 +31,7 @@ const closeActions = [
   },
   {
     value: "minimize",
-    title: "트레이로 최소화",
+    title: "트레이로 이동",
   },
 ];
 

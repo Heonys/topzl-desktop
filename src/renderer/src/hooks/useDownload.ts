@@ -39,9 +39,9 @@ export const useDownload = (musicItem?: MusicItem) => {
 
   const download = async (musicItem: MusicItem | MusicItem[]) => {
     const musicItems = Array.isArray(musicItem) ? musicItem : [musicItem];
-    const validItems = musicItems.filter((it) => !isDownloaded(it.id));
+    // const validItems = musicItems.filter((it) => !isDownloaded(it.id));
 
-    const downloadCallback = validItems.map((item) => {
+    const downloadCallback = musicItems.map((item) => {
       return async () => {
         try {
           const mediaSource = await getMediaSource(item);
@@ -57,7 +57,7 @@ export const useDownload = (musicItem?: MusicItem) => {
     });
 
     downloadQueue.addAll(downloadCallback);
-    setDownloadedList((prev) => [...prev, ...validItems]);
+    setDownloadedList((prev) => [...prev, ...musicItems]);
   };
 
   const getMediaSource = (currentMusic: MusicItem) => {
