@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { motion } from "motion/react";
 import { Condition } from "@/common";
 import StaticIcon from "@/icons/StaticIcon";
 import { useDirectoryManager } from "@/hooks";
-import { Backdrop, Header, Contents } from "./Layout";
+import Backdrop, { Header, Contents } from "./Layout";
 import { useModal } from "./useModal";
 
 const ScanLocalMusic = () => {
@@ -10,6 +11,7 @@ const ScanLocalMusic = () => {
     useDirectoryManager();
   const { hideModal } = useModal();
   const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const addForder = async () => {
     setIsOpenDialog(true);
@@ -33,8 +35,12 @@ const ScanLocalMusic = () => {
   };
 
   return (
-    <Backdrop onClose={onClose} disabled={isOpenDialog}>
-      <div
+    <Backdrop onClose={onClose} disabled={isOpenDialog} ref={containerRef}>
+      <motion.div
+        drag
+        dragConstraints={containerRef}
+        dragElastic={0}
+        dragMomentum={false}
         className="flex h-[50vh] w-[50vw] flex-col rounded-lg bg-white"
         onClick={(e) => e.stopPropagation()}
       >
@@ -98,7 +104,7 @@ const ScanLocalMusic = () => {
             </div>
           </div>
         </Contents>
-      </div>
+      </motion.div>
     </Backdrop>
   );
 };

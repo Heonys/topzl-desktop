@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, forwardRef } from "react";
 import { useModal } from "./useModal";
 import StaticIcon from "@/icons/StaticIcon";
 import { twMerge } from "tailwind-merge";
@@ -8,25 +8,30 @@ type BackdropProps = {
   disabled?: boolean;
 } & PropsWithChildren;
 
-export const Backdrop = ({ onClose, disabled, children }: BackdropProps) => {
-  const { hideModal } = useModal();
+const Backdrop = forwardRef<HTMLDivElement, BackdropProps>(
+  ({ onClose, disabled, children }: BackdropProps, ref) => {
+    const { hideModal } = useModal();
 
-  const handleClick = () => {
-    if (!disabled) {
-      if (onClose) onClose();
-      else hideModal();
-    }
-  };
+    const handleClick = () => {
+      if (!disabled) {
+        if (onClose) onClose();
+        else hideModal();
+      }
+    };
 
-  return (
-    <div
-      className={twMerge("fixed inset-0 z-50 flex items-center justify-center bg-black/60")}
-      onClick={handleClick}
-    >
-      {children}
-    </div>
-  );
-};
+    return (
+      <div
+        ref={ref}
+        className={twMerge("fixed inset-0 z-50 flex items-center justify-center bg-black/60")}
+        onClick={handleClick}
+      >
+        {children}
+      </div>
+    );
+  },
+);
+Backdrop.displayName = "backdrop";
+export default Backdrop;
 
 export const Header = ({ children }: PropsWithChildren) => {
   const { hideModal } = useModal();

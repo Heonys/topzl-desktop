@@ -1,7 +1,8 @@
-import { useLibrary } from "@/hooks";
-import { Backdrop, Contents, Header } from "./Layout";
-import { useModal } from "./useModal";
 import { FormEvent, useEffect, useRef } from "react";
+import { motion } from "motion/react";
+import { useLibrary } from "@/hooks";
+import Backdrop, { Contents, Header } from "./Layout";
+import { useModal } from "./useModal";
 
 type Props = {
   title: string;
@@ -12,6 +13,7 @@ const RenamePlaylist = ({ title, callback }: Props) => {
   const { hideModal } = useModal();
   const { renamePlaylist } = useLibrary();
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -25,8 +27,12 @@ const RenamePlaylist = ({ title, callback }: Props) => {
   }, []);
 
   return (
-    <Backdrop>
-      <div
+    <Backdrop ref={containerRef}>
+      <motion.div
+        drag
+        dragConstraints={containerRef}
+        dragElastic={0}
+        dragMomentum={false}
         className="flex h-[30vh] w-[50vw] flex-col rounded-lg bg-white"
         onClick={(e) => e.stopPropagation()}
       >
@@ -59,7 +65,7 @@ const RenamePlaylist = ({ title, callback }: Props) => {
             </div>
           </form>
         </Contents>
-      </div>
+      </motion.div>
     </Backdrop>
   );
 };

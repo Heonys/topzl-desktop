@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useRef } from "react";
-import { Backdrop, Contents, Header } from "./Layout";
+import { motion } from "motion/react";
+import Backdrop, { Contents, Header } from "./Layout";
 import { useModal } from "./useModal";
 import { useLibrary } from "@/hooks";
 
@@ -13,6 +14,7 @@ const CreatePlayList = ({ title, description, musicItems, overrideClose }: Props
   const { hideModal } = useModal();
   const { createPlaylist, setPlaylistByTitle } = useLibrary();
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -34,8 +36,12 @@ const CreatePlayList = ({ title, description, musicItems, overrideClose }: Props
   }, []);
 
   return (
-    <Backdrop>
-      <div
+    <Backdrop ref={containerRef}>
+      <motion.div
+        drag
+        dragConstraints={containerRef}
+        dragElastic={0}
+        dragMomentum={false}
         className="flex h-[38vh] w-[50vw] flex-col rounded-lg bg-white"
         onClick={(e) => e.stopPropagation()}
       >
@@ -78,7 +84,7 @@ const CreatePlayList = ({ title, description, musicItems, overrideClose }: Props
             </div>
           </form>
         </Contents>
-      </div>
+      </motion.div>
     </Backdrop>
   );
 };

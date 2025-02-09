@@ -1,14 +1,10 @@
 import { atom } from "jotai";
-import { TestModal } from "./TestModal";
-import { LyricsSearch } from "./LyricsSearch";
 import CreatePlayList from "./CreatePlayList";
 import RenamePlaylist from "./RenamePlaylist";
 import SelectPlaylist from "./SelectPlaylist";
 import ScanLocalMusic from "./ScanLocalMusic";
 
 export const modalTemplates = {
-  TestModal,
-  LyricsSearch,
   CreatePlayList,
   RenamePlaylist,
   SelectPlaylist,

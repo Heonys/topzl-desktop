@@ -1,5 +1,7 @@
+import { useRef } from "react";
+import { motion } from "motion/react";
 import { useCurrentMusic, useLibrary } from "@/hooks";
-import { Backdrop, Contents, Header } from "./Layout";
+import Backdrop, { Contents, Header } from "./Layout";
 import { useModal } from "./useModal";
 import { MusicItem } from "@shared/plugin/type";
 import { ModalNewPlaylistCover, ModalPlaylistCover } from "./ModalPlaylistCover";
@@ -12,6 +14,7 @@ const SelectPlaylist = ({ selectedItem }: Props) => {
   const { hideModal } = useModal();
   const { playlist, addPlaylist, latestPlaylist } = useCurrentMusic();
   const { playLists, addPlaylistByTitle } = useLibrary();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const addPlaylistBy = (title: string) => {
     return () => {
@@ -21,8 +24,12 @@ const SelectPlaylist = ({ selectedItem }: Props) => {
   };
 
   return (
-    <Backdrop>
-      <div
+    <Backdrop ref={containerRef}>
+      <motion.div
+        drag
+        dragConstraints={containerRef}
+        dragElastic={0}
+        dragMomentum={false}
         className="flex h-[50vh] w-[35vw] flex-col rounded-lg bg-white"
         onClick={(e) => e.stopPropagation()}
       >
@@ -54,7 +61,7 @@ const SelectPlaylist = ({ selectedItem }: Props) => {
             })}
           </div>
         </Contents>
-      </div>
+      </motion.div>
     </Backdrop>
   );
 };
