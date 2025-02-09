@@ -31,6 +31,7 @@ export function PlaylistOverview({ playlist, title, description, date }: Props) 
         </div>
         <div className="flex gap-2">
           <button
+            tabIndex={-1}
             className="flex items-center gap-2 rounded-lg bg-blue-200 p-2 px-4 font-sans text-sm font-semibold text-blue-600 opacity-85 hover:opacity-100"
             onClick={() => {
               playWithAddAllPlaylist(playlist[0], playlist);
@@ -40,6 +41,7 @@ export function PlaylistOverview({ playlist, title, description, date }: Props) 
             전체 재생
           </button>
           <button
+            tabIndex={-1}
             className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 px-4 font-sans text-sm font-semibold opacity-85 hover:opacity-100"
             onClick={() => navigate("/library")}
           >

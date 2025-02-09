@@ -47,7 +47,7 @@ export const SearchPage = () => {
 
         <TabPanels className="relative mt-3 flex h-[calc(100%-9rem-4rem)] w-full overflow-auto scrollbar-hide">
           {tabs.map((tab) => (
-            <TabPanel key={tab} className="w-full">
+            <TabPanel key={tab} className="w-full" tabIndex={-1}>
               <Condition
                 condition={!isLoading}
                 fallback={

@@ -1,14 +1,44 @@
+import { useState, useEffect } from "react";
+import hotkeys from "hotkeys-js";
 import { useSearchHistory } from "@/hooks";
 import StaticIcon from "@/icons/StaticIcon";
+import { cn } from "@/utils";
 
 type Props = {
   onClick: (query: string) => void;
   onFocus: () => void;
   onBlur: () => void;
+  syncInput: (history: string) => void;
 };
 
-export const SearchHistory = ({ onClick, onFocus, onBlur }: Props) => {
+export const SearchHistory = ({ onClick, onFocus, onBlur, syncInput }: Props) => {
   const { history, removeHistory } = useSearchHistory();
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+
+  useEffect(() => {
+    hotkeys.setScope("history");
+    hotkeys("up, down", "history", (e) => {
+      e.preventDefault();
+      setFocusedIndex((prevFocusedIndex) => {
+        switch (e.key) {
+          case "ArrowUp":
+            return Math.max(-1, prevFocusedIndex - 1);
+          case "ArrowDown":
+            return Math.min(history.length - 1, prevFocusedIndex + 1);
+          default:
+            return prevFocusedIndex;
+        }
+      });
+    });
+    return () => {
+      hotkeys.setScope("playback");
+      hotkeys.unbind("up, down", "history");
+    };
+  }, [history.length]);
+
+  useEffect(() => {
+    syncInput(history[focusedIndex]);
+  }, [history, focusedIndex, syncInput]);
 
   return (
     <div
@@ -21,11 +51,14 @@ export const SearchHistory = ({ onClick, onFocus, onBlur }: Props) => {
       }}
     >
       <div className="flex flex-col gap-1">
-        {history.map((qeury) => {
+        {history.map((qeury, index) => {
           return (
             <div
               key={qeury}
-              className="flex w-full items-center gap-2 rounded-md p-1 hover:bg-black/10"
+              className={cn(
+                "flex w-full items-center gap-2 rounded-md p-1 hover:bg-black/10",
+                focusedIndex === index ? "ring-2 ring-blue-400" : "",
+              )}
             >
               <div className="flex w-full flex-1 items-center gap-2" onClick={() => onClick(qeury)}>
                 <StaticIcon iconName="history" size={17} />

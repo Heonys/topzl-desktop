@@ -11,6 +11,7 @@ export const DownloadPage = () => {
       <h1 className="font-sans text-2xl font-bold">다운로드 목록</h1>
       <div className="mt-8 flex w-full justify-between">
         <button
+          tabIndex={-1}
           className="flex items-center gap-2 rounded-lg bg-[#E0E0E0] p-2 px-4 font-sans text-sm font-semibold opacity-85 hover:opacity-100"
           onClick={() => {
             const context = window.common.getGlobalContext();

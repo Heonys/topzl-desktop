@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import hotkeys from "hotkeys-js";
 import { getDefaultImage } from "@/utils";
 import { IconButton } from "@/common";
 import { PlayerState } from "@shared/plugin/type";
@@ -19,6 +20,12 @@ export const PipmodePage = () => {
         setPlayerState(message.data);
       }
     });
+
+    hotkeys("space", () => {
+      handleClickAction("TogglePlayAndPause");
+    });
+
+    return () => hotkeys.unbind("space");
   }, []);
 
   const handleClickAction = (command: Command) => {

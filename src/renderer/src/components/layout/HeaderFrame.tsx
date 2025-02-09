@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useNavigate } from "react-router-dom";
+import hotkeys from "hotkeys-js";
 import { HeaderNavigator } from "@/components";
 import { SearchHistory } from "@/components/search";
 import StaticIcon from "@/icons/StaticIcon";
@@ -14,7 +15,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
   const { playerState } = usePlayer();
   const { history, addHistory } = useSearchHistory();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [showHistory, setShowHistory] = useState(false);
+  const [showHistory, _setShowHistory] = useState(false);
   const isFocusedRef = useRef(false);
 
   const handleSearch = async () => {
@@ -25,22 +26,28 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
     }
   };
 
+  const openHistory = () => {
+    _setShowHistory(true);
+    hotkeys.setScope("history");
+  };
+  const closeHistory = () => {
+    _setShowHistory(false);
+    hotkeys.setScope("playback");
+  };
+
   const search = (qeury: string) => {
     navigate(`/search/${encodeURIComponent(qeury)}`);
     addHistory(qeury);
-    setShowHistory(false);
+    closeHistory();
     inputRef.current?.blur();
   };
 
   useEffect(() => {
-    const keyDownHandler = (event: globalThis.KeyboardEvent) => {
-      if (event.ctrlKey && event.key === "k") {
-        event.preventDefault();
-        inputRef.current?.focus();
-      }
-    };
-    document.addEventListener("keydown", keyDownHandler);
-    return () => document.removeEventListener("keydown", keyDownHandler);
+    hotkeys("ctrl+k", (event) => {
+      event.preventDefault();
+      inputRef.current?.focus();
+    });
+    return () => hotkeys.unbind("ctrl+k");
   }, []);
 
   if (!showHistory) {
@@ -70,6 +77,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           <div className="region-none flex h-7 w-full items-center gap-2 rounded-lg bg-black/10 p-4 pr-3">
             <StaticIcon iconName={"search"} color="black" size={18} opacity={0.6} />
             <input
+              tabIndex={-1}
               ref={inputRef}
               spellCheck={false}
               className="w-40 flex-1 bg-transparent font-sans text-sm font-semibold leading-5 outline-none placeholder:text-black/50"
@@ -77,18 +85,18 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
               maxLength={40}
               placeholder="음악, 앨범, 아티스트 검색"
               onFocus={() => {
-                setShowHistory(true);
+                openHistory();
               }}
               onBlur={() => {
                 setTimeout(() => {
                   if (!isFocusedRef.current) {
-                    setShowHistory(false);
+                    closeHistory();
                   }
                 });
               }}
               onKeyDown={({ key }) => {
                 if (key === "Enter") handleSearch();
-                if (key === "Escape") setShowHistory(false);
+                if (key === "Escape") closeHistory();
               }}
             />
             <div
@@ -105,11 +113,18 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
               }}
               onFocus={() => {
                 isFocusedRef.current = true;
-                setShowHistory(true);
+                openHistory();
               }}
               onBlur={() => {
                 isFocusedRef.current = false;
-                setShowHistory(false);
+                closeHistory();
+              }}
+              syncInput={(history) => {
+                if (history) {
+                  inputRef.current!.value = history;
+                } else {
+                  inputRef.current!.value = "";
+                }
               }}
             />
           </Condition>

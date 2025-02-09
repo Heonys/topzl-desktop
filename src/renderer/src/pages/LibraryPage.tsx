@@ -1,13 +1,12 @@
-import { Tab, TabGroup, TabList } from "@headlessui/react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AlbumCover } from "@/components";
 import { useCurrentMusic, useFavorite, useLibrary } from "@/hooks";
 import { useModal } from "@/components/modal/useModal";
 import { getDefaultImage, setFallbackImage } from "@/utils";
 import StaticIcon from "@/icons/StaticIcon";
 import { PlaylistInfo } from "@/atom";
-import { useState } from "react";
 import { Condition } from "@/common";
-import { useNavigate } from "react-router-dom";
 
 export const LibraryPage = () => {
   const navigate = useNavigate();
@@ -65,6 +64,7 @@ export const LibraryPage = () => {
           </div>
           <div className="flex gap-2">
             <button
+              tabIndex={-1}
               className="flex items-center gap-2 rounded-lg bg-blue-200 p-2 px-4 font-sans text-sm font-semibold text-blue-600 opacity-85 hover:opacity-100"
               onClick={() => {
                 navigate(`/playlist/${selectedList.type ?? selectedList.title}`);
@@ -90,10 +90,10 @@ export const LibraryPage = () => {
       </div>
 
       <div className="relative my-4 w-full">
-        <TabGroup>
-          <TabList className="flex gap-4 font-sans font-semibold">
-            <Tab className="border-b-4 border-blue-300 transition-all">보관함</Tab>
-          </TabList>
+        <div>
+          <div className="flex gap-4 font-sans font-semibold">
+            <div className="border-b-4 border-blue-300 transition-all">보관함</div>
+          </div>
           <div className="grid max-h-[320px] grid-cols-6 place-items-center gap-2 overflow-y-auto pt-2">
             <AlbumCover
               title="새 재생목록 추가"
@@ -143,7 +143,7 @@ export const LibraryPage = () => {
               );
             })}
           </div>
-        </TabGroup>
+        </div>
       </div>
     </section>
   );
