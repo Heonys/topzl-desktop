@@ -1,7 +1,16 @@
-import { changeLanguage } from "@shared/i18n/renderer";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { changeLanguage } from "@shared/i18n/renderer";
 
-export const useShortcutListener = () => {
+const usePostRender = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    window.common.onNavigateTo((route) => {
+      navigate(route);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     const cleanUpFn = window.shortcut.setupNavigate((url) => {
       // 함수로 분리
@@ -18,4 +27,8 @@ export const useShortcutListener = () => {
     });
     return cleanUpFn;
   }, []);
+
+  return null;
 };
+
+export default usePostRender;

@@ -12,6 +12,7 @@ declare global {
       onNavigateTo: (callback: (command: IpcEvents.Main["change-route"]) => void) => void;
       setPipMode: (currentItem: MusicItem | null, state: PlayerState) => void;
       proxyCommand: (command: IpcEvents.Main["tray-command"]) => void;
+      extractMetadata: IpcInvoke.Renderer["extract-metadata"];
     };
     i18n: {
       setupLang: IpcInvoke.Renderer["i18n-setup"];
@@ -54,6 +55,8 @@ declare global {
     fs: {
       readFile: (filePath: string) => Promise<Buffer>;
       openFolder: (path: string) => void;
+      isFile: (path: string) => Promise<boolean>;
+      getFilePath: (file: File) => string;
     };
     messagePort: {
       sendMessage: (data: MessageData) => void;

@@ -3,6 +3,7 @@ import fs from "fs-extra";
 import { getMainWindow } from "@/window/mainWindow";
 import { ipcMainHandle, ipcMainOn } from "@/ipc/main";
 import { getPipmodeWindow, showPipmodeWindow } from "@/window/pipmodeWindow";
+import { extractMusicItem } from "@/workers/common";
 
 export function setupIpcMain() {
   ipcMainOn("window-frame-action", (action, event) => {
@@ -39,5 +40,9 @@ export function setupIpcMain() {
     if (!getPipmodeWindow()) {
       showPipmodeWindow(data, state);
     }
+  });
+
+  ipcMainHandle("extract-metadata", (path) => {
+    return extractMusicItem(path);
   });
 }

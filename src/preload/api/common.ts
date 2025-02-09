@@ -36,6 +36,10 @@ function proxyCommand(command: Command) {
   ipcRendererSend("proxy-command", command);
 }
 
+function extractMetadata(path: any) {
+  return ipcRendererInvoke("extract-metadata", path);
+}
+
 export const common = {
   sendFrameAction,
   showOpenDialog,
@@ -44,4 +48,5 @@ export const common = {
   onNavigateTo,
   setPipMode,
   proxyCommand,
+  extractMetadata,
 } satisfies Window["common"];
