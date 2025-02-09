@@ -38,7 +38,6 @@
     "src/shared/**/renderer.ts",
     "src/shared/plugin/setup.ts",
     "src/shared/lyric/parser.ts",
-    "src/shared/worker/renderer.ts",
     "src/shared/constant/index.ts",
     "src/shared/plugin/type.ts",
     "src/renderer/src/atom",

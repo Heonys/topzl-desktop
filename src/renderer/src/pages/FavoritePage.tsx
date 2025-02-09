@@ -2,7 +2,7 @@ import { PlaylistOverview, PlayListTable } from "@/components";
 import { useFavorite } from "@/hooks";
 
 export const FavoritePage = () => {
-  const { favoriteList, setFavoriteList, unfavorite } = useFavorite();
+  const { favoriteList, setFavoriteList, unfavorite, latestFavorite } = useFavorite();
 
   return (
     <section>
@@ -11,6 +11,7 @@ export const FavoritePage = () => {
           playlist={favoriteList}
           title="좋아요 표시한 음악"
           description="좋아요 표시한 음악 목록입니다."
+          date={latestFavorite}
         />
       </div>
       <div className="relative my-4 w-full">

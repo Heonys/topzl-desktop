@@ -13,13 +13,14 @@ export const LibraryPage = () => {
   const navigate = useNavigate();
   const { playLists, removePlaylist } = useLibrary();
   const { showModal } = useModal();
-  const { favoriteList } = useFavorite();
-  const { playlist } = useCurrentMusic();
+  const { favoriteList, latestFavorite } = useFavorite();
+  const { playlist, latestPlaylist } = useCurrentMusic();
   const initSelect = {
     type: "favorite",
     title: "좋아요 표시한 음악",
     description: "좋아요 표시한 음악 목록 입니다.",
     data: favoriteList,
+    date: latestFavorite,
   } as PlaylistInfo;
   const [selectedList, setSelectedList] = useState<PlaylistInfo>(initSelect);
   const isCustomPlaylist = !selectedList.type;
@@ -110,6 +111,7 @@ export const LibraryPage = () => {
                   title: "좋아요 표시한 음악",
                   description: "좋아요 표시한 음악 목록 입니다.",
                   data: favoriteList,
+                  date: latestFavorite,
                 });
               }}
             />
@@ -124,6 +126,7 @@ export const LibraryPage = () => {
                   title: "현재 재생목록",
                   description: "현재 재생중인 목록 입니다.",
                   data: playlist,
+                  date: latestPlaylist,
                 });
               }}
             />

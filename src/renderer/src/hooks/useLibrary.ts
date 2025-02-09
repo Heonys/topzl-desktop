@@ -1,6 +1,6 @@
+import { useAtom } from "jotai";
 import { allPlaylistsAtom } from "@/atom";
 import { MusicItem } from "@shared/plugin/type";
-import { useAtom } from "jotai";
 
 export const useLibrary = () => {
   const [playLists, setPlayLists] = useAtom(allPlaylistsAtom);
@@ -29,6 +29,7 @@ export const useLibrary = () => {
       const updatedTargetPlaylist = {
         ...targetPlatlist,
         data: [...targetPlatlist.data, item],
+        date: new Date().toLocaleDateString(),
       };
       return prev.map((it) => (it.title === title ? updatedTargetPlaylist : it));
     });
@@ -44,7 +45,7 @@ export const useLibrary = () => {
       if (index === -1) return prev;
       return [
         ...prev.slice(0, index),
-        { ...prev[index], data: playList },
+        { ...prev[index], data: playList, date: new Date().toLocaleDateString() },
         ...prev.slice(index + 1),
       ];
     });

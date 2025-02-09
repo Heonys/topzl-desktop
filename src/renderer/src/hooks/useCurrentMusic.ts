@@ -1,5 +1,11 @@
 import { useAtom, useAtomValue } from "jotai";
-import { currentMusicAtom, mediaSourceAtom, playListAtom, getCurrentListIndex } from "@/atom";
+import {
+  currentMusicAtom,
+  mediaSourceAtom,
+  playListAtom,
+  getCurrentListIndex,
+  playlistUpdatedAt,
+} from "@/atom";
 import { MusicItem } from "@shared/plugin/type";
 
 export const useCurrentMusic = () => {
@@ -7,6 +13,11 @@ export const useCurrentMusic = () => {
   const asyncMediaSource = useAtomValue(mediaSourceAtom);
   const [playlist, setPlaylist] = useAtom(playListAtom);
   const curretIndex = useAtomValue(getCurrentListIndex);
+  const [latestPlaylist, setLatestPlaylist] = useAtom(playlistUpdatedAt);
+
+  const refreshDate = () => {
+    setLatestPlaylist(new Date().toLocaleDateString());
+  };
 
   const changeCurrentItem = (track: MusicItem) => {
     setCurrentItem(track);
@@ -29,6 +40,7 @@ export const useCurrentMusic = () => {
     if (!playlist.find((it) => it.id === musicItem.id)) {
       const newPlayList = [...playlist, musicItem];
       setPlaylist(newPlayList);
+      refreshDate();
     }
   };
 
@@ -39,11 +51,13 @@ export const useCurrentMusic = () => {
       });
       return [...prev, ...newItems];
     });
+    refreshDate();
   };
 
   const removePlaylist = (id: string) => {
     const newPlayList = playlist.filter((it) => it.id !== id);
     setPlaylist(newPlayList);
+    refreshDate();
   };
 
   const addNextTrack = (musicItem: MusicItem) => {
@@ -57,6 +71,7 @@ export const useCurrentMusic = () => {
         ...prevList.slice(targetIndex + 1),
       ]);
     }
+    refreshDate();
   };
 
   return {
@@ -71,5 +86,6 @@ export const useCurrentMusic = () => {
     playWithAddAllPlaylist,
     curretIndex,
     changeCurrentItem,
+    latestPlaylist,
   };
 };

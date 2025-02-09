@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 import { currentMusicAtom } from "./current";
 
 export type PlaylistInfo = {
@@ -24,3 +25,13 @@ export const favoriteListAtom = atom<MusicItem[]>([]);
 export const downloadedMusicAtom = atom<MusicItem[]>([]);
 
 export const recommededList = atom<MusicItem[]>([]);
+
+export const playlistUpdatedAt = atomWithStorage(
+  "playlistUpdatedAt",
+  new Date().toLocaleDateString(),
+);
+
+export const favoriteUpdatedAt = atomWithStorage(
+  "favoriteUpdatedAt",
+  new Date().toLocaleDateString(),
+);

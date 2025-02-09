@@ -16,12 +16,9 @@ import {
 
 import "rc-slider/assets/index.css";
 import { useEffect } from "react";
-import useAudioShortcuts from "./hooks/useAudioShortcuts";
 
 const App = () => {
   const navigate = useNavigate();
-  useAudioShortcuts();
-
   useEffect(() => {
     window.common.onNavigateTo((route) => {
       navigate(route);

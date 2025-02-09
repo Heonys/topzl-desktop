@@ -10,7 +10,7 @@ type Props = {
 
 const SelectPlaylist = ({ selectedItem }: Props) => {
   const { hideModal } = useModal();
-  const { playlist, addPlaylist } = useCurrentMusic();
+  const { playlist, addPlaylist, latestPlaylist } = useCurrentMusic();
   const { playLists, addPlaylistByTitle } = useLibrary();
 
   const addPlaylistBy = (title: string) => {
@@ -35,7 +35,7 @@ const SelectPlaylist = ({ selectedItem }: Props) => {
             <ModalPlaylistCover
               title="현재 재생목록"
               playlist={playlist}
-              date="2025.1.5"
+              date={latestPlaylist}
               onClick={() => {
                 addPlaylist(selectedItem);
                 hideModal();
