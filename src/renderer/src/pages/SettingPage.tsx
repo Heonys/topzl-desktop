@@ -29,7 +29,7 @@ export const SettingPage = () => {
       },
       {
         root: contentsRef.current,
-        threshold: [0, 0.2, 0.8, 1],
+        threshold: [0, 0.25, 0.75, 1],
       },
     );
 
@@ -60,12 +60,9 @@ export const SettingPage = () => {
                 selected === id && "border-black/80 opacity-100",
               )}
               onClick={() => {
-                const element = document.getElementById(`setting-${id}`);
-                if (element && contentsRef.current) {
-                  const containerTop = contentsRef.current.offsetTop;
-                  const elementTop = element.offsetTop;
-                  const scrollOffset = elementTop - containerTop;
-                  contentsRef.current.scrollTo({ top: scrollOffset, behavior: "smooth" });
+                const target = document.getElementById(`setting-${id}`);
+                if (target && contentsRef.current) {
+                  contentsRef.current.scrollTo({ top: target.offsetTop, behavior: "smooth" });
                 }
               }}
             >
@@ -74,12 +71,12 @@ export const SettingPage = () => {
           );
         })}
       </div>
-      <div className="h-[calc(100%-14.5rem)] overflow-auto" ref={contentsRef}>
+      <div className="relative h-[calc(100%-14.5rem)] overflow-auto" ref={contentsRef}>
         {routers.map((router) => {
           const { id, title } = router;
           const Component = router.component;
           return (
-            <div id={`setting-${id}`} key={id} className="mx-auto flex max-w-[750px] flex-col">
+            <div id={`setting-${id}`} key={id} className="mx-auto flex max-w-[800px] flex-col">
               <h1 className="text-xl font-bold text-black">{title}</h1>
               <Component />
               <div className="my-2 h-[2px] w-full bg-black/5"></div>

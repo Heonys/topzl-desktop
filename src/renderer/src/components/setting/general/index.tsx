@@ -10,6 +10,7 @@ import {
 } from "@headlessui/react";
 import DarkTheme from "@/assets/images/dark.png";
 import LightTheme from "@/assets/images/light.png";
+import CustomTheme from "@/assets/images/custom.png";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import StaticIcon from "@/icons/StaticIcon";
@@ -17,6 +18,7 @@ import StaticIcon from "@/icons/StaticIcon";
 const themes = [
   { title: "Light", image: LightTheme },
   { title: "Dark", image: DarkTheme },
+  { title: "Custom", image: CustomTheme },
 ];
 
 const languages = [
@@ -40,14 +42,14 @@ const permission = [
   { value: "denied", title: "사용 안 함" },
 ];
 
-const maximumHistory = [{ title: 10 }, { title: 20 }, { title: 30 }, { title: 40 }];
+const maximumHistory = [{ title: 7 }, { title: 10 }, { title: 15 }];
 
 const General = () => {
   const [selectedTheme, setSelectedTheme] = useState("Light");
   const [selectedLang, setSelectedLang] = useState(languages[0]);
   const [selectedAction, setselectedAction] = useState(closeActions[0]);
   const [selectedPermition, setSelectedPermition] = useState(permission[0]);
-  const [selectedHistory, setSelectedHistory] = useState(maximumHistory[1]);
+  const [selectedHistory, setSelectedHistory] = useState(maximumHistory[0]);
 
   return (
     <div className="flex w-full flex-col gap-3 py-5 pt-4">
@@ -60,14 +62,14 @@ const General = () => {
           </div>
           <div className="text-sm text-black/50">어플리케이션의 기본 언어를 설정 합니다.</div>
         </div>
-        <div className="w-52 rounded-lg bg-black/10 text-black">
+        <div className="w-52 rounded-lg text-black">
           <Listbox value={selectedLang} onChange={setSelectedLang}>
             <ListboxButton
               className={twMerge(
-                "relative block w-full rounded-lg bg-white/5 py-1.5 pl-3 pr-8 text-left text-sm/6",
+                "relative block w-full rounded-lg py-1.5 pl-3 pr-8 text-left text-sm/6 border-black/20 border",
               )}
             >
-              {selectedLang.title}
+              <div className="font-sans text-sm font-semibold">{selectedLang.title}</div>
               <StaticIcon
                 iconName="chevron-down"
                 className="group pointer-events-none absolute right-2.5 top-2.5 size-4 fill-black"
@@ -77,7 +79,7 @@ const General = () => {
               anchor="bottom"
               transition
               className={twMerge(
-                "w-[var(--button-width)] rounded-xl border border-black/10 bg-white p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none",
+                "w-[var(--button-width)] rounded-xl border border-black/10 bg-white p-1",
                 "transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0",
               )}
             >
@@ -85,16 +87,42 @@ const General = () => {
                 <ListboxOption
                   key={language.title}
                   value={language}
-                  className="group flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-white/10"
+                  className="group flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/5"
                 >
                   <StaticIcon
                     iconName="check"
                     className="invisible size-4 fill-white group-data-[selected]:visible"
                   />
-                  <div className="text-sm/6">{language.title}</div>
+                  <div className="font-sans text-sm/6 font-semibold">{language.title}</div>
                 </ListboxOption>
               ))}
             </ListboxOptions>
+          </Listbox>
+        </div>
+      </div>
+
+      {/* Audio Output Device  */}
+      <div className="my-1 flex items-center justify-between">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-2">
+            <StaticIcon iconName="headset" size={17} />
+            <div className="text-sm font-bold text-black">오디오 출력 장치</div>
+          </div>
+          <div className="text-sm text-black/50">기본 오디오 출력 장치를 선택합니다.</div>
+        </div>
+        <div className="w-64 rounded-lg text-black">
+          <Listbox value={selectedLang} onChange={setSelectedLang}>
+            <ListboxButton
+              className={twMerge(
+                "relative block w-full rounded-lg py-1.5 pl-3 pr-8 text-left text-sm/6 border-black/20 border",
+              )}
+            >
+              <div className="font-sans text-sm font-semibold">{`Default - 헤드폰(WH-1000XM5)`}</div>
+              <StaticIcon
+                iconName="chevron-down"
+                className="group pointer-events-none absolute right-2.5 top-2.5 size-4 fill-black"
+              />
+            </ListboxButton>
           </Listbox>
         </div>
       </div>
@@ -106,11 +134,9 @@ const General = () => {
             <StaticIcon iconName="sparkles" size={17} />
             <div className="text-sm font-bold text-black">테마 설정</div>
           </div>
-          <div className="text-sm text-black/50">
-            원하는 테마를 선택하여 어플리케이션을 설정합니다.
-          </div>
+          <div className="text-sm text-black/50">어플리케이션의 테마를 선택합니다.</div>
         </div>
-        <RadioGroup value={selectedTheme} onChange={setSelectedTheme} className="mt-2 flex gap-3">
+        <RadioGroup value={selectedTheme} onChange={setSelectedTheme} className="mt-2 flex gap-2">
           {themes.map(({ title, image }) => {
             const isSelected = selectedTheme === title;
             return (
@@ -123,7 +149,12 @@ const General = () => {
               >
                 <Label className="cursor-pointer">
                   <div className="flex flex-col items-center rounded-xl shadow-xl">
-                    <img className="w-36 rounded-t-xl object-cover" src={image} alt="light" />
+                    <img
+                      className="w-36 rounded-t-xl object-cover"
+                      src={image}
+                      alt="light"
+                      draggable={false}
+                    />
                     <div className="flex items-center gap-2 p-1.5">
                       <Radio
                         value={title}
@@ -134,7 +165,7 @@ const General = () => {
                       >
                         <span className="invisible size-2 rounded-full bg-white group-data-[checked]:visible" />
                       </Radio>
-                      <div className="text-xs font-medium">{title}</div>
+                      <div className="text-xs">{title}</div>
                     </div>
                   </div>
                 </Label>

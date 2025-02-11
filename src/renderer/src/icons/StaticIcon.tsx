@@ -40,6 +40,7 @@ import { MdAudiotrack } from "react-icons/md";
 import { MdOutlineExplore, MdOutlinePrivacyTip, MdOutlinePlaylistPlay } from "react-icons/md";
 import { MdPlaylistRemove } from "react-icons/md";
 import { PiShuffleBold } from "react-icons/pi";
+import { IoHeadset } from "react-icons/io5";
 
 export type IconNames = keyof typeof IconMap;
 
@@ -112,6 +113,7 @@ const IconMap = {
   ["navigate-prev"]: MdNavigateBefore,
   ["track"]: MdAudiotrack,
   ["privacy"]: MdOutlinePrivacyTip,
+  ["headset"]: IoHeadset,
 };
 
 type Props = {

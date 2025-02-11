@@ -8,8 +8,6 @@ const Playback = () => {
         <div className="text-sm font-bold text-black">
           재생목록에서 더블클릭시 (선택한 곡을 재생목록에 추가, 교체)
         </div>
-
-        <div className="text-sm font-bold text-black">오디오 출력장치</div>
       </div>
     </div>
   );

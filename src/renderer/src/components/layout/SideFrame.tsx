@@ -25,12 +25,12 @@ const options: OptionTypes[] = [
     title: "Home",
     route: "home",
   },
-  {
-    type: "icon",
-    iconName: "search",
-    title: "Search",
-    route: "search",
-  },
+  // {
+  //   type: "icon",
+  //   iconName: "search",
+  //   title: "Search",
+  //   route: "search",
+  // },
   {
     type: "icon",
     iconName: "playlist",
