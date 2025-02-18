@@ -32,8 +32,10 @@ export const Droppable = ({ position, tag, rowIndex, onDrop, isTable }: Props) =
         setIsDragOver(false);
         const _tag = e.dataTransfer.getData("tag");
         const fromIndex = parseInt(e.dataTransfer.getData("rowIndex"));
+
         if (_tag !== tag) return;
         if (fromIndex > -1) {
+          console.log(fromIndex, rowIndex);
           onDrop(fromIndex, rowIndex);
         }
       }}

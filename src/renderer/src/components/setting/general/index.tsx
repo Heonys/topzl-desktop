@@ -1,30 +1,17 @@
-import {
-  Field,
-  Label,
-  Radio,
-  RadioGroup,
-  Listbox,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
-} from "@headlessui/react";
-import DarkTheme from "@/assets/images/dark.png";
-import LightTheme from "@/assets/images/light.png";
-import CustomTheme from "@/assets/images/custom.png";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
+import DarkTheme from "@/assets/images/dark.png";
+import LightTheme from "@/assets/images/light.png";
 import StaticIcon from "@/icons/StaticIcon";
+import { SelectBoxItem } from "@/components/setting/common";
 
 const themes = [
   { title: "Light", image: LightTheme },
   { title: "Dark", image: DarkTheme },
-  { title: "Custom", image: CustomTheme },
 ];
 
-const languages = [
-  { value: "ko", title: "Korean" },
-  { value: "en", title: "English" },
-];
+const languages = ["Korean", "English"];
 
 const closeActions = [
   {
@@ -52,57 +39,23 @@ const General = () => {
   const [selectedHistory, setSelectedHistory] = useState(maximumHistory[0]);
 
   return (
-    <div className="flex w-full flex-col gap-3 py-5 pt-4">
+    <div className="flex w-full flex-col gap-4 py-5 pt-4">
       {/* Language */}
-      <div className="my-1 flex items-center justify-between">
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2">
-            <StaticIcon iconName="language" size={17} />
-            <div className="text-sm font-bold text-black">언어 설정</div>
-          </div>
-          <div className="text-sm text-black/50">어플리케이션의 기본 언어를 설정 합니다.</div>
-        </div>
-        <div className="w-52 rounded-lg text-black">
-          <Listbox value={selectedLang} onChange={setSelectedLang}>
-            <ListboxButton
-              className={twMerge(
-                "relative block w-full rounded-lg py-1.5 pl-3 pr-8 text-left text-sm/6 border-black/20 border",
-              )}
-            >
-              <div className="font-sans text-sm font-semibold">{selectedLang.title}</div>
-              <StaticIcon
-                iconName="chevron-down"
-                className="group pointer-events-none absolute right-2.5 top-2.5 size-4 fill-black"
-              />
-            </ListboxButton>
-            <ListboxOptions
-              anchor="bottom"
-              transition
-              className={twMerge(
-                "w-[var(--button-width)] rounded-xl border border-black/10 bg-white p-1",
-                "transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0",
-              )}
-            >
-              {languages.map((language) => (
-                <ListboxOption
-                  key={language.title}
-                  value={language}
-                  className="group flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/5"
-                >
-                  <StaticIcon
-                    iconName="check"
-                    className="invisible size-4 fill-white group-data-[selected]:visible"
-                  />
-                  <div className="font-sans text-sm/6 font-semibold">{language.title}</div>
-                </ListboxOption>
-              ))}
-            </ListboxOptions>
-          </Listbox>
-        </div>
-      </div>
+      <SelectBoxItem
+        keyPath="general.language"
+        label="언어 설정"
+        description="어플리케이션의 기본 언어를 설정 합니다."
+        iconName="language"
+        options={languages}
+        value={selectedLang}
+        width="200px"
+        onChange={(lang) => {
+          setSelectedLang(lang);
+        }}
+      />
 
       {/* Audio Output Device  */}
-      <div className="my-1 flex items-center justify-between">
+      {/* <div className="my-1 flex items-center justify-between">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <StaticIcon iconName="headset" size={17} />
@@ -110,7 +63,7 @@ const General = () => {
           </div>
           <div className="text-sm text-black/50">기본 오디오 출력 장치를 선택합니다.</div>
         </div>
-        <div className="w-64 rounded-lg text-black">
+        <div className="w-80 rounded-lg text-black">
           <Listbox value={selectedLang} onChange={setSelectedLang}>
             <ListboxButton
               className={twMerge(
@@ -125,7 +78,7 @@ const General = () => {
             </ListboxButton>
           </Listbox>
         </div>
-      </div>
+      </div> */}
 
       {/* Theme */}
       <div className="my-1 flex items-center justify-between">

@@ -29,8 +29,12 @@ async function checkPath() {
 
     // TODO: 빈객체로 하고 default config에서 초기값 지정
     const temp: AppConfig = {
-      common: {
+      general: {
         language: "ko",
+        theme: "light",
+        closeBehavior: "minimize",
+        maxHistoryLength: 7,
+        notification: false,
       },
       shortcut: {
         enableGlobal: false,

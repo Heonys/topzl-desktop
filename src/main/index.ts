@@ -44,10 +44,10 @@ app.whenReady().then(async () => {
 
   setupI18n({
     defaultLang: () => {
-      return getAppConfigPathSync("common.language");
+      return getAppConfigPathSync("general.language");
     },
     onChange: (newlang) => {
-      setAppConfigPath("common.language", newlang);
+      setAppConfigPath("general.language", newlang);
     },
   });
   setupGlobalShortcut();

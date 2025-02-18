@@ -1,17 +1,14 @@
 type Config = {
-  common: {
+  general: {
     language: string;
+    theme: "light" | "dark";
+    closeBehavior: "exit" | "minimize";
+    maxHistoryLength: number;
+    notification: boolean;
   };
-  download: {
-    path: string;
-  };
-  playMusic: {
-    defaultQuality: "standard";
+  playback: {
+    playError: "pause" | "skip-next";
     audioOutputDevice: MediaDeviceInfo | null;
-  };
-  lyric: {
-    fontColor: string;
-    fontSize: string;
   };
   shortcut: {
     enableLocal: boolean;
@@ -22,6 +19,16 @@ type Config = {
         global: string[];
       };
     };
+  };
+  download: {
+    path: string;
+    concurrency: number;
+    // defaultQuality: "low" | "standard" | "high";
+    // notification: boolean;
+  };
+  lyric: {
+    fontColor: string;
+    fontSize: string;
   };
 };
 
@@ -65,5 +72,9 @@ type DefaultAppConfig = {
   [K in AppConfigKeyPath]?: AppConfigKeyPathValue<K>;
 };
 export const defaultAppConfig: DefaultAppConfig = {
-  "playMusic.defaultQuality": "standard",
-};
+  "general.language": "Korean",
+  "general.theme": "light",
+  "general.closeBehavior": "minimize",
+  "general.maxHistoryLength": 7,
+  "general.notification": false,
+} as const;

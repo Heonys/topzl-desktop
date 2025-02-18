@@ -38,7 +38,7 @@ import { RiLoader2Fill } from "react-icons/ri";
 import { MdErrorOutline, MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { MdAudiotrack } from "react-icons/md";
 import { MdOutlineExplore, MdOutlinePrivacyTip, MdOutlinePlaylistPlay } from "react-icons/md";
-import { MdPlaylistRemove } from "react-icons/md";
+import { MdPlaylistRemove, MdOutlineTipsAndUpdates } from "react-icons/md";
 import { PiShuffleBold } from "react-icons/pi";
 import { IoHeadset } from "react-icons/io5";
 
@@ -114,6 +114,7 @@ const IconMap = {
   ["track"]: MdAudiotrack,
   ["privacy"]: MdOutlinePrivacyTip,
   ["headset"]: IoHeadset,
+  ["update"]: MdOutlineTipsAndUpdates,
 };
 
 type Props = {
