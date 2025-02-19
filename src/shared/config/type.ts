@@ -4,7 +4,7 @@ type Config = {
     theme: "light" | "dark";
     closeBehavior: "exit" | "minimize";
     maxHistoryLength: number;
-    notification: boolean;
+    notification: "granted" | "denied";
   };
   playback: {
     playError: "pause" | "skip-next";
@@ -76,5 +76,5 @@ export const defaultAppConfig: DefaultAppConfig = {
   "general.theme": "light",
   "general.closeBehavior": "minimize",
   "general.maxHistoryLength": 7,
-  "general.notification": false,
+  "general.notification": "denied",
 } as const;

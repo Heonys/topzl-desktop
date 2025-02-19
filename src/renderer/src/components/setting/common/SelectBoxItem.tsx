@@ -4,9 +4,9 @@ import { AppConfigKeyPath, AppConfigKeyPathValue, defaultAppConfig } from "@shar
 import StaticIcon, { IconNames } from "@/icons/StaticIcon";
 
 type Props<T extends AppConfigKeyPath> = {
+  keyPath: T;
   label: string;
   description: string;
-  keyPath: T;
   iconName: IconNames;
   options: AppConfigKeyPathValue<T>[];
   value?: AppConfigKeyPathValue<T>;
