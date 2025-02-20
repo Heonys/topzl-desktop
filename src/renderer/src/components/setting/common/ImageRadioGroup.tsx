@@ -1,7 +1,8 @@
-import StaticIcon, { IconNames } from "@/icons/StaticIcon";
+import { twMerge } from "tailwind-merge";
 import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
 import { AppConfigKeyPath, AppConfigKeyPathValue, defaultAppConfig } from "@shared/config/type";
-import { twMerge } from "tailwind-merge";
+import { useAppConfig } from "@/hooks";
+import StaticIcon, { IconNames } from "@/icons/StaticIcon";
 
 type Props<T extends AppConfigKeyPath> = {
   keyPath: T;
@@ -13,7 +14,6 @@ type Props<T extends AppConfigKeyPath> = {
     title: AppConfigKeyPathValue<T>;
   }[];
   value?: AppConfigKeyPathValue<T>;
-  onChange: (payload: AppConfigKeyPathValue<T>) => void;
 };
 
 export const ImageRadioGroup = <T extends AppConfigKeyPath>({
@@ -23,8 +23,9 @@ export const ImageRadioGroup = <T extends AppConfigKeyPath>({
   iconName,
   options,
   value = defaultAppConfig[keyPath] as AppConfigKeyPathValue<T>,
-  onChange,
 }: Props<T>) => {
+  const { setAppConfig } = useAppConfig();
+
   return (
     <div className="my-1 flex items-center justify-between">
       <div className="flex flex-col gap-1">
@@ -34,7 +35,13 @@ export const ImageRadioGroup = <T extends AppConfigKeyPath>({
         </div>
         <div className="text-sm text-black/50">{description}</div>
       </div>
-      <RadioGroup value={value} onChange={onChange} className="mt-2 flex gap-2">
+      <RadioGroup
+        value={value}
+        onChange={(value) => {
+          setAppConfig({ keyPath, value });
+        }}
+        className="mt-2 flex gap-2"
+      >
         {options.map(({ title, image }) => {
           const isSelected = value === title;
           return (

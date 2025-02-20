@@ -3,14 +3,12 @@ import { MusicItem, PlayerState } from "./type";
 import playerEventEmitter from "./eventEmitter";
 
 class TrackPlayer {
-  private audioContext: AudioContext;
   private audio: HTMLAudioElement;
   private hls: Hls;
   private currentMusic!: MusicItem;
   private playerState!: PlayerState;
 
   constructor() {
-    this.audioContext = new AudioContext();
     this.audio = new Audio();
     this.audio.preload = "auto";
     this.audio.controls = false;

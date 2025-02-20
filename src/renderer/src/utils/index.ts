@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import { clsx, ClassValue } from "clsx";
 import { SyntheticEvent } from "react";
-import fallbackImage from "@/assets/images/fallback.webp";
+import { FallbackImage } from "@/assets/images";
 
 export function cn(...args: ClassValue[]) {
   return twMerge(clsx(...args));
@@ -14,11 +14,11 @@ export function formatTime(seconds: number) {
 }
 
 export function setFallbackImage(event: SyntheticEvent<HTMLImageElement>) {
-  (event.target as HTMLImageElement).src = fallbackImage;
+  (event.target as HTMLImageElement).src = FallbackImage;
 }
 
 export function getDefaultImage(artwork?: string) {
-  return artwork || fallbackImage;
+  return artwork || FallbackImage;
 }
 
 export function assignToDrag(e: React.DragEvent, tag: string, rowIndex: number) {

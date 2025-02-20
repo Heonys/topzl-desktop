@@ -77,4 +77,5 @@ export const defaultAppConfig: DefaultAppConfig = {
   "general.closeBehavior": "minimize",
   "general.maxHistoryLength": 7,
   "general.notification": "denied",
+  "playback.playError": "skip-next",
 } as const;

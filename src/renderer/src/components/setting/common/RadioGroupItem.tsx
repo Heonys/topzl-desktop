@@ -1,3 +1,4 @@
+import { useAppConfig } from "@/hooks";
 import StaticIcon, { IconNames } from "@/icons/StaticIcon";
 import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
 import { AppConfigKeyPath, AppConfigKeyPathValue, defaultAppConfig } from "@shared/config/type";
@@ -13,7 +14,6 @@ type Props<T extends AppConfigKeyPath> = {
     value: AppConfigKeyPathValue<T>;
   }[];
   value?: AppConfigKeyPathValue<T>;
-  onChange: (payload: AppConfigKeyPathValue<T>) => void;
 };
 
 export const RadioGroupItem = <T extends AppConfigKeyPath>({
@@ -23,8 +23,9 @@ export const RadioGroupItem = <T extends AppConfigKeyPath>({
   iconName,
   options,
   value = defaultAppConfig[keyPath] as AppConfigKeyPathValue<T>,
-  onChange,
 }: Props<T>) => {
+  const { setAppConfig } = useAppConfig();
+
   return (
     <div className="my-2 flex items-center justify-between">
       <div className="flex flex-col gap-1">
@@ -35,10 +36,16 @@ export const RadioGroupItem = <T extends AppConfigKeyPath>({
         <div className="text-sm text-black/50">{description}</div>
       </div>
 
-      <RadioGroup value={value} onChange={onChange} className="flex gap-2">
-        {options.map((action) => {
+      <RadioGroup
+        value={value}
+        onChange={(value) => {
+          setAppConfig({ keyPath, value });
+        }}
+        className="flex gap-2"
+      >
+        {options.map((action, index) => {
           return (
-            <Field key={action.title} className="flex items-center gap-2">
+            <Field key={index} className="flex items-center gap-2">
               <Radio
                 value={action.value}
                 className={twMerge(
@@ -48,7 +55,9 @@ export const RadioGroupItem = <T extends AppConfigKeyPath>({
               >
                 <span className="invisible size-2 rounded-full bg-white group-data-[checked]:visible" />
               </Radio>
-              <Label className="text-sm font-medium">{action.title ?? String(action.value)}</Label>
+              <Label className="text-sm font-semibold">
+                {action.title ?? String(action.value)}
+              </Label>
             </Field>
           );
         })}

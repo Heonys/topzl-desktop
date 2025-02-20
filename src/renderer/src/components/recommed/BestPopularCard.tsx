@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import defaultCover from "@/assets/images/defaultCover.webp";
+import { DefaultCover } from "@/assets/images";
 import { useNavigate } from "react-router-dom";
 
 export const BestPopularCard = () => {
@@ -13,7 +13,7 @@ export const BestPopularCard = () => {
     >
       <motion.img
         className="absolute left-0 top-0 w-full"
-        src={defaultCover}
+        src={DefaultCover}
         alt="sample"
         initial={{ y: 0 }}
         animate={{ y: "-50%" }}

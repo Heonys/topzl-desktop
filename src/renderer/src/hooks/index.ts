@@ -11,3 +11,5 @@ export * from "./useAlbumDetail";
 export * from "./useContextMenu";
 export * from "./useDownload";
 export * from "./usePostRender";
+export * from "./useAppConfig";
+export * from "./useAudioOutpuDevice";

@@ -2,6 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
 import { AppConfigKeyPath, AppConfigKeyPathValue, defaultAppConfig } from "@shared/config/type";
 import StaticIcon, { IconNames } from "@/icons/StaticIcon";
+import { useAppConfig } from "@/hooks";
 
 type Props<T extends AppConfigKeyPath> = {
   keyPath: T;
@@ -11,7 +12,8 @@ type Props<T extends AppConfigKeyPath> = {
   options: AppConfigKeyPathValue<T>[];
   value?: AppConfigKeyPathValue<T>;
   width?: string;
-  onChange: (payload: AppConfigKeyPathValue<T>) => void;
+  onChange?: (value: AppConfigKeyPathValue<T>) => void;
+  convertToLabel?: (value: AppConfigKeyPathValue<T>) => string;
 };
 
 export const SelectBoxItem = <T extends AppConfigKeyPath>({
@@ -21,9 +23,12 @@ export const SelectBoxItem = <T extends AppConfigKeyPath>({
   iconName,
   options,
   value = defaultAppConfig[keyPath] as AppConfigKeyPathValue<T>,
-  onChange,
   width,
+  onChange,
+  convertToLabel,
 }: Props<T>) => {
+  const { setAppConfig } = useAppConfig();
+
   return (
     <div className="my-1 flex items-center justify-between">
       <div className="flex flex-col gap-1">
@@ -34,17 +39,22 @@ export const SelectBoxItem = <T extends AppConfigKeyPath>({
         <div className="text-sm text-black/50">{description}</div>
       </div>
       <div className="rounded-lg text-black">
-        <Listbox value={value} onChange={onChange}>
+        <Listbox
+          value={value}
+          onChange={onChange ? onChange : (value) => setAppConfig({ keyPath, value })}
+        >
           <ListboxButton
             style={{ width }}
             className={twMerge(
-              "relative block rounded-lg py-1.5 pl-3 pr-8 text-left text-sm/6 border-black/20 border",
+              "relative flex rounded-lg py-1.5 pl-3 pr-7 text-left text-sm/6 border-black/20 border items-center",
             )}
           >
-            <div className="font-sans text-sm font-semibold">{String(value)}</div>
+            <div className="truncate font-sans text-xs font-semibold">
+              {convertToLabel ? convertToLabel(value) : String(value)}
+            </div>
             <StaticIcon
               iconName="chevron-down"
-              className="group pointer-events-none absolute right-2.5 top-2.5 size-4 fill-black"
+              className="group pointer-events-none absolute right-1 top-1.5 size-4 fill-black"
             />
           </ListboxButton>
           <ListboxOptions
@@ -65,7 +75,9 @@ export const SelectBoxItem = <T extends AppConfigKeyPath>({
                   iconName="check"
                   className="invisible size-4 fill-white group-data-[selected]:visible"
                 />
-                <div className="font-sans text-sm/6 font-semibold">{String(option)}</div>
+                <div className="truncate font-sans text-xs/6 font-semibold">
+                  {convertToLabel ? convertToLabel(option) : String(option)}
+                </div>
               </ListboxOption>
             ))}
           </ListboxOptions>

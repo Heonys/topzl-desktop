@@ -20,7 +20,9 @@ import trackPlayer from "./trackPlayer";
 const store = getDefaultStore();
 
 export async function setupPlayer() {
-  // const deviceId = await navigator.mediaDevices.enumerateDevices();
+  const deviceId = await navigator.mediaDevices.enumerateDevices();
+  console.log("deviceId ::", deviceId);
+
   setupEvent();
 
   window.plugin.onErrorHandler(() => {
