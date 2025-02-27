@@ -23,7 +23,7 @@ export const QuickRecommend = () => {
           </div>
         </div>
         <div className="grid w-full grid-cols-5 gap-3">
-          {musicList.map((item) => (
+          {musicList.slice(0, 60).map((item) => (
             <PlaylistCover key={item.id} musicItem={item} />
           ))}
         </div>

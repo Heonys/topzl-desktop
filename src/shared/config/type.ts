@@ -9,6 +9,7 @@ type Config = {
   playback: {
     playError: "pause" | "skip-next";
     audioOutputDevice: MediaDeviceInfo | null;
+    previousTrackBehavior: "always-previous" | "under-3" | "under-5";
   };
   shortcut: {
     enableLocal: boolean;
@@ -23,8 +24,7 @@ type Config = {
   download: {
     path: string;
     concurrency: number;
-    // defaultQuality: "low" | "standard" | "high";
-    // notification: boolean;
+    notification: boolean;
   };
   lyric: {
     fontColor: string;
@@ -78,4 +78,17 @@ export const defaultAppConfig: DefaultAppConfig = {
   "general.maxHistoryLength": 7,
   "general.notification": "denied",
   "playback.playError": "skip-next",
+  "playback.previousTrackBehavior": "under-3",
+  "download.concurrency": 5,
+  "download.notification": false,
 } as const;
+
+export type GlobalContext = {
+  appVersion: string;
+  appPath: {
+    userData: string;
+    temp: string;
+    downloads: string;
+  };
+  platForm: NodeJS.Platform;
+};

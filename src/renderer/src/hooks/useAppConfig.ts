@@ -6,5 +6,9 @@ export const useAppConfig = () => {
 
   const setAppConfig = window.appConfig.setAppConfigPath;
 
-  return { appConfig, setAppConfig };
+  const getGlobalContext = () => {
+    return window.common.getGlobalContext();
+  };
+
+  return { appConfig, setAppConfig, getGlobalContext };
 };

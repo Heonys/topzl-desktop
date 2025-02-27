@@ -35,8 +35,8 @@ import { IoMdNotificationsOutline, IoIosMore, IoMdMore } from "react-icons/io";
 import { MdHistory } from "react-icons/md";
 import { BsFolderPlus } from "react-icons/bs";
 import { RiLoader2Fill } from "react-icons/ri";
-import { MdErrorOutline, MdNavigateNext, MdNavigateBefore } from "react-icons/md";
-import { MdAudiotrack } from "react-icons/md";
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import { MdAudiotrack, MdNotInterested } from "react-icons/md";
 import { MdOutlineExplore, MdOutlinePrivacyTip, MdOutlinePlaylistPlay } from "react-icons/md";
 import { MdPlaylistRemove, MdOutlineTipsAndUpdates } from "react-icons/md";
 import { PiShuffleBold } from "react-icons/pi";
@@ -106,7 +106,7 @@ const IconMap = {
   ["forder-plus"]: BsFolderPlus,
   ["check-circle"]: IoCheckmarkCircleOutline,
   ["loading"]: RiLoader2Fill,
-  ["error"]: MdErrorOutline,
+  ["error"]: MdNotInterested,
   ["more"]: IoIosMore,
   ["more-verticle"]: IoMdMore,
   ["navigate-next"]: MdNavigateNext,

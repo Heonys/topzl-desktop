@@ -1,5 +1,6 @@
 import { useAppConfig } from "@/hooks";
 import StaticIcon, { IconNames } from "@/icons/StaticIcon";
+import { cn } from "@/utils";
 import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
 import { AppConfigKeyPath, AppConfigKeyPathValue, defaultAppConfig } from "@shared/config/type";
 import { twMerge } from "tailwind-merge";
@@ -14,6 +15,7 @@ type Props<T extends AppConfigKeyPath> = {
     value: AppConfigKeyPathValue<T>;
   }[];
   value?: AppConfigKeyPathValue<T>;
+  direction?: "horizonal" | "vertical";
 };
 
 export const RadioGroupItem = <T extends AppConfigKeyPath>({
@@ -23,6 +25,7 @@ export const RadioGroupItem = <T extends AppConfigKeyPath>({
   iconName,
   options,
   value = defaultAppConfig[keyPath] as AppConfigKeyPathValue<T>,
+  direction = "horizonal",
 }: Props<T>) => {
   const { setAppConfig } = useAppConfig();
 
@@ -33,15 +36,15 @@ export const RadioGroupItem = <T extends AppConfigKeyPath>({
           <StaticIcon iconName={iconName} size={17} />
           <div className="text-sm font-bold text-black">{label}</div>
         </div>
-        <div className="text-sm text-black/50">{description}</div>
+        <div className="whitespace-pre text-sm text-black/50">{description}</div>
       </div>
 
       <RadioGroup
+        className={cn("flex gap-2", direction === "horizonal" ? "flex-row" : "flex-col")}
         value={value}
         onChange={(value) => {
           setAppConfig({ keyPath, value });
         }}
-        className="flex gap-2"
       >
         {options.map((action, index) => {
           return (

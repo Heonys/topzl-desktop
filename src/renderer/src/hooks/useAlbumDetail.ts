@@ -1,7 +1,8 @@
-import { recommededList } from "@/atom";
-import { MusicSheetItem } from "@shared/plugin/type";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import shuffle from "lodash.shuffle";
+import { recommededList } from "@/atom";
+import { MusicSheetItem } from "@shared/plugin/type";
 
 export const useAlbumDetail = (item: MusicSheetItem) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +40,7 @@ export const useRecommendList = () => {
     setIsLoading(true);
     try {
       const data = await window.plugin.searchPlaylist({ item: kpopSheet, page: 1 });
-      setMusicList(data.musicList);
+      setMusicList(shuffle(data.musicList));
     } catch {
       setMusicList([]);
     } finally {

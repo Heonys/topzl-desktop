@@ -50,6 +50,11 @@ async function checkPath() {
           },
         },
       },
+      download: {
+        concurrency: 5,
+        notification: false,
+        path: app.getPath("downloads"),
+      },
     };
 
     await fs.writeJson(getConfigPath(), temp);

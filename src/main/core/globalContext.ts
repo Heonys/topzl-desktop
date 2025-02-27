@@ -1,16 +1,6 @@
 import { app } from "electron";
 import { ipcMainOnSync } from "@/ipc/main";
 
-export type GlobalContext = {
-  appVersion: string;
-  appPath: {
-    userData: string;
-    temp: string;
-    downloads: string;
-  };
-  platForm: NodeJS.Platform;
-};
-
 export function setupGlobalContext() {
   ipcMainOnSync("global-context", (_, event) => {
     event.returnValue = {
@@ -21,6 +11,6 @@ export function setupGlobalContext() {
         downloads: app.getPath("downloads"),
       },
       platForm: process.platform,
-    };
+    } as GlobalContext;
   });
 }
