@@ -4,6 +4,7 @@ import General from "./general";
 import Lyric from "./lyric";
 import Playback from "./playback";
 import Shortcut from "./shortcut";
+import About from "./About";
 // import Update from "./update";
 
 export default [
@@ -14,4 +15,5 @@ export default [
   { id: "download", title: "Download", component: Download },
   // { id: "update", title: "Update", component: Update },
   { id: "backup", title: "Backup & Restore", component: BackupAndRestore },
+  { id: "about", title: "About", component: About },
 ];

@@ -19,9 +19,8 @@ import { IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
 import { BiSolidVolumeFull, BiSolidVolumeMute, BiSolidPlaylist } from "react-icons/bi";
 import { LuRepeat, LuRepeat1 } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
-import { MdOutlinePlaylistAdd } from "react-icons/md";
+import { MdOutlinePlaylistAdd, MdOutlineLibraryMusic, MdLanguage } from "react-icons/md";
 import { FiDownload } from "react-icons/fi";
-import { MdOutlineLibraryMusic } from "react-icons/md";
 import { SiApplemusic } from "react-icons/si";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { TiArrowUnsorted } from "react-icons/ti";
@@ -41,6 +40,8 @@ import { MdOutlineExplore, MdOutlinePrivacyTip, MdOutlinePlaylistPlay } from "re
 import { MdPlaylistRemove, MdOutlineTipsAndUpdates } from "react-icons/md";
 import { PiShuffleBold } from "react-icons/pi";
 import { IoHeadset } from "react-icons/io5";
+import { VscSymbolMethod } from "react-icons/vsc";
+import { IoPower } from "react-icons/io5";
 
 export type IconNames = keyof typeof IconMap;
 
@@ -115,6 +116,9 @@ const IconMap = {
   ["privacy"]: MdOutlinePrivacyTip,
   ["headset"]: IoHeadset,
   ["update"]: MdOutlineTipsAndUpdates,
+  ["global"]: MdLanguage,
+  ["test"]: VscSymbolMethod,
+  ["power"]: IoPower,
 };
 
 type Props = {

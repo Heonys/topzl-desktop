@@ -12,12 +12,11 @@ const General = () => {
         keyPath="general.language"
         label="언어 설정"
         description="어플리케이션의 기본 언어를 설정 합니다."
-        iconName="language"
+        iconName="global"
         value={appConfig.general?.language}
         options={["Korean", "English"]}
         width="200px"
       />
-
       {/* Theme */}
       <ImageRadioGroup
         keyPath="general.theme"
@@ -30,7 +29,18 @@ const General = () => {
           { title: "dark", image: DarkTheme },
         ]}
       />
-
+      {/* Auto Start On Boot */}
+      <RadioGroupItem
+        keyPath="general.autoStartOnBoot"
+        label="시작 시 자동 실행"
+        description="시스템 시작 시 어플리케이션을 자동으로 실행할지 여부를 설정합니다."
+        iconName="power"
+        value={appConfig.general?.autoStartOnBoot}
+        options={[
+          { value: true, title: "활성화" },
+          { value: false, title: "비활성화" },
+        ]}
+      />
       {/* When close button */}
       <RadioGroupItem
         keyPath="general.closeBehavior"

@@ -1,5 +1,6 @@
 type Config = {
   general: {
+    autoStartOnBoot: boolean;
     language: string;
     theme: "light" | "dark";
     closeBehavior: "exit" | "minimize";
@@ -27,8 +28,8 @@ type Config = {
     notification: boolean;
   };
   lyric: {
-    fontColor: string;
-    fontSize: string;
+    enable: boolean;
+    searchMethod: "basic" | "advanced";
   };
 };
 
@@ -72,6 +73,7 @@ type DefaultAppConfig = {
   [K in AppConfigKeyPath]?: AppConfigKeyPathValue<K>;
 };
 export const defaultAppConfig: DefaultAppConfig = {
+  "general.autoStartOnBoot": false,
   "general.language": "Korean",
   "general.theme": "light",
   "general.closeBehavior": "minimize",
@@ -81,6 +83,8 @@ export const defaultAppConfig: DefaultAppConfig = {
   "playback.previousTrackBehavior": "under-3",
   "download.concurrency": 5,
   "download.notification": false,
+  "lyric.enable": true,
+  "lyric.searchMethod": "advanced",
 } as const;
 
 export type GlobalContext = {
