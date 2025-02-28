@@ -11,7 +11,7 @@ type Props<T extends AppConfigKeyPath> = {
   value?: AppConfigKeyPathValue<T>;
 };
 
-export const SwitchBoxItem = <T extends AppConfigKeyPath>({
+export const SwitchOption = <T extends AppConfigKeyPath>({
   keyPath,
   label,
   description,

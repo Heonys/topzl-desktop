@@ -1,9 +1,9 @@
+import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
+import { twMerge } from "tailwind-merge";
 import { useAppConfig } from "@/hooks";
 import StaticIcon, { IconNames } from "@/icons/StaticIcon";
 import { cn } from "@/utils";
-import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
 import { AppConfigKeyPath, AppConfigKeyPathValue, defaultAppConfig } from "@shared/config/type";
-import { twMerge } from "tailwind-merge";
 
 type Props<T extends AppConfigKeyPath> = {
   keyPath: T;
@@ -18,7 +18,7 @@ type Props<T extends AppConfigKeyPath> = {
   direction?: "horizonal" | "vertical";
 };
 
-export const RadioGroupItem = <T extends AppConfigKeyPath>({
+export const RadioGroupOption = <T extends AppConfigKeyPath>({
   keyPath,
   label,
   description,

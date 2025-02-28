@@ -16,7 +16,7 @@ type Props<T extends AppConfigKeyPath> = {
   convertToLabel?: (value: AppConfigKeyPathValue<T>) => string;
 };
 
-export const SelectBoxItem = <T extends AppConfigKeyPath>({
+export const SelectOption = <T extends AppConfigKeyPath>({
   keyPath,
   label,
   description,

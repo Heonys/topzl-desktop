@@ -10,7 +10,7 @@ type Props = {
   }[];
 };
 
-export const LinksItem = ({ label, iconName, links = [] }: Props) => {
+export const LinksOption = ({ label, iconName, links = [] }: Props) => {
   return (
     <div className="my-1 flex gap-2">
       <div className="flex items-center gap-2">

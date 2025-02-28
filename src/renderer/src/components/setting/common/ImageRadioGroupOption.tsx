@@ -16,7 +16,7 @@ type Props<T extends AppConfigKeyPath> = {
   value?: AppConfigKeyPathValue<T>;
 };
 
-export const ImageRadioGroup = <T extends AppConfigKeyPath>({
+export const ImageRadioGroupOption = <T extends AppConfigKeyPath>({
   keyPath,
   label,
   description,

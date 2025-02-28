@@ -10,7 +10,7 @@ type Props<T extends AppConfigKeyPath> = {
   value?: AppConfigKeyPathValue<T>;
 };
 
-export const SelectDirectoryItem = <T extends AppConfigKeyPath>({
+export const SelectDirectoryOption = <T extends AppConfigKeyPath>({
   keyPath,
   label,
   description,

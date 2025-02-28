@@ -4,9 +4,9 @@ import {
   useReactTable,
   getCoreRowModel,
 } from "@tanstack/react-table";
-// import { useAppConfig } from "@/hooks";
 import { defaultAppConfig, shortcutKeyMap, type AppConfigKeymap } from "@shared/config/type";
 import { useMemo } from "react";
+// import { useAppConfig } from "@/hooks";
 import { cn } from "@/utils";
 
 type FormattedKeymap = {

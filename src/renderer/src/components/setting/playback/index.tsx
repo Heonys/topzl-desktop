@@ -1,5 +1,5 @@
 import { useAppConfig, useAudioOutpuDevice } from "@/hooks";
-import { RadioGroupItem, SelectBoxItem } from "@/components/setting/common";
+import { RadioGroupOption, SelectOption } from "@/components/setting/common";
 
 const Playback = () => {
   const { appConfig } = useAppConfig();
@@ -8,7 +8,7 @@ const Playback = () => {
   return (
     <div className="flex w-full flex-col gap-4 py-5 pt-4">
       {/* Audio Output Device */}
-      <SelectBoxItem
+      <SelectOption
         keyPath="playback.audioOutputDevice"
         label="오디오 출력 장치"
         description="기본 오디오 출력 장치를 선택합니다."
@@ -20,7 +20,7 @@ const Playback = () => {
       />
 
       {/* When play error */}
-      <RadioGroupItem
+      <RadioGroupOption
         keyPath="playback.playError"
         label="재생 오류 발생시"
         description="재생 URL을 찾을 수 없을 때의 동작을 선택합니다."
@@ -33,10 +33,10 @@ const Playback = () => {
       />
 
       {/* Previous Track Behavior  */}
-      <RadioGroupItem
+      <RadioGroupOption
         keyPath="playback.previousTrackBehavior"
         label="이전 곡 재생방식"
-        description={`이전 곡 버튼을 눌렀을 때, 현재 곡의 진행 상태에 따라 어떻게 동작할지 설정합니다. \n(설정된 시간이 지나면, 곡이 처음부터 다시 재생됩니다)`}
+        description={`이전 곡 버튼을 눌렀을 때, 현재 곡의 진행 상태에 따라 어떻게 동작할지 설정합니다. \n(설정된 시간이 지나면 곡이 처음부터 다시 재생됩니다)`}
         iconName="skip-previous"
         value={appConfig.playback?.previousTrackBehavior}
         direction="vertical"
