@@ -1,4 +1,4 @@
-import { RadioGroupItem, SelectDirectoryItem } from "@/components/setting/common";
+import { RadioGroupItem, SelectDirectoryItem, SwitchBoxItem } from "@/components/setting/common";
 import { useAppConfig } from "@/hooks";
 
 const Download = () => {
@@ -13,7 +13,6 @@ const Download = () => {
         iconName="push-pin"
         value={appConfig.download?.path ?? getGlobalContext().appPath.downloads}
       />
-
       {/* Max Concurrent Downloads */}
       <RadioGroupItem
         keyPath="download.concurrency"
@@ -27,18 +26,13 @@ const Download = () => {
           { value: 15, title: "15개" },
         ]}
       />
-
       {/* Download Notification */}
-      <RadioGroupItem
+      <SwitchBoxItem
         keyPath="download.notification"
         label="다운로드 알림"
         description="다운로드 완료시 데스크탑 알림을 보냅니다. (데스크탑 알림을 사용중일 경우에만 유효)"
         iconName="notification"
         value={appConfig.download?.notification}
-        options={[
-          { value: true, title: "사용" },
-          { value: false, title: "사용 안 함" },
-        ]}
       />
     </div>
   );

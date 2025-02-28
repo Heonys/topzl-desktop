@@ -1,5 +1,5 @@
 import { useAppConfig } from "@/hooks";
-import { RadioGroupItem } from "../common";
+import { RadioGroupItem, SwitchBoxItem } from "@/components/setting/common";
 
 const Lyric = () => {
   const { appConfig } = useAppConfig();
@@ -7,16 +7,12 @@ const Lyric = () => {
   return (
     <div className="flex w-full flex-col gap-4 py-5 pt-4">
       {/* Enable Lyrics */}
-      <RadioGroupItem
+      <SwitchBoxItem
         keyPath="lyric.enable"
-        label="가사 활성화 여부"
+        label="가사 활성화"
         description="Genius API 기반의 가사 검색이며, 항상 정확한 가사를 보장하지는 않습니다."
         iconName="lyric"
         value={appConfig.lyric?.enable}
-        options={[
-          { value: true, title: "활성화" },
-          { value: false, title: "비활성화" },
-        ]}
       />
       {/* Lyrics Search Method */}
       <RadioGroupItem

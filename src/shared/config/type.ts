@@ -1,11 +1,11 @@
-type Config = {
+export type Config = {
   general: {
     autoStartOnBoot: boolean;
     language: string;
     theme: "light" | "dark";
     closeBehavior: "exit" | "minimize";
     maxHistoryLength: number;
-    notification: "granted" | "denied";
+    notification: boolean;
   };
   playback: {
     playError: "pause" | "skip-next";
@@ -35,8 +35,18 @@ type Config = {
 
 export type ShortcutKeys = (typeof shortcutKeys)[number];
 export const shortcutKeys = [
-  "TRANSLATE_KO", //
-  "TRANSLATE_EN",
+  "play/pause",
+  "mute/unmute",
+  "skip-previous",
+  "skip-next",
+  "volume-up",
+  "volume-down",
+  "seek-forward",
+  "seek-backward",
+  "search",
+  "quit",
+  // "screenshot",
+  // "clipboard",
 ] as const;
 
 type KeyPaths<T extends object> =
@@ -69,6 +79,8 @@ export type AppConfig = Partial<Config>;
 export type AppConfigKeyPath = KeyPaths<Config>;
 export type AppConfigKeyPathValue<Path extends string> = KeyPathValue<Config, Path>;
 
+export type AppConfigKeymap = Config["shortcut"]["keymap"];
+
 type DefaultAppConfig = {
   [K in AppConfigKeyPath]?: AppConfigKeyPathValue<K>;
 };
@@ -78,13 +90,15 @@ export const defaultAppConfig: DefaultAppConfig = {
   "general.theme": "light",
   "general.closeBehavior": "minimize",
   "general.maxHistoryLength": 7,
-  "general.notification": "denied",
+  "general.notification": false,
   "playback.playError": "skip-next",
   "playback.previousTrackBehavior": "under-3",
   "download.concurrency": 5,
   "download.notification": false,
   "lyric.enable": true,
   "lyric.searchMethod": "advanced",
+  "shortcut.enableLocal": true,
+  "shortcut.enableGlobal": false,
 } as const;
 
 export type GlobalContext = {

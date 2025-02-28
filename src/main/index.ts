@@ -4,7 +4,7 @@ import { setupIpcMain } from "@/ipc/setup";
 import { setupI18n } from "@shared/i18n/main";
 import { setupTray } from "@/tray";
 import { getAppConfigPathSync, setupMainConfig, setAppConfigPath } from "@shared/config/main";
-import { setupGlobalShortcut, handleUrlScheme, setupPlugin, setupGlobalContext } from "@/core";
+import { handleUrlScheme, setupPlugin, setupGlobalContext } from "@/core";
 import { isDev } from "@/utils/common";
 import { setupWorker } from "@/workers/setupWorker";
 
@@ -50,7 +50,7 @@ app.whenReady().then(async () => {
       setAppConfigPath("general.language", newlang);
     },
   });
-  setupGlobalShortcut();
+  // setupGlobalShortcut();
   setupTray();
   createMainWindow();
   setupIpcMain();

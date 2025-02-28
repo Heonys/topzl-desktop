@@ -1,5 +1,10 @@
 import { DarkTheme, LightTheme } from "@/assets/images";
-import { ImageRadioGroup, RadioGroupItem, SelectBoxItem } from "@/components/setting/common";
+import {
+  ImageRadioGroup,
+  RadioGroupItem,
+  SelectBoxItem,
+  SwitchBoxItem,
+} from "@/components/setting/common";
 import { useAppConfig } from "@/hooks";
 
 const General = () => {
@@ -12,7 +17,7 @@ const General = () => {
         keyPath="general.language"
         label="언어 설정"
         description="어플리케이션의 기본 언어를 설정 합니다."
-        iconName="global"
+        iconName="language"
         value={appConfig.general?.language}
         options={["Korean", "English"]}
         width="200px"
@@ -29,18 +34,6 @@ const General = () => {
           { title: "dark", image: DarkTheme },
         ]}
       />
-      {/* Auto Start On Boot */}
-      <RadioGroupItem
-        keyPath="general.autoStartOnBoot"
-        label="시작 시 자동 실행"
-        description="시스템 시작 시 어플리케이션을 자동으로 실행할지 여부를 설정합니다."
-        iconName="power"
-        value={appConfig.general?.autoStartOnBoot}
-        options={[
-          { value: true, title: "활성화" },
-          { value: false, title: "비활성화" },
-        ]}
-      />
       {/* When close button */}
       <RadioGroupItem
         keyPath="general.closeBehavior"
@@ -53,17 +46,21 @@ const General = () => {
           { value: "minimize", title: "트레이로 이동" },
         ]}
       />
+      {/* Auto Start On Boot */}
+      <SwitchBoxItem
+        keyPath="general.autoStartOnBoot"
+        label="시작 시 자동 실행"
+        description="시스템 시작 시 어플리케이션을 자동으로 실행할지 여부를 설정합니다."
+        iconName="power"
+        value={appConfig.general?.autoStartOnBoot}
+      />
       {/* Notification */}
-      <RadioGroupItem
+      <SwitchBoxItem
         keyPath="general.notification"
-        label="데스크톱 알림 사용여부"
+        label="데스크톱 알림 사용"
         description="어플리케이션에서 데스크톱 알림을 표시하도록 설정합니다."
         iconName="notification"
         value={appConfig.general?.notification}
-        options={[
-          { value: "granted", title: "사용" },
-          { value: "denied", title: "사용 안 함" },
-        ]}
       />
       {/* Maximum search history */}
       <RadioGroupItem

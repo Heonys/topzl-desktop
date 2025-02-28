@@ -30,23 +30,56 @@ async function checkPath() {
     // TODO: 빈객체로 하고 default config에서 초기값 지정
     const temp: AppConfig = {
       general: {
+        autoStartOnBoot: false,
         language: "Korean",
         theme: "light",
         closeBehavior: "minimize",
         maxHistoryLength: 7,
-        notification: "denied",
+        notification: false,
       },
       shortcut: {
         enableGlobal: false,
         enableLocal: true,
         keymap: {
-          TRANSLATE_KO: {
-            local: [],
-            global: ["CommandOrControl", "Shift", "K"],
+          "play/pause": {
+            local: ["Space"],
+            global: [],
           },
-          TRANSLATE_EN: {
-            local: [],
-            global: ["CommandOrControl", "Shift", "E"],
+          "seek-forward": {
+            local: ["→"],
+            global: [],
+          },
+          "seek-backward": {
+            local: ["←"],
+            global: [],
+          },
+          "volume-up": {
+            local: ["↑"],
+            global: [],
+          },
+          "volume-down": {
+            local: ["↓"],
+            global: [],
+          },
+          "skip-next": {
+            local: ["Ctrl", "→"],
+            global: [],
+          },
+          "skip-previous": {
+            local: ["Ctrl", "←"],
+            global: [],
+          },
+          search: {
+            local: ["Ctrl", "K"],
+            global: [],
+          },
+          "mute/unmute": {
+            local: ["Ctrl", "M"],
+            global: [],
+          },
+          quit: {
+            local: ["Ctrl", "W"],
+            global: [],
           },
         },
       },

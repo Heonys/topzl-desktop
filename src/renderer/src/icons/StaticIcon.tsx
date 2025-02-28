@@ -8,7 +8,7 @@ import { VscChromeMaximize } from "react-icons/vsc";
 import { PiPushPinFill, PiVinylRecordDuotone } from "react-icons/pi";
 import { IoLanguage, IoSearch, IoStatsChart } from "react-icons/io5";
 import { MdDarkMode, MdOutlineLightMode, MdOutlineLyrics, MdOutlineSpeed } from "react-icons/md";
-import { FaGithub, FaPlay, FaPause, FaRegTrashAlt } from "react-icons/fa";
+import { FaGithub, FaPlay, FaPause, FaRegTrashAlt, FaRegKeyboard } from "react-icons/fa";
 import { PiHeart, PiHeartFill } from "react-icons/pi";
 import { GrFormPreviousLink, GrFormNextLink, GrFormRefresh } from "react-icons/gr";
 import { HiOutlineTrophy } from "react-icons/hi2";
@@ -119,6 +119,7 @@ const IconMap = {
   ["global"]: MdLanguage,
   ["test"]: VscSymbolMethod,
   ["power"]: IoPower,
+  ["hot-key"]: FaRegKeyboard,
 };
 
 type Props = {
