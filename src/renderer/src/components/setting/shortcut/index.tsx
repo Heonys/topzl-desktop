@@ -22,7 +22,7 @@ const Shortcut = () => {
       <SwitchBoxItem
         keyPath="shortcut.enableGlobal"
         label="Global 단축키 활성화"
-        description="시스템 전체에서 동작하는 단축키입니다. 백그라운드에 있을때나 다른 어플리케이션 사용중일때도 유효합니다."
+        description={`시스템 전체에서 동작하는 단축키입니다. 백그라운드에 있을때나 다른 어플리케이션을 사용중일때도 유효합니다. \n※ 다른 프로그램에서의 단축키와 충돌할 수 있습니다 설정을 변경할 때 주의해주세요`}
         iconName="global"
         value={shortcut?.enableGlobal}
       />

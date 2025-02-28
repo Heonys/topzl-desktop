@@ -73,10 +73,6 @@ async function checkPath() {
             local: ["Ctrl", "K"],
             global: [],
           },
-          "mute/unmute": {
-            local: ["Ctrl", "M"],
-            global: [],
-          },
           quit: {
             local: ["Ctrl", "W"],
             global: [],

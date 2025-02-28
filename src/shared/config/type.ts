@@ -36,7 +36,6 @@ export type Config = {
 export type ShortcutKeys = (typeof shortcutKeys)[number];
 export const shortcutKeys = [
   "play/pause",
-  "mute/unmute",
   "skip-previous",
   "skip-next",
   "volume-up",
@@ -45,9 +44,19 @@ export const shortcutKeys = [
   "seek-backward",
   "search",
   "quit",
-  // "screenshot",
-  // "clipboard",
 ] as const;
+
+export const shortcutKeyMap: Record<string, string> = {
+  "play/pause": "Play / Pause",
+  "skip-previous": "Play Previous",
+  "skip-next": "Play Next",
+  "volume-up": "Volume Up",
+  "volume-down": "Volume Down",
+  "seek-forward": "Forward",
+  "seek-backward": "Backward",
+  search: "Search",
+  quit: "Quit",
+};
 
 type KeyPaths<T extends object> =
   T extends Record<string, any>

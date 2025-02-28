@@ -1,12 +1,26 @@
+import { LinksItem } from "@/components/setting/common";
+import { useAppConfig } from "@/hooks";
+
 const About = () => {
+  const { getGlobalContext } = useAppConfig();
   return (
-    <div className="h-96 w-full">
-      <div className="my-2 flex flex-col gap-2 text-sm font-bold text-black">
-        <div>앱 버전</div>
-        <div>소스코드 (깃허브)</div>
-        <div>플러그인</div>
-        {/* <div>웹사이트</div> */}
-      </div>
+    <div className="flex w-full flex-col gap-4 py-5 pt-4">
+      <LinksItem
+        label={`Application Version - ${getGlobalContext().appVersion}`}
+        iconName="windows"
+      />
+      <LinksItem
+        label="Source code"
+        iconName="github"
+        links={[{ label: "Heonys/topzl-desktop", url: "https://github.com/Heonys/topzl-desktop" }]}
+      />
+      <LinksItem
+        label="Plugin"
+        iconName="plugin"
+        links={[
+          { label: "猫头猫/MusicFreePlugins", url: "https://gitee.com/maotoumao/MusicFreePlugins" },
+        ]}
+      />
     </div>
   );
 };

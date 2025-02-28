@@ -135,15 +135,14 @@ export const PlayListTable = ({
   const { download, isDownloaded } = useDownload();
   const { showModal } = useModal();
 
-  const columns = createColumns({
-    onRemove: removePlaylist,
-  });
+  console.log(111);
+
   const table = useReactTable({
     debugAll: false,
     data: playlist,
     state: { sorting },
     onSortingChange: setSorting,
-    columns,
+    columns: createColumns({ onRemove: removePlaylist }),
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
