@@ -31,7 +31,7 @@ export const SearchHistory = ({ onClick, onFocus, onBlur, syncInput }: Props) =>
       });
     });
     return () => {
-      hotkeys.setScope("playback");
+      hotkeys.setScope("all");
       hotkeys.unbind("up, down", "history");
     };
   }, [history.length]);

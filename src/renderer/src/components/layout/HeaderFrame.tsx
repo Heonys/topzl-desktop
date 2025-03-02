@@ -32,7 +32,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
   };
   const closeHistory = () => {
     _setShowHistory(false);
-    hotkeys.setScope("playback");
+    hotkeys.setScope("all");
   };
 
   const search = (qeury: string) => {

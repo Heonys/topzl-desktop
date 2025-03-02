@@ -1,3 +1,5 @@
+import hotkeys from "hotkeys-js";
+import { nanoid } from "nanoid";
 import {
   createColumnHelper,
   flexRender,
@@ -5,7 +7,7 @@ import {
   getCoreRowModel,
 } from "@tanstack/react-table";
 import { defaultAppConfig, shortcutKeyMap, type AppConfigKeymap } from "@shared/config/type";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 // import { useAppConfig } from "@/hooks";
 import { cn } from "@/utils";
 
@@ -13,50 +15,10 @@ type FormattedKeymap = {
   name: string;
   local: string[];
   global: string[];
+  onChange?: (keymap: string[]) => void;
 };
 
 const columnHelper = createColumnHelper<FormattedKeymap>();
-const createColumns = (local: boolean, global: boolean) => {
-  return [
-    columnHelper.display({
-      id: "keymap",
-      size: 150,
-      cell: (info) => (
-        <div className="p-2 font-dh text-sm font-medium text-black/80">
-          {shortcutKeyMap[info.row.original.name]}
-        </div>
-      ),
-    }),
-    columnHelper.accessor("local", {
-      header: () => <div className="p-2 text-xs text-black/70">In-App</div>,
-      cell: (info) => (
-        <div className={cn("p-1", !local && "opacity-40")}>
-          <input
-            className="rounded-md bg-black/15 p-2 text-center tracking-wider outline-blue-400"
-            value={info.getValue().join(" + ") || "None"}
-            readOnly
-            disabled={!local}
-          />
-        </div>
-      ),
-      enableSorting: false,
-    }),
-    columnHelper.accessor("global", {
-      header: () => <div className="p-2 text-xs text-black/70">Global</div>,
-      cell: (info) => (
-        <div className={cn("p-1", !global && "opacity-40")}>
-          <input
-            className="rounded-md bg-black/15 p-2 text-center tracking-wider outline-blue-400"
-            value={info.getValue().join(" + ") || "None"}
-            readOnly
-            disabled={!global}
-          />
-        </div>
-      ),
-      enableSorting: false,
-    }),
-  ];
-};
 
 type Props = {
   enableLocal?: boolean;
@@ -70,6 +32,52 @@ const ShortcutTable = ({
   keymaps = {} as AppConfigKeymap,
 }: Props) => {
   // const { appConfig } = useAppConfig();
+  // const isRecordingRef = useRef(false);
+  // const scropeRef = useRef(nanoid());
+  // const recordedKeysRef = useRef(new Set<string>());
+
+  const columns = useMemo(
+    () => [
+      columnHelper.display({
+        id: "keymap",
+        size: 150,
+        cell: (info) => (
+          <div className="p-2 font-dh text-sm font-medium text-black/80">
+            {shortcutKeyMap[info.row.original.name]}
+          </div>
+        ),
+      }),
+      columnHelper.accessor("local", {
+        header: () => <div className="p-2 text-xs text-black/70">In-App</div>,
+        cell: (info) => (
+          <div className={cn("p-1", !enableLocal && "opacity-40")}>
+            <input
+              className="rounded-md bg-black/15 p-2 text-center tracking-wider outline-blue-400"
+              value={info.getValue().join(" + ") || "None"}
+              readOnly
+              disabled={!enableLocal}
+            />
+          </div>
+        ),
+        enableSorting: false,
+      }),
+      columnHelper.accessor("global", {
+        header: () => <div className="p-2 text-xs text-black/70">Global</div>,
+        cell: (info) => (
+          <div className={cn("p-1", !enableGlobal && "opacity-40")}>
+            <input
+              className="rounded-md bg-black/15 p-2 text-center tracking-wider outline-blue-400"
+              value={info.getValue().join(" + ") || "None"}
+              readOnly
+              disabled={!enableGlobal}
+            />
+          </div>
+        ),
+        enableSorting: false,
+      }),
+    ],
+    [enableLocal, enableGlobal],
+  );
 
   const data = useMemo(
     () =>
@@ -83,7 +91,7 @@ const ShortcutTable = ({
 
   const table = useReactTable({
     data,
-    columns: createColumns(enableLocal, enableGlobal),
+    columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
