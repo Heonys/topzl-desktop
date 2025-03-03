@@ -2,6 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { clsx, ClassValue } from "clsx";
 import { SyntheticEvent } from "react";
 import { FallbackImage } from "@/assets/images";
+import { keyModifierFlags } from "@shared/constant";
 
 export function cn(...args: ClassValue[]) {
   return twMerge(clsx(...args));
@@ -25,3 +26,22 @@ export function assignToDrag(e: React.DragEvent, tag: string, rowIndex: number) 
   e.dataTransfer?.setData("tag", tag);
   e.dataTransfer?.setData("rowIndex", `${rowIndex}`);
 }
+
+export const capitalized = (word: string) => {
+  return word.replace(/\w/, (it) => it.toUpperCase());
+};
+
+export const getModifierKeyFlag = (keymap: string[]) => {
+  let flag = 0;
+  keymap.forEach((key) => {
+    if (keyModifierFlags[key]) {
+      flag |= keyModifierFlags[key];
+    }
+  });
+  return flag;
+};
+
+export const removeModiferKey = (keymap: string[]) => {
+  const modifierKeys = Object.keys(keyModifierFlags);
+  return keymap.filter((key) => !modifierKeys.includes(key));
+};

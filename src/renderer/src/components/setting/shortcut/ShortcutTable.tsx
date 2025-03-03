@@ -1,5 +1,3 @@
-import hotkeys from "hotkeys-js";
-import { nanoid } from "nanoid";
 import {
   createColumnHelper,
   flexRender,
@@ -7,9 +5,8 @@ import {
   getCoreRowModel,
 } from "@tanstack/react-table";
 import { defaultAppConfig, shortcutKeyMap, type AppConfigKeymap } from "@shared/config/type";
-import { useMemo, useRef } from "react";
-// import { useAppConfig } from "@/hooks";
-import { cn } from "@/utils";
+import { useMemo } from "react";
+import { ShortcutInput } from "./ShortcutInput";
 
 type FormattedKeymap = {
   name: string;
@@ -49,30 +46,12 @@ const ShortcutTable = ({
       }),
       columnHelper.accessor("local", {
         header: () => <div className="p-2 text-xs text-black/70">In-App</div>,
-        cell: (info) => (
-          <div className={cn("p-1", !enableLocal && "opacity-40")}>
-            <input
-              className="rounded-md bg-black/15 p-2 text-center tracking-wider outline-blue-400"
-              value={info.getValue().join(" + ") || "None"}
-              readOnly
-              disabled={!enableLocal}
-            />
-          </div>
-        ),
+        cell: (info) => <ShortcutInput enable={enableLocal} value={info.getValue()} />,
         enableSorting: false,
       }),
       columnHelper.accessor("global", {
         header: () => <div className="p-2 text-xs text-black/70">Global</div>,
-        cell: (info) => (
-          <div className={cn("p-1", !enableGlobal && "opacity-40")}>
-            <input
-              className="rounded-md bg-black/15 p-2 text-center tracking-wider outline-blue-400"
-              value={info.getValue().join(" + ") || "None"}
-              readOnly
-              disabled={!enableGlobal}
-            />
-          </div>
-        ),
+        cell: (info) => <ShortcutInput enable={enableGlobal} value={info.getValue()} />,
         enableSorting: false,
       }),
     ],

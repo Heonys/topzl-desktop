@@ -1,6 +1,7 @@
 import { SwitchOption } from "@/components/setting/common";
 import { useAppConfig } from "@/hooks";
 import ShortcutTable from "./ShortcutTable";
+import { Blockquote } from "@/common";
 
 const Shortcut = () => {
   const {
@@ -26,6 +27,15 @@ const Shortcut = () => {
         iconName="global"
         value={shortcut?.enableGlobal}
       />
+      <Blockquote>
+        <div className="font-dh text-lg font-medium text-gray-800">단축키 생성 규칙*</div>
+        <ul className="list-disc px-4">
+          <li>win, command와 같은 메타키는 단축키 등록에서 제외됩니다.</li>
+          <li>조합키를 제외한 일반키는 1개만 허용합니다.</li>
+          <li>Global 단축키는 반드시 조합키를 1개 이상 포함해야합니다.</li>
+          <li>조합키 목록: [Ctrl, Alt, Option, Shift]</li>
+        </ul>
+      </Blockquote>
       <ShortcutTable
         enableLocal={shortcut?.enableLocal}
         enableGlobal={shortcut?.enableGlobal}
