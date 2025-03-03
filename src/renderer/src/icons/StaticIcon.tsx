@@ -27,7 +27,7 @@ import { TiArrowUnsorted } from "react-icons/ti";
 import { HiOutlineSortDescending, HiOutlineSortAscending } from "react-icons/hi";
 import { LuClock } from "react-icons/lu";
 import { HiMiniHome } from "react-icons/hi2";
-import { IoChevronDownOutline } from "react-icons/io5";
+import { IoChevronDownOutline, IoChevronForward } from "react-icons/io5";
 import { IoCheckmark, IoCheckmarkCircleOutline } from "react-icons/io5";
 import { CgCloseR } from "react-icons/cg";
 import { IoMdNotificationsOutline, IoIosMore, IoMdMore } from "react-icons/io";
@@ -103,6 +103,7 @@ const IconMap = {
   ["clock"]: LuClock,
   ["home"]: HiMiniHome,
   ["chevron-down"]: IoChevronDownOutline,
+  ["chevron-right"]: IoChevronForward,
   ["check"]: IoCheckmark,
   ["box-close"]: CgCloseR,
   ["notification"]: IoMdNotificationsOutline,

@@ -7,6 +7,7 @@ import {
 import { defaultAppConfig, shortcutKeyMap, type AppConfigKeymap } from "@shared/config/type";
 import { useMemo } from "react";
 import { ShortcutInput } from "./ShortcutInput";
+import { useAppConfig } from "@/hooks";
 
 type FormattedKeymap = {
   name: string;
@@ -28,10 +29,7 @@ const ShortcutTable = ({
   enableGlobal = defaultAppConfig["shortcut.enableGlobal"]!,
   keymaps = {} as AppConfigKeymap,
 }: Props) => {
-  // const { appConfig } = useAppConfig();
-  // const isRecordingRef = useRef(false);
-  // const scropeRef = useRef(nanoid());
-  // const recordedKeysRef = useRef(new Set<string>());
+  const { setAppConfig } = useAppConfig();
 
   const columns = useMemo(
     () => [
@@ -46,16 +44,37 @@ const ShortcutTable = ({
       }),
       columnHelper.accessor("local", {
         header: () => <div className="p-2 text-xs text-black/70">In-App</div>,
-        cell: (info) => <ShortcutInput enable={enableLocal} value={info.getValue()} />,
+        cell: (info) => {
+          const keyPath = `shortcut.keymap.${info.row.original.name}.local` as AppConfigKeyPath;
+          return (
+            <ShortcutInput
+              enable={enableLocal}
+              value={info.getValue()}
+              onChange={(value) => setAppConfig({ keyPath, value })}
+              onClear={() => setAppConfig({ keyPath, value: [] })}
+            />
+          );
+        },
         enableSorting: false,
       }),
       columnHelper.accessor("global", {
         header: () => <div className="p-2 text-xs text-black/70">Global</div>,
-        cell: (info) => <ShortcutInput enable={enableGlobal} value={info.getValue()} />,
+        cell: (info) => {
+          const keyPath = `shortcut.keymap.${info.row.original.name}.global` as AppConfigKeyPath;
+          return (
+            <ShortcutInput
+              enable={enableGlobal}
+              isGlobal
+              value={info.getValue()}
+              onChange={(value) => setAppConfig({ keyPath, value })}
+              onClear={() => setAppConfig({ keyPath, value: [] })}
+            />
+          );
+        },
         enableSorting: false,
       }),
     ],
-    [enableLocal, enableGlobal],
+    [enableLocal, enableGlobal, setAppConfig],
   );
 
   const data = useMemo(

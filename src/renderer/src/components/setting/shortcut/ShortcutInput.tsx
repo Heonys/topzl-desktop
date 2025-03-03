@@ -7,42 +7,56 @@ import StaticIcon from "@/icons/StaticIcon";
 type Props = {
   enable: boolean;
   value: string[];
-  onChange?: (keymap: string[]) => void;
+  onChange: (keymap: string[]) => void;
+  onClear: () => void;
+  isGlobal?: boolean;
 };
 
-const keycodeMap = {};
-
-export const ShortcutInput = ({ value, enable }: Props) => {
+export const ShortcutInput = ({ value, enable, onChange, onClear, isGlobal }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [recordedValue, setRecoredValue] = useState<string[] | null>(null);
   const inputValue = (recordedValue ?? value).join(" + ") || "None";
 
   const scopeRef = useRef(nanoid());
   const isFocusedRef = useRef(false);
+  const isRecordingRef = useRef(false);
   const recordedRef = useRef(new Set<string>());
 
   useEffect(() => {
-    hotkeys("*", { scope: scopeRef.current, keyup: true }, (event) => {
+    const scope = scopeRef.current;
+    hotkeys("*", { scope, keyup: true }, (event) => {
       let key = event.key.toLowerCase();
       if (key === " ") key = "space";
 
       if (event.type === "keydown") {
+        isRecordingRef.current = true;
         if (key === "meta") {
           setRecoredValue(null);
           recordedRef.current.clear();
+          isRecordingRef.current = false;
         } else {
           key = capitalized(key);
           if (!recordedRef.current.has(key)) {
             recordedRef.current.add(key);
-            setRecoredValue([...recordedRef.current].map((it) => capitalized(it)));
+            setRecoredValue([...recordedRef.current].map((it) => keycodeMap(capitalized(it))));
           }
         }
-      } else if (event.type === "keyup" && key !== "meta") {
+      } else if (event.type === "keyup" && isRecordingRef.current) {
+        isRecordingRef.current = false;
         const keymap = [...recordedRef.current];
         const filteredKeymap = removeModiferKey(keymap);
         const modifierFlag = getModifierKeyFlag(keymap);
+
+        if (filteredKeymap.length === 1 && (isGlobal ? modifierFlag : true)) {
+          onChange(keymap.map((it) => keycodeMap(capitalized(it))));
+        } else {
+          setRecoredValue(null);
+        }
+        recordedRef.current.clear();
       }
     });
+    return () => hotkeys.deleteScope(scope);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -51,6 +65,7 @@ export const ShortcutInput = ({ value, enable }: Props) => {
         type="text"
         className="w-44 rounded-md bg-black/15 p-2 text-center tracking-wider outline-blue-400"
         value={inputValue}
+        title={inputValue}
         readOnly
         disabled={!enable}
         onKeyDown={(e) => e.preventDefault()}
@@ -76,6 +91,8 @@ export const ShortcutInput = ({ value, enable }: Props) => {
             setRecoredValue(null);
             setIsFocused(false);
             recordedRef.current.clear();
+            isFocusedRef.current = false;
+            onClear();
           }}
         >
           <StaticIcon iconName="x-mark" size={14} />
@@ -83,4 +100,25 @@ export const ShortcutInput = ({ value, enable }: Props) => {
       )}
     </div>
   );
+};
+
+const keycodeMap = (key: string) => {
+  switch (key) {
+    case "Arrowup":
+      return "↑";
+    case "Arrowdown":
+      return "↓";
+    case "Arrowleft":
+      return "←";
+    case "Arrowright":
+      return "→";
+    case "Control": {
+      return "Ctrl";
+    }
+    case "Escape": {
+      return "ESC";
+    }
+    default:
+      return key;
+  }
 };
