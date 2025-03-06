@@ -113,7 +113,6 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
               }}
               onFocus={() => {
                 isFocusedRef.current = true;
-                openHistory();
               }}
               onBlur={() => {
                 isFocusedRef.current = false;
@@ -158,7 +157,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           <IconButton
             iconName="x-mark"
             title="close"
-            onClick={() => window.common.sendFrameAction("HIDE")}
+            onClick={() => window.common.sendFrameAction("CLOSE")}
           />
         </div>
       </div>

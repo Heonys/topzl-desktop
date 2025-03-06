@@ -100,6 +100,7 @@ export const defaultAppConfig: DefaultAppConfig = {
   "general.closeBehavior": "minimize",
   "general.maxHistoryLength": 7,
   "general.notification": false,
+  "playback.audioOutputDevice": null,
   "playback.playError": "skip-next",
   "playback.previousTrackBehavior": "under-3",
   "download.concurrency": 5,

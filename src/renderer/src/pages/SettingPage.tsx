@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import routers from "@/components/setting/router";
+import { Condition } from "@/common";
 
 export const SettingPage = () => {
   const [selected, setSelected] = useState(routers[0].id);
@@ -72,14 +73,16 @@ export const SettingPage = () => {
         })}
       </div>
       <div className="relative h-[calc(100%-14.5rem)] overflow-auto" ref={contentsRef}>
-        {routers.map((router) => {
+        {routers.map((router, index) => {
           const { id, title } = router;
           const Component = router.component;
           return (
             <div id={`setting-${id}`} key={id} className="mx-auto flex max-w-[770px] flex-col">
               <h1 className="text-xl font-bold text-black">{title}</h1>
               <Component />
-              <div className="my-2 h-[2px] w-full bg-black/5"></div>
+              <Condition condition={index !== routers.length - 1}>
+                <div className="my-2 h-[2px] w-full bg-black/5"></div>
+              </Condition>
             </div>
           );
         })}

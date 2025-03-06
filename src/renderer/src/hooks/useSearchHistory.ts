@@ -1,10 +1,11 @@
-import { searchHistoryAtom } from "@/atom";
 import { useAtom } from "jotai";
-
-const MAX_HISTORY = 7;
+import { searchHistoryAtom } from "@/atom";
+import { useAppConfig } from "./useAppConfig";
+import { defaultAppConfig } from "@shared/config/type";
 
 export const useSearchHistory = () => {
   const [history, setHistory] = useAtom(searchHistoryAtom);
+  const { appConfig } = useAppConfig();
 
   const clearHistory = () => {
     setHistory([]);
@@ -14,12 +15,21 @@ export const useSearchHistory = () => {
     setHistory((prev) => prev.filter((it) => it !== query));
   };
 
+  const maxHistoryLength = () => {
+    return appConfig.general?.maxHistoryLength ?? defaultAppConfig["general.maxHistoryLength"]!;
+  };
+
   const addHistory = (query: string) => {
     setHistory((prev) => {
       const newHistory = prev.filter((it) => it !== query);
-      return [query, ...newHistory].slice(0, MAX_HISTORY);
+      return [query, ...newHistory].slice(0, maxHistoryLength());
     });
   };
 
-  return { history, clearHistory, removeHistory, addHistory };
+  return {
+    history: history.slice(0, maxHistoryLength()),
+    clearHistory,
+    removeHistory,
+    addHistory,
+  };
 };

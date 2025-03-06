@@ -1,28 +1,59 @@
 import { ReactNode, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import StaticIcon from "@/icons/StaticIcon";
+import { cn } from "@/utils";
 
 type Props = {
-  children: ReactNode;
-  title: string;
+  title?: string;
+  children?: ReactNode;
+  collapsible?: boolean;
+  color?: "indigo" | "orange" | "crimson" | "cyan";
+  onClick?: () => void;
 };
 
-export const Blockquote = ({ children, title }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+const colorMap: Record<NonNullable<Props["color"]>, string> = {
+  indigo: "#c2d0ff",
+  orange: "#fec182",
+  crimson: "#f3bed2",
+  cyan: "#9ddde7",
+};
+
+export const Blockquote = ({
+  children,
+  title,
+  onClick,
+  collapsible = false,
+  color = "indigo",
+}: Props) => {
+  const [isOpen, setIsOpen] = useState(!collapsible);
+  const borderColor = colorMap[color] || colorMap["indigo"];
 
   return (
-    <blockquote className="border-l-[5px] border-[#c2d0ff] bg-gray-50 p-4 text-sm font-semibold italic text-gray-700">
+    <blockquote
+      className={cn(
+        "flex flex-col bg-gray-50 p-4 text-sm font-semibold italic text-gray-700",
+        title && "gap-2",
+        onClick && "cursor-pointer",
+      )}
+      style={{ borderLeft: `5px solid ${borderColor}` }}
+      onClick={onClick}
+    >
       <div
-        className="flex cursor-pointer items-center gap-2 text-black"
-        onClick={() => setIsOpen((prev) => !prev)}
+        className="flex cursor-pointer items-center gap-2 font-bold text-black"
+        onClick={collapsible ? () => setIsOpen((prev) => !prev) : undefined}
       >
-        {isOpen ? <StaticIcon iconName="chevron-down" /> : <StaticIcon iconName="chevron-right" />}
+        {collapsible &&
+          (isOpen ? (
+            <StaticIcon iconName="chevron-down" />
+          ) : (
+            <StaticIcon iconName="chevron-right" />
+          ))}
         {title}
       </div>
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="mt-2 overflow-hidden"
+            className="overflow-hidden"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

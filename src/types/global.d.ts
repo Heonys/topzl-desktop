@@ -13,6 +13,7 @@ declare global {
       setPipMode: (currentItem: MusicItem | null, state: PlayerState) => void;
       proxyCommand: (command: IpcEvents.Main["tray-command"]) => void;
       extractMetadata: IpcInvoke.Renderer["extract-metadata"];
+      showNotification: (message: IpcEvents.Renderer["show-notification"]) => void;
     };
     i18n: {
       setupLang: IpcInvoke.Renderer["i18n-setup"];

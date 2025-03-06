@@ -84,6 +84,15 @@ async function checkPath() {
         notification: false,
         path: app.getPath("downloads"),
       },
+      playback: {
+        audioOutputDevice: null,
+        playError: "skip-next",
+        previousTrackBehavior: "under-3",
+      },
+      lyric: {
+        enable: true,
+        searchMethod: "advanced",
+      },
     };
 
     await fs.writeJson(getConfigPath(), temp);

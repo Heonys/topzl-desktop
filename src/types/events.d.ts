@@ -67,6 +67,7 @@ declare namespace IpcEvents {
     "current-track": MusicItem;
     "set-pip-mode": { data: MusicItem | null; state: PlayerState };
     "proxy-command": Command;
+    "show-notification": { title: string; body: string };
   }
 
   // ipcRender.send -> ipcMain.on (sync)

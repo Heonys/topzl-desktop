@@ -1,16 +1,24 @@
-import { BrowserWindow, dialog, shell } from "electron";
+import { BrowserWindow, dialog, shell, Notification, nativeImage } from "electron";
 import fs from "fs-extra";
 import { getMainWindow } from "@/window/mainWindow";
 import { ipcMainHandle, ipcMainOn } from "@/ipc/main";
 import { getPipmodeWindow, showPipmodeWindow } from "@/window/pipmodeWindow";
 import { extractMusicItem } from "@/workers/common";
+import { getAppConfigPathSync } from "@shared/config/main";
+import { getResourcePath } from "@/utils/path";
 
 export function setupIpcMain() {
   ipcMainOn("window-frame-action", (action, event) => {
     const mainWindow = getMainWindow();
+    const closeBehavior = getAppConfigPathSync("general.closeBehavior");
+
     switch (action) {
       case "CLOSE": {
-        return BrowserWindow.fromWebContents(event.sender)?.close();
+        if (closeBehavior === "exit") {
+          return BrowserWindow.fromWebContents(event.sender)?.close();
+        } else {
+          return mainWindow.hide();
+        }
       }
       case "MAXIMIZE": {
         return mainWindow.maximize();
@@ -44,5 +52,16 @@ export function setupIpcMain() {
 
   ipcMainHandle("extract-metadata", (path) => {
     return extractMusicItem(path);
+  });
+
+  ipcMainOn("show-notification", ({ title, body }) => {
+    const notification = getAppConfigPathSync("general.notification");
+    if (notification) {
+      new Notification({
+        title,
+        body,
+        icon: nativeImage.createFromPath(getResourcePath("logo.png")),
+      }).show();
+    }
   });
 }

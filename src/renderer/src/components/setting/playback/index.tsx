@@ -1,8 +1,9 @@
 import { useAppConfig, useAudioOutpuDevice } from "@/hooks";
 import { RadioGroupOption, SelectOption } from "@/components/setting/common";
+import { setAudioOutputDevice } from "@shared/plugin/trackPlayer";
 
 const Playback = () => {
-  const { appConfig } = useAppConfig();
+  const { appConfig, setAppConfig } = useAppConfig();
   const { devices, defaultDevice } = useAudioOutpuDevice();
 
   return (
@@ -17,6 +18,12 @@ const Playback = () => {
         options={devices}
         convertToLabel={(value) => value?.label ?? ""}
         width="320px"
+        onChange={async (device) => {
+          const result = await setAudioOutputDevice(device?.deviceId);
+          if (result) {
+            setAppConfig({ keyPath: "playback.audioOutputDevice", value: device?.toJSON() });
+          }
+        }}
       />
 
       {/* When play error */}

@@ -16,7 +16,6 @@ export const SearchHistory = ({ onClick, onFocus, onBlur, syncInput }: Props) =>
   const [focusedIndex, setFocusedIndex] = useState(-1);
 
   useEffect(() => {
-    hotkeys.setScope("history");
     hotkeys("up, down", "history", (e) => {
       e.preventDefault();
       setFocusedIndex((prevFocusedIndex) => {

@@ -13,7 +13,7 @@ const Backup = () => {
         ]}
       />
       <ButtonsOption
-        label="로컬 데이터 초기화 (328.5 MB)"
+        label="로컬 데이터 초기화"
         description="어플리케이션에서 관리하는 모든 로컬 데이터를 초기화 합니다. 이 작업은 되돌릴 수 없습니다."
         iconName="database"
         buttons={[

@@ -1,4 +1,5 @@
 import { DarkTheme, LightTheme } from "@/assets/images";
+import { Blockquote, Condition } from "@/common";
 import {
   ImageRadioGroupOption,
   RadioGroupOption,
@@ -57,11 +58,23 @@ const General = () => {
       {/* Notification */}
       <SwitchOption
         keyPath="general.notification"
-        label="데스크톱 알림 사용"
+        label="데스크탑 알림 사용"
         description="어플리케이션에서 데스크톱 알림을 표시하도록 설정합니다."
         iconName="notification"
         value={appConfig.general?.notification}
       />
+
+      <Condition condition={appConfig.general?.notification}>
+        <Blockquote
+          color="orange"
+          onClick={() =>
+            window.common.showNotification({ title: "테스트 제목", body: "테스트 메시지" })
+          }
+        >
+          <div className="font-bold">데스크탑 알림 테스트</div>
+        </Blockquote>
+      </Condition>
+
       {/* Maximum search history */}
       <RadioGroupOption
         keyPath="general.maxHistoryLength"

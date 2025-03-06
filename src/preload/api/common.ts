@@ -40,6 +40,10 @@ function extractMetadata(path: any) {
   return ipcRendererInvoke("extract-metadata", path);
 }
 
+function showNotification(payload: { title: string; body: string }) {
+  ipcRendererSend("show-notification", payload);
+}
+
 export const common = {
   sendFrameAction,
   showOpenDialog,
@@ -49,4 +53,5 @@ export const common = {
   setPipMode,
   proxyCommand,
   extractMetadata,
+  showNotification,
 } satisfies Window["common"];

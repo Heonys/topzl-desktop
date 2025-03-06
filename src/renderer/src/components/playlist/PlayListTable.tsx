@@ -135,8 +135,6 @@ export const PlayListTable = ({
   const { download, isDownloaded } = useDownload();
   const { showModal } = useModal();
 
-  console.log(111);
-
   const table = useReactTable({
     debugAll: false,
     data: playlist,

@@ -1,6 +1,10 @@
 import Hls from "hls.js";
+import { getDefaultStore } from "jotai";
 import { MusicItem, PlayerState } from "./type";
 import playerEventEmitter from "./eventEmitter";
+import { appConfigAtom } from "src/renderer/src/atom";
+
+const store = getDefaultStore();
 
 class TrackPlayer {
   private audioContext: AudioContext;
@@ -185,14 +189,24 @@ class TrackPlayer {
   }
 
   async setSinkId(deviceId: string) {
-    return (this.audio as any).setSinkId(deviceId);
+    return this.audio.setSinkId(deviceId);
   }
 
   skipToPrev() {
-    if (this.audio.currentTime < 3) {
+    const appConfig = store.get(appConfigAtom);
+    const behavior = appConfig.playback?.previousTrackBehavior ?? "under-3";
+
+    if (behavior === "always-previous") {
       playerEventEmitter.emit("play-prev");
     } else {
-      this.audio.currentTime = 0;
+      let threshold = 0;
+      if (behavior === "under-3") threshold = 3;
+      if (behavior === "under-5") threshold = 5;
+      if (this.audio.currentTime < threshold) {
+        playerEventEmitter.emit("play-prev");
+      } else {
+        this.audio.currentTime = 0;
+      }
     }
   }
 
@@ -215,4 +229,13 @@ function encodeUrlHeaders(originalUrl: string, headers?: Record<string, string>)
   const encodedUrl = new URL(originalUrl);
   encodedUrl.searchParams.set("_setHeaders", encodeURIComponent(JSON.stringify(_setHeaders)));
   return encodedUrl.toString();
+}
+
+export async function setAudioOutputDevice(deviceId?: string) {
+  try {
+    await trackPlayer.setSinkId(deviceId ?? "");
+    return true;
+  } catch {
+    return false;
+  }
 }

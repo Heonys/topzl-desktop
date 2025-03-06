@@ -40,6 +40,7 @@ app.on("open-url", (evnet, url) => {
 });
 
 app.whenReady().then(async () => {
+  app.setAppUserModelId("Topzl");
   await Promise.allSettled([setupMainConfig(), setupPlugin()]);
 
   setupI18n({
@@ -50,12 +51,15 @@ app.whenReady().then(async () => {
       setAppConfigPath("general.language", newlang);
     },
   });
-  // setupGlobalShortcut();
   setupTray();
   createMainWindow();
   setupIpcMain();
   setupGlobalContext();
   setupWorker();
+
+  app.setLoginItemSettings({
+    openAtLogin: getAppConfigPathSync("general.autoStartOnBoot"),
+  });
 
   // protocol.handle("atom", (request) => {
   //   const filePath = request.url.slice("atom://".length);

@@ -1,8 +1,10 @@
-import { atom } from "jotai";
+import { atom, getDefaultStore } from "jotai";
 import { loadable, atomWithStorage } from "jotai/utils";
 import trackPlayer from "@shared/plugin/trackPlayer";
 import { PlayerState, RepeatMode } from "@shared/plugin/type";
+import { appConfigAtom } from "./config";
 
+const store = getDefaultStore();
 let isMounted = false;
 export const currentMusicAtom = atomWithStorage<MusicItem | null>("currentMusic", null);
 
@@ -23,8 +25,11 @@ const mediaSourceAtomAsync = atom(async (get) => {
       isMounted = true;
     }
   } catch {
+    const appConfig = store.get(appConfigAtom);
     trackPlayer.clear();
-    trackPlayer.skipToNext();
+    if (appConfig.playback?.playError === "skip-next") {
+      trackPlayer.skipToNext();
+    }
   }
 });
 
