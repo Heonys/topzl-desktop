@@ -14,6 +14,7 @@ type Props<T extends AppConfigKeyPath> = {
     title?: string;
     value: AppConfigKeyPathValue<T>;
   }[];
+  onChange?: (value: AppConfigKeyPathValue<T>) => void;
   value?: AppConfigKeyPathValue<T>;
   direction?: "horizonal" | "vertical";
 };
@@ -24,6 +25,7 @@ export const RadioGroupOption = <T extends AppConfigKeyPath>({
   description,
   iconName,
   options,
+  onChange,
   value = defaultAppConfig[keyPath] as AppConfigKeyPathValue<T>,
   direction = "horizonal",
 }: Props<T>) => {
@@ -42,9 +44,7 @@ export const RadioGroupOption = <T extends AppConfigKeyPath>({
       <RadioGroup
         className={cn("flex gap-2", direction === "horizonal" ? "flex-row" : "flex-col")}
         value={value}
-        onChange={(value) => {
-          setAppConfig({ keyPath, value });
-        }}
+        onChange={onChange ? onChange : (value) => setAppConfig({ keyPath, value })}
       >
         {options.map((action, index) => {
           return (

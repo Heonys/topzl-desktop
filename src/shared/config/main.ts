@@ -81,7 +81,6 @@ async function checkPath() {
       },
       download: {
         concurrency: 5,
-        notification: false,
         path: app.getPath("downloads"),
       },
       playback: {
@@ -95,7 +94,7 @@ async function checkPath() {
       },
     };
 
-    await fs.writeJson(getConfigPath(), temp);
+    await fs.writeJson(getConfigPath(), temp, { spaces: 2 });
     cacheConfig = temp;
   }
 }

@@ -52,6 +52,8 @@ declare namespace IpcInvoke {
       options: Electron.OpenDialogOptions,
     ) => Promise<Electron.OpenDialogReturnValue>;
     "extract-metadata": (path: string) => Promise<MusicItem>;
+    "write-json": (data: any) => Promise<boolean>;
+    "read-json": (filePath: string) => Promise<any>;
   }
 }
 

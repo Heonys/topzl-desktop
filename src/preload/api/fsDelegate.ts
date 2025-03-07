@@ -1,5 +1,5 @@
 import fs from "fs/promises";
-import { ipcRendererSend } from "../ipcRenderer";
+import { ipcRendererInvoke, ipcRendererSend } from "../ipcRenderer";
 import { webUtils } from "electron";
 
 async function readFile(filePath: string) {
@@ -19,9 +19,19 @@ function getFilePath(file: File) {
   return webUtils.getPathForFile(file);
 }
 
+function writeJson(data: any) {
+  return ipcRendererInvoke("write-json", data);
+}
+
+function readJson(filePath: string) {
+  return ipcRendererInvoke("read-json", filePath);
+}
+
 export const fsDelegate = {
   readFile,
   isFile,
   openFolder,
   getFilePath,
+  writeJson,
+  readJson,
 } satisfies Window["fs"];

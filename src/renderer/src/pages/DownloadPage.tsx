@@ -2,9 +2,11 @@ import { useAtom } from "jotai";
 import { downloadedMusicAtom } from "@/atom";
 import { PlayListTable } from "@/components";
 import StaticIcon from "@/icons/StaticIcon";
+import { useAppConfig } from "@/hooks";
 
 export const DownloadPage = () => {
   const [downloadedList, setDownloadedList] = useAtom(downloadedMusicAtom);
+  const { appConfig } = useAppConfig();
 
   return (
     <section>
@@ -15,7 +17,7 @@ export const DownloadPage = () => {
           className="flex items-center gap-2 rounded-lg bg-[#E0E0E0] p-2 px-4 font-sans text-sm font-semibold opacity-85 hover:opacity-100"
           onClick={() => {
             const context = window.common.getGlobalContext();
-            window.fs.openFolder(context.appPath.downloads);
+            window.fs.openFolder(appConfig.download?.path ?? context.appPath.downloads);
           }}
         >
           <StaticIcon iconName="forder-open" />

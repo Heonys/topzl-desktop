@@ -5,6 +5,8 @@ import { useFavorite } from "@/hooks";
 import { useDownload } from "@/hooks/useDownload";
 import type { MusicItem } from "@shared/plugin/type";
 import { DownloadState } from "@shared/constant";
+import { useAtomValue } from "jotai";
+import { downloadedMusicAtom } from "@/atom";
 
 export function FavoriteButton({ musicItem }: { musicItem: MusicItem }) {
   const { isFavorite, favorite, unfavorite } = useFavorite();
@@ -25,8 +27,13 @@ export function FavoriteButton({ musicItem }: { musicItem: MusicItem }) {
 }
 
 function MemoizedDownloadButton({ musicItem }: { musicItem: MusicItem }) {
+  const downloadedList = useAtomValue(downloadedMusicAtom);
   const { download, getStatus } = useDownload(musicItem);
-  const status = getStatus();
+
+  const status = downloadedList.map((it) => it.id).includes(musicItem.id)
+    ? DownloadState.DONE
+    : getStatus()?.state;
+
   return (
     <>
       {musicItem.localPath ? (
@@ -37,8 +44,8 @@ function MemoizedDownloadButton({ musicItem }: { musicItem: MusicItem }) {
           size={17}
           opacity
         />
-      ) : status?.id === musicItem.id ? (
-        <Switch switch={status?.state}>
+      ) : (
+        <Switch switch={status}>
           <Case case={DownloadState.LOADING}>
             <motion.div
               animate={{ rotate: 360 }}
@@ -70,15 +77,6 @@ function MemoizedDownloadButton({ musicItem }: { musicItem: MusicItem }) {
             <IconButton iconName="error" title="error" size={17} color="red" />
           </Case>
         </Switch>
-      ) : (
-        <IconButton
-          iconName="download"
-          title="download"
-          size={17}
-          onClick={() => {
-            download(musicItem);
-          }}
-        />
       )}
     </>
   );

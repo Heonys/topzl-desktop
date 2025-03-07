@@ -58,6 +58,8 @@ declare global {
       openFolder: (path: string) => void;
       isFile: (path: string) => Promise<boolean>;
       getFilePath: (file: File) => string;
+      writeJson: IpcInvoke.Renderer["write-json"];
+      readJson: IpcInvoke.Renderer["read-json"];
     };
     messagePort: {
       sendMessage: (data: MessageData) => void;

@@ -1,7 +1,7 @@
 import { motion, Variants, AnimatePresence } from "motion/react";
-import { useDetail, useCurrentMusic } from "@/hooks";
+import { useDetail, useCurrentMusic, useAppConfig } from "@/hooks";
 import { DetailController, Lyric } from "@/components/playController";
-import { IconButton } from "@/common";
+import { Condition, IconButton } from "@/common";
 
 const variants: Variants = {
   hidden: {
@@ -26,6 +26,7 @@ const variants: Variants = {
 export const MusicDetail = () => {
   const { isVisible, onClose } = useDetail();
   const { currentItem } = useCurrentMusic();
+  const { appConfig } = useAppConfig();
 
   return (
     <AnimatePresence>
@@ -43,7 +44,9 @@ export const MusicDetail = () => {
           />
           <div className="absolute left-0 top-0 flex size-full items-center justify-center gap-2">
             <DetailController currentItem={currentItem} />
-            <Lyric />
+            <Condition condition={appConfig.lyric?.enable}>
+              <Lyric />
+            </Condition>
           </div>
           <div className="absolute right-10 top-10">
             <IconButton iconName="down" color="white" onClick={onClose} />

@@ -25,7 +25,6 @@ export type Config = {
   download: {
     path: string;
     concurrency: number;
-    notification: boolean;
   };
   lyric: {
     enable: boolean;
@@ -104,7 +103,6 @@ export const defaultAppConfig: DefaultAppConfig = {
   "playback.playError": "skip-next",
   "playback.previousTrackBehavior": "under-3",
   "download.concurrency": 5,
-  "download.notification": false,
   "lyric.enable": true,
   "lyric.searchMethod": "advanced",
   "shortcut.enableLocal": true,

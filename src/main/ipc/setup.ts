@@ -1,5 +1,6 @@
 import { BrowserWindow, dialog, shell, Notification, nativeImage } from "electron";
 import fs from "fs-extra";
+import path from "node:path";
 import { getMainWindow } from "@/window/mainWindow";
 import { ipcMainHandle, ipcMainOn } from "@/ipc/main";
 import { getPipmodeWindow, showPipmodeWindow } from "@/window/pipmodeWindow";
@@ -62,6 +63,26 @@ export function setupIpcMain() {
         body,
         icon: nativeImage.createFromPath(getResourcePath("logo.png")),
       }).show();
+    }
+  });
+
+  ipcMainHandle("write-json", async (data) => {
+    try {
+      const downloadPath = getAppConfigPathSync("download.path");
+      const filePath = path.join(downloadPath, "backup.json");
+      await fs.writeJSON(filePath, data, { spaces: 2 });
+      return true;
+    } catch {
+      return false;
+    }
+  });
+
+  ipcMainHandle("read-json", async (filePath) => {
+    try {
+      const fileData = await fs.readFile(filePath, "utf-8");
+      return JSON.parse(fileData);
+    } catch {
+      return {};
     }
   });
 }

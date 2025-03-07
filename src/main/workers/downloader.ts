@@ -42,7 +42,7 @@ export class Downloader {
       if (this.state !== DownloadState.LOADING) return;
       this.state = DownloadState.LOADING;
       this._onChange({ id, state: this.state, current, total });
-    }, 100);
+    }, 250);
 
     pipeline(readableStream, writeStream, (err) => {
       if (err) {

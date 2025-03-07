@@ -25,7 +25,7 @@ class UserPreferenceDB extends Dexie {
 
 export const db = new UserPreferenceDB();
 
-interface IndexedDBProperty {
+interface UserPreference {
   playlist: MusicItem[];
   playlistAll: PlaylistInfo[];
   favoriteList: MusicItem[];
@@ -36,9 +36,14 @@ interface IndexedDBProperty {
   localMusicList: MusicItem[];
 }
 
-export async function getIndexedDB<T extends keyof IndexedDBProperty>(
+export type PreferenceEntryArray = {
+  key: keyof UserPreference;
+  value: UserPreference[keyof UserPreference];
+}[];
+
+export async function getIndexedDB<T extends keyof UserPreference>(
   key: T,
-): Promise<IndexedDBProperty[T] | null> {
+): Promise<UserPreference[T] | null> {
   const rawData = await db.transaction("readonly", db.preference, async () => {
     return db.preference.get(key);
   });
@@ -46,9 +51,9 @@ export async function getIndexedDB<T extends keyof IndexedDBProperty>(
   return null;
 }
 
-export async function setIndexedDB<T extends keyof IndexedDBProperty>(
+export async function setIndexedDB<T extends keyof UserPreference>(
   key: T,
-  value: IndexedDBProperty[T],
+  value: UserPreference[T],
 ) {
   try {
     await db.transaction("readwrite", db.preference, async () => {
@@ -58,6 +63,23 @@ export async function setIndexedDB<T extends keyof IndexedDBProperty>(
   } catch {
     return false;
   }
+}
+
+export async function restoreDB(data: PreferenceEntryArray) {
+  await db.transaction("readwrite", db.preference, async () => {
+    for (const entry of data) {
+      await db.preference.put({ key: entry.key, value: entry.value });
+    }
+  });
+  await syncWithIndexedDB();
+}
+export async function clearDB() {
+  const allKeys = await db.preference.toArray();
+  const emptyData = allKeys.map((entry) => ({ key: entry.key, value: [] }));
+  await db.transaction("readwrite", db.preference, async () => {
+    await db.preference.bulkPut(emptyData);
+  });
+  await syncWithIndexedDB();
 }
 
 const store = getDefaultStore();
@@ -75,7 +97,7 @@ export async function syncWithIndexedDB() {
   ]);
 }
 
-async function syncAtom(atom: any, key: keyof IndexedDBProperty) {
+async function syncAtom(atom: any, key: keyof UserPreference) {
   const data = await getIndexedDB(key);
   store.set(atom, data ?? []);
 }
