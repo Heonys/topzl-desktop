@@ -9,6 +9,7 @@ type Props = {
   collapsible?: boolean;
   color?: "indigo" | "orange" | "crimson" | "cyan";
   onClick?: () => void;
+  disabled?: boolean;
 };
 
 const colorMap: Record<NonNullable<Props["color"]>, string> = {
@@ -24,6 +25,7 @@ export const Blockquote = ({
   onClick,
   collapsible = false,
   color = "indigo",
+  disabled = false,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(!collapsible);
   const borderColor = colorMap[color] || colorMap["indigo"];
@@ -34,9 +36,13 @@ export const Blockquote = ({
         "flex flex-col bg-gray-50 p-4 text-sm font-semibold italic text-gray-700",
         title && "gap-2",
         onClick && "cursor-pointer",
+        disabled && "cursor-not-allowed opacity-50",
       )}
       style={{ borderLeft: `5px solid ${borderColor}` }}
-      onClick={onClick}
+      onClick={() => {
+        if (disabled) return;
+        onClick?.();
+      }}
     >
       <div
         className="flex cursor-pointer items-center gap-2 font-bold text-black"

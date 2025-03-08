@@ -27,8 +27,8 @@ export const useDownload = (musicItem?: MusicItem) => {
     if (musicItem) {
       setStatus(downloadProgressMap.get(musicItem.id) || INIT_PROGRESS);
       const cleanup = window.worker.syncStatus((progress) => {
-        downloadProgressMap.set(progress.id, progress);
         if (progress.id === musicItem.id) {
+          downloadProgressMap.set(progress.id, progress);
           setStatus(progress);
           if (progress.state === DownloadState.DONE) {
             setDownloadedList((prev) => [...prev, ...(updatedRef.current ?? [])]);

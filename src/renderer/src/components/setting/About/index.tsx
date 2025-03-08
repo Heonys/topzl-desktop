@@ -10,6 +10,11 @@ const About = () => {
         iconName="windows"
       />
       <LinksOption
+        label="Author"
+        iconName="user-check"
+        links={[{ label: "Github/Heonys", url: "https://github.com/Heonys" }]}
+      />
+      <LinksOption
         label="Source code"
         iconName="github"
         links={[{ label: "Heonys/topzl-desktop", url: "https://github.com/Heonys/topzl-desktop" }]}
@@ -21,6 +26,7 @@ const About = () => {
           { label: "猫头猫/MusicFreePlugins", url: "https://gitee.com/maotoumao/MusicFreePlugins" },
         ]}
       />
+      <LinksOption label="Homepage" iconName="link" links={[]} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { DarkTheme, LightTheme } from "@/assets/images";
-import { Blockquote, Condition } from "@/common";
+import { Blockquote } from "@/common";
 import {
   ImageRadioGroupOption,
   RadioGroupOption,
@@ -64,16 +64,15 @@ const General = () => {
         value={appConfig.general?.notification}
       />
 
-      <Condition condition={appConfig.general?.notification}>
-        <Blockquote
-          color="orange"
-          onClick={() =>
-            window.common.showNotification({ title: "테스트 제목", body: "테스트 메시지" })
-          }
-        >
-          <div className="font-bold">데스크탑 알림 테스트</div>
-        </Blockquote>
-      </Condition>
+      <Blockquote
+        color="orange"
+        disabled={!appConfig.general?.notification}
+        onClick={() =>
+          window.common.showNotification({ title: "테스트 제목", body: "테스트 메시지" })
+        }
+      >
+        <div className="font-bold">데스크탑 알림 테스트</div>
+      </Blockquote>
 
       {/* Maximum search history */}
       <RadioGroupOption

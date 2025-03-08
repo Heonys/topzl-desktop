@@ -28,7 +28,7 @@ const Shortcut = () => {
         value={shortcut?.enableGlobal}
       />
       <Blockquote title="단축키 생성 규칙" collapsible>
-        <ul className="list-disc px-4">
+        <ul className="list-disc space-y-1 px-4">
           <li>[ Win, Command ]는 특수키로 단축키 등록에서 제외됩니다.</li>
           <li>조합키는 [Ctrl, Alt, Option, Shift]이며, 이 외의 키는 일반키로 분류됩니다.</li>
           <li>키의 입력 순서는 상관없지만 [ 조합키 + 일반키 ] 순서를 권장합니다.</li>

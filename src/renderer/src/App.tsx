@@ -37,7 +37,7 @@ const App = () => {
       <ToastContainer
         draggable={false}
         closeOnClick={false}
-        limit={5}
+        limit={1}
         pauseOnFocusLoss={false}
         hideProgressBar
         autoClose={2000}

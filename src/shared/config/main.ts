@@ -117,7 +117,7 @@ async function getAppConfig(): Promise<AppConfig> {
 async function setAppConfig(newConfig: AppConfig) {
   const mainWindow = getMainWindow();
   try {
-    await fs.writeJson(getConfigPath(), newConfig);
+    await fs.writeJson(getConfigPath(), newConfig, { spaces: 2 });
     cacheConfig = newConfig;
     ipcMainSend("sync-app-config", mainWindow, newConfig);
     return true;

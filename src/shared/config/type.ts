@@ -46,15 +46,15 @@ export const shortcutKeys = [
 ] as const;
 
 export const shortcutKeyMap: Record<string, string> = {
-  "play/pause": "Play / Pause",
-  "skip-previous": "Play Previous",
-  "skip-next": "Play Next",
-  "volume-up": "Volume Up",
-  "volume-down": "Volume Down",
-  "seek-forward": "Forward",
-  "seek-backward": "Backward",
-  search: "Search",
-  quit: "Quit",
+  "play/pause": "재생 / 일시정지",
+  "skip-previous": "이전곡 재생",
+  "skip-next": "다음곡 재생",
+  "volume-up": "볼륨 올리기",
+  "volume-down": "볼륨 내리기",
+  "seek-forward": "5초 앞으로 이동",
+  "seek-backward": "5초 뒤로 이동",
+  search: "검색",
+  quit: "종료",
 };
 
 type KeyPaths<T extends object> =

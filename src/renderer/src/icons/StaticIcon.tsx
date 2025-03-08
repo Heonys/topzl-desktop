@@ -18,7 +18,7 @@ import { GoPlus, GoDatabase } from "react-icons/go";
 import { IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
 import { BiSolidVolumeFull, BiSolidVolumeMute, BiSolidPlaylist } from "react-icons/bi";
 import { LuRepeat, LuRepeat1 } from "react-icons/lu";
-import { FaChevronDown } from "react-icons/fa6";
+import { FaChevronDown, FaLink } from "react-icons/fa6";
 import { MdOutlinePlaylistAdd, MdOutlineLibraryMusic, MdLanguage } from "react-icons/md";
 import { FiDownload } from "react-icons/fi";
 import { SiApplemusic } from "react-icons/si";
@@ -44,7 +44,7 @@ import { VscSymbolMethod } from "react-icons/vsc";
 import { IoPower } from "react-icons/io5";
 import { IoMdRefresh } from "react-icons/io";
 import { BsPlugin } from "react-icons/bs";
-import { FaWindows } from "react-icons/fa";
+import { FaWindows, FaUserCheck } from "react-icons/fa";
 
 export type IconNames = keyof typeof IconMap;
 
@@ -128,6 +128,8 @@ const IconMap = {
   ["database"]: GoDatabase,
   ["plugin"]: BsPlugin,
   ["windows"]: FaWindows,
+  ["user-check"]: FaUserCheck,
+  ["link"]: FaLink,
 };
 
 type Props = {

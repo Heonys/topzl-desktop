@@ -37,7 +37,7 @@ const ShortcutTable = ({
         id: "keymap",
         size: 150,
         cell: (info) => (
-          <div className="p-2 font-dh text-sm font-medium text-black/80">
+          <div className="p-2 text-xs font-bold text-black">
             {shortcutKeyMap[info.row.original.name]}
           </div>
         ),
