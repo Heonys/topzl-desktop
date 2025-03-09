@@ -1,16 +1,21 @@
 import { globalShortcut } from "electron";
 import { shortcutKeys, type ShortcutKeys } from "@shared/config/type";
 import { getAppConfigPath, setAppConfigPath } from "@shared/config/main";
-import { ipcMainSendMainWindow } from "@/ipc/main";
+import { ipcMainOn, ipcMainSendMainWindow } from "@/ipc/main";
 
 export async function setupGlobalShortcut() {
   for (const key of shortcutKeys) {
     const shortcut = await getAppConfigPath(`shortcut.keymap.${key}.global`);
-    registerShortcut(
-      key,
-      shortcut.filter((v) => v),
-    );
+    registerShortcut(key, shortcut);
   }
+
+  ipcMainOn("register-global-shortcut", ({ keyType, keymap }) => {
+    registerShortcut(keyType, keymap);
+  });
+
+  ipcMainOn("unregister-global-shortcut", ({ keyType }) => {
+    unregisterShortcut(keyType);
+  });
 }
 
 function registerShortcut(key: ShortcutKeys, shortcut: string[]) {

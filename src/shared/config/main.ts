@@ -27,16 +27,7 @@ async function checkPath() {
   } catch {
     await fs.remove(getConfigPath());
 
-    // TODO: 빈객체로 하고 default config에서 초기값 지정
     const temp: AppConfig = {
-      general: {
-        autoStartOnBoot: false,
-        language: "Korean",
-        theme: "light",
-        closeBehavior: "minimize",
-        maxHistoryLength: 7,
-        notification: false,
-      },
       shortcut: {
         enableGlobal: false,
         enableLocal: true,
@@ -78,19 +69,6 @@ async function checkPath() {
             global: [],
           },
         },
-      },
-      download: {
-        concurrency: 5,
-        path: app.getPath("downloads"),
-      },
-      playback: {
-        audioOutputDevice: null,
-        playError: "skip-next",
-        previousTrackBehavior: "under-3",
-      },
-      lyric: {
-        enable: true,
-        searchMethod: "advanced",
       },
     };
 

@@ -55,7 +55,10 @@ const ShortcutTable = ({
                 bindShortcut(info.row.original.name as ShortcutKeys, value);
                 setAppConfig({ keyPath, value });
               }}
-              onClear={() => setAppConfig({ keyPath, value: [] })}
+              onClear={() => {
+                bindShortcut(info.row.original.name as ShortcutKeys, []);
+                setAppConfig({ keyPath, value: [] });
+              }}
             />
           );
         },
@@ -74,7 +77,10 @@ const ShortcutTable = ({
                 bindShortcut(info.row.original.name as ShortcutKeys, value, true);
                 setAppConfig({ keyPath, value });
               }}
-              onClear={() => setAppConfig({ keyPath, value: [] })}
+              onClear={() => {
+                bindShortcut(info.row.original.name as ShortcutKeys, [], true);
+                setAppConfig({ keyPath, value: [] });
+              }}
             />
           );
         },

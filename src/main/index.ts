@@ -3,7 +3,12 @@ import { createMainWindow, getMainWindow, showMainWindow } from "@/window/mainWi
 import { setupIpcMain } from "@/ipc/setup";
 import { setupI18n } from "@shared/i18n/main";
 import { setupTray } from "@/tray";
-import { getAppConfigPathSync, setupMainConfig, setAppConfigPath } from "@shared/config/main";
+import {
+  getAppConfigPathSync,
+  setupMainConfig,
+  setAppConfigPath,
+  getAppConfigPath,
+} from "@shared/config/main";
 import { handleUrlScheme, setupPlugin, setupGlobalContext, setupGlobalShortcut } from "@/core";
 import { isDev } from "@/utils/common";
 import { setupWorker } from "@/workers/setupWorker";
@@ -57,6 +62,11 @@ app.whenReady().then(async () => {
   setupGlobalContext();
   setupGlobalShortcut();
   setupWorker();
+
+  const downloadPath = await getAppConfigPath("download.path");
+  if (!downloadPath) {
+    setAppConfigPath("download.path", app.getPath("downloads"));
+  }
 
   app.setLoginItemSettings({
     openAtLogin: getAppConfigPathSync("general.autoStartOnBoot"),

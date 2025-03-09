@@ -40,6 +40,7 @@ export const getModifierKeyFlag = (keymap: string[]) => {
   });
   return flag;
 };
+export const isMultiModifier = (flag: number) => (flag & (flag - 1)) !== 0;
 
 export const removeModiferKey = (keymap: string[]) => {
   const modifierKeys = Object.keys(keyModifierFlags);

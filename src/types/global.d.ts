@@ -28,6 +28,8 @@ declare global {
     };
     shortcut: {
       onGlobal: (callback: (url: IpcEvents.Main["global-shortcut-execute"]) => void) => CleanUp;
+      registerGlobal: (payload: IpcEvents.Renderer["register-global-shortcut"]) => void;
+      unregisterGlobal: (payload: IpcEvents.Renderer["unregister-global-shortcut"]) => void;
     };
     plugin: {
       searchMusic: IpcInvoke.Renderer["search-music"];

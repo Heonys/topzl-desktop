@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import hotkeys from "hotkeys-js";
 import { nanoid } from "nanoid";
-import { capitalized, cn, getModifierKeyFlag, removeModiferKey } from "@/utils";
+import { capitalized, cn, getModifierKeyFlag, removeModiferKey, isMultiModifier } from "@/utils";
 import StaticIcon from "@/icons/StaticIcon";
 
 type Props = {
@@ -47,7 +47,7 @@ export const ShortcutInput = ({ value, enable, onChange, onClear, isGlobal }: Pr
         const filteredKeymap = removeModiferKey(keymap);
         const modifierFlag = getModifierKeyFlag(keymap);
 
-        if (filteredKeymap.length === 1 && (isGlobal ? modifierFlag : true)) {
+        if (filteredKeymap.length === 1 && (isGlobal ? isMultiModifier(modifierFlag) : true)) {
           onChange(keymap.map((it) => keycodeMap(capitalized(it))));
         } else {
           setRecoredValue(null);

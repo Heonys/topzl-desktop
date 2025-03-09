@@ -14,6 +14,7 @@ type MusicSheetResult = import("@shared/plugin/type").MusicSheetResult;
 type DownloadProgress = import("@shared/constant/index").DownloadProgress;
 type Command = import("@shared/plugin/type").Command;
 type PlayerState = import("@shared/plugin/type").PlayerState;
+type ShortcutKeys = import("@shared/config/type").ShortcutKeys;
 
 declare namespace IpcInvoke {
   // ipcRender.invoke -> ipcMain.handle
@@ -70,6 +71,8 @@ declare namespace IpcEvents {
     "set-pip-mode": { data: MusicItem | null; state: PlayerState };
     "proxy-command": Command;
     "show-notification": { title: string; body: string };
+    "register-global-shortcut": { keyType: ShortcutKeys; keymap: string[] };
+    "unregister-global-shortcut": { keyType: ShortcutKeys };
   }
 
   // ipcRender.send -> ipcMain.on (sync)

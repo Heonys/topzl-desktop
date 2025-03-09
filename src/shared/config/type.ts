@@ -102,11 +102,11 @@ export const defaultAppConfig: DefaultAppConfig = {
   "playback.audioOutputDevice": null,
   "playback.playError": "skip-next",
   "playback.previousTrackBehavior": "under-3",
-  "download.concurrency": 5,
-  "lyric.enable": true,
-  "lyric.searchMethod": "advanced",
   "shortcut.enableLocal": true,
   "shortcut.enableGlobal": false,
+  "lyric.enable": true,
+  "lyric.searchMethod": "advanced",
+  "download.concurrency": 5,
 } as const;
 
 export type GlobalContext = {

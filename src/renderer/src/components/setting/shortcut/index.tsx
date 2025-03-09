@@ -29,11 +29,11 @@ const Shortcut = () => {
       />
       <Blockquote title="단축키 생성 규칙" collapsible>
         <ul className="list-disc space-y-1 px-4">
-          <li>[ Win, Command ]는 특수키로 단축키 등록에서 제외됩니다.</li>
+          <li>[Win, Command]는 특수키로 단축키 등록에서 제외됩니다.</li>
           <li>조합키는 [Ctrl, Alt, Option, Shift]이며, 이 외의 키는 일반키로 분류됩니다.</li>
-          <li>키의 입력 순서는 상관없지만 [ 조합키 + 일반키 ] 순서를 권장합니다.</li>
-          <li>조합키는 여러개 사용이 가능하지만, 일반키는 1개만 허용합니다.</li>
-          <li>Global 단축키는 반드시 1개 이상의 조합키를 포함해야합니다.</li>
+          <li>키 입력 순서는 상관없으나, [조합키 + 일반키] 순서를 권장합니다.</li>
+          <li>조합키는 여러 개 사용이 가능하지만, 일반키는 1개만 허용됩니다.</li>
+          <li>Global 단축키는 충돌방지를 위해 반드시 2개 이상의 조합키를 포함해야 합니다.</li>
         </ul>
       </Blockquote>
       <ShortcutTable
