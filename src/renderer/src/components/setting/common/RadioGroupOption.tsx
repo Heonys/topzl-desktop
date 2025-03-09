@@ -58,9 +58,7 @@ export const RadioGroupOption = <T extends AppConfigKeyPath>({
               >
                 <span className="invisible size-2 rounded-full bg-white group-data-[checked]:visible" />
               </Radio>
-              <Label className="text-sm font-semibold">
-                {action.title ?? String(action.value)}
-              </Label>
+              <Label className="text-sm font-medium">{action.title ?? String(action.value)}</Label>
             </Field>
           );
         })}

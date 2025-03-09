@@ -1,11 +1,5 @@
-import { DarkTheme, LightTheme } from "@/assets/images";
 import { Blockquote } from "@/common";
-import {
-  ImageRadioGroupOption,
-  RadioGroupOption,
-  SelectOption,
-  SwitchOption,
-} from "@/components/setting/common";
+import { RadioGroupOption, SelectOption, SwitchOption } from "@/components/setting/common";
 import { useAppConfig } from "@/hooks";
 
 const General = () => {
@@ -24,7 +18,7 @@ const General = () => {
         width="200px"
       />
       {/* Theme */}
-      <ImageRadioGroupOption
+      {/* <ImageRadioGroupOption
         keyPath="general.theme"
         label="테마 설정"
         description="어플리케이션의 테마를 선택합니다."
@@ -34,7 +28,7 @@ const General = () => {
           { title: "light", image: LightTheme },
           { title: "dark", image: DarkTheme },
         ]}
-      />
+      /> */}
       {/* When close button */}
       <RadioGroupOption
         keyPath="general.closeBehavior"

@@ -3,6 +3,7 @@
 import EventEmitter from "eventemitter3";
 import { useEffect } from "react";
 import type { EventPayloadMap } from "./type";
+import type { ShortcutKeys } from "@shared/config/type";
 
 class EventWrapper<EventTypes> {
   private ee: EventEmitter;
@@ -48,4 +49,6 @@ class EventWrapper<EventTypes> {
 }
 
 const playerEventEmitter = new EventWrapper<EventPayloadMap>();
-export default playerEventEmitter;
+const localEventEmitter = new EventWrapper<Record<ShortcutKeys, void>>();
+
+export { playerEventEmitter, localEventEmitter };

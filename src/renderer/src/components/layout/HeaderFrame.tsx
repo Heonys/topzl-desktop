@@ -8,6 +8,7 @@ import StaticIcon from "@/icons/StaticIcon";
 import { Condition, IconButton } from "@/common";
 import { useCurrentMusic, usePlayer, useSearchHistory } from "@/hooks";
 import logo from "@resources/logo.png";
+import { localEventEmitter } from "@shared/plugin/eventEmitter";
 
 export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
   const navigate = useNavigate();
@@ -43,11 +44,9 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
   };
 
   useEffect(() => {
-    hotkeys("ctrl+k", (event) => {
-      event.preventDefault();
-      inputRef.current?.focus();
-    });
-    return () => hotkeys.unbind("ctrl+k");
+    const handler = () => inputRef.current?.focus();
+    localEventEmitter.on("search", handler);
+    return () => localEventEmitter.off("search", handler);
   }, []);
 
   if (!showHistory) {

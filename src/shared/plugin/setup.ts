@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { getDefaultStore } from "jotai";
 import shuffle from "lodash.shuffle";
-import playerEventEmitter from "./eventEmitter";
+import { playerEventEmitter, localEventEmitter } from "./eventEmitter";
 import {
   currentProgressAtom,
   currentVolumeAtom,
@@ -14,22 +14,18 @@ import {
   currentRepeatModeAtom,
   currentShuffleModeAtom,
 } from "src/renderer/src/atom";
-import { RepeatMode } from "./type";
+import { PlayerState, RepeatMode } from "./type";
 import trackPlayer from "./trackPlayer";
 
 const store = getDefaultStore();
 
 export async function setupPlayer() {
-  const deviceId = await navigator.mediaDevices.enumerateDevices();
-  console.log("deviceId ::", deviceId);
-
   setupEvent();
+  setupShortcuEvent();
 
   window.plugin.onErrorHandler(() => {
     toast.error("재생 URL을 찾을 수 없습니다");
   });
-
-  // TODO: 스토리지에서 사용자 설정 가져와서 기존 설정으로 초기화
 
   window.common.onTrayCommand((command) => {
     switch (command) {
@@ -137,5 +133,48 @@ function setupEvent() {
         store.set(currentMusicAtom, playList[0]);
       }
     }
+  });
+}
+
+function setupShortcuEvent() {
+  const audioElement = trackPlayer.getAudioElement();
+
+  localEventEmitter.on("play/pause", () => {
+    const isPlaying = trackPlayer.getPlayerState() === PlayerState.Playing;
+    if (isPlaying) {
+      trackPlayer.pause();
+    } else {
+      trackPlayer.play();
+    }
+  });
+
+  localEventEmitter.on("skip-previous", () => {
+    playerEventEmitter.emit("play-prev");
+  });
+
+  localEventEmitter.on("skip-next", () => {
+    playerEventEmitter.emit("play-next");
+  });
+
+  localEventEmitter.on("volume-up", () => {
+    const volume = audioElement.volume;
+    trackPlayer.setVolume(Math.min(volume + 0.025, 1));
+  });
+
+  localEventEmitter.on("volume-down", () => {
+    const volume = audioElement.volume;
+    trackPlayer.setVolume(Math.max(volume - 0.025, 0));
+  });
+
+  localEventEmitter.on("seek-forward", () => {
+    trackPlayer.seekForward();
+  });
+
+  localEventEmitter.on("seek-backward", () => {
+    trackPlayer.seekBackward();
+  });
+
+  localEventEmitter.on("quit", () => {
+    window.common.sendFrameAction("QUIT");
   });
 }

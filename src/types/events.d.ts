@@ -60,7 +60,7 @@ declare namespace IpcInvoke {
 declare namespace IpcEvents {
   // ipcRender.send -> ipcMain.on
   interface Renderer {
-    "window-frame-action": "CLOSE" | "MINIMIZE" | "MAXIMIZE" | "HIDE";
+    "window-frame-action": "CLOSE" | "MINIMIZE" | "MAXIMIZE" | "HIDE" | "QUIT";
     "worker-setup-watcher": void;
     "worker-change-paths": [addPaths: string[], removePaths: string[]];
     "worker-setup-download": any;

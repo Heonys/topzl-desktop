@@ -45,7 +45,7 @@ export const shortcutKeys = [
   "quit",
 ] as const;
 
-export const shortcutKeyMap: Record<string, string> = {
+export const shortcutKeyMap: Record<ShortcutKeys, string> = {
   "play/pause": "재생 / 일시정지",
   "skip-previous": "이전곡 재생",
   "skip-next": "다음곡 재생",

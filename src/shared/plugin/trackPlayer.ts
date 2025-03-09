@@ -1,7 +1,7 @@
 import Hls from "hls.js";
 import { getDefaultStore } from "jotai";
 import { MusicItem, PlayerState } from "./type";
-import playerEventEmitter from "./eventEmitter";
+import { playerEventEmitter } from "./eventEmitter";
 import { appConfigAtom } from "src/renderer/src/atom";
 
 const store = getDefaultStore();
@@ -36,6 +36,10 @@ class TrackPlayer {
   private setPlayerState(state: PlayerState) {
     this.playerState = state;
     playerEventEmitter.emit("play-state-changed", state);
+  }
+
+  getPlayerState() {
+    return this.playerState;
   }
 
   private registerEvents() {
@@ -168,6 +172,20 @@ class TrackPlayer {
     if (this.hasSource() && isFinite(seconds)) {
       const duration = this.audio.duration;
       this.audio.currentTime = Math.min(seconds, isNaN(duration) ? Infinity : duration);
+    }
+  }
+
+  seekForward() {
+    if (this.hasSource()) {
+      const newTime = this.audio.currentTime + 5;
+      this.audio.currentTime = Math.min(newTime, this.audio.duration || Infinity);
+    }
+  }
+
+  seekBackward() {
+    if (this.hasSource()) {
+      const newTime = this.audio.currentTime - 5;
+      this.audio.currentTime = Math.max(newTime, 0);
     }
   }
 

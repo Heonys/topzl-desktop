@@ -30,6 +30,9 @@ export function setupIpcMain() {
       case "HIDE": {
         return mainWindow.hide();
       }
+      case "QUIT": {
+        return BrowserWindow.fromWebContents(event.sender)?.close();
+      }
     }
   });
 
