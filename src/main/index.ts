@@ -4,7 +4,7 @@ import { setupIpcMain } from "@/ipc/setup";
 import { setupI18n } from "@shared/i18n/main";
 import { setupTray } from "@/tray";
 import { getAppConfigPathSync, setupMainConfig, setAppConfigPath } from "@shared/config/main";
-import { handleUrlScheme, setupPlugin, setupGlobalContext } from "@/core";
+import { handleUrlScheme, setupPlugin, setupGlobalContext, setupGlobalShortcut } from "@/core";
 import { isDev } from "@/utils/common";
 import { setupWorker } from "@/workers/setupWorker";
 
@@ -55,6 +55,7 @@ app.whenReady().then(async () => {
   createMainWindow();
   setupIpcMain();
   setupGlobalContext();
+  setupGlobalShortcut();
   setupWorker();
 
   app.setLoginItemSettings({

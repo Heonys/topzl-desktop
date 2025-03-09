@@ -8,7 +8,7 @@ const bindKeymap = new Map<string, string[]>();
 const trackedShortcuts = new Map<string, (event: KeyboardEvent) => void>();
 const store = getDefaultStore();
 
-export function setHotkeyFilter() {
+export function setupHotkeyFilter() {
   const originalFilter = hotkeys.filter;
   hotkeys.filter = (event) => {
     const tagName = (event.target as HTMLElement).tagName;
@@ -70,4 +70,19 @@ export function unbindShortcut(keyType: ShortcutKeys, global = false) {
       hotkeys.unbind(keymap.join("+"), "all", trackedShortcuts.get(keyType)!);
     }
   }
+}
+
+/*
+
+초기에 config 설정에있는 값을 동기화하고
+이후에 config가 바뀌면 -> table-input의 onchagne에서 수정되면
+궁극적으로 다시 bindShortcut의 global 분기에서 처리됨
+
+*/
+
+// 여기선 메인에서 숏컷을 감지할때 이벤트를 보내주고 그걸 받는 리스너를 등록
+export function setupGlobalShortcut() {
+  window.shortcut.onGlobal((keyType) => {
+    console.log(keyType);
+  });
 }

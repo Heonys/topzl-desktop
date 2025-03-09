@@ -12,7 +12,7 @@ const usePostRender = () => {
   }, []);
 
   useEffect(() => {
-    const cleanUpFn = window.shortcut.setupNavigate((url) => {
+    const cleanUpFn = window.shortcut.onGlobal((url) => {
       // 함수로 분리
       switch (url) {
         case "TRANSLATE_KO": {

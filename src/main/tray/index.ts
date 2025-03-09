@@ -12,8 +12,16 @@ if (process.platform === "darwin") {
     ]),
   );
 } else {
-  // 기존 메뉴에 존재하던 숏컷까지 지워짐
-  // Menu.setApplicationMenu(null);
+  Menu.setApplicationMenu(
+    Menu.buildFromTemplate([
+      {
+        role: "toggleDevTools",
+      },
+      {
+        role: "reload",
+      },
+    ]),
+  );
 }
 
 export function setupTray() {

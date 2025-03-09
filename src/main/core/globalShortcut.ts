@@ -4,10 +4,6 @@ import { getAppConfigPath, setAppConfigPath } from "@shared/config/main";
 import { ipcMainSendMainWindow } from "@/ipc/main";
 
 export async function setupGlobalShortcut() {
-  await registerGlobalShortcut();
-}
-
-async function registerGlobalShortcut() {
   for (const key of shortcutKeys) {
     const shortcut = await getAppConfigPath(`shortcut.keymap.${key}.global`);
     registerShortcut(

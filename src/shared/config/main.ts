@@ -42,39 +42,39 @@ async function checkPath() {
         enableLocal: true,
         keymap: {
           "play/pause": {
-            local: [" "],
+            local: ["Space"],
             global: [],
           },
           "seek-forward": {
-            local: ["Arrowright"],
+            local: ["Right"],
             global: [],
           },
           "seek-backward": {
-            local: ["Arrowleft"],
+            local: ["Left"],
             global: [],
           },
           "volume-up": {
-            local: ["Arrowup"],
+            local: ["Up"],
             global: [],
           },
           "volume-down": {
-            local: ["Arrowdown"],
+            local: ["Down"],
             global: [],
           },
           "skip-next": {
-            local: ["Ctrl", "Arrowright"],
+            local: ["Ctrl", "Right"],
             global: [],
           },
           "skip-previous": {
-            local: ["Control", "Arrowleft"],
+            local: ["Ctrl", "Left"],
             global: [],
           },
           search: {
-            local: ["Control", "K"],
+            local: ["Ctrl", "K"],
             global: [],
           },
           quit: {
-            local: ["Control", "W"],
+            local: ["Ctrl", "W"],
             global: [],
           },
         },

@@ -2,7 +2,7 @@ import type { IpcRendererEvent } from "electron";
 import type { ShortcutKeys } from "@shared/config/type";
 import { ipcRendererOn, ipcRenderOff } from "../ipcRenderer";
 
-function setupNavigate(callback: (url: ShortcutKeys) => void) {
+function onGlobal(callback: (url: ShortcutKeys) => void) {
   const eventHandler = (event: IpcRendererEvent, url: ShortcutKeys) => {
     callback(url);
   };
@@ -11,5 +11,5 @@ function setupNavigate(callback: (url: ShortcutKeys) => void) {
 }
 
 export const shortcut = {
-  setupNavigate,
+  onGlobal,
 } satisfies Window["shortcut"];

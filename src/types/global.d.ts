@@ -27,9 +27,7 @@ declare global {
       setAppConfigPath: IpcInvoke.Renderer["set-app-config-path"];
     };
     shortcut: {
-      setupNavigate: (
-        callback: (url: IpcEvents.Main["global-shortcut-execute"]) => void,
-      ) => CleanUp;
+      onGlobal: (callback: (url: IpcEvents.Main["global-shortcut-execute"]) => void) => CleanUp;
     };
     plugin: {
       searchMusic: IpcInvoke.Renderer["search-music"];

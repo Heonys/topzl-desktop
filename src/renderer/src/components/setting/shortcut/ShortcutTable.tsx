@@ -8,6 +8,7 @@ import { defaultAppConfig, shortcutKeyMap, type AppConfigKeymap } from "@shared/
 import { useMemo } from "react";
 import { ShortcutInput } from "./ShortcutInput";
 import { useAppConfig } from "@/hooks";
+import { bindShortcut } from "@/core/shortcut";
 
 type FormattedKeymap = {
   name: string;
@@ -50,7 +51,10 @@ const ShortcutTable = ({
             <ShortcutInput
               enable={enableLocal}
               value={info.getValue()}
-              onChange={(value) => setAppConfig({ keyPath, value })}
+              onChange={(value) => {
+                bindShortcut(info.row.original.name as ShortcutKeys, value);
+                setAppConfig({ keyPath, value });
+              }}
               onClear={() => setAppConfig({ keyPath, value: [] })}
             />
           );
@@ -66,7 +70,10 @@ const ShortcutTable = ({
               enable={enableGlobal}
               isGlobal
               value={info.getValue()}
-              onChange={(value) => setAppConfig({ keyPath, value })}
+              onChange={(value) => {
+                bindShortcut(info.row.original.name as ShortcutKeys, value, true);
+                setAppConfig({ keyPath, value });
+              }}
               onClear={() => setAppConfig({ keyPath, value: [] })}
             />
           );

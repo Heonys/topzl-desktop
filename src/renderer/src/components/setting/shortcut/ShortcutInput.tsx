@@ -15,7 +15,7 @@ type Props = {
 export const ShortcutInput = ({ value, enable, onChange, onClear, isGlobal }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [recordedValue, setRecoredValue] = useState<string[] | null>(null);
-  const inputValue = (recordedValue ?? value.map(keycodeMap)).join(" + ") || "None";
+  const inputValue = (recordedValue ?? value).join(" + ") || "None";
 
   const scopeRef = useRef(nanoid());
   const isFocusedRef = useRef(false);
@@ -48,7 +48,7 @@ export const ShortcutInput = ({ value, enable, onChange, onClear, isGlobal }: Pr
         const modifierFlag = getModifierKeyFlag(keymap);
 
         if (filteredKeymap.length === 1 && (isGlobal ? modifierFlag : true)) {
-          onChange(keymap.map((it) => capitalized(it)));
+          onChange(keymap.map((it) => keycodeMap(capitalized(it))));
         } else {
           setRecoredValue(null);
         }
@@ -107,13 +107,13 @@ const keycodeMap = (key: string) => {
     case " ":
       return "Space";
     case "Arrowup":
-      return "↑";
+      return "Up";
     case "Arrowdown":
-      return "↓";
+      return "Down";
     case "Arrowleft":
-      return "←";
+      return "Left";
     case "Arrowright":
-      return "→";
+      return "Right";
     case "Control": {
       return "Ctrl";
     }
