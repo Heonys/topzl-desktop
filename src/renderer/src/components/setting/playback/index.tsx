@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useAppConfig, useAudioOutpuDevice } from "@/hooks";
 import { RadioGroupOption, SelectOption } from "@/components/setting/common";
 import { setAudioOutputDevice } from "@shared/plugin/trackPlayer";
@@ -5,14 +6,15 @@ import { setAudioOutputDevice } from "@shared/plugin/trackPlayer";
 const Playback = () => {
   const { appConfig, setAppConfig } = useAppConfig();
   const { devices, defaultDevice } = useAudioOutpuDevice();
+  const { t } = useTranslation();
 
   return (
     <div className="flex w-full flex-col gap-4 py-5 pt-4">
       {/* Audio Output Device */}
       <SelectOption
         keyPath="playback.audioOutputDevice"
-        label="오디오 출력 장치"
-        description="기본 오디오 출력 장치를 선택합니다."
+        label={t("settings.playback.audio_output_device_label")}
+        description={t("settings.playback.audio_output_device_description")}
         iconName="headset"
         value={appConfig.playback?.audioOutputDevice ?? defaultDevice}
         options={devices}
@@ -29,28 +31,31 @@ const Playback = () => {
       {/* When play error */}
       <RadioGroupOption
         keyPath="playback.playError"
-        label="재생 오류 발생시"
-        description="재생 URL을 찾을 수 없을 때의 동작을 선택합니다."
+        label={t("settings.playback.play_error_label")}
+        description={t("settings.playback.play_error_description")}
         iconName="error"
         value={appConfig.playback?.playError}
         options={[
-          { value: "pause", title: "일시정지" },
-          { value: "skip-next", title: "다음 곡 재생" },
+          { value: "pause", title: t("settings.playback.play_error_pause") },
+          { value: "skip-next", title: t("settings.playback.play_error_skip_next") },
         ]}
       />
 
       {/* Previous Track Behavior  */}
       <RadioGroupOption
         keyPath="playback.previousTrackBehavior"
-        label="이전 곡 재생방식"
-        description={`이전 곡 버튼을 눌렀을 때, 현재 곡의 진행 상태에 따라 어떻게 동작할지 설정합니다. \n(설정된 시간이 지나면 곡이 처음부터 다시 재생됩니다)`}
+        label={t("settings.playback.previous_track_behavior_label")}
+        description={t("settings.playback.previous_track_behavior_description")}
         iconName="skip-previous"
         value={appConfig.playback?.previousTrackBehavior}
         direction="vertical"
         options={[
-          { value: "under-3", title: "3초 초과" },
-          { value: "under-5", title: "5초 초과" },
-          { value: "always-previous", title: "항상 이전 곡 재생" },
+          { value: "under-3", title: t("settings.playback.previous_track_under_3") },
+          { value: "under-5", title: t("settings.playback.previous_track_under_5") },
+          {
+            value: "always-previous",
+            title: t("settings.playback.previous_track_always_previous"),
+          },
         ]}
       />
     </div>

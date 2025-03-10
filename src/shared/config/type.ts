@@ -1,3 +1,5 @@
+import i18next from "i18next";
+
 export type Config = {
   general: {
     autoStartOnBoot: boolean;
@@ -45,16 +47,19 @@ export const shortcutKeys = [
   "quit",
 ] as const;
 
-export const shortcutKeyMap: Record<ShortcutKeys, string> = {
-  "play/pause": "재생 / 일시정지",
-  "skip-previous": "이전곡 재생",
-  "skip-next": "다음곡 재생",
-  "volume-up": "볼륨 올리기",
-  "volume-down": "볼륨 내리기",
-  "seek-forward": "5초 앞으로 이동",
-  "seek-backward": "5초 뒤로 이동",
-  search: "검색",
-  quit: "종료",
+export const getShortcutKeyMap = (keyType: ShortcutKeys) => {
+  const shortcutKeyMap: Record<ShortcutKeys, string> = {
+    "play/pause": i18next.t("settings.shortcut.keymap_title.play_pause"),
+    "skip-previous": i18next.t("settings.shortcut.keymap_title.skip_previous"),
+    "skip-next": i18next.t("settings.shortcut.keymap_title.skip_next"),
+    "volume-up": i18next.t("settings.shortcut.keymap_title.volume_up"),
+    "volume-down": i18next.t("settings.shortcut.keymap_title.volume_down"),
+    "seek-forward": i18next.t("settings.shortcut.keymap_title.seek_forward"),
+    "seek-backward": i18next.t("settings.shortcut.keymap_title.seek_backward"),
+    search: i18next.t("settings.shortcut.keymap_title.search"),
+    quit: i18next.t("settings.shortcut.keymap_title.quit"),
+  };
+  return shortcutKeyMap[keyType];
 };
 
 type KeyPaths<T extends object> =
@@ -94,7 +99,7 @@ type DefaultAppConfig = {
 };
 export const defaultAppConfig: DefaultAppConfig = {
   "general.autoStartOnBoot": false,
-  "general.language": "Korean",
+  "general.language": "ko-KR",
   "general.theme": "light",
   "general.closeBehavior": "minimize",
   "general.maxHistoryLength": 7,

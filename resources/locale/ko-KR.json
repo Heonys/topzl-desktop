@@ -1,0 +1,114 @@
+{
+  "common": {
+    "greeting": "안녕하세요",
+    "farewell": "안녕히 가세요"
+  },
+  "user": {
+    "name": "홍길동",
+    "welcomeMessage": "다시 오신 것을 환영합니다, {{name}}님!"
+  },
+
+
+  "settings": {
+    "page_name": "설정",
+
+    "section": {
+      "general": "일반 설정",
+      "playback": "재생 설정",
+      "shortcut": "단축키 설정",
+      "lyric": "가사 설정",
+      "download": "다운로드 설정",
+      "backup": "백업 및 복원",
+      "about": "앱 정보"
+    },
+
+    "general": {
+      "language_label": "언어 설정",
+      "language_description": "어플리케이션의 기본 언어를 설정 합니다.",
+
+      "close_behavior_label": "종료 버튼 클릭시",
+      "close_behavior_language_description": "종료 버튼 클릭시 동작을 선택 합니다.",
+      "close_behavior_exit": "어플리케이션 종료",
+      "close_behavior_minimize": "트레이로 이동",
+
+      "auto_start_label": "시작 시 자동 실행",
+      "auto_start_description": "시스템 시작 시 어플리케이션을 자동으로 실행할지 여부를 설정합니다.",
+
+      "notification_label": "데스크탑 알림 사용",
+      "notification_description": "어플리케이션에서 데스크톱 알림을 표시하도록 설정합니다.",
+      "notification_test_label": "데스크탑 알림 테스트",
+
+      "max_history_length_label": "최대 검색 기록 항목",
+      "max_history_length_description": "검색 기록에 대한 최대 항목 수를 지정하세요."
+    },
+    "playback": {
+      "audio_output_device_label": "오디오 출력 장치",
+      "audio_output_device_description": "기본 오디오 출력 장치를 선택합니다.",
+      "play_error_label": "재생 오류 발생시",
+      "play_error_description": "재생 URL을 찾을 수 없을 때의 동작을 선택합니다.",
+      "play_error_pause": "일시정지",
+      "play_error_skip_next": "다음 곡 재생",
+      "previous_track_behavior_label": "이전 곡 재생방식",
+      "previous_track_behavior_description": "이전 곡 버튼을 눌렀을 때, 현재 곡의 진행 상태에 따라 어떻게 동작할지 설정합니다. \n(설정된 시간이 지나면 곡이 처음부터 다시 재생됩니다)",
+      "previous_track_under_3": "3초 초과",
+      "previous_track_under_5": "5초 초과",
+      "previous_track_always_previous": "항상 이전 곡 재생"
+    },
+    "lyric": {
+      "enable_label": "가사 활성화",
+      "enable_description": "Genius API 기반의 가사 검색이며 항상 정확한 가사를 보장하지는 않습니다.",
+      "search_method_label": "가사 검색 방식",
+      "search_method_description": "다음 가사 부터 새로운 검색 방식을 적용하여 검색합니다. \n1. 기본 검색: 일부 곡에서 원곡 언어가 아닌 번역된 표기로 제공될 수 있습니다. \n2. 정밀 검색: 보다 정확한 가사를 제공할 가능성이 높지만, 기본 검색보다 다소 느릴 수 있습니다.",
+      "search_method_basic": "기본 검색",
+      "search_method_advanced": "정밀 검색"
+    },
+
+    "download": {
+      "path_label": "다운로드 위치 지정",
+      "path_description": "다운로드한 파일이 저장될 위치를 설정합니다.",
+      "concurrency_label": "최대 동시 다운로드 수",
+      "concurrency_description": "동시에 다운로드할 수 있는 최대 파일 수를 설정합니다."
+    },
+
+    "backup": {
+      "backup_restore_label": "재생목록 백업 및 복원",
+      "backup_restore_description": "현재 재생목록을 백업하거나 복원할 수 있습니다. \n백업 시 다운로드 경로에 백업 파일이 저장되며 복원 시 기존 재생목록에 덮어씌워 집니다.",
+      "clear_local_data_label": "로컬 데이터 초기화",
+      "clear_local_data_description": "어플리케이션에서 관리하는 모든 로컬 데이터를 초기화 합니다. 이 작업은 되돌릴 수 없습니다.",
+
+      "backup_button": "재생목록 백업",
+      "restore_button": "재생목록 복원",
+      "initialize_button": "초기화"
+    },
+
+    "shortcut": {
+      "enableLocal": {
+        "label": "In-App 단축키 활성화",
+        "description": "어플리케이션이 포커스된 상태에서만 동작하는 단축키입니다."
+      },
+      "enableGlobal": {
+        "label": "Global 단축키 활성화",
+        "description": "시스템 전체에서 동작하는 단축키입니다. 백그라운드에 있을때나 다른 어플리케이션을 사용중일때도 유효합니다. \n※ 다른 프로그램에서의 단축키와 충돌할 수 있습니다 설정을 변경할 때 주의해주세요"
+      },
+      "rules": "단축키 생성 규칙",
+      "rule1": "[Win, Command]는 특수키로 단축키 등록에서 제외됩니다.",
+      "rule2": "조합키는 [Ctrl, Alt, Option, Shift]이며, 이 외의 키는 일반키로 분류됩니다.",
+      "rule3": "키 입력 순서는 상관없으나, [조합키 + 일반키] 순서를 권장합니다.",
+      "rule4": "조합키는 여러 개 사용이 가능하지만, 일반키는 1개만 허용됩니다.",
+      "rule5": "Global 단축키는 충돌방지를 위해 반드시 2개 이상의 조합키를 포함해야 합니다.",
+
+      "keymap_title": {
+        "play_pause": "재생 / 일시정지",
+        "skip_previous": "이전곡 재생",
+        "skip_next": "다음곡 재생",
+        "volume_up": "볼륨 올리기기",
+        "volume_down":"볼륨 내리기",
+        "seek_forward": "5초 앞으로 이동",
+        "seek_backward": "5초 뒤로 이동",
+        "search": "검색",
+        "quit": "종료"
+      }
+    }
+  }
+
+}

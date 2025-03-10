@@ -1,6 +1,6 @@
+import fs from "fs-extra";
 import i18n from "i18next";
 import Backend, { FsBackendOptions } from "i18next-fs-backend";
-import fs from "node:fs/promises";
 import { getResourcePath } from "@/utils/path";
 import { ipcMainHandle } from "@/ipc/main";
 
@@ -18,18 +18,16 @@ export async function setupI18n(options: I18nOptions) {
 
   const localeDir = getResourcePath("./locale");
   const files = await fs.readdir(localeDir, { withFileTypes: true });
+
   locales = files
     .filter((it) => it.isFile() && it.name.endsWith(".json"))
     .map((it) => it.name.replace(".json", ""));
 
   await i18n.use(Backend).init<FsBackendOptions>({
-    // debug: true,
     lng: lang,
-    fallbackLng: "en",
-    // ns: ["common", "footer"],
-    // defaultNS: namespace,
+    fallbackLng: "ko-KR",
+    defaultNS: namespace,
     backend: {
-      // loadPath: getResourcePath("./locale/{{lng}}/{{ns}}.json"),
       loadPath: getResourcePath("./locale/{{lng}}.json"),
     },
   });

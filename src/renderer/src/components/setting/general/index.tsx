@@ -1,27 +1,41 @@
+import { useTranslation } from "react-i18next";
 import { Blockquote } from "@/common";
 import { RadioGroupOption, SelectOption, SwitchOption } from "@/components/setting/common";
 import { useAppConfig } from "@/hooks";
+import { changeLanguage } from "@shared/i18n/renderer";
 
 const General = () => {
-  const { appConfig } = useAppConfig();
+  const { appConfig, setAppConfig } = useAppConfig();
+  const { t } = useTranslation();
 
   return (
     <div className="flex w-full flex-col gap-4 py-5 pt-4">
       {/* Language */}
       <SelectOption
         keyPath="general.language"
-        label="언어 설정"
-        description="어플리케이션의 기본 언어를 설정 합니다."
+        label={t("settings.general.language_label")}
+        description={t("settings.general.language_description")}
         iconName="language"
         value={appConfig.general?.language}
-        options={["Korean", "English"]}
+        options={["ko-KR", "en-US"]}
+        convertToLabel={(value) => {
+          if (value === "ko-KR") return "한국어 (ko-KR)";
+          if (value === "en-US") return "English (en-US)";
+          return String(value);
+        }}
+        onChange={async (value) => {
+          const result = await changeLanguage(value);
+          if (result) {
+            setAppConfig({ keyPath: "general.language", value });
+          }
+        }}
         width="200px"
       />
       {/* Theme */}
       {/* <ImageRadioGroupOption
         keyPath="general.theme"
-        label="테마 설정"
-        description="어플리케이션의 테마를 선택합니다."
+        label={t("settings.general.theme_label")}
+        description={t("settings.general.theme_description")}
         iconName="sparkles"
         value={appConfig.general?.theme}
         options={[
@@ -32,28 +46,28 @@ const General = () => {
       {/* When close button */}
       <RadioGroupOption
         keyPath="general.closeBehavior"
-        label="종료 버튼 클릭시"
-        description="종료 버튼 클릭시 동작을 선택 합니다."
+        label={t("settings.general.close_behavior_label")}
+        description={t("settings.general.close_behavior_language_description")}
         iconName="box-close"
         value={appConfig.general?.closeBehavior}
         options={[
-          { value: "exit", title: "어플리케이션 종료" },
-          { value: "minimize", title: "트레이로 이동" },
+          { value: "exit", title: t("settings.general.close_behavior_exit") },
+          { value: "minimize", title: t("settings.general.close_behavior_minimize") },
         ]}
       />
       {/* Auto Start On Boot */}
       <SwitchOption
         keyPath="general.autoStartOnBoot"
-        label="시작 시 자동 실행"
-        description="시스템 시작 시 어플리케이션을 자동으로 실행할지 여부를 설정합니다."
+        label={t("settings.general.auto_start_label")}
+        description={t("settings.general.auto_start_description")}
         iconName="power"
         value={appConfig.general?.autoStartOnBoot}
       />
       {/* Notification */}
       <SwitchOption
         keyPath="general.notification"
-        label="데스크탑 알림 사용"
-        description="어플리케이션에서 데스크톱 알림을 표시하도록 설정합니다."
+        label={t("settings.general.notification_label")}
+        description={t("settings.general.notification_description")}
         iconName="notification"
         value={appConfig.general?.notification}
       />
@@ -62,17 +76,20 @@ const General = () => {
         color="orange"
         disabled={!appConfig.general?.notification}
         onClick={() =>
-          window.common.showNotification({ title: "테스트 제목", body: "테스트 메시지" })
+          window.common.showNotification({
+            title: "테스트 제목",
+            body: "테스트 메시지",
+          })
         }
       >
-        <div className="font-bold">데스크탑 알림 테스트</div>
+        <div className="font-bold">{t("settings.general.notification_test_label")}</div>
       </Blockquote>
 
       {/* Maximum search history */}
       <RadioGroupOption
         keyPath="general.maxHistoryLength"
-        label="최대 검색 기록 항목"
-        description="검색 기록에 대한 최대 항목 수를 지정하세요."
+        label={t("settings.general.max_history_length_label")}
+        description={t("settings.general.max_history_length_description")}
         iconName="history"
         value={appConfig.general?.maxHistoryLength}
         options={[{ value: 7 }, { value: 10 }, { value: 15 }]}
@@ -80,4 +97,5 @@ const General = () => {
     </div>
   );
 };
+
 export default General;

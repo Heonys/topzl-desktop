@@ -4,7 +4,7 @@ import {
   useReactTable,
   getCoreRowModel,
 } from "@tanstack/react-table";
-import { defaultAppConfig, shortcutKeyMap, type AppConfigKeymap } from "@shared/config/type";
+import { defaultAppConfig, getShortcutKeyMap, type AppConfigKeymap } from "@shared/config/type";
 import { useMemo } from "react";
 import { ShortcutInput } from "./ShortcutInput";
 import { useAppConfig } from "@/hooks";
@@ -39,7 +39,7 @@ const ShortcutTable = ({
         size: 150,
         cell: (info) => (
           <div className="p-2 text-xs font-bold text-black">
-            {shortcutKeyMap[info.row.original.name as ShortcutKeys]}
+            {getShortcutKeyMap(info.row.original.name as ShortcutKeys)}
           </div>
         ),
       }),

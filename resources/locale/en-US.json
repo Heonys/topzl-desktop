@@ -1,0 +1,109 @@
+{
+  "common": {
+    "greeting": "Hello",
+    "farewell": "Goodbye"
+  },
+  "user": {
+    "name": "Hong Gil-dong",
+    "welcomeMessage": "Welcome back, {{name}}!"
+  },
+
+  "settings": {
+    "page_name": "Settings",
+
+    "section": {
+      "general": "General",
+      "playback": "Playback",
+      "shortcut": "Shortcut",
+      "lyric": "Lyric",
+      "download": "Download",
+      "backup": "Backup & Restore",
+      "about": "About"
+    },
+
+    "general": {
+      "language_label": "Language Settings",
+      "language_description": "Set the application's default language.",
+
+      "close_behavior_label": "On Close Button Click",
+      "close_behavior_language_description": "Choose the action when the close button is clicked.",
+      "close_behavior_exit": "Exit Application",
+      "close_behavior_minimize": "Minimize to Tray",
+
+      "auto_start_label": "Launch on Startup",
+      "auto_start_description": "Set whether the app should launch automatically at system startup.",
+
+      "notification_label": "Enable Notifications",
+      "notification_description": "Allow the app to show desktop notifications.",
+      "notification_test_label": "Test Notification",
+
+      "max_history_length_label": "Max Search History",
+      "max_history_length_description": "Set the maximum number of search history entries."
+    },
+    "playback": {
+      "audio_output_device_label": "Audio Output",
+      "audio_output_device_description": "Select the default audio output device.",
+      "play_error_label": "On Playback Error",
+      "play_error_description": "Choose the action when a playback URL is not found.",
+      "play_error_pause": "Pause",
+      "play_error_skip_next": "Skip to Next Track",
+      "previous_track_behavior_label": "Previous Track Behavior",
+      "previous_track_behavior_description": "Set how the previous track button behaves based on the current track's progress. \n(The track restarts from the beginning after the specified time.)",
+      "previous_track_under_3": "After 3 Seconds",
+      "previous_track_under_5": "After 5 Seconds",
+      "previous_track_always_previous": "Always Previous Track"
+    },
+    "lyric": {
+      "enable_label": "Enable Lyrics",
+      "enable_description": "Lyrics search using Genius API, but accuracy is not guaranteed.",
+      "search_method_label": "Lyrics Search Method",
+      "search_method_description": "Choose a search method for lyrics. \n1. Basic: Some songs may show translated lyrics instead of the original language. \n2. Advanced: Provides more accurate lyrics but may take longer than the basic search.",
+      "search_method_basic": "Basic",
+      "search_method_advanced": "Advanced"
+    },
+    "download": {
+      "path_label": "Set Download Location",
+      "path_description": "Choose where downloaded files will be saved.",
+      "concurrency_label": "Max Concurrent Downloads",
+      "concurrency_description": "Set the maximum number of files to download simultaneously."
+    },
+    "backup": {
+      "backup_restore_label": "Backup & Restore Playlist",
+      "backup_restore_description": "Back up or restore the playlist. \nBackups are saved in the download path and overwrite the existing playlist.",
+      "clear_local_data_label": "Clear Local Data",
+      "clear_local_data_description": "This will reset all local data. This action cannot be undone.",
+
+      "backup_button": "Backup",
+      "restore_button": "Restore",
+      "initialize_button": "Initialize"
+    },
+    "shortcut": {
+      "enableLocal": {
+        "label": "Enable In-App Shortcuts",
+        "description": "Shortcuts that work only when the app is focused."
+      },
+      "enableGlobal": {
+        "label": "Enable Global Shortcuts",
+        "description": "Shortcuts that work system-wide, even when the app is in the background or other apps are in use. \n※ Be cautious as it may conflict with other app shortcuts."
+      },
+      "rules": "Shortcut Rules",
+      "rule1": "[Win, Command] are excluded from shortcuts as special keys.",
+      "rule2": "Modifier keys are [Ctrl, Alt, Option, Shift], other keys are regular keys.",
+      "rule3": "The order of keys doesn’t matter, but [Modifier + Regular Key] is recommended.",
+      "rule4": "Multiple modifier keys can be used, but only one regular key is allowed.",
+      "rule5": "Global shortcuts must include at least two modifier keys to prevent conflicts.",
+
+      "keymap_title": {
+        "play_pause": "play/pause",
+        "skip_previous": "skip-previous",
+        "skip_next": "skip-next",
+        "volume_up": "volume-up",
+        "volume_down":"volume-down",
+        "seek_forward": "seek-forward",
+        "seek_backward": "seek-backward",
+        "search": "search",
+        "quit": "quit"
+      }
+    }
+  }
+}
