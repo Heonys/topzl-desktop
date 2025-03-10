@@ -90,7 +90,7 @@ export const PipmodePage = () => {
           size={18}
           color="white"
           onClick={() => {
-            window.common.sendFrameAction("CLOSE");
+            window.common.sendFrameAction("QUIT");
           }}
         />
       </div>
