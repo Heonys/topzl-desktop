@@ -5,6 +5,7 @@ import StaticIcon from "@/icons/StaticIcon";
 import { useDirectoryManager } from "@/hooks";
 import Backdrop, { Header, Contents } from "./Layout";
 import { useModal } from "./useModal";
+import { useTranslation } from "react-i18next";
 
 const ScanLocalMusic = () => {
   const { paths, selectedPaths, addDir, removeDir, check, uncheck, syncWithWatcher } =
@@ -12,6 +13,7 @@ const ScanLocalMusic = () => {
   const { hideModal } = useModal();
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   const addForder = async () => {
     setIsOpenDialog(true);
@@ -45,7 +47,9 @@ const ScanLocalMusic = () => {
         onClick={(e) => e.stopPropagation()}
       >
         <Header>
-          <div className="font-sans text-xl font-semibold">파일 자동스캔</div>
+          <div className="font-sans text-xl font-semibold">
+            {t("local_management.file_auto_scan_btn")}
+          </div>
         </Header>
         <Contents>
           <div className="flex h-full flex-col gap-2 font-sans text-sm">
@@ -58,11 +62,11 @@ const ScanLocalMusic = () => {
                   onClick={addForder}
                 />
                 <span className="cursor-pointer font-semibold" onClick={addForder}>
-                  폴더 추가
+                  {t("local_management.add_folder_btn")}
                 </span>
               </div>
               <div className="text-gray-500 ">
-                {"(선택된 폴더의 파일 변경 사항과 실시간 동기화 됩니다.)"}
+                {`(${t("local_management.add_folder_discription")})`}
               </div>
             </div>
 
@@ -99,7 +103,7 @@ const ScanLocalMusic = () => {
                 onClick={onClose}
                 disabled={isOpenDialog}
               >
-                확인
+                {t("common.confirm_btn")}
               </button>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useRef } from "react";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import Backdrop, { Contents, Header } from "./Layout";
 import { useModal } from "./useModal";
 import { useLibrary } from "@/hooks";
@@ -15,6 +16,7 @@ const CreatePlayList = ({ title, description, musicItems, overrideClose }: Props
   const { createPlaylist, setPlaylistByTitle } = useLibrary();
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -46,14 +48,14 @@ const CreatePlayList = ({ title, description, musicItems, overrideClose }: Props
         onClick={(e) => e.stopPropagation()}
       >
         <Header>
-          <div className="font-sans text-xl font-semibold">재생목록 추가</div>
+          <div className="font-sans text-xl font-semibold">{t("playlist.add_new_playlist")}</div>
         </Header>
         <Contents>
           <form className="mx-3 flex h-full flex-col" onSubmit={handleSubmit}>
             <div className="flex flex-1 flex-col gap-5 font-sans font-bold">
               <label className="w-full space-y-1">
                 <div className="flex text-sm text-black/50">
-                  재생목록 이름
+                  {t("playlist.new_playlist_title")}
                   <span className="self-end text-red-400">*</span>
                 </div>
                 <input
@@ -67,7 +69,9 @@ const CreatePlayList = ({ title, description, musicItems, overrideClose }: Props
                 />
               </label>
               <label className="w-full space-y-1">
-                <div className="text-sm text-black/50">재생목록 설명</div>
+                <div className="text-sm text-black/50">
+                  {t("playlist.new_playlist_discription")}
+                </div>
                 <input
                   className="w-full border-b-[3px] p-1 px-2 outline-none focus:border-blue-300"
                   name="description"
@@ -79,7 +83,7 @@ const CreatePlayList = ({ title, description, musicItems, overrideClose }: Props
             </div>
             <div className="flex justify-end">
               <button className="rounded-lg bg-[#E0E0E0] p-2 px-4 font-sans text-sm font-semibold">
-                생성
+                {t("common.create_btn")}
               </button>
             </div>
           </form>

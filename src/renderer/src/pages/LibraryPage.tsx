@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { AlbumCover } from "@/components";
 import { useCurrentMusic, useFavorite, useLibrary } from "@/hooks";
 import { useModal } from "@/components/modal/useModal";
@@ -9,6 +10,7 @@ import { PlaylistInfo } from "@/atom";
 import { Condition } from "@/common";
 
 export const LibraryPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { playLists, removePlaylist } = useLibrary();
   const { showModal } = useModal();
@@ -16,8 +18,8 @@ export const LibraryPage = () => {
   const { playlist, latestPlaylist } = useCurrentMusic();
   const initSelect = {
     type: "favorite",
-    title: "좋아요 표시한 음악",
-    description: "좋아요 표시한 음악 목록 입니다.",
+    title: t("playlist.favorite_playlist.playlist_title"),
+    description: t("playlist.favorite_playlist.playlist_discription"),
     data: favoriteList,
     date: latestFavorite,
   } as PlaylistInfo;
@@ -58,7 +60,7 @@ export const LibraryPage = () => {
               )}
             </div>
             <Condition condition={selectedList}>
-              <div className="text-sm text-black/50">{`트랙 ${selectedList?.data.length}개 • 업데이트 ${selectedList?.date}`}</div>
+              <div className="text-sm text-black/50">{`${t("playlist.track")} ${selectedList?.data.length}${t("common.search_result_count")} • ${t("playlist.update")} ${selectedList?.date}`}</div>
             </Condition>
             <div className="mt-3 text-sm font-medium">{selectedList?.description}</div>
           </div>
@@ -71,7 +73,7 @@ export const LibraryPage = () => {
               }}
             >
               <StaticIcon iconName="playlist" size={20} />
-              재생목록으로 이동
+              {t("playlist.navigate_playlist_btn")}
             </button>
             {isCustomPlaylist && (
               <button
@@ -82,7 +84,7 @@ export const LibraryPage = () => {
                 }}
               >
                 <StaticIcon iconName="trash" size={15} />
-                재생목록 삭제
+                {t("playlist.remove_playlist_btn")}
               </button>
             )}
           </div>
@@ -92,39 +94,41 @@ export const LibraryPage = () => {
       <div className="relative my-4 w-full">
         <div>
           <div className="flex gap-4 font-sans font-semibold">
-            <div className="border-b-4 border-blue-300 transition-all">보관함</div>
+            <div className="border-b-4 border-blue-300 transition-all">
+              {t("playlist.tab_menu_name")}
+            </div>
           </div>
           <div className="grid max-h-[320px] grid-cols-6 place-items-center gap-2 overflow-y-auto pt-2">
             <AlbumCover
-              title="새 재생목록 추가"
+              title={t("playlist.add_new_playlist")}
               iconName="plus"
               onClick={() => showModal("CreatePlayList")}
             />
             <AlbumCover
-              title="좋아요 표시한 음악"
+              title={t("playlist.favorite_playlist.playlist_title")}
               iconName="apple"
               coverUrl={favoriteList[0]?.artwork}
               onDoubleClick={() => navigate("/playlist/favorite")}
               onClick={() => {
                 handleSelectView({
                   type: "favorite",
-                  title: "좋아요 표시한 음악",
-                  description: "좋아요 표시한 음악 목록 입니다.",
+                  title: t("playlist.favorite_playlist.playlist_title"),
+                  description: t("playlist.favorite_playlist.playlist_discription"),
                   data: favoriteList,
                   date: latestFavorite,
                 });
               }}
             />
             <AlbumCover
-              title="현재 재생목록"
+              title={t("playlist.current_playlist.playlist_title")}
               iconName="playlist"
               coverUrl={playlist[0]?.artwork}
               onDoubleClick={() => navigate("/playlist/current")}
               onClick={() => {
                 handleSelectView({
                   type: "current",
-                  title: "현재 재생목록",
-                  description: "현재 재생중인 목록 입니다.",
+                  title: t("playlist.current_playlist.playlist_title"),
+                  description: t("playlist.current_playlist.playlist_discription"),
                   data: playlist,
                   date: latestPlaylist,
                 });

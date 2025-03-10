@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { useTranslation } from "react-i18next";
 import {
   createColumnHelper,
   flexRender,
@@ -134,6 +135,7 @@ export const PlayListTable = ({
   const { favorite } = useFavorite();
   const { download, isDownloaded } = useDownload();
   const { showModal } = useModal();
+  const { t } = useTranslation();
 
   const table = useReactTable({
     debugAll: false,
@@ -213,13 +215,13 @@ export const PlayListTable = ({
                     {
                       type: "menu",
                       icon: "next-playlist",
-                      title: "다음 곡으로 추가",
+                      title: t("context_menu.add_next"),
                       onClick: () => addNextTrack(row.original),
                     },
                     {
                       type: "menu",
                       icon: "add-playlist",
-                      title: "재생목록에 저장",
+                      title: t("context_menu.save_to_playlist"),
                       onClick: () => {
                         showModal("SelectPlaylist", { selectedItem: row.original });
                       },
@@ -229,7 +231,7 @@ export const PlayListTable = ({
                           {
                             type: "menu",
                             icon: "remove-playlist",
-                            title: "현재 재생목록에서 삭제",
+                            title: t("context_menu.remove_to_playlist"),
                             onClick: () => removePlaylist(row.original.id),
                           } as ContextMenuItem,
                         ]
@@ -237,7 +239,7 @@ export const PlayListTable = ({
                     {
                       type: "menu",
                       icon: "heart",
-                      title: "좋아요 목록에 추가",
+                      title: t("context_menu.add_to_favorites"),
                       onClick: () => favorite(row.original),
                     },
                     ...(!isDownloaded(row.original.id)
@@ -245,7 +247,7 @@ export const PlayListTable = ({
                           {
                             type: "menu",
                             icon: "download",
-                            title: "다운로드",
+                            title: t("context_menu.download"),
                             onClick: () => download(row.original),
                           } as ContextMenuItem,
                         ]

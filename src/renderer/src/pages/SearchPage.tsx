@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { TabGroup, TabList, TabPanels, TabPanel } from "@headlessui/react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useSearch } from "@/hooks";
 import type { SupportMediaType } from "@shared/plugin/type";
 import { Condition } from "@/common";
@@ -16,6 +17,10 @@ export const SearchPage = () => {
   const { search, isLoading, searchResults, mediaType, onChangeType } = useSearch();
   const location = useLocation();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+
+  const lang = i18n.language;
+  const computedQuery = decodedQuery || searchResults[mediaType]?.query || "";
 
   useEffect(() => {
     if (decodedQuery) {
@@ -27,8 +32,17 @@ export const SearchPage = () => {
   return (
     <section className="box-border flex size-full select-text flex-col items-start">
       <div className="mb-2 flex items-center gap-2 text-3xl font-medium text-gray-500">
-        <span className=" text-black">{`"${decodedQuery || searchResults[mediaType]?.query || ""}" `}</span>
-        <span>에 대한 검색 결과</span>
+        {lang === "ko-KR" ? (
+          <div>
+            <span className="text-black">{`"${computedQuery}" `}</span>
+            <span>{t("search.search_result_message")}</span>
+          </div>
+        ) : (
+          <div>
+            <span>{t("search.search_result_message")}</span>
+            <span className="text-black">{` "${computedQuery}"`}</span>
+          </div>
+        )}
       </div>
 
       <TabGroup
@@ -52,7 +66,10 @@ export const SearchPage = () => {
                 condition={!isLoading}
                 fallback={
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <LoadingSpinner classname="bg-black/80 size-5" message="잠시만 기다려 주세요" />
+                    <LoadingSpinner
+                      classname="bg-black/80 size-5"
+                      message={t("common.loading_message")}
+                    />
                   </div>
                 }
               >
@@ -62,7 +79,7 @@ export const SearchPage = () => {
                     type={searchResults[tab].type}
                   />
                 ) : (
-                  <Empty message="검색 결과가 없습니다" />
+                  <Empty message={t("search.search_empty_message")} />
                 )}
               </Condition>
             </TabPanel>

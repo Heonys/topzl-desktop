@@ -9,6 +9,7 @@ import { Condition, IconButton } from "@/common";
 import { useCurrentMusic, usePlayer, useSearchHistory } from "@/hooks";
 import logo from "@resources/logo.png";
 import { localEventEmitter } from "@shared/plugin/eventEmitter";
+import { useTranslation } from "react-i18next";
 
 export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
   const inputRef = useRef<HTMLInputElement>(null);
   const [showHistory, _setShowHistory] = useState(false);
   const isFocusedRef = useRef(false);
+  const { t } = useTranslation();
 
   const handleSearch = async () => {
     const inputValue = inputRef.current?.value;
@@ -82,7 +84,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
               className="w-40 flex-1 bg-transparent font-sans text-sm font-semibold leading-5 outline-none placeholder:text-black/50"
               type="text"
               maxLength={40}
-              placeholder="음악, 앨범, 아티스트 검색"
+              placeholder={t("search.search_placeholder")}
               onFocus={() => {
                 openHistory();
               }}

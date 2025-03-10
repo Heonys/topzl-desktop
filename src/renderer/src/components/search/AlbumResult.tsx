@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { AlbumItem } from "@shared/plugin/type";
 import { Empty } from "@/common/Empty";
@@ -12,11 +13,12 @@ type Props = {
 
 export const AlbumResult = ({ searchResult, isEnd, mediaType }: Props) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Condition
       condition={searchResult.length > 0}
-      fallback={<Empty message="일치하는 검색 결과가 없습니다" />}
+      fallback={<Empty message={t("common.empty_message")} />}
     >
       <div className="grid w-full grid-cols-5 gap-3">
         {searchResult.map((item) => (

@@ -14,7 +14,7 @@ async function bootstrap() {
     setupI18n(), // 다국어 처리를 위한 초기화
   ]);
   setupWatcher(); // 폴더 상태 변경을 모니터링하는 워커 스레드 설정
-  setupDownloader(); // 다운로드 경로 및 동시 다운로드 제한 설정
+  setupDownloader(); // 다운로드 상태를 전달받기 위해 워커 스레드와 동기화
   setupAtomEffect(); // 로컬 스토리지 데이터 Atom과 동기화
   dropHandler(); // 로컬 파일을 끌어다 놓을 수 있는 핸들러 추가
 

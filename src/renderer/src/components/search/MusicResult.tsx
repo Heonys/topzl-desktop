@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Condition, IconButton } from "@/common";
 import { useModal } from "../modal/useModal";
 import { useCurrentMusic, usePlayer } from "@/hooks";
@@ -17,11 +18,12 @@ export const MusicResult = ({ musicItems, isEnd, mediaType }: Props) => {
   const { currentItem, playWithAddPlaylist } = useCurrentMusic();
   const { playerState } = usePlayer();
   const { showModal } = useModal();
+  const { t } = useTranslation();
 
   return (
     <Condition
       condition={musicItems.length > 0}
-      fallback={<Empty message="조건에 맞는 검색 결과가 없습니다" />}
+      fallback={<Empty message={t("common.empty_message")} />}
     >
       {musicItems.map((item, index) => {
         const { id, title, artist, artwork, duration } = item;

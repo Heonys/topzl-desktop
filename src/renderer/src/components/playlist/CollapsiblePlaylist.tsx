@@ -3,8 +3,10 @@ import { ListItem } from "./ListItem";
 import { MusicItem } from "@shared/plugin/type";
 import { useRef } from "react";
 import { useVirtualScroll } from "@/hooks/useVirtualScroll";
+import { useTranslation } from "react-i18next";
 
 export const CollapsiblePlaylist = () => {
+  const { t } = useTranslation();
   const scrollElementRef = useRef<HTMLDivElement>(null);
   const { currentItem, changeCurrentItem, playlist, setPlaylist, removePlaylist } =
     useCurrentMusic();
@@ -35,7 +37,9 @@ export const CollapsiblePlaylist = () => {
     <div className="m-3 h-full">
       <div>
         <div className="flex items-center px-2 font-sans text-xl font-semibold">
-          <div className="flex-1">현재 재생목록 {`(${playlist.length})`}</div>
+          <div className="flex-1">
+            {t("playlist.current_playlist.playlist_title")} {`(${playlist.length})`}
+          </div>
         </div>
       </div>
       <div className="my-2 h-px w-full bg-black/10" />

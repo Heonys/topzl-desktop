@@ -1,13 +1,75 @@
 {
   "common": {
-    "greeting": "Hello",
-    "farewell": "Goodbye"
+    "confirm_btn": "Confirm",
+    "create_btn": "Create",
+    "loading_message": "Please wait...",
+    "empty_message": "No matching results found",
+    "empty_playlist": "The playlist is empty",
+    "search_lyric_message": "Searching for lyrics",
+    "search_result_count": " items"
   },
-  "user": {
-    "name": "Hong Gil-dong",
-    "welcomeMessage": "Welcome back, {{name}}!"
+  "context_menu": {
+    "add_next": "Play Next",
+    "save_to_playlist": "Save to Playlist",
+    "remove_to_playlist": "Remove from Playlist",
+    "add_to_favorites": "Add to Favorites",
+    "download": "Download"
   },
-
+  "home": {
+    "recent_played": "Recently Played",
+    "quick_selection": "Quick Picks"
+  },
+  "download": {
+    "page_name": "Downloads",
+    "open_folder_btn": "Open Folder"
+  },
+  "local_management": {
+    "page_name": "Local Files",
+    "file_auto_scan_btn": "Auto Scan",
+    "add_folder_btn": "Add Folder",
+    "add_folder_discription": "Sync changes in selected folders in real time."
+  },
+  "playlist": {
+    "favorite_playlist": {
+      "playlist_title": "Liked Songs",
+      "playlist_discription": "Your list of liked songs."
+    },
+    "current_playlist": {
+      "playlist_title": "Now Playing",
+      "playlist_discription": "Currently playing tracks."
+    },
+    "track": "Track",
+    "update": "Updated",
+    "navigate_playlist_btn": "Go to Playlist",
+    "remove_playlist_btn": "Delete Playlist",
+    "all_play_btn": "Play All",
+    "navigate_library_btn": "Library",
+    "tab_menu_name": "Library",
+    "add_new_playlist": "New Playlist",
+    "new_playlist_title": "Playlist Name",
+    "new_playlist_discription": "Playlist Description",
+    "rename_playlist_title": "Rename Playlist",
+    "modal_add_playlist_title": "Save to Playlist",
+    "modal_add_playlist_btn": "New Playlist"
+  },
+  "search": {
+    "search_result_message": "Search results for",
+    "music": "music",
+    "album": "album",
+    "artist": "artist",
+    "playlist": "playlist",
+    "load_more": "Load More",
+    "search_empty_message": "No search results found",
+    "search_placeholder": "Search for Content"
+  },
+  "search_view": {
+  "all_play_btn": "Play All",
+  "favorite_btn": "Favorites",
+  "create_playlist_btn": "Create Playlist"
+  },
+  "pipmode": {
+    "title": "No track playing"
+  },
   "settings": {
     "page_name": "Settings",
 

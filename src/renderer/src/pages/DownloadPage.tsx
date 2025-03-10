@@ -1,4 +1,5 @@
 import { useAtom } from "jotai";
+import { useTranslation } from "react-i18next";
 import { downloadedMusicAtom } from "@/atom";
 import { PlayListTable } from "@/components";
 import StaticIcon from "@/icons/StaticIcon";
@@ -7,10 +8,11 @@ import { useAppConfig } from "@/hooks";
 export const DownloadPage = () => {
   const [downloadedList, setDownloadedList] = useAtom(downloadedMusicAtom);
   const { appConfig } = useAppConfig();
+  const { t } = useTranslation();
 
   return (
     <section>
-      <h1 className="font-sans text-2xl font-bold">다운로드 목록</h1>
+      <h1 className="font-sans text-2xl font-bold">{t("download.page_name")}</h1>
       <div className="mt-8 flex w-full justify-between">
         <button
           tabIndex={-1}
@@ -21,16 +23,16 @@ export const DownloadPage = () => {
           }}
         >
           <StaticIcon iconName="forder-open" />
-          폴더 위치 열기
+          {t("download.open_folder_btn")}
         </button>
-        <div className="flex items-center gap-1 rounded-md bg-black/10 px-2">
+        {/* <div className="flex items-center gap-1 rounded-md bg-black/10 px-2">
           <StaticIcon iconName="search" size={18} className="opacity-70" />
           <input
             className="w-48 rounded-md bg-transparent px-2 outline-none"
             type="text"
             placeholder="search download music"
           />
-        </div>
+        </div> */}
       </div>
 
       <div className="relative my-4 w-full">

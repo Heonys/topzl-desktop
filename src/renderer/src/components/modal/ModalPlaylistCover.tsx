@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { MusicItem } from "@shared/plugin/type";
 import StaticIcon from "@/icons/StaticIcon";
 import { getDefaultImage, setFallbackImage } from "@/utils";
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export function ModalPlaylistCover({ title, playlist, date, onClick }: Props) {
+  const { t } = useTranslation();
   return (
     <div
       className="flex h-16 w-full cursor-pointer items-center gap-2 rounded-lg hover:bg-black/5"
@@ -24,7 +26,7 @@ export function ModalPlaylistCover({ title, playlist, date, onClick }: Props) {
       />
       <div className="flex w-full flex-1 flex-col gap-1 truncate">
         <div className="truncate">{title}</div>
-        <div className="text-sm text-black/30">{`트랙 ${playlist.length}개 • 업데이트 ${date}`}</div>
+        <div className="text-sm text-black/30">{`${t("playlist.track")} ${playlist.length}${t("common.search_result_count")} • ${t("playlist.update")} ${date}`}</div>
       </div>
     </div>
   );
@@ -32,6 +34,7 @@ export function ModalPlaylistCover({ title, playlist, date, onClick }: Props) {
 
 export function ModalNewPlaylistCover({ selectedItem }: { selectedItem: MusicItem }) {
   const { showModal } = useModal();
+  const { t } = useTranslation();
   return (
     <div
       className="flex h-16 w-full cursor-pointer items-center gap-2 rounded-lg hover:bg-black/5"
@@ -45,7 +48,7 @@ export function ModalNewPlaylistCover({ selectedItem }: { selectedItem: MusicIte
         <StaticIcon iconName="plus" color="white" size={20} />
       </div>
       <div className="flex flex-1 truncate">
-        <div className="truncate">새 재생목록</div>
+        <div className="truncate">{t("playlist.modal_add_playlist_btn")}</div>
       </div>
     </div>
   );

@@ -28,7 +28,11 @@ const Download = () => {
           setAppConfig({ keyPath: "download.concurrency", value });
           setConcurrency(value);
         }}
-        options={[{ value: 5 }, { value: 10 }, { value: 15 }]}
+        options={[
+          { value: 5, title: `5${t("common.search_result_count")}` },
+          { value: 10, title: `10${t("common.search_result_count")}` },
+          { value: 15, title: `15${t("common.search_result_count")}` },
+        ]}
       />
     </div>
   );

@@ -22,7 +22,5 @@ export function setupWatcher() {
 }
 
 export function setupDownloader() {
-  window.worker.setupDownloadConfig("download path, concurrency");
-
-  // 1. 다운로드 설정 변경
+  window.worker.setupDownloadConfig(null);
 }

@@ -1,8 +1,9 @@
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Condition } from "@/common";
 import { Empty } from "@/common/Empty";
 import type { MusicSheetItem } from "@shared/plugin/type";
-import { useNavigate } from "react-router-dom";
 import { LoadMoreFooter } from "./LoadMoreFooter";
 
 type Props = {
@@ -13,10 +14,11 @@ type Props = {
 
 export const PlaylistResult = ({ searchResult, isEnd, mediaType }: Props) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <Condition
       condition={searchResult.length > 0}
-      fallback={<Empty message="일치하는 검색 결과가 없습니다" />}
+      fallback={<Empty message={t("common.empty_message")} />}
     >
       <div className="grid w-full grid-cols-5 gap-3">
         {searchResult.map((item) => (

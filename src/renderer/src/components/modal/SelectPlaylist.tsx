@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import { useCurrentMusic, useLibrary } from "@/hooks";
 import Backdrop, { Contents, Header } from "./Layout";
 import { useModal } from "./useModal";
@@ -15,6 +16,7 @@ const SelectPlaylist = ({ selectedItem }: Props) => {
   const { playlist, addPlaylist, latestPlaylist } = useCurrentMusic();
   const { playLists, addPlaylistByTitle } = useLibrary();
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   const addPlaylistBy = (title: string) => {
     return () => {
@@ -34,13 +36,13 @@ const SelectPlaylist = ({ selectedItem }: Props) => {
         onClick={(e) => e.stopPropagation()}
       >
         <Header>
-          <div className="font-sans font-semibold">재생목록에 저장</div>
+          <div className="font-sans font-semibold">{t("playlist.modal_add_playlist_title")}</div>
         </Header>
         <Contents>
           <div className="mx-1 flex h-full flex-1 flex-col gap-1 overflow-y-auto">
             <ModalNewPlaylistCover selectedItem={selectedItem} />
             <ModalPlaylistCover
-              title="현재 재생목록"
+              title={t("playlist.current_playlist.playlist_title")}
               playlist={playlist}
               date={latestPlaylist}
               onClick={() => {

@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useRef } from "react";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import { useLibrary } from "@/hooks";
 import Backdrop, { Contents, Header } from "./Layout";
 import { useModal } from "./useModal";
@@ -14,6 +15,7 @@ const RenamePlaylist = ({ title, callback }: Props) => {
   const { renamePlaylist } = useLibrary();
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -37,14 +39,16 @@ const RenamePlaylist = ({ title, callback }: Props) => {
         onClick={(e) => e.stopPropagation()}
       >
         <Header>
-          <div className="font-sans text-xl font-semibold">재생목록 이름 변경</div>
+          <div className="font-sans text-xl font-semibold">
+            {t("playlist.rename_playlist_title")}
+          </div>
         </Header>
         <Contents>
           <form className="mx-3 flex h-full flex-col" onSubmit={handleSubmit}>
             <div className="flex flex-1 flex-col gap-6 font-sans font-bold">
               <label className="w-full space-y-1">
                 <div className="flex text-sm text-black/50">
-                  재생목록 이름
+                  {t("playlist.new_playlist_title")}
                   <span className="self-end text-red-400">*</span>
                 </div>
                 <input
@@ -60,7 +64,7 @@ const RenamePlaylist = ({ title, callback }: Props) => {
             </div>
             <div className="flex justify-end">
               <button className="rounded-lg bg-[#E0E0E0] p-2 px-4 font-sans text-sm font-semibold">
-                확인
+                {t("common.confirm_btn")}
               </button>
             </div>
           </form>

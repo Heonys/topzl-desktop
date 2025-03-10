@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Condition, IconButton } from "@/common";
 import { useCurrentMusic } from "@/hooks";
 import StaticIcon from "@/icons/StaticIcon";
@@ -8,13 +9,14 @@ import { Empty } from "@/common/Empty";
 export const RecentPlayList = () => {
   const { playlist } = useCurrentMusic();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="relative flex h-full flex-col gap-3 rounded-2xl">
       <div className="flex items-center">
         <div className="flex flex-1 items-center gap-2">
           <StaticIcon iconName="history" size={20} />
-          <h1 className="font-sans text-2xl font-bold">최근에 재생한 음악</h1>
+          <h1 className="font-sans text-2xl font-bold">{t("home.recent_played")}</h1>
         </div>
         <IconButton
           iconName="more"
@@ -27,7 +29,7 @@ export const RecentPlayList = () => {
       </div>
       <Condition
         condition={playlist.length > 0}
-        fallback={<Empty message="재생목록이 비어있습니다" />}
+        fallback={<Empty message={t("common.empty_playlist")} />}
       >
         <div className="grid w-full grid-cols-4 gap-2">
           {[...playlist]

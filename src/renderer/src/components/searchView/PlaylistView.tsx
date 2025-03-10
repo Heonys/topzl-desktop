@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Condition, LoadingSpinner } from "@/common";
 import { useAlbumDetail } from "@/hooks/useAlbumDetail";
 import StaticIcon from "@/icons/StaticIcon";
@@ -17,6 +18,7 @@ export const PlaylistView = ({ playlistItem }: Props) => {
   const { isLoading, musicList } = useAlbumDetail(playlistItem);
   const [like, setLike] = useState(false);
   const { showModal } = useModal();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -55,7 +57,7 @@ export const PlaylistView = ({ playlistItem }: Props) => {
               }}
             >
               <StaticIcon iconName="play" size={13} />
-              전체 재생
+              {t("search_view.all_play_btn")}
             </button>
             <button
               className={cn(
@@ -72,7 +74,7 @@ export const PlaylistView = ({ playlistItem }: Props) => {
                 color={like ? "red" : "black"}
                 className="opacity-70"
               />
-              좋아요
+              {t("search_view.favorite_btn")}
             </button>
             <button
               className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 font-sans text-sm font-semibold opacity-85 hover:opacity-100"
@@ -85,7 +87,7 @@ export const PlaylistView = ({ playlistItem }: Props) => {
               }}
             >
               <StaticIcon iconName="add-playlist" size={20} />
-              재생목록 만들기
+              {t("search_view.create_playlist_btn")}
             </button>
           </div>
         </div>

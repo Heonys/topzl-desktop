@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import hotkeys from "hotkeys-js";
+import { useTranslation } from "react-i18next";
 import { getDefaultImage } from "@/utils";
 import { IconButton } from "@/common";
 import { PlayerState } from "@shared/plugin/type";
@@ -7,6 +8,7 @@ import { PlayerState } from "@shared/plugin/type";
 export const PipmodePage = () => {
   const [currentMusic, setCurrentMusic] = useState<MusicItem | null>(null);
   const [playerState, setPlayerState] = useState<PlayerState>(PlayerState.None);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const data = (window as any).messagePort.syncCurrentMusicAndState();
@@ -53,7 +55,7 @@ export const PipmodePage = () => {
             {currentMusic && currentMusic.artist}
           </div>
           <div className="w-full truncate px-1 py-0.5 text-xs text-white">
-            {currentMusic ? currentMusic.title : "재생중인 곡이 없습니다"}
+            {currentMusic ? currentMusic.title : t("pipmode.title")}
           </div>
         </div>
         <div className="flex flex-1 items-center  justify-center gap-5">

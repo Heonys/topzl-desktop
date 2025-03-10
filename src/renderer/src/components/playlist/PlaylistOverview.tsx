@@ -2,6 +2,7 @@ import { useCurrentMusic } from "@/hooks";
 import StaticIcon from "@/icons/StaticIcon";
 import { getDefaultImage, setFallbackImage } from "@/utils";
 import { MusicItem } from "@shared/plugin/type";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
 export function PlaylistOverview({ playlist, title, description, date }: Props) {
   const { playWithAddAllPlaylist } = useCurrentMusic();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -26,7 +28,7 @@ export function PlaylistOverview({ playlist, title, description, date }: Props) 
       <div className="m-4 flex w-full flex-col font-sans font-normal">
         <div className="flex flex-1 flex-col gap-1">
           <h1 className="text-2xl font-bold">{title}</h1>
-          <div className="text-sm text-black/50">{`트랙 ${playlist.length}개 • 업데이트 ${date || new Date().toLocaleDateString()}`}</div>
+          <div className="text-sm text-black/50">{`${t("playlist.track")} ${playlist.length}${t("common.search_result_count")} • ${t("playlist.update")} ${date || new Date().toLocaleDateString()}`}</div>
           <div className="mt-3 text-sm font-medium">{description}</div>
         </div>
         <div className="flex gap-2">
@@ -38,7 +40,7 @@ export function PlaylistOverview({ playlist, title, description, date }: Props) 
             }}
           >
             <StaticIcon iconName="play" size={13} />
-            전체 재생
+            {t("playlist.all_play_btn")}
           </button>
           <button
             tabIndex={-1}
@@ -46,7 +48,7 @@ export function PlaylistOverview({ playlist, title, description, date }: Props) 
             onClick={() => navigate("/library")}
           >
             <StaticIcon iconName="library-music" size={20} />
-            보관함
+            {t("playlist.navigate_library_btn")}
           </button>
         </div>
       </div>

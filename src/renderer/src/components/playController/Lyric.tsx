@@ -1,16 +1,18 @@
 import { useAtomValue } from "jotai";
 import { lyricAtomLodable } from "@/atom";
 import { LoadingSpinner } from "@/common";
+import { useTranslation } from "react-i18next";
 
 export const Lyric = () => {
   const lyricState = useAtomValue(lyricAtomLodable);
+  const { t } = useTranslation();
 
   return (
     <div className="flex h-[65%] w-2/5 flex-col gap-1">
       {lyricState.state === "loading" && (
         <div className="flex size-full items-center justify-center">
           <div className="flex flex-col items-center justify-center">
-            <p className="font-dh text-xl text-gray-300">가사를 찾고 있습니다</p>
+            <p className="font-dh text-xl text-gray-300">{t("common.search_lyric_message")}</p>
             <LoadingSpinner classname="bg-gray-300" />
           </div>
         </div>
