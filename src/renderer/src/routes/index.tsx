@@ -10,7 +10,6 @@ import {
   FavoritePage,
   MainPage,
   SearchViewPage,
-  GuidelinePage,
   BestPopularPage,
   PipmodePage,
 } from "@/pages";
@@ -34,7 +33,6 @@ const router = createHashRouter([
       { path: "library", element: <LibraryPage /> },
       { path: "setting", element: <SettingPage /> },
       { path: "download", element: <DownloadPage /> },
-      { path: "guideline", element: <GuidelinePage /> },
       { path: "searchView/album/:id", element: <SearchViewPage mediaType="album" /> },
       { path: "searchView/artist/:id", element: <SearchViewPage mediaType="artist" /> },
       { path: "searchView/playlist/:id", element: <SearchViewPage mediaType="playlist" /> },

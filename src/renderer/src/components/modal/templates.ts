@@ -3,14 +3,12 @@ import CreatePlayList from "./CreatePlayList";
 import RenamePlaylist from "./RenamePlaylist";
 import SelectPlaylist from "./SelectPlaylist";
 import ScanLocalMusic from "./ScanLocalMusic";
-import PrivacyPolicy from "./PrivacyPolicy";
 
 export const modalTemplates = {
   CreatePlayList,
   RenamePlaylist,
   SelectPlaylist,
   ScanLocalMusic,
-  PrivacyPolicy,
 };
 
 export type ModalTemplates = typeof modalTemplates;

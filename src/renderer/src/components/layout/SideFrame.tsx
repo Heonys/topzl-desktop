@@ -69,12 +69,12 @@ const options: OptionTypes[] = [
     title: "Setting",
     route: "setting",
   },
-  {
-    type: "icon",
-    iconName: "privacy",
-    title: "Guideline",
-    route: "guideline",
-  },
+  // {
+  //   type: "icon",
+  //   iconName: "privacy",
+  //   title: "Guideline",
+  //   route: "guideline",
+  // },
 ];
 
 export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
@@ -89,8 +89,8 @@ export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"asi
       )}
       {...props}
     >
-      <div className="region-none ml-5 flex w-32 -translate-y-12 flex-col gap-2.5 rounded-lg py-5 font-barlow font-bold">
-        <div className="mx-2 flex w-full flex-col justify-center gap-3 rounded-md">
+      <div className="region-none ml-7 flex w-36 -translate-y-12 flex-col gap-2.5 rounded-lg py-5 font-barlow font-bold">
+        <div className="flex w-full flex-col justify-center gap-4 rounded-md">
           {options.map((option) => {
             if (option.type === "divider") {
               return (
