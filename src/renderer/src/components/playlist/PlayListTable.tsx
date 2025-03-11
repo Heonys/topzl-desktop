@@ -54,7 +54,7 @@ const createColumns = ({ onRemove }: ColumnProps) => {
     }),
 
     columnHelper.accessor("title", {
-      header: "Track",
+      header: () => <div className="px-1 font-misans">Track</div>,
       size: 250,
       cell: (info) => <div className="truncate pr-1">{info.getValue()}</div>,
       enableResizing: false,
@@ -62,14 +62,14 @@ const createColumns = ({ onRemove }: ColumnProps) => {
     }),
 
     columnHelper.accessor("artist", {
-      header: () => <div className="px-1">Artist</div>,
+      header: () => <div className="px-1 font-misans">Artist</div>,
       size: 200,
       cell: (info) => <div className="truncate px-1">{info.renderValue()}</div>,
       enableResizing: false,
       enableSorting: true,
     }),
     columnHelper.accessor("album", {
-      header: () => <div className="pl-1">Album</div>,
+      header: () => <div className="pl-1 font-misans">Album</div>,
       size: 200,
       enableResizing: false,
       enableSorting: true,
@@ -80,7 +80,7 @@ const createColumns = ({ onRemove }: ColumnProps) => {
       ),
     }),
     columnHelper.accessor("duration", {
-      header: () => <span className="flex justify-center">Time</span>,
+      header: () => <span className="flex justify-center font-misans">Time</span>,
       size: 80,
       enableResizing: false,
       enableSorting: false,

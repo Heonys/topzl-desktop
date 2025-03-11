@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { twMerge } from "tailwind-merge";
 import { Condition, LoadingSpinner } from "@/common";
 import { useAlbumDetail } from "@/hooks/useAlbumDetail";
 import StaticIcon from "@/icons/StaticIcon";
@@ -6,7 +7,7 @@ import { cn, getDefaultImage, setFallbackImage } from "@/utils";
 import { MusicSheetItem } from "@shared/plugin/type";
 import { PlayListTable } from "../playlist";
 import { useState } from "react";
-import { useCurrentMusic } from "@/hooks";
+import { useCurrentMusic, useLanguageFont } from "@/hooks";
 import { useModal } from "../modal/useModal";
 
 type Props = {
@@ -19,6 +20,7 @@ export const PlaylistView = ({ playlistItem }: Props) => {
   const [like, setLike] = useState(false);
   const { showModal } = useModal();
   const { t } = useTranslation();
+  const { fontClass } = useLanguageFont();
 
   return (
     <>
@@ -29,7 +31,7 @@ export const PlaylistView = ({ playlistItem }: Props) => {
           alt="fallback-image"
           onError={setFallbackImage}
         />
-        <div className="m-4 flex w-full flex-col font-sans font-normal">
+        <div className={twMerge("m-4 flex w-full flex-col", fontClass)}>
           <div className="flex flex-1 flex-col gap-1">
             <div className="flex items-center gap-3">
               <div className="rounded-md p-0.5 px-1 text-sm font-bold uppercase text-blue-500 ring-2 ring-blue-300">
@@ -47,7 +49,7 @@ export const PlaylistView = ({ playlistItem }: Props) => {
               />
               <div className="font-bold text-black/80">{playlistItem.artist}</div>
             </div>
-            <div className="text-sm text-black/50">{`트랙 ${playlistItem.worksNum}개 • 생성일 ${playlistItem.createAt}`}</div>
+            <div className="text-sm text-black/50">{`${t("playlist.track")} ${playlistItem.worksNum}${t("common.search_result_count")} • ${t("playlist.creation_date")} ${playlistItem.createAt}`}</div>
           </div>
           <div className="flex gap-2">
             <button

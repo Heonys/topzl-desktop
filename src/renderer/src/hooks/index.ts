@@ -13,3 +13,4 @@ export * from "./useDownload";
 export * from "./usePostRender";
 export * from "./useAppConfig";
 export * from "./useAudioOutpuDevice";
+export * from "./useLanguageFont";

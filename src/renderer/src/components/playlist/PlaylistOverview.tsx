@@ -1,9 +1,10 @@
-import { useCurrentMusic } from "@/hooks";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { twMerge } from "tailwind-merge";
+import { useCurrentMusic, useLanguageFont } from "@/hooks";
 import StaticIcon from "@/icons/StaticIcon";
 import { getDefaultImage, setFallbackImage } from "@/utils";
 import { MusicItem } from "@shared/plugin/type";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   playlist: MusicItem[];
@@ -16,6 +17,7 @@ export function PlaylistOverview({ playlist, title, description, date }: Props) 
   const { playWithAddAllPlaylist } = useCurrentMusic();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { fontClass } = useLanguageFont();
 
   return (
     <>
@@ -25,7 +27,7 @@ export function PlaylistOverview({ playlist, title, description, date }: Props) 
         alt="fallback-image"
         onError={setFallbackImage}
       />
-      <div className="m-4 flex w-full flex-col font-sans font-normal">
+      <div className={twMerge("m-4 flex w-full flex-col", fontClass)}>
         <div className="flex flex-1 flex-col gap-1">
           <h1 className="text-2xl font-bold">{title}</h1>
           <div className="text-sm text-black/50">{`${t("playlist.track")} ${playlist.length}${t("common.search_result_count")} • ${t("playlist.update")} ${date || new Date().toLocaleDateString()}`}</div>

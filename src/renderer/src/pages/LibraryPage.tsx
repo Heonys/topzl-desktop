@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { twMerge } from "tailwind-merge";
 import { AlbumCover } from "@/components";
-import { useCurrentMusic, useFavorite, useLibrary } from "@/hooks";
+import { useCurrentMusic, useFavorite, useLanguageFont, useLibrary } from "@/hooks";
 import { useModal } from "@/components/modal/useModal";
 import { getDefaultImage, setFallbackImage } from "@/utils";
 import StaticIcon from "@/icons/StaticIcon";
@@ -11,6 +12,7 @@ import { Condition } from "@/common";
 
 export const LibraryPage = () => {
   const { t } = useTranslation();
+  const { fontClass } = useLanguageFont();
   const navigate = useNavigate();
   const { playLists, removePlaylist } = useLibrary();
   const { showModal } = useModal();
@@ -32,14 +34,14 @@ export const LibraryPage = () => {
 
   return (
     <section>
-      <div className="flex gap-2">
+      <div className={twMerge("flex gap-2", fontClass)}>
         <img
           className="size-56 rounded-xl object-cover"
           src={getDefaultImage(selectedList?.data[0]?.artwork)}
           alt="fallback-image"
           onError={setFallbackImage}
         />
-        <div className="m-4 flex w-full flex-col font-sans font-normal">
+        <div className="m-4 flex w-full flex-col">
           <div className="flex flex-1 flex-col gap-1  ">
             <div className="flex items-center gap-2">
               <div className="max-w-[500px] truncate bg-transparent text-2xl font-bold ">

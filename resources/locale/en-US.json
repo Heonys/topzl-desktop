@@ -40,6 +40,8 @@
     },
     "track": "Track",
     "update": "Updated",
+    "release_date": "Release",
+    "creation_date": "Creation",
     "navigate_playlist_btn": "Go to Playlist",
     "remove_playlist_btn": "Delete Playlist",
     "all_play_btn": "Play All",

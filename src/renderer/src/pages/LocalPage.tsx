@@ -1,17 +1,21 @@
 import { useTranslation } from "react-i18next";
+import { twMerge } from "tailwind-merge";
 import { PlayListTable } from "@/components";
 import { useModal } from "@/components/modal/useModal";
-import { useDirectoryManager } from "@/hooks";
+import { useDirectoryManager, useLanguageFont } from "@/hooks";
 import StaticIcon from "@/icons/StaticIcon";
 
 export const LocalPage = () => {
   const { localMusic, setLocalMusic } = useDirectoryManager();
   const { showModal } = useModal();
+  const { fontClass } = useLanguageFont();
   const { t } = useTranslation();
 
   return (
     <section>
-      <h1 className="font-sans text-2xl font-bold">{t("local_management.page_name")}</h1>
+      <h1 className={twMerge("text-2xl font-bold", fontClass)}>
+        {t("local_management.page_name")}
+      </h1>
       <div className="mt-8 flex w-full justify-between">
         <button
           tabIndex={-1}

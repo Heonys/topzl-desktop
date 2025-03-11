@@ -25,7 +25,7 @@ export const BestPopularCard = () => {
         }}
       />
       <div
-        className="absolute left-3 top-3 flex font-sans text-3xl font-bold text-white"
+        className="absolute left-3 top-3 flex font-misans text-3xl font-bold text-white"
         style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
       >
         Best of 2024

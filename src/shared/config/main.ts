@@ -28,6 +28,22 @@ async function checkPath() {
     await fs.remove(getConfigPath());
 
     const temp: AppConfig = {
+      general: {
+        autoStartOnBoot: false,
+        language: "ko-KR",
+        closeBehavior: "minimize",
+        maxHistoryLength: 7,
+        notification: false,
+      },
+      playback: {
+        audioOutputDevice: null,
+        playError: "skip-next",
+        previousTrackBehavior: "under-3",
+      },
+      lyric: {
+        enable: true,
+        searchMethod: "advanced",
+      },
       shortcut: {
         enableGlobal: false,
         enableLocal: true,

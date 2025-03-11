@@ -56,6 +56,24 @@
     src: url('./assets/fonts/LexendGiga-Regular.ttf') format('truetype');
   }
 
+  @font-face {
+    font-family: 'MiSansLatin';
+    font-weight: normal;
+    src: url('./assets/fonts/MiSansLatin-Normal.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'MiSansLatin';
+    font-weight: 500;
+    src: url('./assets/fonts/MiSansLatin-Medium.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'MiSansLatin';
+    font-weight: 600;
+    src: url('./assets/fonts/MiSansLatin-Semibold.ttf') format('truetype');
+  }
+
   #app {
     @apply h-full
   }

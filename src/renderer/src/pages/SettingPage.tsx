@@ -3,12 +3,14 @@ import { twMerge } from "tailwind-merge";
 import routers from "@/components/setting/router";
 import { Condition } from "@/common";
 import { useTranslation } from "react-i18next";
+import { useLanguageFont } from "@/hooks";
 
 export const SettingPage = () => {
   const [selected, setSelected] = useState(routers[0].id);
   const contentsRef = useRef<HTMLDivElement>(null);
   const intersectoinObserverRef = useRef<IntersectionObserver>();
   const intersectionRatioRef = useRef<Map<string, number>>(new Map());
+  const { fontClass } = useLanguageFont();
 
   const { t } = useTranslation();
 
@@ -51,7 +53,7 @@ export const SettingPage = () => {
   }, []);
 
   return (
-    <section className="flex size-full flex-col gap-2 font-sans font-bold">
+    <section className={twMerge("flex size-full flex-col gap-2 font-bold", fontClass)}>
       <h1 className="text-2xl">{t("settings.page_name")}</h1>
       <div className="relative mt-2 flex w-full items-start gap-4 pb-4 text-sm">
         {routers.map(({ id }) => {

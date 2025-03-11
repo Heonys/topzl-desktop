@@ -71,7 +71,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           >
             <img className="size-6 object-cover" src={logo} alt="logo" />
           </div>
-          <div className="text-xl text-black">Topzl</div>
+          <div className="font-misans text-xl font-semibold text-black">Topzl</div>
         </div>
         <HeaderNavigator />
         <div className="relative w-80">

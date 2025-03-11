@@ -40,6 +40,8 @@
     },
     "track": "트랙",
     "update": "업데이트",
+    "release_date": "발매일",
+    "creation_date": "생성일",
     "navigate_playlist_btn": "재생목록으로 이동",
     "remove_playlist_btn": "재생목록 삭제",
     "all_play_btn": "전체 재생",

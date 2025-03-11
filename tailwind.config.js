@@ -10,7 +10,8 @@ export default {
         barlow: ["Barlow"],
         dh: ["Do Hyeon"],
         sans: ["Sans"],
-        lex: ["Lexend Giga"]
+        lex: ["Lexend Giga"],
+        misans: ["MiSansLatin"]
       }
     },
   },

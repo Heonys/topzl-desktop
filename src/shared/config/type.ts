@@ -4,7 +4,6 @@ export type Config = {
   general: {
     autoStartOnBoot: boolean;
     language: string;
-    theme: "light" | "dark";
     closeBehavior: "exit" | "minimize";
     maxHistoryLength: number;
     notification: boolean;
@@ -100,7 +99,6 @@ type DefaultAppConfig = {
 export const defaultAppConfig: DefaultAppConfig = {
   "general.autoStartOnBoot": false,
   "general.language": "ko-KR",
-  "general.theme": "light",
   "general.closeBehavior": "minimize",
   "general.maxHistoryLength": 7,
   "general.notification": false,
