@@ -69,12 +69,12 @@ const options: OptionTypes[] = [
     title: "Setting",
     route: "setting",
   },
-  // {
-  //   type: "icon",
-  //   iconName: "privacy",
-  //   title: "Guideline",
-  //   route: "guideline",
-  // },
+  {
+    type: "icon",
+    iconName: "test",
+    title: "Experiment",
+    route: "test",
+  },
 ];
 
 export const SideFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {

@@ -1,4 +1,4 @@
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Condition } from "@/common";
 import { Empty } from "@/common/Empty";
 import { ArtistItem } from "@shared/plugin/type";
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const ArtistResult = ({ searchResult, isEnd, mediaType }: Props) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <Condition
@@ -24,7 +24,7 @@ export const ArtistResult = ({ searchResult, isEnd, mediaType }: Props) => {
             <div
               className="relative aspect-square flex-1 overflow-hidden rounded-xl opacity-90 group-hover:opacity-100"
               onClick={() => {
-                // navigate(`/searchView/${mediaType}/${item.id}`, { state: { item } });
+                navigate(`/searchView/${mediaType}/${item.id}`, { state: { item } });
               }}
             >
               <div

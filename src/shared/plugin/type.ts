@@ -93,7 +93,7 @@ export interface PluginDefine {
   getMediaSource: (id: string) => Promise<{ url: string }>;
   getAlbumInfo: () => void;
   getMusicSheetInfo: (itme: MusicSheetItem, page: number) => Promise<SheetInfoResult>;
-  getArtistWorks: () => void;
+  getArtistWorks: (itme: ArtistItem, page: number, type: string) => Promise<SearchResult>;
   getRecommendSheetTags: () => void;
   getRecommendSheetsByTag: (tag: any, page: number) => Promise<MusicSheetResult>;
   getTopLists: () => void;

@@ -81,6 +81,10 @@ export async function clearDB() {
   });
   await syncWithIndexedDB();
 }
+export async function clearDBKey<T extends keyof UserPreference>(key: T) {
+  await setIndexedDB(key, []);
+  syncWithIndexedDB();
+}
 
 const store = getDefaultStore();
 

@@ -21,7 +21,8 @@
   },
   "download": {
     "page_name": "다운로드 목록",
-    "open_folder_btn": "폴더 위치 열기"
+    "open_folder_btn": "폴더 위치 열기",
+    "history_clear_btn": "다운로드 기록 삭제"
   },
   "local_management": {
     "page_name": "로컬 파일 관리",

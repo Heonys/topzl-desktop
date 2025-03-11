@@ -34,6 +34,7 @@ declare global {
     plugin: {
       searchMusic: IpcInvoke.Renderer["search-music"];
       searchPlaylist: IpcInvoke.Renderer["search-playlist"];
+      searchArtist: IpcInvoke.Renderer["search-artist"];
       getMediaSource: IpcInvoke.Renderer["get-media-source"];
       searchLyric: IpcInvoke.Renderer["search-lyric"];
       getRecommendedPlaylistTag: IpcInvoke.Renderer["get-recommended-playlist-tag"];

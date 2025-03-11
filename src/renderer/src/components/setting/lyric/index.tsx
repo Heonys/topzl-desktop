@@ -21,7 +21,7 @@ const Lyric = () => {
         keyPath="lyric.searchMethod"
         label={t("settings.lyric.search_method_label")}
         description={t("settings.lyric.search_method_description")}
-        iconName="test"
+        iconName="method"
         value={appConfig.lyric?.searchMethod}
         options={[
           { value: "basic", title: t("settings.lyric.search_method_basic") },

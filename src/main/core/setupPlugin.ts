@@ -1,9 +1,9 @@
-import type { PluginDefine, SupportMediaType } from "@shared/plugin/type";
 import { app } from "electron";
 import fs from "fs-extra";
 import path from "node:path";
 import _plugin from "@shared/plugin";
 import { ipcMainHandle, ipcMainSendWebContents } from "@/ipc/main";
+import type { PluginDefine, SupportMediaType } from "@shared/plugin/type";
 import Genius from "genius-lyrics";
 import { getAppConfigPath } from "@shared/config/main";
 
@@ -39,6 +39,10 @@ export async function setupPlugin() {
 
   ipcMainHandle("search-playlist", ({ item, page }) => {
     return plugin.getMusicSheetInfo(item, page);
+  });
+
+  ipcMainHandle("search-artist", (item) => {
+    return plugin.getArtistWorks(item, 1, "music");
   });
 
   ipcMainHandle("get-media-source", async (id, event) => {

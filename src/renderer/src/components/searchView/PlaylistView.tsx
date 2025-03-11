@@ -3,10 +3,9 @@ import { twMerge } from "tailwind-merge";
 import { Condition, LoadingSpinner } from "@/common";
 import { useAlbumDetail } from "@/hooks/useAlbumDetail";
 import StaticIcon from "@/icons/StaticIcon";
-import { cn, getDefaultImage, setFallbackImage } from "@/utils";
+import { getDefaultImage, setFallbackImage } from "@/utils";
 import { MusicSheetItem } from "@shared/plugin/type";
 import { PlayListTable } from "../playlist";
-import { useState } from "react";
 import { useCurrentMusic, useLanguageFont } from "@/hooks";
 import { useModal } from "../modal/useModal";
 
@@ -17,7 +16,6 @@ type Props = {
 export const PlaylistView = ({ playlistItem }: Props) => {
   const { playWithAddAllPlaylist } = useCurrentMusic();
   const { isLoading, musicList } = useAlbumDetail(playlistItem);
-  const [like, setLike] = useState(false);
   const { showModal } = useModal();
   const { t } = useTranslation();
   const { fontClass } = useLanguageFont();
@@ -60,23 +58,6 @@ export const PlaylistView = ({ playlistItem }: Props) => {
             >
               <StaticIcon iconName="play" size={13} />
               {t("search_view.all_play_btn")}
-            </button>
-            <button
-              className={cn(
-                "flex items-center gap-2 rounded-lg p-2 bg-[#E0E0E0] font-sans text-sm font-semibold opacity-85 hover:opacity-100",
-                like ? "bg-rose-200" : "ring-1 ring-black/10",
-              )}
-              onClick={() => {
-                setLike((prev) => !prev);
-              }}
-            >
-              <StaticIcon
-                iconName={like ? "heart-fill" : "heart"}
-                size={20}
-                color={like ? "red" : "black"}
-                className="opacity-70"
-              />
-              {t("search_view.favorite_btn")}
             </button>
             <button
               className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 font-sans text-sm font-semibold opacity-85 hover:opacity-100"

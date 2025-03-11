@@ -1,5 +1,5 @@
 import { useLocation, useParams } from "react-router-dom";
-import { AlbumView, PlaylistView } from "@/components/searchView";
+import { AlbumView, ArtistView, PlaylistView } from "@/components/searchView";
 import { Case, Switch } from "@/common";
 import { SupportMediaItemMap } from "@shared/plugin/type";
 
@@ -19,9 +19,9 @@ export const SearchViewPage = ({ mediaType }: Props) => {
           <Case case="album">
             <AlbumView albumItem={item} />
           </Case>
-          {/* <Case case="artist">
-            <ArtistView artistId={id} artistItem={selectedAlbum as any} />
-          </Case> */}
+          <Case case="artist">
+            <ArtistView artistItem={item} />
+          </Case>
           <Case case="playlist">
             <PlaylistView playlistItem={item} />
           </Case>

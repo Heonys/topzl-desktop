@@ -15,6 +15,10 @@ function searchPlaylist(payload: { item: MusicSheetItem; page: number }) {
   return ipcRendererInvoke("search-playlist", payload);
 }
 
+function searchArtist(payload: ArtistItem) {
+  return ipcRendererInvoke("search-artist", payload);
+}
+
 function getMediaSource(id: string) {
   return ipcRendererInvoke("get-media-source", id);
 }
@@ -44,6 +48,7 @@ function setCurrentTrack(track: MusicItem) {
 export const plugin = {
   searchMusic,
   searchPlaylist,
+  searchArtist,
   getMediaSource,
   searchLyric,
   getRecommendedPlaylistTag,

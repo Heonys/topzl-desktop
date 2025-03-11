@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import StaticIcon from "@/icons/StaticIcon";
-import { cn, getDefaultImage, setFallbackImage } from "@/utils";
+import { getDefaultImage, setFallbackImage } from "@/utils";
 import { AlbumItem } from "@shared/plugin/type";
 import { PlayListTable } from "../playlist";
 import { useCurrentMusic, useLanguageFont } from "@/hooks";
@@ -14,7 +13,6 @@ type Props = {
 
 export const AlbumView = ({ albumItem }: Props) => {
   const { playWithAddAllPlaylist } = useCurrentMusic();
-  const [like, setLike] = useState(false);
   const { showModal } = useModal();
   const { t } = useTranslation();
   const { fontClass } = useLanguageFont();
@@ -49,7 +47,7 @@ export const AlbumView = ({ albumItem }: Props) => {
               <StaticIcon iconName="play" size={13} />
               {t("search_view.all_play_btn")}
             </button>
-            <button
+            {/* <button
               className={cn(
                 "flex items-center gap-2 rounded-lg p-2 bg-[#E0E0E0] font-sans text-sm font-semibold opacity-85 hover:opacity-100",
                 like ? "bg-rose-200" : "ring-1 ring-black/10",
@@ -65,7 +63,7 @@ export const AlbumView = ({ albumItem }: Props) => {
                 className="opacity-70"
               />
               {t("search_view.favorite_btn")}
-            </button>
+            </button> */}
             <button
               className="flex items-center gap-2 rounded-lg  bg-[#E0E0E0]  p-2 font-sans text-sm font-semibold opacity-85 hover:opacity-100"
               onClick={() => {

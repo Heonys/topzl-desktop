@@ -9,6 +9,7 @@ type SheetInfoResult = import("@shared/plugin/type").SheetInfoResult;
 type SearchedLyric = import("@shared/plugin/type").SearchedLyric;
 type GlobalContext = import("@shared/config/type").GlobalContext;
 type MusicItem = import("@shared/plugin/type").MusicItem;
+type ArtistItem = import("@shared/plugin/type").ArtistItem;
 type MusicSheetItem = import("@shared/plugin/type").MusicSheetItem;
 type MusicSheetResult = import("@shared/plugin/type").MusicSheetResult;
 type DownloadProgress = import("@shared/constant/index").DownloadProgress;
@@ -43,6 +44,7 @@ declare namespace IpcInvoke {
       page: number;
     }) => Promise<SearchResult>;
     "search-playlist": ({ item: MusicSheetItem, page: number }) => Promise<SheetInfoResult>;
+    "search-artist": (item: ArtistItem) => Promise<SearchResult>;
     "get-media-source": (id: string) => Primise<{ url: string }>;
     "search-lyric": (query: string) => Promise<string>;
 

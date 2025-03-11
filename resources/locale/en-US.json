@@ -21,7 +21,8 @@
   },
   "download": {
     "page_name": "Downloads",
-    "open_folder_btn": "Open Folder"
+    "open_folder_btn": "Open Folder",
+    "history_clear_btn": "Clear download history"
   },
   "local_management": {
     "page_name": "Local Files",

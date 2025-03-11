@@ -45,6 +45,7 @@ import { IoPower } from "react-icons/io5";
 import { IoMdRefresh } from "react-icons/io";
 import { BsPlugin } from "react-icons/bs";
 import { FaWindows, FaUserCheck } from "react-icons/fa";
+import { AiOutlineExperiment } from "react-icons/ai";
 
 export type IconNames = keyof typeof IconMap;
 
@@ -121,7 +122,8 @@ const IconMap = {
   ["headset"]: IoHeadset,
   ["update"]: MdOutlineTipsAndUpdates,
   ["global"]: MdLanguage,
-  ["test"]: VscSymbolMethod,
+  ["method"]: VscSymbolMethod,
+  ["test"]: AiOutlineExperiment,
   ["power"]: IoPower,
   ["hot-key"]: FaRegKeyboard,
   ["function"]: RiFunctionFill,

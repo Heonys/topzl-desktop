@@ -70,8 +70,8 @@ app.whenReady().then(async () => {
 
   app.setLoginItemSettings({
     openAtLogin: getAppConfigPathSync("general.autoStartOnBoot"),
+    path: process.execPath,
   });
-
   // protocol.handle("atom", (request) => {
   //   const filePath = request.url.slice("atom://".length);
   //   return net.fetch(`file://C:/${filePath}`);
