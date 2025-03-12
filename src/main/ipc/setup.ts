@@ -1,5 +1,6 @@
-import { BrowserWindow, dialog, shell, Notification, nativeImage } from "electron";
+import { BrowserWindow, dialog, shell, Notification, nativeImage, desktopCapturer } from "electron";
 import fs from "fs-extra";
+import { nanoid } from "nanoid";
 import path from "node:path";
 import { getMainWindow } from "@/window/mainWindow";
 import { ipcMainHandle, ipcMainOn } from "@/ipc/main";
@@ -87,5 +88,25 @@ export function setupIpcMain() {
     } catch {
       return {};
     }
+  });
+
+  ipcMainHandle("get-app-capture-id", async () => {
+    return desktopCapturer.getSources({ types: ["window"] }).then(async (sources) => {
+      for (const source of sources) {
+        if (source.name === "Topzl Desktop") {
+          return source.id;
+        }
+      }
+      return null;
+    });
+  });
+
+  ipcMainOn("download-captured", (imageUrl) => {
+    const base64Data = imageUrl.slice("data:image/png;base64,".length);
+    const buffer = Buffer.from(base64Data, "base64");
+
+    const downloadPath = getAppConfigPathSync("download.path");
+    const filePath = path.join(downloadPath, `screenshot-${nanoid(10)}.png`);
+    fs.outputFile(filePath, buffer);
   });
 }

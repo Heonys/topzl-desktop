@@ -7,6 +7,7 @@ import {
   IoIosMore,
   IoMdMore,
   IoMdNotificationsOutline,
+  IoMdCopy,
 } from "react-icons/io";
 import {
   IoLanguage,
@@ -38,6 +39,7 @@ import {
   MdOutlinePlaylistPlay,
   MdPlaylistRemove,
   MdOutlineTipsAndUpdates,
+  MdScreenshotMonitor,
 } from "react-icons/md";
 import {
   HiMiniXMark,
@@ -73,6 +75,7 @@ import { BsFolderPlus, BsPlugin } from "react-icons/bs";
 import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 import { HiOutlineSortAscending, HiOutlineSortDescending } from "react-icons/hi";
 import { AiOutlineExperiment } from "react-icons/ai";
+import { TfiVideoClapper } from "react-icons/tfi";
 
 export type IconNames = keyof typeof IconMap;
 const IconMap = {
@@ -158,6 +161,9 @@ const IconMap = {
   ["windows"]: FaWindows,
   ["user-check"]: FaUserCheck,
   ["link"]: FaLink,
+  ["screen"]: MdScreenshotMonitor,
+  ["copy"]: IoMdCopy,
+  ["video"]: TfiVideoClapper,
 };
 
 type Props = {

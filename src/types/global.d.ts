@@ -14,6 +14,8 @@ declare global {
       proxyCommand: (command: IpcEvents.Main["tray-command"]) => void;
       extractMetadata: IpcInvoke.Renderer["extract-metadata"];
       showNotification: (message: IpcEvents.Renderer["show-notification"]) => void;
+      getDesktopCaptureId: IpcInvoke.Renderer["get-app-capture-id"];
+      downloadCapturedImage: (imageUrl: IpcEvents.Renderer["download-captured"]) => void;
     };
     i18n: {
       setupLang: IpcInvoke.Renderer["i18n-setup"];

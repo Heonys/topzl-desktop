@@ -23,3 +23,5 @@ export const contextMenuAtom = atom<ContextMenu | null>(null);
 export const musicDetailVisibleAtom = atom(false);
 
 export const panelAtom = atom(false);
+
+export const capturedAtom = atom(false);

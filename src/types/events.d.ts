@@ -57,6 +57,7 @@ declare namespace IpcInvoke {
     "extract-metadata": (path: string) => Promise<MusicItem>;
     "write-json": (data: any) => Promise<boolean>;
     "read-json": (filePath: string) => Promise<any>;
+    "get-app-capture-id": () => Promise<string | null>;
   }
 }
 
@@ -75,6 +76,7 @@ declare namespace IpcEvents {
     "show-notification": { title: string; body: string };
     "register-global-shortcut": { keyType: ShortcutKeys; keymap: string[] };
     "unregister-global-shortcut": { keyType: ShortcutKeys };
+    "download-captured": string;
   }
 
   // ipcRender.send -> ipcMain.on (sync)

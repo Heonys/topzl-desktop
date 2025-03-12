@@ -76,7 +76,11 @@ const createColumns = ({ onRemove }: ColumnProps) => {
     columnHelper.accessor("artist", {
       header: () => <div className="px-1 font-misans">Artist</div>,
       size: 200,
-      cell: (info) => <div className="max-w-[200px] truncate px-1">{info.renderValue()}</div>,
+      cell: (info) => (
+        <div className="max-w-[200px] truncate px-1" title={info.getValue()}>
+          {info.renderValue()}
+        </div>
+      ),
       enableResizing: false,
       enableSorting: true,
     }),
@@ -163,6 +167,7 @@ export const PlayListTable = ({
   const virtualController = useVirtualScroll({
     data: table.getRowModel().rows,
     estimizeItemHeight,
+    renderCount: 20,
     getScrollElement: () => tableContainerRef.current!,
   });
 

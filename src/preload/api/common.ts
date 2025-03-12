@@ -44,6 +44,14 @@ function showNotification(payload: { title: string; body: string }) {
   ipcRendererSend("show-notification", payload);
 }
 
+function getDesktopCaptureId() {
+  return ipcRendererInvoke("get-app-capture-id");
+}
+
+function downloadCapturedImage(imageUrl: string) {
+  ipcRendererSend("download-captured", imageUrl);
+}
+
 export const common = {
   sendFrameAction,
   showOpenDialog,
@@ -54,4 +62,6 @@ export const common = {
   proxyCommand,
   extractMetadata,
   showNotification,
+  getDesktopCaptureId,
+  downloadCapturedImage,
 } satisfies Window["common"];

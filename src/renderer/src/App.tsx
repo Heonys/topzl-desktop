@@ -13,7 +13,7 @@ import {
   ContentsLayout,
   ContextMenuContainer,
 } from "@/components";
-
+import { DesktopCaptureContainer } from "@/components/capture";
 import usePostRender from "./hooks/usePostRender";
 import "rc-slider/assets/index.css";
 
@@ -31,6 +31,7 @@ const App = () => {
       </MainLayout>
       <ModalComponent />
       <ContextMenuContainer />
+      <DesktopCaptureContainer />
       <Collapsible />
       <PlayController />
       {createPortal(<MusicDetail />, document.getElementById("detail")!)}

@@ -1,4 +1,4 @@
-export * from "./TestPage";
+export * from "./LabsPage";
 export * from "./SettingPage";
 export * from "./SearchPage";
 export * from "./DownloadPage";

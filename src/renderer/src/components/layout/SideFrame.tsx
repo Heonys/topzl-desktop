@@ -72,8 +72,8 @@ const options: OptionTypes[] = [
   {
     type: "icon",
     iconName: "test",
-    title: "Experiment",
-    route: "test",
+    title: "Labs",
+    route: "labs",
   },
 ];
 
