@@ -33,7 +33,7 @@ export const useVirtualScroll = <T>(props: VirtualListProps<T>) => {
           (typeof offsetHeight === "number" ? offsetHeight : offsetHeight());
         const realData = dataRef.current;
         const estimizeStartIndex = Math.floor(scrollTop / estimizeItemHeight);
-        const startIndex = Math.max(estimizeStartIndex - (estimizeStartIndex % 2 === 1 ? 3 : 2), 0);
+        const startIndex = Math.max(estimizeStartIndex - 5, 0);
 
         setVirtualItems(
           realData.slice(startIndex, startIndex + renderCount).map((item, index) => ({
@@ -55,7 +55,7 @@ export const useVirtualScroll = <T>(props: VirtualListProps<T>) => {
   useEffect(() => {
     setTotalHeight(data.length * estimizeItemHeight);
     scrollHandler();
-  }, [data]);
+  }, [data, estimizeItemHeight]);
 
   useEffect(() => {
     if (!scrollElementRef.current) {

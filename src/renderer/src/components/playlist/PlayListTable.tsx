@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useTranslation } from "react-i18next";
 import {
@@ -11,16 +11,24 @@ import {
 } from "@tanstack/react-table";
 import { Case, Condition, Droppable, IconButton, Switch } from "@/common";
 import { Empty } from "@/common/Empty";
-import { useContextMenu, useCurrentMusic, useFavorite, useDownload } from "@/hooks";
+import {
+  useContextMenu,
+  useCurrentMusic,
+  useFavorite,
+  useDownload,
+  useVirtualScroll,
+} from "@/hooks";
 import StaticIcon from "@/icons/StaticIcon";
 import { assignToDrag, formatTime } from "@/utils";
 import { MusicItem } from "@shared/plugin/type";
 import { FavoriteButton, DownloadButton } from "@/components/playlist";
 import { ContextMenuItem } from "@/atom";
 import { useModal } from "../modal/useModal";
+import { rem } from "@shared/constant";
 
 const TAG = "playlist-table";
 const columnHelper = createColumnHelper<MusicItem>();
+const estimizeItemHeight = 2.6 * rem;
 
 type ColumnProps = {
   onRemove?: (id: string) => void;
@@ -56,7 +64,11 @@ const createColumns = ({ onRemove }: ColumnProps) => {
     columnHelper.accessor("title", {
       header: () => <div className="px-1 font-misans">Track</div>,
       size: 250,
-      cell: (info) => <div className="truncate pr-1">{info.getValue()}</div>,
+      cell: (info) => (
+        <div className="max-w-[250px] truncate pr-1" title={info.getValue()}>
+          {info.getValue()}
+        </div>
+      ),
       enableResizing: false,
       enableSorting: true,
     }),
@@ -64,7 +76,7 @@ const createColumns = ({ onRemove }: ColumnProps) => {
     columnHelper.accessor("artist", {
       header: () => <div className="px-1 font-misans">Artist</div>,
       size: 200,
-      cell: (info) => <div className="truncate px-1">{info.renderValue()}</div>,
+      cell: (info) => <div className="max-w-[200px] truncate px-1">{info.renderValue()}</div>,
       enableResizing: false,
       enableSorting: true,
     }),
@@ -74,13 +86,13 @@ const createColumns = ({ onRemove }: ColumnProps) => {
       enableResizing: false,
       enableSorting: true,
       cell: (info) => (
-        <div className="truncate pl-1" title={info.getValue()}>
+        <div className="max-w-[200px] truncate pl-1" title={info.getValue()}>
           {info.getValue()}
         </div>
       ),
     }),
     columnHelper.accessor("duration", {
-      header: () => <span className="flex justify-center font-misans">Time</span>,
+      header: () => <span className="pl-1 font-misans">Time</span>,
       size: 80,
       enableResizing: false,
       enableSorting: false,
@@ -147,6 +159,13 @@ export const PlayListTable = ({
     getSortedRowModel: getSortedRowModel(),
   });
 
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const virtualController = useVirtualScroll({
+    data: table.getRowModel().rows,
+    estimizeItemHeight,
+    getScrollElement: () => tableContainerRef.current!,
+  });
+
   const onDrop = (from: number, to: number) => {
     if (from === to) return;
     const newData = [...playlist.slice(0, from), ...playlist.slice(from + 1)];
@@ -156,13 +175,19 @@ export const PlayListTable = ({
 
   return (
     <div
+      ref={tableContainerRef}
       tabIndex={-1}
       className="relative overflow-y-auto overflow-x-hidden p-2 font-sans"
       style={{
         height: maxheight ?? "45vh",
       }}
     >
-      <table className="w-full table-fixed border-collapse select-none">
+      <table
+        className="w-full table-fixed border-collapse select-none"
+        style={{
+          height: virtualController.totalHeight + estimizeItemHeight,
+        }}
+      >
         <thead>
           <tr className="border-b text-left">
             {table.getHeaderGroups()[0].headers.map((header) => (
@@ -194,83 +219,98 @@ export const PlayListTable = ({
             ))}
           </tr>
         </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row, index) => (
-            <tr
-              key={row.id}
-              className="relative h-10 text-sm font-medium even:bg-black/5"
-              draggable={draggable}
-              onDoubleClick={() => {
-                playWithAddPlaylist(row.original);
-              }}
-              onDragStart={(e) => {
-                assignToDrag(e, TAG, index);
-              }}
-              onContextMenu={(e) => {
-                showContextMenu({
-                  x: e.clientX,
-                  y: e.clientY,
-                  musicInfo: row.original,
-                  menuItems: [
-                    {
-                      type: "menu",
-                      icon: "next-playlist",
-                      title: t("context_menu.add_next"),
-                      onClick: () => addNextTrack(row.original),
-                    },
-                    {
-                      type: "menu",
-                      icon: "add-playlist",
-                      title: t("context_menu.save_to_playlist"),
-                      onClick: () => {
-                        showModal("SelectPlaylist", { selectedItem: row.original });
+        <tbody className="relative">
+          {virtualController.virtualItems.map((virtualItem, index) => {
+            const row = virtualItem.dataItem;
+            if (!row.original) return;
+
+            return (
+              <tr
+                key={row.id}
+                className="absolute text-sm font-medium even:bg-black/5"
+                style={{
+                  top: virtualItem.top,
+                  height: estimizeItemHeight,
+                }}
+                draggable={draggable}
+                onDoubleClick={() => {
+                  playWithAddPlaylist(row.original);
+                }}
+                onDragStart={(e) => {
+                  assignToDrag(e, TAG, index);
+                }}
+                onContextMenu={(e) => {
+                  showContextMenu({
+                    x: e.clientX,
+                    y: e.clientY,
+                    musicInfo: row.original,
+                    menuItems: [
+                      {
+                        type: "menu",
+                        icon: "next-playlist",
+                        title: t("context_menu.add_next"),
+                        onClick: () => addNextTrack(row.original),
                       },
-                    },
-                    ...(removePlaylist
-                      ? [
-                          {
-                            type: "menu",
-                            icon: "remove-playlist",
-                            title: t("context_menu.remove_to_playlist"),
-                            onClick: () => removePlaylist(row.original.id),
-                          } as ContextMenuItem,
-                        ]
-                      : []),
-                    {
-                      type: "menu",
-                      icon: "heart",
-                      title: t("context_menu.add_to_favorites"),
-                      onClick: () => favorite(row.original),
-                    },
-                    ...(!isDownloaded(row.original.id)
-                      ? [
-                          {
-                            type: "menu",
-                            icon: "download",
-                            title: t("context_menu.download"),
-                            onClick: () => download(row.original),
-                          } as ContextMenuItem,
-                        ]
-                      : []),
-                  ],
-                });
-              }}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  className="text-left"
-                  key={cell.id}
-                  style={{ width: cell.column.columnDef.size }}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-              <Condition condition={index === 0}>
-                <Droppable position="top" rowIndex={index} tag={TAG} onDrop={onDrop} isTable />
-              </Condition>
-              <Droppable position="bottom" rowIndex={index + 1} tag={TAG} onDrop={onDrop} isTable />
-            </tr>
-          ))}
+                      {
+                        type: "menu",
+                        icon: "add-playlist",
+                        title: t("context_menu.save_to_playlist"),
+                        onClick: () => {
+                          showModal("SelectPlaylist", { selectedItem: row.original });
+                        },
+                      },
+                      ...(removePlaylist
+                        ? [
+                            {
+                              type: "menu",
+                              icon: "remove-playlist",
+                              title: t("context_menu.remove_to_playlist"),
+                              onClick: () => removePlaylist(row.original.id),
+                            } as ContextMenuItem,
+                          ]
+                        : []),
+                      {
+                        type: "menu",
+                        icon: "heart",
+                        title: t("context_menu.add_to_favorites"),
+                        onClick: () => favorite(row.original),
+                      },
+                      ...(!isDownloaded(row.original.id)
+                        ? [
+                            {
+                              type: "menu",
+                              icon: "download",
+                              title: t("context_menu.download"),
+                              onClick: () => download(row.original),
+                            } as ContextMenuItem,
+                          ]
+                        : []),
+                    ],
+                  });
+                }}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <td
+                    className="text-left"
+                    key={cell.id}
+                    style={{ width: cell.column.columnDef.size, height: estimizeItemHeight }}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+                <Condition condition={index === 0}>
+                  <Droppable position="top" rowIndex={index} tag={TAG} onDrop={onDrop} isTable />
+                </Condition>
+                <Droppable
+                  position="bottom"
+                  rowIndex={index + 1}
+                  tag={TAG}
+                  onDrop={onDrop}
+                  isTable
+                />
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <Condition condition={playlist.length === 0}>

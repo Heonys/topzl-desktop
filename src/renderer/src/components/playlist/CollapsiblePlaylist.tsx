@@ -1,9 +1,9 @@
-import { useCurrentMusic } from "@/hooks";
+import { useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { useCurrentMusic, useVirtualScroll } from "@/hooks";
 import { ListItem } from "./ListItem";
 import { MusicItem } from "@shared/plugin/type";
-import { useRef } from "react";
-import { useVirtualScroll } from "@/hooks/useVirtualScroll";
-import { useTranslation } from "react-i18next";
+import { rem } from "@shared/constant";
 
 export const CollapsiblePlaylist = () => {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ export const CollapsiblePlaylist = () => {
 
   const virtualController = useVirtualScroll({
     data: playlist,
-    estimizeItemHeight: 2.6 * 13,
+    estimizeItemHeight: 2.2 * rem,
     renderCount: 25,
     getScrollElement: () => scrollElementRef.current!,
   });

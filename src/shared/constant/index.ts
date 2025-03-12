@@ -33,3 +33,5 @@ export const keyModifierFlags: Record<string, number> = {
   Option: 1 << 3, // 01000
   Shift: 1 << 4, // 10000
 };
+
+export const rem = 16;

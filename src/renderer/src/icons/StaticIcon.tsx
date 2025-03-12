@@ -1,54 +1,80 @@
 import { memo } from "react";
 import type { IconBaseProps } from "react-icons";
-import { HiMiniXMark, HiMinus, HiOutlineCog8Tooth, HiOutlineSparkles } from "react-icons/hi2";
+import {
+  IoMdRefresh,
+  IoMdSkipForward,
+  IoMdSkipBackward,
+  IoIosMore,
+  IoMdMore,
+  IoMdNotificationsOutline,
+} from "react-icons/io";
+import {
+  IoLanguage,
+  IoSearch,
+  IoStatsChart,
+  IoFolderOpenOutline,
+  IoChevronDownOutline,
+  IoChevronForward,
+  IoCheckmark,
+  IoCheckmarkCircleOutline,
+  IoHeadset,
+  IoPower,
+} from "react-icons/io5";
+import {
+  MdDarkMode,
+  MdOutlineLightMode,
+  MdOutlineLyrics,
+  MdOutlineSpeed,
+  MdOutlinePlaylistAdd,
+  MdOutlineLibraryMusic,
+  MdLanguage,
+  MdHistory,
+  MdNavigateNext,
+  MdNavigateBefore,
+  MdAudiotrack,
+  MdNotInterested,
+  MdOutlineExplore,
+  MdOutlinePrivacyTip,
+  MdOutlinePlaylistPlay,
+  MdPlaylistRemove,
+  MdOutlineTipsAndUpdates,
+} from "react-icons/md";
+import {
+  HiMiniXMark,
+  HiMinus,
+  HiOutlineCog8Tooth,
+  HiOutlineSparkles,
+  HiOutlineTrophy,
+  HiOutlineCodeBracketSquare,
+  HiOutlinePencilSquare,
+  HiMiniHome,
+} from "react-icons/hi2";
+import {
+  PiPushPinFill,
+  PiVinylRecordDuotone,
+  PiHeart,
+  PiHeartFill,
+  PiShuffleBold,
+} from "react-icons/pi";
 import { TbPictureInPicture } from "react-icons/tb";
-import { RiTShirt2Line, RiFunctionFill } from "react-icons/ri";
+import { RiTShirt2Line, RiFunctionFill, RiLoader2Fill } from "react-icons/ri";
 import { RxDividerVertical, RxDividerHorizontal } from "react-icons/rx";
-import { VscChromeMaximize } from "react-icons/vsc";
-import { PiPushPinFill, PiVinylRecordDuotone } from "react-icons/pi";
-import { IoLanguage, IoSearch, IoStatsChart } from "react-icons/io5";
-import { MdDarkMode, MdOutlineLightMode, MdOutlineLyrics, MdOutlineSpeed } from "react-icons/md";
+import { VscChromeMaximize, VscSymbolMethod } from "react-icons/vsc";
 import { FaGithub, FaPlay, FaPause, FaRegTrashAlt, FaRegKeyboard } from "react-icons/fa";
-import { PiHeart, PiHeartFill } from "react-icons/pi";
-import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
-import { HiOutlineTrophy } from "react-icons/hi2";
-import { IoFolderOpenOutline } from "react-icons/io5";
-import { HiOutlineCodeBracketSquare } from "react-icons/hi2";
+import { FaChevronDown, FaLink, FaWindows, FaUserCheck } from "react-icons/fa6";
 import { GoPlus, GoDatabase } from "react-icons/go";
-import { IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
 import { BiSolidVolumeFull, BiSolidVolumeMute, BiSolidPlaylist } from "react-icons/bi";
-import { LuRepeat, LuRepeat1 } from "react-icons/lu";
-import { FaChevronDown, FaLink } from "react-icons/fa6";
-import { MdOutlinePlaylistAdd, MdOutlineLibraryMusic, MdLanguage } from "react-icons/md";
+import { LuRepeat, LuRepeat1, LuClock } from "react-icons/lu";
 import { FiDownload } from "react-icons/fi";
 import { SiApplemusic } from "react-icons/si";
-import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { TiArrowUnsorted } from "react-icons/ti";
-import { HiOutlineSortDescending, HiOutlineSortAscending } from "react-icons/hi";
-import { LuClock } from "react-icons/lu";
-import { HiMiniHome } from "react-icons/hi2";
-import { IoChevronDownOutline, IoChevronForward } from "react-icons/io5";
-import { IoCheckmark, IoCheckmarkCircleOutline } from "react-icons/io5";
 import { CgCloseR } from "react-icons/cg";
-import { IoMdNotificationsOutline, IoIosMore, IoMdMore } from "react-icons/io";
-import { MdHistory } from "react-icons/md";
-import { BsFolderPlus } from "react-icons/bs";
-import { RiLoader2Fill } from "react-icons/ri";
-import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
-import { MdAudiotrack, MdNotInterested } from "react-icons/md";
-import { MdOutlineExplore, MdOutlinePrivacyTip, MdOutlinePlaylistPlay } from "react-icons/md";
-import { MdPlaylistRemove, MdOutlineTipsAndUpdates } from "react-icons/md";
-import { PiShuffleBold } from "react-icons/pi";
-import { IoHeadset } from "react-icons/io5";
-import { VscSymbolMethod } from "react-icons/vsc";
-import { IoPower } from "react-icons/io5";
-import { IoMdRefresh } from "react-icons/io";
-import { BsPlugin } from "react-icons/bs";
-import { FaWindows, FaUserCheck } from "react-icons/fa";
+import { BsFolderPlus, BsPlugin } from "react-icons/bs";
+import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
+import { HiOutlineSortAscending, HiOutlineSortDescending } from "react-icons/hi";
 import { AiOutlineExperiment } from "react-icons/ai";
 
 export type IconNames = keyof typeof IconMap;
-
 const IconMap = {
   ["x-mark"]: HiMiniXMark,
   ["minimize"]: HiMinus,
