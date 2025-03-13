@@ -2,10 +2,7 @@ import { QuickRecommend, RecentPlayList, BestPopularCard } from "@/components/re
 
 export const MainPage = () => {
   return (
-    <section
-      className="relative flex size-full max-h-[calc(100%-8rem)] flex-col gap-4 overflow-auto scrollbar-hide"
-      tabIndex={-1}
-    >
+    <section className="relative flex size-full max-h-[calc(100%-8rem)] flex-col gap-4 overflow-auto scrollbar-hide">
       <div className="grid grid-cols-2 gap-3">
         <BestPopularCard />
         <RecentPlayList />

@@ -14,7 +14,7 @@ export const RecentPlayList = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="relative flex h-full flex-col gap-3 rounded-2xl" tabIndex={-1}>
+    <div className="relative flex h-full flex-col gap-3 rounded-2xl">
       <div className="flex items-center">
         <div className="flex flex-1 items-center gap-2">
           <StaticIcon iconName="history" size={20} />

@@ -181,7 +181,6 @@ export const PlayListTable = ({
   return (
     <div
       ref={tableContainerRef}
-      tabIndex={-1}
       className="relative overflow-y-auto overflow-x-hidden p-2 font-sans"
       style={{
         height: maxheight ?? "45vh",

@@ -5,6 +5,7 @@ import Lyric from "./lyric";
 import Playback from "./playback";
 import Shortcut from "./shortcut";
 import About from "./about";
+import Experimental from "./experimental";
 
 export default [
   { id: "general", component: General },
@@ -13,5 +14,6 @@ export default [
   { id: "lyric", component: Lyric },
   { id: "download", component: Download },
   { id: "backup", component: Backup },
+  { id: "experimental", component: Experimental },
   { id: "about", component: About },
 ];

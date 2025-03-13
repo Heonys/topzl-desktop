@@ -2,13 +2,13 @@
   "asar": true,
   "productName": "topzl",
   "appId": "com.heonys.topzl",
-  "artifactName": "${name}-${version}-${os}.${ext}",
+  "artifactName": "${name}-${version}-${os}-setup.${ext}",
   "files": ["out"],
   "extraResources": ["resources/**"],
   "icon": "resources/logo.png",
   "win": {
     "publisherName": "heonys",
-    "target": ["portable", "zip"],
+    "target": ["nsis", "zip"],
     "icon": "resources/logo.png"
   },
   "npmRebuild": false,
