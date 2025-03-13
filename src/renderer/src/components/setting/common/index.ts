@@ -5,3 +5,4 @@ export * from "./SelectDirectoryOption";
 export * from "./SwitchOption";
 export * from "./ButtonsOption";
 export * from "./LinksOption";
+export * from "./LabsFeature";

@@ -1,7 +1,7 @@
 import { getDefaultStore } from "jotai";
 import hotkeys from "hotkeys-js";
 import { shortcutKeys, type ShortcutKeys } from "@shared/config/type";
-import { appConfigAtom } from "@/atom";
+import { appConfigAtom, currentMusicAtom } from "@/atom";
 import { localEventEmitter } from "@shared/plugin/eventEmitter";
 
 const bindKeymap = new Map<string, string[]>();
@@ -34,6 +34,13 @@ export function setupLocalShortcut() {
     if (keymap[it] && keymap[it].local.length) {
       bindShortcut(it, keymap[it].local);
     }
+  });
+
+  hotkeys("ctrl+f11", (e) => {
+    e.preventDefault();
+    const currentMusic = store.get(currentMusicAtom);
+    const info = `${currentMusic?.title} - ${currentMusic?.artist}`;
+    window.common.writeClipboardText(info);
   });
 }
 

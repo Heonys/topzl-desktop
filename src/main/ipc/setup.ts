@@ -1,4 +1,12 @@
-import { BrowserWindow, dialog, shell, Notification, nativeImage, desktopCapturer } from "electron";
+import {
+  BrowserWindow,
+  dialog,
+  shell,
+  Notification,
+  nativeImage,
+  desktopCapturer,
+  clipboard,
+} from "electron";
 import fs from "fs-extra";
 import { nanoid } from "nanoid";
 import path from "node:path";
@@ -108,5 +116,13 @@ export function setupIpcMain() {
     const downloadPath = getAppConfigPathSync("download.path");
     const filePath = path.join(downloadPath, `screenshot-${nanoid(10)}.png`);
     fs.outputFile(filePath, buffer);
+  });
+
+  ipcMainOn("write-clipboard", (text) => {
+    clipboard.writeText(text);
+  });
+
+  ipcMainHandle("read-clipboard", async () => {
+    return clipboard.readText();
   });
 }

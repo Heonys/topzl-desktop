@@ -83,7 +83,8 @@
       "lyric": "Lyric",
       "download": "Download",
       "backup": "Backup & Restore",
-      "about": "About"
+      "about": "About",
+      "experimental": "Experimental"
     },
 
     "general": {
@@ -169,6 +170,12 @@
         "search": "search",
         "quit": "quit"
       }
+    },
+    "labs": {
+      "desktopCapture_label": "Screen Capture",
+      "desktopCapture_description": "Capture the current application screen and save it to the download path.",
+      "trackInfoCopy_label": "Copy Current Song Info",
+      "trackInfoCopy_description": "Copy the currently playing song's information to the clipboard."
     }
   }
 }

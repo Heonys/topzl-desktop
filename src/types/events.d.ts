@@ -58,6 +58,7 @@ declare namespace IpcInvoke {
     "write-json": (data: any) => Promise<boolean>;
     "read-json": (filePath: string) => Promise<any>;
     "get-app-capture-id": () => Promise<string | null>;
+    "read-clipboard": () => Promise<string>;
   }
 }
 
@@ -77,6 +78,7 @@ declare namespace IpcEvents {
     "register-global-shortcut": { keyType: ShortcutKeys; keymap: string[] };
     "unregister-global-shortcut": { keyType: ShortcutKeys };
     "download-captured": string;
+    "write-clipboard": string;
   }
 
   // ipcRender.send -> ipcMain.on (sync)

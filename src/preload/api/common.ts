@@ -52,6 +52,13 @@ function downloadCapturedImage(imageUrl: string) {
   ipcRendererSend("download-captured", imageUrl);
 }
 
+function readClipboardText() {
+  return ipcRendererInvoke("read-clipboard");
+}
+function writeClipboardText(text: string) {
+  ipcRendererSend("write-clipboard", text);
+}
+
 export const common = {
   sendFrameAction,
   showOpenDialog,
@@ -64,4 +71,6 @@ export const common = {
   showNotification,
   getDesktopCaptureId,
   downloadCapturedImage,
+  readClipboardText,
+  writeClipboardText,
 } satisfies Window["common"];

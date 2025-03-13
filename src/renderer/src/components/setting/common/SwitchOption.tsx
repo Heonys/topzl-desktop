@@ -2,6 +2,7 @@ import { Switch } from "@headlessui/react";
 import { useAppConfig } from "@/hooks";
 import StaticIcon, { IconNames } from "@/icons/StaticIcon";
 import { AppConfigKeyPath, AppConfigKeyPathValue, defaultAppConfig } from "@shared/config/type";
+import { Condition, Kbd } from "@/common";
 
 type Props<T extends AppConfigKeyPath> = {
   keyPath: T;
@@ -9,6 +10,7 @@ type Props<T extends AppConfigKeyPath> = {
   description: string;
   iconName: IconNames;
   value?: AppConfigKeyPathValue<T>;
+  kbd?: string[];
 };
 
 export const SwitchOption = <T extends AppConfigKeyPath>({
@@ -17,6 +19,7 @@ export const SwitchOption = <T extends AppConfigKeyPath>({
   description,
   iconName,
   value = defaultAppConfig[keyPath] as AppConfigKeyPathValue<T>,
+  kbd = [],
 }: Props<T>) => {
   const { setAppConfig } = useAppConfig();
   return (
@@ -24,7 +27,19 @@ export const SwitchOption = <T extends AppConfigKeyPath>({
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
           <StaticIcon iconName={iconName} size={17} />
-          <div className="text-sm font-bold text-black">{label}</div>
+          <div className="flex items-center gap-3 text-sm font-bold text-black">
+            {label}
+            <Condition condition={kbd}>
+              <div className="flex items-center gap-1.5">
+                {kbd.map((key, index) => (
+                  <span key={index} className="flex items-center gap-1">
+                    <Kbd>{key}</Kbd>
+                    {index < kbd.length - 1 && <span>+</span>}
+                  </span>
+                ))}
+              </div>
+            </Condition>
+          </div>
         </div>
         <div className="whitespace-pre text-sm text-black/50">{description}</div>
       </div>

@@ -7,7 +7,6 @@ import {
   IoIosMore,
   IoMdMore,
   IoMdNotificationsOutline,
-  IoMdCopy,
 } from "react-icons/io";
 import {
   IoLanguage,
@@ -39,7 +38,6 @@ import {
   MdOutlinePlaylistPlay,
   MdPlaylistRemove,
   MdOutlineTipsAndUpdates,
-  MdScreenshotMonitor,
 } from "react-icons/md";
 import {
   HiMiniXMark,
@@ -67,14 +65,14 @@ import { FaChevronDown, FaLink, FaWindows, FaUserCheck } from "react-icons/fa6";
 import { GoPlus, GoDatabase } from "react-icons/go";
 import { BiSolidVolumeFull, BiSolidVolumeMute, BiSolidPlaylist } from "react-icons/bi";
 import { LuRepeat, LuRepeat1, LuClock } from "react-icons/lu";
-import { FiDownload } from "react-icons/fi";
+import { FiDownload, FiCopy } from "react-icons/fi";
 import { SiApplemusic } from "react-icons/si";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { CgCloseR } from "react-icons/cg";
 import { BsFolderPlus, BsPlugin } from "react-icons/bs";
 import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 import { HiOutlineSortAscending, HiOutlineSortDescending } from "react-icons/hi";
-import { AiOutlineExperiment } from "react-icons/ai";
+import { AiOutlineExperiment, AiOutlinePicture } from "react-icons/ai";
 import { TfiVideoClapper } from "react-icons/tfi";
 
 export type IconNames = keyof typeof IconMap;
@@ -161,8 +159,8 @@ const IconMap = {
   ["windows"]: FaWindows,
   ["user-check"]: FaUserCheck,
   ["link"]: FaLink,
-  ["screen"]: MdScreenshotMonitor,
-  ["copy"]: IoMdCopy,
+  ["capture"]: AiOutlinePicture,
+  ["copy"]: FiCopy,
   ["video"]: TfiVideoClapper,
 };
 

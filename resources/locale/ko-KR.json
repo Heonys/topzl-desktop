@@ -82,7 +82,8 @@
       "lyric": "가사 설정",
       "download": "다운로드 설정",
       "backup": "백업 및 복원",
-      "about": "앱 정보"
+      "about": "앱 정보",
+      "experimental": "실험적 기능"
     },
     "general": {
       "language_label": "언어 설정",
@@ -166,6 +167,12 @@
         "search": "검색",
         "quit": "종료"
       }
+    },
+    "labs": {
+      "desktopCapture_label": "화면 캡처",
+      "desktopCapture_description": "현재 어플리케이션 화면을 캡처하여 다운로드 경로에 저장할 수 있습니다.",
+      "trackInfoCopy_label": "현재 곡 정보 복사",
+      "trackInfoCopy_description": "현재 재생중인 곡의 정보를 클립보드로 복사합니다. (곡명 - 아티스트)"
     }
   }
 

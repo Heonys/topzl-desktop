@@ -16,6 +16,8 @@ declare global {
       showNotification: (message: IpcEvents.Renderer["show-notification"]) => void;
       getDesktopCaptureId: IpcInvoke.Renderer["get-app-capture-id"];
       downloadCapturedImage: (imageUrl: IpcEvents.Renderer["download-captured"]) => void;
+      readClipboardText: IpcInvoke.Renderer["read-clipboard"];
+      writeClipboardText: (text: IpcEvents.Renderer["write-clipboard"]) => void;
     };
     i18n: {
       setupLang: IpcInvoke.Renderer["i18n-setup"];

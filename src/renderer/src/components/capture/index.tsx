@@ -14,14 +14,14 @@ export const DesktopCaptureContainer = () => {
   useEffect(() => {
     hotkeys("ctrl+f12", (e) => {
       e.preventDefault();
-      HandleDesktopCapture();
+      handleDesktopCapture();
     });
     return () => {
       hotkeys.unbind("ctrl+f12");
     };
   }, []);
 
-  const HandleDesktopCapture = async () => {
+  const handleDesktopCapture = async () => {
     const videoEl = videoRef.current!;
     const sourceId = await window.common.getDesktopCaptureId();
 
