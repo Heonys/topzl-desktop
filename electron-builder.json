@@ -11,6 +11,14 @@
     "target": ["nsis", "zip"],
     "icon": "resources/logo.png"
   },
+  "mac": {
+    "target": ["dmg"],
+    "icon": "resources/logo.icns"
+  },
+  "linux": {
+    "target": ["AppImage"],
+    "icon": "resources/logo.png"
+  },
   "npmRebuild": false,
   "publish": {
     "provider": "github",
