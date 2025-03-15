@@ -19,7 +19,7 @@ export function createPipmodeWinodw(currentItem?: MusicItem | null, state?: Play
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: true,
-      preload: path.join(__dirname, "../preload/pipmode.js"),
+      preload: path.join(__dirname, "../preload/index.js"),
     },
   });
 

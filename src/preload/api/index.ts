@@ -6,3 +6,4 @@ export * from "./notification";
 export * from "./common";
 export * from "./worker";
 export * from "./fsDelegate";
+export * from "./messagePort";
