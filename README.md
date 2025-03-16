@@ -3,6 +3,9 @@
 </p>
 
 <p align="center">
+    <a href="https://releases.electronjs.org">
+        <img src="https://img.shields.io/github/package-json/dependency-version/Heonys/topzl-desktop/dev/electron/master" alt="Electron version">
+    </a>
     <a href="https://github.com/Heonys/topzl-desktop/releases">
         <img src="https://img.shields.io/github/v/release/Heonys/topzl-desktop" />
     </a>
@@ -84,7 +87,9 @@ yarn dist:{flatform} # [win, mac, linux]
 ## 🖼️ Screenshot
 
 <details>
-<summary>스크린샷을 확인 하려면 펼쳐주세요</summary>
+<summary>
+  <strong>스크린샷을 확인 하려면 펼쳐주세요</strong>
+</summary>
 
 ![Main][main-screenshot]
 ![Search][search-screenshot]
@@ -101,16 +106,16 @@ yarn dist:{flatform} # [win, mac, linux]
 
 ## 🧩 Technical Detail
 
-<details>
+<!-- <details>
   <summary style="font-size: 1.3em;">
     <strong>🔖 목록 </strong>
   </summary>
-</details>
+</details> -->
 
 ### 1. Electorn의 기본 구조 및 동작원리
 
 <p align="center">
-  <img src="./.imgs/structure.png" alt="electron structure" style="border-radius: 20px;" width="500" />
+  <img src="./.imgs/structure.png" alt="electron structure" style="border-radius: 20px;" width="700" />
 </p>
 
 
@@ -145,7 +150,7 @@ window.electron.sendMessage("Hello from Renderer!");
 메인 프로세스는 여러 개의 윈도우를 생성할 수 있으며 각 렌더러 프로세스는 메인 프로세스와의 통신을 합니다. 하지만 `IPC`통신으로는 메인과 렌더러간의 소통만 가능하기에 렌더러 프로세스간 상태를 공유하기 위해서는 메인 프로세스에서 상태를 중개해야만 합니다.
 
 <p align="center">
-  <img src="./.imgs/messageChannel.png" alt="electron structure" style="border-radius: 20px;" width="500"/>
+  <img src="./.imgs/messageChannel.png" alt="electron structure" style="border-radius: 20px;" width="700"/>
 </p>
 
 현재 `Topzl` 어플리케이션에선 메인 윈도우 외에 작은 플레이어 형태의 `PIP`모드를 지원합니다. `PIP`모드는 메인 윈도우의 재생상태 또는 현재 재생중인 곡의 정보를 공유 하며, 재생, 이전곡, 다음곡의 버튼을 제공합니다. 즉, `PIP`모드를 제공하는 윈도우는 메인 윈도우와 동시에 실행되며 상태를 일정부분 공유하고 반대로 메인 윈도우의 상태를 수정할 수 있어야합니다. 이를 위해서 `IPC`통신 대신 `MessageChannelMain`를 사용하여 포트간의 통신을 통해서 메시지 전달과 상태를 공유할 수 있도록 구현 했습니다.
@@ -164,12 +169,12 @@ pipWindow.webContents.postMessage("port", { track: currentItem, state }, [port2]
 
 ### 3. 워커 스레드
 
-`Topzl` 에서는 로컬 파일 모니터링을 위한 `FileWatcher` 워커와 다운로드를 진행하고 그 다운로드의 상태를 실시간으로 렌더러에게 전달해주는 `Download` 워커 이렇게 2가지 워커 스레드를 사용합니다. `Comlink` 라이브러리를 사용하여 메인 스레드와 워커 스레드간의 상호작용을 이벤트 리스너가 아닌 메소드를 호출하는 방식으로 더 간결하게 작성하였습니다.
+`Topzl` 에서는 로컬 파일 모니터링을 위한 `FileWatcher` 워커와 다운로드를 진행하고 그 다운로드의 상태를 실시간으로 렌더러에게 전달해주는 `Download` 워커 이렇게 2가지 워커 스레드를 사용합니다. `Comlink` 라이브러리를 사용하여 메인 스레드와 워커 스레드간의 상호작용을 메소드를 호출하는 방식으로 더 간결하게 작성하였습니다.
 
 - #### 1) 로컬 폴더 모니터링
 
 <p align="center">
- <img src="./.imgs/monitoring.gif" alt="monitoring" width="400" />
+ <img src="./.imgs/monitoring.gif" alt="monitoring" width="500" />
 </p>
 
 로컬 페이지에선 폴더를 등록하고 그 폴더에서 오디오 파일의 메타데이터를 전부 뽑아서 리스트로 보여줍니다. 이 과정에서 `fs`모듈의 `watch` 메소드와 유사한 기능을 제공하는 `chokidar` 라이브러리를 사용하여 파일 시스템감지를 제공합니다. 이를 통해 등록한 폴더의 변화가 일어나면 그 변화를 렌더러 프로세스에 전달해서 화면을 업데이트하고 폴더 자체의 경로가 바뀌면 모니터링을 다시 시작 합니다.
@@ -178,10 +183,10 @@ pipWindow.webContents.postMessage("port", { track: currentItem, state }, [port2]
 - #### 2) 다운로드 및 다운로드 상태 동기화
 
 <p align="center">
- <img src="./.imgs/download.gif" alt="monitoring" width="200" />
+ <img src="./.imgs/download.gif" alt="monitoring" width="300" />
 </p>
 
-음원 다운로드 또한 워커 스레드에서 실행됩니다. 다운로드가 시작되면 렌더러 프로세스로 부터 전달받은 `downloadURL`을 패칭합니다. `fetch API`는 노드에서도 지원하지만 여기서 주의해야할점은 `fetch`로 패칭된 결과는 `ReadableStream` 객체인데 이는 웹환경 에서 사용되는 스트림이기 때문에 이를 `Node`에서 사용 가능한 스트림으로 변환해야 합니다. 이 후 `writeStream`을 만들어서 파이프라인을 연결시켜 주고, 에러가 발생하거나 파이핑이 완료되면 렌더러러 에게 알려 화면을 업데이트 할 수 있도록 합니다.
+음원 다운로드 또한 워커 스레드에서 실행됩니다. 다운로드가 시작되면 렌더러 프로세스로 부터 전달받은 `URL`을 패칭합니다. `fetch API`는 노드에서도 지원하지만 여기서 주의해야할점은 `fetch`로 패칭된 결과는 `ReadableStream` 객체인데 이는 웹환경 에서 사용되는 스트림이기 때문에 이를 `Node`에서 사용 가능한 스트림으로 변환해야 합니다. 이 후 `writeStream`을 만들어서 파이프라인을 연결시켜 주고, 에러가 발생하거나 파이핑이 완료되면 렌더러러 에게 알려 화면을 업데이트 할 수 있도록 합니다.
 
 ```ts
 async downloadFile(id: string, mediaSource: string, filePath: string) {
