@@ -110,6 +110,22 @@ yarn dist:{flatform} # [win, mac, linux]
   <summary style="font-size: 1.3em;">
     <strong>🔖 목록 </strong>
   </summary>
+
++ **[Electorn의 기본 구조 및 동작원리](#1-electorn의-기본-구조-및-동작원리)**
++ **[다중 윈도우간 통신](#2-다중-윈도우간-통신)**
++ **[워커 스레드](#3-워커-스레드)**
++ **[플러그인 (Audiomack)](#4-플러그인-audiomack)**
++ **[가사 검색](#5-가사-검색)**
++ **[가상 스크롤 (useVirtualScroll)](#6-가상-스크롤-usevirtualscroll)**
++ **[재생목록 정렬 (Drag & Drop)](#7-재생목록-정렬-drag--drop)**
++ **[Scroll Navigator](#8-scroll-navigator)**
++ **[Focus와 Blur 이벤트 흐름 제어](#9-focus와-blur-이벤트-흐름-제어)**
++ **[컨텍스트 메뉴](#10-컨텍스트-메뉴)**
++ **[EventEmitter](#11-eventemitter)**
++ **[단축키 등록 (In-App, Global)](#12-단축키-등록-in-app-global)**
++ **[로컬 데이터 관리](#13-로컬-데이터-관리)**
++ **[화면 캡처](#14-화면-캡처)**
+
 </details>
 
 ### 1. Electorn의 기본 구조 및 동작원리
@@ -128,7 +144,7 @@ yarn dist:{flatform} # [win, mac, linux]
 렌더러 프로세스는 결국 `Node` 환경 위에서 실행되기 때문에 직접 노드 모듈에 접근하는 것이 가능합니다. 하지만 일반적인 일렉트론 개발에선 보안을 위해 브라우저 환경과 노드 환경을 완전히 격리 시켜서 실행하기 때문에 프로세스간의 `IPC` 통신을 통해서 데이터를 주고받으며, 안전한 `IPC`통신을 위해서 `preload.js` 파일을 사용합니다.
 
 ```js
-// #preload.js
+// preload.js
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electron", {
@@ -136,7 +152,7 @@ contextBridge.exposeInMainWorld("electron", {
 });
 ```
 ```js
-// #renderer process
+// renderer process
 window.electron.sendMessage("Hello from Renderer!");
 // contextBridge에서 api를 노출시켰기 때문에 window 객체에 속성이 추가됨
 ```
@@ -171,16 +187,7 @@ pipWindow.webContents.postMessage("port", { track: currentItem, state }, [port2]
 
 `Topzl` 에서는 로컬 파일 모니터링을 위한 `FileWatcher` 워커와 다운로드를 진행하고 그 다운로드의 상태를 실시간으로 렌더러에게 전달해주는 `Download` 워커 이렇게 2가지 워커 스레드를 사용합니다. `Comlink` 라이브러리를 사용하여 메인 스레드와 워커 스레드간의 상호작용을 메소드를 호출하는 방식으로 더 간결하게 작성하였습니다.
 
-- #### 1) 로컬 폴더 모니터링
-
-<p align="center">
- <img src="./.imgs/monitoring.gif" alt="monitoring" width="500" />
-</p>
-
-로컬 페이지에선 폴더를 등록하고 그 폴더에서 오디오 파일의 메타데이터를 전부 뽑아서 리스트로 보여줍니다. 이 과정에서 `fs`모듈의 `watch` 메소드와 유사한 기능을 제공하는 `chokidar` 라이브러리를 사용하여 파일 시스템감지를 제공합니다. 이를 통해 등록한 폴더의 변화가 일어나면 그 변화를 렌더러 프로세스에 전달해서 화면을 업데이트하고 폴더 자체의 경로가 바뀌면 모니터링을 다시 시작 합니다.
-
-
-- #### 2) 다운로드 및 다운로드 상태 동기화
+- #### 1) 다운로드 및 다운로드 상태 동기화
 
 <p align="center">
  <img src="./.imgs/download.gif" alt="monitoring" width="300" />
@@ -207,6 +214,18 @@ async downloadFile(id: string, mediaSource: string, filePath: string) {
   });
 }
 ```
+
+- #### 2) 로컬 폴더 모니터링
+
+<p align="center">
+ <img src="./.imgs/monitoring.gif" alt="monitoring" width="600" />
+</p>
+
+로컬 페이지에선 폴더를 등록하고 그 폴더에서 오디오 파일의 메타데이터를 전부 뽑아서 리스트로 보여줍니다. 이 과정에서 `fs`모듈의 `watch` 메소드와 유사한 기능을 제공하는 `chokidar` 라이브러리를 사용하여 파일 시스템감지를 제공합니다. 이를 통해 등록한 폴더의 변화가 일어나면 그 변화를 렌더러 프로세스에 전달해서 화면을 업데이트하고 폴더 자체의 경로가 바뀌면 모니터링을 다시 시작 합니다.
+
+
+
+
 ### 4. 플러그인 (Audiomack)
 
 음악을 재생하려면 실제 오디오 파일을 제공하는 `Media Source`가 필요합니다. 이를 위해 [猫头猫/MusicFreePlugins](https://gitee.com/maotoumao/MusicFreePlugins) 저장소의 `audiomack` 플러그인을 사용했습니다. [Audiomack](https://audiomack.com/)은 무료로 음악을 스트리밍하 서비스인데 이 플러그인은 내부적으로는 [Audiomack API](https://audiomack.com/data-api/docs)을 사용하며 카테고리별 검색 및 곡의 재생 `URL`을 가져올 수 있는 메소드를 제공합니다.
@@ -237,8 +256,7 @@ https://music.audiomack.com/albums/r0m1/red-planet/5ad60e011e7e3.mp3?${Parameter
 
 `Genius`는 미국에서 음악 가사를 제공하는 서비스로 비영어권의 음악의 경우 영어 발음대로 표기하는 로마자 표기를 제공하는 경우가 많습니다. 이런 경우, 보통 원곡 언어로 된 가사도 제공하지만 기본 언어는 로마자 표기 되어있는 경우가 많습니다. 예를들어, 한국어 곡이라도 원곡 가사가 아닌 영어 발음대로 변환된 로마자 표기가 제공될 수 있습니다.
 
-`Genius` 웹사이트에선 비영어권의 노래의 경우 원곡 언어의 가사를 제공하는 경우가 있지만, 기본언어는 로마자로 되어있는 경우가 많습니다. 그러나 `Genius API`에서는 번역된 가사를 가져오는 기능을 제공하지않아서 기본언어만 가져올 수 있습니다. 따라서 `Genius API`만을 사용할경우 기본언어 이외에 번역된 가사를 가져오기 어려운 문제가 있었습니다.
-
+`Genius`에선 비영어권의 노래의 경우 원곡 언어의 가사를 제공하는 경우가 있지만, 기본언어는 로마자로 되어있는 경우가 많습니다. 그러나 `Genius API`에서는 번역된 가사를 가져오는 기능을 제공하지않아서 기본언어만 가져올 수 있습니다. 따라서 `Genius API`만을 사용할경우 기본언어 이외에 번역된 가사를 가져오기 어려운 문제가 있었습니다.
 
 이 문제를 해결하기 `Genius API` 기반이면서 웹 크롤링 기능을 지원하는 `genius-lyrics` 라이브러리를 사용하였습니다. `Topzl`의 설정 페이지에선 가사 검색시 검색 방식으로 기본검색과 정밀검색을 제공하는데 기본검색은 `Genius API`의 검색을 그대로 사용해서 검색하여 빠른속도를 제공하지만 비영어권의 음악의 경우 로마자 표기의 가사일 가능성이 높습니다. 반면, 정밀 검색의 경우는 `genius-lyrics`의 웹 크롤링을 통해서 번역된 가사를 확인하고 로마자 표기가 아닌 원곡 언어의 가능성을 높입니다.
 
@@ -255,7 +273,7 @@ if (searchMethod === "basic") {
 }
 ```
 
-하지만 해당 음악이 번역된 가사를 지원하지 않을 수도 있을뿐더러 효율성을 위해서 정확도가 가장 높을 수 있는 첫번째 검색 결과만 확인 하기 때문에 가능한 로마자 표기를 피하는 식으로 검색을 하지만 비교적 정확도가 떨어질 수 있습니다.
+해당 음악이 번역된 가사를 지원하지 않을 수도 있을뿐더러 효율성을 위해서 정확도가 가장 높을 수 있는 첫번째 검색 결과만 확인 하기 때문에 가능한 로마자 표기를 피하는 식으로 검색을 하지만 정확도가 떨어질 수 있습니다.
 
 
 ### 6. 가상 스크롤 (useVirtualScroll)
@@ -312,8 +330,8 @@ return (
 #### 구현 원리
 
 1. `position: absolute` 속성을 사용하여 각 항목의 위 또는 아래에 드롭 가능한 작은 `Droppable` 영역을 생성합니다.
-2. 사용자가 항목을 드래그하면, `onDragStart` 이벤트에서 `e.dataTransfer`를 활용해 드래그가 시작된 항목의 `index`를 저장합니다.
-3. `Droppable` 영역에서 `onDrop` 이벤트가 발생하면, 드래그 시작 `index`와 드롭된 위치의 `index`를 비교하여 배열에서 순서를 변경합니다.
+2. 사용자가 항목을 드래그를 시작하면 `dataTransfer`를 활용해 드래그가 시작된 항목의 `index`를 저장합니다.
+3. `Droppable` 영역에 `onDrop` 이벤트가 발생하면, 드래그 시작 `index`와 드롭된 위치의 `index`를 비교하여 배열에서 순서를 변경합니다.
 
 
 ```tsx
@@ -386,7 +404,7 @@ useEffect(() => {
  <img src="./.imgs/searchHistory.gif" alt="monitoring" width="400" />
 </p>
 
-상단 메뉴에는 퀵서치를 위한 `input` 폼을 제공하며 `focus`이벤트가 발생하면 `history`가 표시되고 `blur` 이벤트가 발생하면 `history`를 닫는 동작을 합니다. 하지만 `history`가 열린상태에서 내부를 클릭하면 내부의 포커싱보다 `input`의 `blur` 이벤트가 먼저 일어나기 때문에 바로 창이 닫히게 되어, 내부의 버튼이 정상적으로 동작하지 않는 문제가 발생합니다.
+상단 메뉴는 퀵서치를 위한 `input` 폼을 제공하며 `focus`이벤트가 발생하면 `history`가 표시되고 `blur` 이벤트가 발생하면 `history`를 닫는 동작을 합니다. 하지만 `history`가 열린상태에서 내부를 클릭하면 내부의 포커싱보다 `input`의 `blur` 이벤트가 먼저 일어나 창이 바로 닫히게 되어, 내부의 버튼이 동작하지 않는 문제가 발생합니다.
 
 ```tsx
 const isFocusedRef = useRef(false);
@@ -411,11 +429,11 @@ return (
   />
 )
 ```
-이 문제를 해결하기 위해, `isFocusedRef라는` `ref`를 생성하여 `history`가 열린 상태에서 입력 필드의 포커스 상태를 관리합니다. 그리고 `input`의 `blur` 이벤트에서는 `setTimeout`을 사용해 `history`를 닫는 동작을 다음 프레임으로 보내어 `blur` 이벤트가 `focus`보다 더 늦게 발생하도록 하여 `focus` 이벤트가 우선 처리되는 것을 보장합니다. 이 과정에서 `searchHistory`는 기본적으로 `focus`이벤트가 일어나지 않기에 `tabindex` 를 사용하여 포커싱이 가능하도록 합니다.
+이 문제를 해결하기 위해, `ref`를 생성하여 `history`가 열린 상태에서 입력 필드의 포커스 상태를 관리합니다. 그리고 `input`의 `blur` 이벤트에서는 `setTimeout`을 사용해 `history`를 닫는 동작을 다음 프레임으로 보내어 `blur` 이벤트가 `focus`보다 더 늦게 발생하도록 하여 `focus` 이벤트가 우선 처리되는 것을 보장합니다. 이 과정에서 `searchHistory`는 기본적으로 `focus`이벤트가 일어나지 않기에 `tabindex` 를 사용하여 포커싱이 가능하도록 합니다.
 
 ### 10. 컨텍스트 메뉴
 
-재생목록 테이블에선 마우스 우클릭시 재생목록의 앨범 커버와 함께 추가 기능을 제공하는 컨텍스트 메뉴가 나타납니다. 이때 컨텍스트 메뉴는 현재 마우스의 위치에 따라서 메뉴를 어느 방향으로 보여줘야할지 선택되야 합니다. 왜냐하면 마우스가 우측 상단에서 컨텍스트 메뉴가 열린다면 메뉴가 화면에서 가려진다거나 스크롤이 발생할 수 있기 때문입니다.
+재생목록에서 마우스 우클릭시 재생목록의 앨범 커버와 함께 추가 기능을 제공하는 컨텍스트 메뉴가 나타납니다. 이때 컨텍스트 메뉴는 현재 마우스의 위치에 따라서 메뉴를 어느 방향으로 보여줘야할지 선택되야 합니다. 마우스가 우측 상단에서 컨텍스트 메뉴가 열린다면 메뉴가 화면에서 가려진다거나 스크롤이 발생할 수 있기 때문입니다.
 
 ```ts
 // OFFSET: 마우스와 메뉴가 너무 딱 붙어있지 않기 위한 간격
@@ -469,7 +487,7 @@ this.$audio.onended = () => {
 설정 페이지에서 사용자가 직접 단축키를 커스텀할 수 있습니다.
 
 <p align="center">
- <img src="./.imgs/shortcut.png" alt="monitoring" width="500" />
+ <img src="./.imgs/shortcut.png" alt="monitoring" width="600" />
 </p>
 
 - **In-App 단축키**: 어플리케이션이 포커스된 상태에서만 동작
@@ -478,21 +496,15 @@ this.$audio.onended = () => {
 `In-App`단축키는 `hotkeys-js`를 사용해서 렌더러 프로세스에서 관리하며, `Global` 단축키는 메인 프로세스에서 `electron` 모듈의 `globalShortcut API`를 사용하여 시스템에 등록합니다. 내부적으로는 `EventEmitter`을 사용하여 각 기능들에 대한 핸들러를 등록해놓고 이후 사용자가 특정 단축키를 설정하면, `keydown` 이벤트 발생 시 해당 핸들러가 실행되는 방식으로 동작합니다.
 
 
-글로벌 단축키는 다른 프로그램의 단축키와 충돌할 수 있기 때문에 설정 시 주의해야하고 이를 방지하기 위해, 단축키 생성 규칙을 꽤 엄격하게 적용하였습니다.
-
-
 ### 13. 로컬 데이터 관리
 
 현재 메인 프로세스와 렌더러 프로세스에서 로컬 데이터를 관리하기 위해서 세가지 방식을 사용합니다.
 
-- #### 1) JSON 파일 (메인 프로세스)
-모든 사용자 설정은 `Windows` 환경 기준으로 `AppData\Roaming\topzl\config.json` 파일에서 관리되어 메인 프로세스와 렌더러 프로세스에서 설정 데이터를 공유됩니다.
+- **JSON 파일 (메인 프로세스)**
+- **로컬 스토리지 (렌더러 프로세스)**
+- **IndexedDB (렌더러 프로세스)**
 
-- #### 2) 로컬 스토리지 (렌더러 프로세스)
-현재 재생중인 곡, 볼륨, 재생속도, 반복모드, 셔플모드 등의 비교적 휘발성 데이터에 가깝고 좀 더 단순한 타입의 데이터는 스토리지로 관리합니다.
-
-- #### 3) IndexedDB (렌더러 프로세스)
-반면 현재 재생목록, 전체 재생목록, 좋아요 누른 목록, 다운로드 목록 등의 컬렉션 데이터 처럼 대용량이 될 수 있는 데이터는 `IndexedDB`를 사용하여 관리합니다.
+모든 사용자 설정은 `Windows` 환경 기준으로 `AppData\Roaming\topzl\config.json` 파일에서 관리되어 메인 프로세스와 렌더러 프로세스에서 설정 데이터를 공유됩니다. 현재 재생중인 곡, 볼륨, 재생속도, 반복모드, 셔플모드 등의 비교적 휘발성 데이터에 가깝고 좀 더 단순한 타입의 데이터는 스토리지로 관리합니다. 반면 현재 재생목록, 전체 재생목록 등의 컬렉션 데이터 처럼 대용량이 될 수 있는 데이터는 `IndexedDB`를 사용하여 관리합니다.
 
 
 ### 14. 화면 캡처
@@ -522,6 +534,11 @@ const drawCanvas = () => {
   ctx?.drawImage($video, 0, 0);
 };
 ```
+
+## 📖 Todos
+- `macOS`, `Linux` 환경 테스트 후 안정적인 버전 릴리즈 예정
+- 현재 창 크기가 고정되어 있으며, 리사이징 비활성화됨
+- 뮤직 비디오 검색 및 동영상 스트리밍 지원
 
 <!-- Markdown links and Images -->
 
