@@ -80,7 +80,7 @@ export function ContextMenuContainer() {
 }
 
 function computedPosition(x: number, y: number, count: number, padding: number) {
-  const MENU_CONTAINER_MAX_HEIGHT = count * MENU_ITEM_HEIGHT + padding;
+  const MAX_HEIGHT = count * MENU_ITEM_HEIGHT + padding;
   const isLeft = x < window.innerWidth / 2 ? 0 : 1;
   const isTop = y < window.innerHeight / 2 ? 0 : 2;
   switch (isLeft + isTop) {
@@ -89,9 +89,9 @@ function computedPosition(x: number, y: number, count: number, padding: number) 
     case 1: // 1사분면
       return [x - MENU_ITEM_WIDTH - OFFSET, y + OFFSET];
     case 2: // 3사분면
-      return [x + OFFSET, y - MENU_CONTAINER_MAX_HEIGHT - OFFSET];
+      return [x + OFFSET, y - MAX_HEIGHT - OFFSET];
     case 3: // 4사분면
-      return [x - MENU_ITEM_WIDTH - OFFSET, y - MENU_CONTAINER_MAX_HEIGHT - OFFSET];
+      return [x - MENU_ITEM_WIDTH - OFFSET, y - MAX_HEIGHT - OFFSET];
     default:
       return [x + OFFSET, y + OFFSET];
   }

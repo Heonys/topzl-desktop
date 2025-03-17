@@ -37,7 +37,7 @@
 ## ✨ Features
 - 크로스 플랫폼 지원 (Windows, macOS, Linux)
 - 음악, 앨범, 아티스트, 플레이리스트 검색
-- HLS 기반의 자체 스트리밍
+- 자체 스트리밍
 - 로컬 음악 재생 지원
 - 음원 다운로드 지원
 - 워커 스레드를 활용한 로컬 폴더 모니터링 및 동기화
@@ -47,6 +47,26 @@
 - 사용자 지정 단축키 지원 (In-App, Global)
 - 세부 설정 지원 (일반, 재생, 다운로드, 가사, 백업 및 복원)
 - PIP 모드 지원
+
+## 🖼️ Screenshot
+
+<details>
+<summary>
+  <strong>스크린샷을 확인 하려면 펼쳐주세요</strong>
+</summary>
+
+![Main][main-screenshot]
+![Search][search-screenshot]
+![Search Album][seach_album-screenshot]
+![Detail][detail-screenshot]
+![Libray][library-screenshot]
+![Palylist][playlist-screenshot]
+![Local][local-screenshot]
+![Download][download-screenshot]
+![Pipmode][pipmode-screenshot]
+![Setting1][settings1-screenshot]
+
+</details>
 
 
 ## 🎉 Getting Started
@@ -84,33 +104,13 @@ yarn dev
 yarn dist:{flatform} # [win, mac, linux]
 ```
 
-## 🖼️ Screenshot
-
-<details>
-<summary>
-  <strong>스크린샷을 확인 하려면 펼쳐주세요</strong>
-</summary>
-
-![Main][main-screenshot]
-![Search][search-screenshot]
-![Search Album][seach_album-screenshot]
-![Detail][detail-screenshot]
-![Libray][library-screenshot]
-![Palylist][playlist-screenshot]
-![Local][local-screenshot]
-![Download][download-screenshot]
-![Pipmode][pipmode-screenshot]
-![Setting1][settings1-screenshot]
-
-</details>
-
 ## 🧩 Technical Detail
 
-<!-- <details>
+<details>
   <summary style="font-size: 1.3em;">
     <strong>🔖 목록 </strong>
   </summary>
-</details> -->
+</details>
 
 ### 1. Electorn의 기본 구조 및 동작원리
 
@@ -207,34 +207,321 @@ async downloadFile(id: string, mediaSource: string, filePath: string) {
   });
 }
 ```
+### 4. 플러그인 (Audiomack)
 
-### 4. 플러그인 (audiomack api)
+음악을 재생하려면 실제 오디오 파일을 제공하는 `Media Source`가 필요합니다. 이를 위해 [猫头猫/MusicFreePlugins](https://gitee.com/maotoumao/MusicFreePlugins) 저장소의 `audiomack` 플러그인을 사용했습니다. [Audiomack](https://audiomack.com/)은 무료로 음악을 스트리밍하 서비스인데 이 플러그인은 내부적으로는 [Audiomack API](https://audiomack.com/data-api/docs)을 사용하며 카테고리별 검색 및 곡의 재생 `URL`을 가져올 수 있는 메소드를 제공합니다.
+
+```ts
+// 검색 결과에 대한 타입, 기본적으로 페이지네이션 지원
+type SearchResult = {
+  isEnd: boolean;
+  data: {
+    id: string;
+    album: string;
+    artist: string;
+    artwork: string;
+    duration: number;
+    title: string;
+  }
+};
+```
+이렇게 검색된 음원의 `ID`를 이용해 `Media Source` `URL`을 가져올 수 있습니다.  실제로는 만료시간, 시그니쳐, 키 페어가 파라미터로 포함되어있고 아래와 같은 형태의 `URL`입니다.
+
+```sh
+https://music.audiomack.com/albums/r0m1/red-planet/5ad60e011e7e3.mp3?${Parameters}
+```
+
+### 5. 가사 검색
+
+기본적으로 [Genius API](https://docs.genius.com/)를 사용하여 음원의 가사를 검색합니다.
+
+`Genius`는 미국에서 음악 가사를 제공하는 서비스로 비영어권의 음악의 경우 영어 발음대로 표기하는 로마자 표기를 제공하는 경우가 많습니다. 이런 경우, 보통 원곡 언어로 된 가사도 제공하지만 기본 언어는 로마자 표기 되어있는 경우가 많습니다. 예를들어, 한국어 곡이라도 원곡 가사가 아닌 영어 발음대로 변환된 로마자 표기가 제공될 수 있습니다.
+
+`Genius` 웹사이트에선 비영어권의 노래의 경우 원곡 언어의 가사를 제공하는 경우가 있지만, 기본언어는 로마자로 되어있는 경우가 많습니다. 그러나 `Genius API`에서는 번역된 가사를 가져오는 기능을 제공하지않아서 기본언어만 가져올 수 있습니다. 따라서 `Genius API`만을 사용할경우 기본언어 이외에 번역된 가사를 가져오기 어려운 문제가 있었습니다.
 
 
-### 5. 가사 크롤링 (genius-api)
+이 문제를 해결하기 `Genius API` 기반이면서 웹 크롤링 기능을 지원하는 `genius-lyrics` 라이브러리를 사용하였습니다. `Topzl`의 설정 페이지에선 가사 검색시 검색 방식으로 기본검색과 정밀검색을 제공하는데 기본검색은 `Genius API`의 검색을 그대로 사용해서 검색하여 빠른속도를 제공하지만 비영어권의 음악의 경우 로마자 표기의 가사일 가능성이 높습니다. 반면, 정밀 검색의 경우는 `genius-lyrics`의 웹 크롤링을 통해서 번역된 가사를 확인하고 로마자 표기가 아닌 원곡 언어의 가능성을 높입니다.
+
+```ts
+const searchMethod = await getAppConfigPath("lyric.searchMethod"); // 검색방식을 가져오기
+const songs = await client.songs.search(query); // 검색어로 가사 검색
+
+if (searchMethod === "basic") {
+  return songs[0].lyrics(false); // 기본 검색: 검색 결과의 첫번째 가사 반환
+} else {
+  const scrapedData = await client.songs.scrape(songs[0].url);
+  const scrapedSong = Object.values(scrapedData.data.entities.songs)[0]
+  // 정밀 검색: 첫번째 검색 결과를 기준으로 크롤링 후, 번역된 가사를 찾고 반환
+}
+```
+
+하지만 해당 음악이 번역된 가사를 지원하지 않을 수도 있을뿐더러 효율성을 위해서 정확도가 가장 높을 수 있는 첫번째 검색 결과만 확인 하기 때문에 가능한 로마자 표기를 피하는 식으로 검색을 하지만 비교적 정확도가 떨어질 수 있습니다.
 
 
+### 6. 가상 스크롤 (useVirtualScroll)
 
----
+```ts
+type Props<T> = {
+  getScrollElement: () => HTMLElement;
+  estimizeItemHeight: number;
+  data: T[];
+  renderCount?: number;
+}
 
-- 가상 스크롤 (useVirtualScroll)
-- 드래그앤 드랍 (Droppable)
-- Intersection Obserber (설정 페이지 섹션위치 조정)
-- focus, blur 이벤트 핸들링 + tabIndex (퀵서치)  // 이름 정리
-- 컨텍스트 메뉴 (좌표계산)
-- eventEmitter (이벤트 추적)
-- HLS (실시간 스트리밍)
+type VirtualItem<T> = {
+  top: number;
+  rowIndex: number;
+  dataItem: T;
+}
+```
+재생목록이 많아질 경우, 재생목록의 효율적인 렌더링을 위해서 가상 스크롤을 사용합니다. 이때 `useVirtualScroll`라는 훅을 사용하여 원본 재생목록을 `VirtualItem`타입 배열로 반환하여 화면에 렌더링할 항목을 관리합니다. `Props`로는 스크롤 이벤트를 추적하기 위한 스크롤할 `DOM`요소를 ref로 전달받고, 각 리스트의 예상 높이, 데이터 배열, 제한하기 위한 개수를 전달받습니다.
 
-- 다국어 처리
-- 단축키 등록 (In-App, Global)
-- 로컬 데이터베이스 (스토리지, IndexDB)
+```tsx
+const virtualController = useVirtualScroll(props)
+return (
+  <div ref={scrollElementRef}>
+    <div
+      style={{
+        position: "relative"
+        height: virtualController.totalHeight
+      }}
+    >
+      {virtualController.virtualItems.map(({rowIndex, top}) => {
+        return (
+        <div key={rowIndex} style={{ position: "absolute", top }}>
+          {/* 각 항목 내용 */}
+        </div>
+        );
+      })}
+    </div>
+  </div>
+)
+```
+`useVirtualScroll`으로 반환된 `VirtualItem[]` 타입의 배열을 반환하며, 각 항목은 `top`위치를 기준으로 렌더링 됩니다.
+전체 높이를 설정하고 렌더링을 제한한 개수만큼 항목들을 화면에 렌더링하여, 많은 데이터가 있을경우 화면에 한번에 렌더링되는 항목을 제한함으로써 효율적으로 렌더링 할 수 있습니다.
 
 
+### 7. 재생목록 정렬 (Drag & Drop)
+
+<p align="center">
+ <img src="./.imgs/dragdrop.gif" alt="monitoring" width="400" />
+</p>
+
+재생목록 및 재생목록 테이블에서 각 항목을 드래그 드랍으로 위치를 바꾸는 기능을 지원합니다.
+
+#### 구현 원리
+
+1. `position: absolute` 속성을 사용하여 각 항목의 위 또는 아래에 드롭 가능한 작은 `Droppable` 영역을 생성합니다.
+2. 사용자가 항목을 드래그하면, `onDragStart` 이벤트에서 `e.dataTransfer`를 활용해 드래그가 시작된 항목의 `index`를 저장합니다.
+3. `Droppable` 영역에서 `onDrop` 이벤트가 발생하면, 드래그 시작 `index`와 드롭된 위치의 `index`를 비교하여 배열에서 순서를 변경합니다.
 
 
+```tsx
+const Droppable = (props) => {
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  return (
+      <div
+        style={{ position: "absolute" }}
+        onDragOver={(e)=>{
+          e.preventDefault();
+          setIsDragOver(true); // 드래그 가능한 영역에 들어왔음을 표시
+        }}
+        onDragLeave={()=> setIsDragOver(false)} // 영역을 벗어남
+        onDrop={(e) => {
+          e.preventDefault();
+          setIsDragOver(false);
+          // 드래그 시작 index와 드롭된 index를 비교하여 순서 변경
+        }}
+      >
+        {isDragOver && <div> {/* 드래그 가능한 영역 UI */} </div>}
+      </div>
+  )
+}
+```
+
+현재 재생목록은 `useVirtualScroll`로 래핑된 객체를 사용하고 있기에 배열의 `index`가아닌 `VirtualItem`의 `rowIndex`를 사용해야 가상 스크롤을 사용하면서 정상적으로 드래그 앤 드랍기능이 동작합니다.
 
 
+### 8. Scroll Navigator
 
+<p align="center">
+ <img src="./.imgs/obserber.gif" alt="monitoring" width="500" />
+</p>
+
+사용자가 스크롤할 때 현재 보고 있는 섹션을 자동으로 감지하여 네비게이션 `UI`를 업데이트하는 인터페이스를 `Scrollspy`라고 합니다. 이 과정에서 `IntersectionObserver`를 사용하면 쉽게 구현할 수 있습니다.
+
+#### 구현 원리
+
+1. 현재 선택된 섹션을 관리하는 `state`를 생성합니다.
+2. 각 섹션을 마크업할 때 고유한 `id`를 부여합니다.
+3. `IntersectionObserver`를 사용하여 각 섹션이 뷰포트와 교차되는 비율을 추적합니다.
+4. 가장 많이 교차된 섹션을 `state`로 업데이트하여 `Scrollspy`를 동적으로 변경합니다.
+
+```ts
+const [selected, setSelected] = useState(routers[0].id);
+const intersectionObserverRef = useRef<IntersectionObserver>();
+const intersectionRatioRef = useRef<Map<string, number>>(new Map());
+
+useEffect(() => {
+  const ratioMap = intersectionRatioRef.current;
+  intersectionObserverRef.current = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        ratioMap.set(entry.target.id, entry.intersectionRatio);
+      });
+      // ratioMap에서 가장 높은 비율의 섹션으로 상태를 변경
+    },
+    options
+  );
+  // 옵저버 등록 (각 섹션 감시 시작)
+}, []);
+```
+
+이렇게 하면 스크롤 시 가장 많이 교차된 섹션이 자동으로 선택되며, 이를 기반으로 스크롤 위치에 따라서 `Scrollspy`를 업데이트할 수 있습니다
+
+### 9. Focus와 Blur 이벤트 흐름 제어
+
+<p align="center">
+ <img src="./.imgs/searchHistory.gif" alt="monitoring" width="400" />
+</p>
+
+상단 메뉴에는 퀵서치를 위한 `input` 폼을 제공하며 `focus`이벤트가 발생하면 `history`가 표시되고 `blur` 이벤트가 발생하면 `history`를 닫는 동작을 합니다. 하지만 `history`가 열린상태에서 내부를 클릭하면 내부의 포커싱보다 `input`의 `blur` 이벤트가 먼저 일어나기 때문에 바로 창이 닫히게 되어, 내부의 버튼이 정상적으로 동작하지 않는 문제가 발생합니다.
+
+```tsx
+const isFocusedRef = useRef(false);
+
+return (
+  <input
+    onFocus={() => openHistory()}
+    onBlur={() => {
+      setTimeout(() => {
+        if (!isFocusedRef.current) closeHistory();
+      });
+    }}
+  />
+  <SearchHistory
+    onFocus={() => {
+      isFocusedRef.current = true;
+    }}
+    onBlur={() => {
+      isFocusedRef.current = false;
+      closeHistory();
+    }}
+  />
+)
+```
+이 문제를 해결하기 위해, `isFocusedRef라는` `ref`를 생성하여 `history`가 열린 상태에서 입력 필드의 포커스 상태를 관리합니다. 그리고 `input`의 `blur` 이벤트에서는 `setTimeout`을 사용해 `history`를 닫는 동작을 다음 프레임으로 보내어 `blur` 이벤트가 `focus`보다 더 늦게 발생하도록 하여 `focus` 이벤트가 우선 처리되는 것을 보장합니다. 이 과정에서 `searchHistory`는 기본적으로 `focus`이벤트가 일어나지 않기에 `tabindex` 를 사용하여 포커싱이 가능하도록 합니다.
+
+### 10. 컨텍스트 메뉴
+
+재생목록 테이블에선 마우스 우클릭시 재생목록의 앨범 커버와 함께 추가 기능을 제공하는 컨텍스트 메뉴가 나타납니다. 이때 컨텍스트 메뉴는 현재 마우스의 위치에 따라서 메뉴를 어느 방향으로 보여줘야할지 선택되야 합니다. 왜냐하면 마우스가 우측 상단에서 컨텍스트 메뉴가 열린다면 메뉴가 화면에서 가려진다거나 스크롤이 발생할 수 있기 때문입니다.
+
+```ts
+// OFFSET: 마우스와 메뉴가 너무 딱 붙어있지 않기 위한 간격
+function computedPosition(x: number, y: number, count: number, padding: number) {
+  const MAX_HEIGHT = count * MENU_ITEM_HEIGHT + padding;
+  const isLeft = x < window.innerWidth / 2 ? 0 : 1;
+  const isTop = y < window.innerHeight / 2 ? 0 : 2;
+  switch (isLeft + isTop) {
+    case 0: // 2사분면
+      return [x + OFFSET, y + OFFSET];
+    case 1: // 1사분면
+      return [x - MENU_ITEM_WIDTH - OFFSET, y + OFFSET];
+    case 2: // 3사분면
+      return [x + OFFSET, y - MAX_HEIGHT - OFFSET];
+    case 3: // 4사분면
+      return [x - MENU_ITEM_WIDTH - OFFSET, y - MAX_HEIGHT - OFFSET];
+  }
+}
+```
+
+재생목록에서 `onContextMenu`이벤트가 발생했을때 마우스의 좌표를 계산하여 현재 뷰포트에서의 위치를 기준으로 반대 방향으로 메뉴가 열릴 방향을 결정하고 이를 통해 항상 화면 내에서 메뉴가 표시되도록 보장할 수 있습니다.
+
+
+### 11. EventEmitter
+
+음악 재생과 관련된 이벤트 및 단축키 입력 이벤트 처리를 위해 `eventemitter3` 라이브러리를 사용합니다. 이 라이브러리는 `node:events` 모듈의 `EventEmitter`와 유사하지만 브라우저에서도 사용가능하며 `DOM` 이벤트와는 별개로 독립적인 이벤트 시스템을 제공합니다.
+
+```ts
+// setupPlayer
+import EventEmitter from "eventemitter3";
+
+const playerEventEmitter = new EventEmitter()
+
+playerEventEmitter.on("play-end", () => {
+  // 곡이 끝났을때 발생하므로 반복 모드에 따라서 다음 동작을 처리
+});
+```
+
+```ts
+// TrackPlayer
+this.$audio.onended = () => {
+  playerEventEmitter.emit("play-end");
+};
+```
+
+위의 코드는 `TrackPlayer`에서 곡이 종료될 때 `play-end` 이벤트를 발생시키고, 이를 핸들러에서 처리하는 방식입니다. 앱이 시작될때 미리 각 이벤트에 대한 핸들러를 만들어두고 이후에 플레이어에서 이벤트가 발생하면 직접 처리하는게 아닌 독립적인 이벤트 시스템을 활용하여 이벤트들을 한곳에서 관리하며 코드의 유지보수성을 높일 수 있습니다.
+
+
+### 12. 단축키 등록 (In-App, Global)
+
+설정 페이지에서 사용자가 직접 단축키를 커스텀할 수 있습니다.
+
+<p align="center">
+ <img src="./.imgs/shortcut.png" alt="monitoring" width="500" />
+</p>
+
+- **In-App 단축키**: 어플리케이션이 포커스된 상태에서만 동작
+- **Global 단축키**: 백그라운드에서 다른 어플리케이션 사용 중에도 동작
+
+`In-App`단축키는 `hotkeys-js`를 사용해서 렌더러 프로세스에서 관리하며, `Global` 단축키는 메인 프로세스에서 `electron` 모듈의 `globalShortcut API`를 사용하여 시스템에 등록합니다. 내부적으로는 `EventEmitter`을 사용하여 각 기능들에 대한 핸들러를 등록해놓고 이후 사용자가 특정 단축키를 설정하면, `keydown` 이벤트 발생 시 해당 핸들러가 실행되는 방식으로 동작합니다.
+
+
+글로벌 단축키는 다른 프로그램의 단축키와 충돌할 수 있기 때문에 설정 시 주의해야하고 이를 방지하기 위해, 단축키 생성 규칙을 꽤 엄격하게 적용하였습니다.
+
+
+### 13. 로컬 데이터 관리
+
+현재 메인 프로세스와 렌더러 프로세스에서 로컬 데이터를 관리하기 위해서 세가지 방식을 사용합니다.
+
+- #### 1) JSON 파일 (메인 프로세스)
+모든 사용자 설정은 `Windows` 환경 기준으로 `AppData\Roaming\topzl\config.json` 파일에서 관리되어 메인 프로세스와 렌더러 프로세스에서 설정 데이터를 공유됩니다.
+
+- #### 2) 로컬 스토리지 (렌더러 프로세스)
+현재 재생중인 곡, 볼륨, 재생속도, 반복모드, 셔플모드 등의 비교적 휘발성 데이터에 가깝고 좀 더 단순한 타입의 데이터는 스토리지로 관리합니다.
+
+- #### 3) IndexedDB (렌더러 프로세스)
+반면 현재 재생목록, 전체 재생목록, 좋아요 누른 목록, 다운로드 목록 등의 컬렉션 데이터 처럼 대용량이 될 수 있는 데이터는 `IndexedDB`를 사용하여 관리합니다.
+
+
+### 14. 화면 캡처
+
+`electron` 모듈의 `desktopCapturer API`를 사용하면 현재 사용자의 전체 화면 또는 특정 윈도우창의 고유한 식별자 `id`를 가져올 수 있습니다. 이 식별자를 이용하여 브라우저에서 해당 화면 또는 윈도우창을 스트리밍 할 수 있는 `MediaStream`를 얻을 수 있는데 이 스트림 데이터를 `<video>` 태그에서 재생할 수 있고, 해당 스트림의 첫번째 프레임을 `<canvas>` 태그에서 그리면 화면 캡처를 구현할 수 있습니다.
+
+
+```ts
+const handleDesktopCapture = async () => {
+  const sourceId = await window.common.getDesktopCaptureId();
+  const stream = await navigator.mediaDevices.getUserMedia({
+    audio: false,
+    video: {
+      mandatory: { chromeMediaSource: "desktop", chromeMediaSourceId: sourceId },
+    }
+  });
+
+  $video.srcObject = stream;
+  $video.onloadedmetadata = () => {
+    $video.play();
+    drawCanvas();
+  };
+};
+
+const drawCanvas = () => {
+  const ctx = $canvas.getContext("2d");
+  ctx?.drawImage($video, 0, 0);
+};
+```
 
 <!-- Markdown links and Images -->
 
@@ -248,7 +535,6 @@ async downloadFile(id: string, mediaSource: string, filePath: string) {
 [search-screenshot]: ./.imgs/search.png
 [seach_album-screenshot]: ./.imgs/seach_album.png
 [settings1-screenshot]: ./.imgs/settings1.png
-
 
 
 

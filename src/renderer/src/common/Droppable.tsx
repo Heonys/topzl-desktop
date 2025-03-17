@@ -35,7 +35,6 @@ export const Droppable = ({ position, tag, rowIndex, onDrop, isTable }: Props) =
 
         if (_tag !== tag) return;
         if (fromIndex > -1) {
-          console.log(fromIndex, rowIndex);
           onDrop(fromIndex, rowIndex);
         }
       }}

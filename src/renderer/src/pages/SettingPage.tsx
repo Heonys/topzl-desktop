@@ -8,7 +8,7 @@ import { useLanguageFont } from "@/hooks";
 export const SettingPage = () => {
   const [selected, setSelected] = useState(routers[0].id);
   const contentsRef = useRef<HTMLDivElement>(null);
-  const intersectoinObserverRef = useRef<IntersectionObserver>();
+  const intersectionObserverRef = useRef<IntersectionObserver>();
   const intersectionRatioRef = useRef<Map<string, number>>(new Map());
   const { fontClass } = useLanguageFont();
 
@@ -17,7 +17,7 @@ export const SettingPage = () => {
   useEffect(() => {
     const ratioMap = intersectionRatioRef.current;
 
-    intersectoinObserverRef.current = new IntersectionObserver(
+    intersectionObserverRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           ratioMap.set(entry.target.id, entry.intersectionRatio);
@@ -41,13 +41,13 @@ export const SettingPage = () => {
     for (const router of routers) {
       const target = document.getElementById(`setting-${router.id}`);
       if (target) {
-        intersectoinObserverRef.current.observe(target);
+        intersectionObserverRef.current.observe(target);
       }
     }
 
     return () => {
-      intersectoinObserverRef.current?.disconnect();
-      intersectoinObserverRef.current = undefined;
+      intersectionObserverRef.current?.disconnect();
+      intersectionObserverRef.current = undefined;
       ratioMap.clear();
     };
   }, []);

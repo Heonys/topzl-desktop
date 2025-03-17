@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useTranslation } from "react-i18next";
 import {
@@ -171,12 +171,15 @@ export const PlayListTable = ({
     getScrollElement: () => tableContainerRef.current!,
   });
 
-  const onDrop = (from: number, to: number) => {
-    if (from === to) return;
-    const newData = [...playlist.slice(0, from), ...playlist.slice(from + 1)];
-    newData.splice(from > to ? to : to - 1, 0, playlist[from]);
-    setPlaylist?.(newData);
-  };
+  const onDrop = useCallback(
+    (from: number, to: number) => {
+      if (from === to) return;
+      const newData = [...playlist.slice(0, from), ...playlist.slice(from + 1)];
+      newData.splice(from > to ? to : to - 1, 0, playlist[from]);
+      setPlaylist?.(newData);
+    },
+    [playlist, setPlaylist],
+  );
 
   return (
     <div
@@ -241,7 +244,7 @@ export const PlayListTable = ({
                   playWithAddPlaylist(row.original);
                 }}
                 onDragStart={(e) => {
-                  assignToDrag(e, TAG, index);
+                  assignToDrag(e, TAG, virtualItem.rowIndex);
                 }}
                 onContextMenu={(e) => {
                   showContextMenu({
@@ -303,11 +306,17 @@ export const PlayListTable = ({
                   </td>
                 ))}
                 <Condition condition={index === 0}>
-                  <Droppable position="top" rowIndex={index} tag={TAG} onDrop={onDrop} isTable />
+                  <Droppable
+                    position="top"
+                    rowIndex={virtualItem.rowIndex}
+                    tag={TAG}
+                    onDrop={onDrop}
+                    isTable
+                  />
                 </Condition>
                 <Droppable
                   position="bottom"
-                  rowIndex={index + 1}
+                  rowIndex={virtualItem.rowIndex + 1}
                   tag={TAG}
                   onDrop={onDrop}
                   isTable

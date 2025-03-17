@@ -78,7 +78,6 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           <div className="region-none flex h-7 w-full items-center gap-2 rounded-lg bg-black/10 p-4 pr-3">
             <StaticIcon iconName={"search"} color="black" size={18} opacity={0.6} />
             <input
-              tabIndex={-1}
               ref={inputRef}
               spellCheck={false}
               className="w-40 flex-1 bg-transparent font-sans text-sm font-semibold leading-5 outline-none placeholder:text-black/50"

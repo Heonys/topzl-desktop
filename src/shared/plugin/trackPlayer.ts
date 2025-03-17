@@ -1,4 +1,3 @@
-import Hls from "hls.js";
 import { getDefaultStore } from "jotai";
 import { MusicItem, PlayerState } from "./type";
 import { playerEventEmitter } from "./eventEmitter";
@@ -9,7 +8,6 @@ const store = getDefaultStore();
 class TrackPlayer {
   private audioContext: AudioContext;
   private audio: HTMLAudioElement;
-  private hls: Hls;
   private currentMusic!: MusicItem;
   private playerState!: PlayerState;
 
@@ -19,13 +17,6 @@ class TrackPlayer {
     this.audio.preload = "auto";
     this.audio.controls = false;
     this.audio.volume = 0.1;
-    this.hls = new Hls();
-    this.hls.attachMedia(this.audio);
-
-    this.hls.on(Hls.Events.ERROR, (e, data) => {
-      console.log("hls error", e, data);
-    });
-
     this.registerEvents();
   }
 
