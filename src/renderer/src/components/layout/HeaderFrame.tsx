@@ -2,24 +2,24 @@ import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useNavigate } from "react-router-dom";
 import hotkeys from "hotkeys-js";
-import { HeaderNavigator } from "@/components";
+import { useTranslation } from "react-i18next";
+import { HeaderButtons, HeaderNavigator } from "@/components";
 import { SearchHistory } from "@/components/search";
 import StaticIcon from "@/icons/StaticIcon";
-import { Condition, IconButton } from "@/common";
-import { useCurrentMusic, usePlayer, useSearchHistory } from "@/hooks";
+import { Condition } from "@/common";
+import { useSearchHistory } from "@/hooks";
 import logo from "@resources/logo.png";
 import { localEventEmitter } from "@shared/plugin/eventEmitter";
-import { useTranslation } from "react-i18next";
 
 export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"aside">) => {
   const navigate = useNavigate();
-  const { currentItem } = useCurrentMusic();
-  const { playerState } = usePlayer();
   const { history, addHistory } = useSearchHistory();
   const inputRef = useRef<HTMLInputElement>(null);
   const [showHistory, _setShowHistory] = useState(false);
   const isFocusedRef = useRef(false);
   const { t } = useTranslation();
+
+  console.log("render");
 
   const handleSearch = async () => {
     const inputValue = inputRef.current?.value;
@@ -129,38 +129,7 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
           </Condition>
         </div>
       </div>
-      <div className="region-none flex h-full items-center pr-4 text-2xl">
-        {/* <div className="flex gap-3 rounded-xl border bg-white p-1 px-2">
-          <IconButton iconName="sparkles" title="sparkles" />
-          <IconButton iconName="language" title="language" />
-          <IconButton iconName="t-shirt" title="t-shirt" />
-          <IconButton iconName="dark-mode" title="dark-mode" />
-          <IconButton iconName="push-pin" title="push-pin" />
-        </div>
-        <div className="flex w-5 justify-center opacity-20">
-          <StaticIcon iconName={"divider-vertical"} color="black" />
-        </div> */}
-        <div className="flex gap-3 rounded-xl border bg-white p-1 px-2">
-          <IconButton
-            iconName="picture-in-picture"
-            title="pip"
-            onClick={() => {
-              window.common.setPipMode(currentItem, playerState);
-              window.common.sendFrameAction("HIDE");
-            }}
-          />
-          <IconButton
-            iconName="minimize"
-            title="minimize"
-            onClick={() => window.common.sendFrameAction("MINIMIZE")}
-          />
-          <IconButton
-            iconName="x-mark"
-            title="close"
-            onClick={() => window.common.sendFrameAction("CLOSE")}
-          />
-        </div>
-      </div>
+      <HeaderButtons />
     </header>
   );
 };
