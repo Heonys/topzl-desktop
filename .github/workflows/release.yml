@@ -12,6 +12,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 20
+
+      - name: Create .env file
+        run: |
+          echo MAIN_VITE_GENIUS_ACCESS_TOKEN=${{ secrets.MAIN_VITE_GENIUS_ACCESS_TOKEN }} >> .env
+
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:

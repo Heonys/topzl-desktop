@@ -83,7 +83,7 @@ yarn install
 yarn dev
 ```
 - #### 클라이언트 패키징
-현재 릴리즈된 버전은 안정적인 `Windows`만 제공되지만 `macOS`와 `Linux`를 클라이언트에서 직접 패키징 할 수 있도록 설정되어 있습니다. 이를 통해 다른 운영체제 에서도 직접 패키징하여 실행이 가능합니다. `electron-builder.json` 파일 에서 빌드 옵션을 수정할 수 있습니다.
+현재 릴리즈된 버전은 안정적인 `Windows`만 제공되지만 `macOS`와 `Linux`를 클라이언트에서 직접 패키징 할 수 있도록 설정되어 있습니다. 이를 통해 다른 운영체제 에서도 직접 패키징하여 실행이 가능하고 `electron-builder.json` 파일 에서 빌드 옵션을 수정할 수 있습니다. 단, 릴리즈 버전과 동일하게 동작하면 환경변수로 `GENIUS_ACCESS_TOKEN`을 등록 해야 합니다.
 
 > **Note**: 자세한 빌드 설정은 [electron-builder](https://www.electron.build/) 문서 에서 확인 가능합니다.
 
@@ -99,7 +99,10 @@ yarn dev
   "target": ["AppImage"],
 },
 ```
-
+```sh
+# .env
+MAIN_VITE_GENIUS_ACCESS_TOKEN="..."
+```
 ```sh
 yarn dist:{flatform} # [win, mac, linux]
 ```
