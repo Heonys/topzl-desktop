@@ -19,8 +19,6 @@ export const HeaderFrame = ({ className, ...props }: ComponentPropsWithoutRef<"a
   const isFocusedRef = useRef(false);
   const { t } = useTranslation();
 
-  console.log("render");
-
   const handleSearch = async () => {
     const inputValue = inputRef.current?.value;
     if (inputValue) {

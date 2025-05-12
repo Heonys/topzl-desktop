@@ -7,8 +7,7 @@ type SwitchProps = {
 export function Switch(props: SwitchProps) {
   const { switch: _switch, children } = props;
   if (Array.isArray(children)) {
-    const validChildren = children.filter((child) => child.props.case === _switch);
-    return validChildren;
+    return children.filter((child) => child.props.case === _switch);
   }
   return children.props.case === _switch ? children : null;
 }
